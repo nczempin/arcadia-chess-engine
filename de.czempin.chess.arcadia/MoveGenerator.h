@@ -31,36 +31,36 @@ public:
 	//
 	void generateMoves(int i, int p, bool color) {
 		switch (p) {
-			//		case -1:
-			//
-			//		case 1:
-			//			generatePawnMoves(this, moves, i, color);
-			//			break;
-			//
-			//		case -2:
-			//
-			//		case 2:
-			//			generateKnightMoves(this, moves, i, color);
-			//			break;
-			//
+		case -1:
+
+		case 1:
+			//generatePawnMoves(this, moves, i, color);
+			break;
+
+		case -2:
+
+		case 2:
+			//generateKnightMoves(this, moves, i, color);
+			break;
+
 		case -3:
 
 		case 3:
 			generateBishopMoves(i);
 			break;
-			//
-			//		case -4:
-			//
-			//		case 4:
-			//			generateRookMoves(this, moves, i, color);
-			//			break;
-			//
-			//		case -5:
-			//
-			//		case 5:
-			//			generateQueenMoves(this, moves, i, color);
-			//			break;
-			//
+
+		case -4:
+
+		case 4:
+			generateRookMoves(i);
+			break;
+
+		case -5:
+
+		case 5:
+			generateQueenMoves(i);
+			break;
+
 		case -6:
 		case 6:
 			generateKingMoves(i);
@@ -72,6 +72,11 @@ public:
 		generateKingMovesNoCastling(from);
 		//generateCastling(position, moves, from);
 	}
+	void generateQueenMoves(int from) {
+		generateBishopMoves(from);
+		generateRookMoves(from);
+	}
+
 	static bool invalidSquare(int next) {
 		bool isInvalid = false;
 		if ((next < 11) || (next > 88))
@@ -91,6 +96,37 @@ public:
 				int capturedPiece = position.board[next];
 				Move m = Move(from, next, capturedPiece);
 				m.print();
+			}
+		}
+	}
+	void generateRookMoves(int from) {
+		bool finished = false;
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * 10;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * -10;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * 1;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * -1;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
 			}
 		}
 	}

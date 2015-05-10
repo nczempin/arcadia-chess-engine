@@ -27,6 +27,9 @@ int main()
 			Position p = Position();
 			p.board[15] = 6; //white king
 			p.board[13] = 3; //white bishop
+			p.board[11] = 4; //white rook
+			p.board[18] = 4; //white rook
+			p.board[14] = 5; //white queen
 			p.onMove = true;
 			MoveGenerator mg;
 			mg.generateAllMoves(p);
