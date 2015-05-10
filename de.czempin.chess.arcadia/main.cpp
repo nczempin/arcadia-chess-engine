@@ -25,6 +25,8 @@ int main()
 		}else if (mystr == ""){
 			cout << "Moves: " << endl;
 		Position p = Position();
+		p.board[55] = 6;
+		p.onMove = true;
 		MoveGenerator mg;
 		mg.generateAllMoves(p);
 		}
