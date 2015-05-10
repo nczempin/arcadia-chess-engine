@@ -28,6 +28,7 @@ int main()
 			p.onMove = true;
 			p.board[15] = 6; //white king
 			p.board[13] = 3; //white bishop
+			p.board[16] = 3; //white bishop
 			p.board[12] = 2; // white knight
 			p.board[17] = 2; //white knight
 			p.board[11] = 4; //white rook

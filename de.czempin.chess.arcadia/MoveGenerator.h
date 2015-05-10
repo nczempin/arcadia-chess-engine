@@ -146,9 +146,12 @@ public:
 			int next = from + knightMoves[i];
 			if (!invalidSquare(next)) {
 				int capturedPiece = position.board[next];
-				Move m = Move(from, next, capturedPiece);
-				m.print();
-			}
+				if ((capturedPiece < 0) && (!position.onMove)||(capturedPiece > 0) && (position.onMove)) {
+					//no move. sorry about the reverse logic
+				}else{
+					Move m = Move(from, next, capturedPiece);
+					m.print();
+				}}
 		}
 	}
 
@@ -179,8 +182,12 @@ public:
 			int next = from + kingMoves[i];
 			if (!invalidSquare(next)) {
 				int capturedPiece = position.board[next];
-				Move m = Move(from, next, capturedPiece);
-				m.print();
+				if ((capturedPiece < 0) && (!position.onMove)||(capturedPiece > 0) && (position.onMove)) {
+					//no move. sorry about the reverse logic
+				}else{
+					int capturedPiece = position.board[next];
+					Move m = Move(from, next, capturedPiece);
+					m.print();}
 			}
 		}
 	}
@@ -257,9 +264,7 @@ public:
 			return false;
 		}
 		//own piece
-		if ((piece < 0) && (!position.onMove))
-			return true;
-		if ((piece > 0) && (position.onMove)) {
+		if ((piece < 0) && (!position.onMove)||(piece > 0) && (position.onMove)) {
 			return true;
 		}
 		//enemy piece, presumably
