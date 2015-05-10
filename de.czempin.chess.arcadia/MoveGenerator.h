@@ -34,7 +34,7 @@ public:
 		case -1:
 
 		case 1:
-			//generatePawnMoves(this, moves, i, color);
+			generatePawnMoves(i);
 			break;
 
 		case -2:
@@ -68,7 +68,44 @@ public:
 		}
 
 	}
- void generateKnightMoves(int from) {
+
+	 void generatePawnMoves(int from) {
+		generatePawnNonCapture(from);
+	//	generatePawnCaptures(from);
+	}
+
+	 void generatePawnNonCapture(int from) {
+		int multi = 10;
+		int row = 20;
+		if (!position.onMove) {
+			multi = -multi;
+			row = 70;
+		}
+		int next = from + multi;
+		int p = position.board[next];
+		if (p == 0) {
+			if (next / (row + multi * 6) == 1) {
+				//promotion. TODO: underpromotion
+				Move m = Move(from, next,0,-5);
+				m.print();
+			} else {
+				Move m = Move(from, next, 0);
+				m.print();
+			}
+			//double step pawn move
+			if ((from > row) && (row + 9 > from)) {
+				next += multi;
+				p = position.board[next];
+				if (p == 0) {
+					Move m = Move(from, next);
+					m.print();
+				}
+			}
+		}
+	}
+
+
+	void generateKnightMoves(int from) {
 		static const int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i <8; i++) {
@@ -81,8 +118,8 @@ public:
 		}
 	}
 
-	 
-	 void generateKingMoves(int from) {
+
+	void generateKingMoves(int from) {
 		generateKingMovesNoCastling(from);
 		//generateCastling(position, moves, from);
 	}

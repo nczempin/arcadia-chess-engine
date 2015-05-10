@@ -25,6 +25,7 @@ int main()
 		}else if (mystr == ""){
 			cout << "Moves: " << endl;
 			Position p = Position();
+			p.onMove = true;
 			p.board[15] = 6; //white king
 			p.board[13] = 3; //white bishop
 			p.board[12] = 2; // white knight
@@ -32,7 +33,9 @@ int main()
 			p.board[11] = 4; //white rook
 			p.board[18] = 4; //white rook
 			p.board[14] = 5; //white queen
-			p.onMove = true;
+			for (int i = 1; i<=8; ++i){
+				p.board[20+i] = 1;
+			}
 			MoveGenerator mg;
 			mg.generateAllMoves(p);
 		}
