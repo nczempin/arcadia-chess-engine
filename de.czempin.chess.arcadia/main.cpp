@@ -25,7 +25,8 @@ int main()
 		}else if (mystr == ""){
 			cout << "Moves: " << endl;
 			Position p = Position();
-			p.board[11] = 6;
+			p.board[15] = 6; //white king
+			p.board[13] = 3; //white bishop
 			p.onMove = true;
 			MoveGenerator mg;
 			mg.generateAllMoves(p);

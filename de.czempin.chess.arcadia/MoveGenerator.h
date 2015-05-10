@@ -43,11 +43,11 @@ public:
 			//			generateKnightMoves(this, moves, i, color);
 			//			break;
 			//
-			//		case -3:
-			//
-			//		case 3:
-			//			generateBishopMoves(this, moves, i, color);
-			//			break;
+		case -3:
+
+		case 3:
+			generateBishopMoves(i);
+			break;
 			//
 			//		case -4:
 			//
@@ -95,6 +95,57 @@ public:
 		}
 	}
 
+	void generateBishopMoves(int from) {
+		bool finished = false;
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * 9;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * -9;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * 11;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+		for (int i = 1; i < 8; i++) {
+			int next = from + i * -11;
+			finished = tryMove(from, next);
+			if (finished) {
+				break;
+			}
+		}
+	}
+	bool tryMove(int from, int next) {
+		if (invalidSquare(next))
+			return true;
+		int piece = position.board[next];
+		if (piece == 0) {
+			Move move = Move(from, next);
+			move.print();
+			return false;
+		}
+		//own piece
+		if ((piece < 0) && (!position.onMove))
+			return true;
+		if ((piece > 0) && (position.onMove)) {
+			return true;
+		}
+		//enemy piece, presumably
+		Move move = Move(from, next, 0, piece);
+		move.print();
+		return true;
+	}
 	//
 	//	Move generateNextBishopCapture(int from, Boolean color) {
 	//		SortedSet moves = new TreeSet();
