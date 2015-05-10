@@ -26,6 +26,7 @@ public:
 //	bool convertColor(int p){
 //		return p > 0;
 //	}
+	int enPassantSquare;
 private:  static const int MAX_BOARD_SIZE = 89;
 //
 //

@@ -87,9 +87,10 @@ public:
 				Move m = Move(from, next, capturedPiece);
 				m.print();
 			}
-			//if (position.enPassantSquare == next) {
-			//	moves.add(Move(from, next));
-			//}
+			if (position.enPassantSquare == next) {
+				Move m = Move(from, next);
+				m.print();
+			}
 	}
 	void generatePawnCaptures(int from) {
 		int multi = 10;
