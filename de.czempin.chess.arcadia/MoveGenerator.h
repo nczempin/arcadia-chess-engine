@@ -1,6 +1,7 @@
 #pragma once
-#include <iostream>
 #include "Position.h"
+#include "Move.h"
+
 using namespace std;
 class MoveGenerator
 {
@@ -89,8 +90,9 @@ public:
 			if (!invalidSquare(next)) {
 				int capturedPiece = position.board[next];
 				if (capturedPiece == 0) {
-					//moves.add(Move(from, next));
-					cout << from << "-" << next << endl;
+					//moves.add(
+					Move m = Move(from, next);
+					m.print();
 				} else if ((capturedPiece < 0) && (position.onMove)) {
 					//moves.add(Move(from, next, 0, capturedPiece));
 				} else if ((capturedPiece > 0) && (!position.onMove)) {
