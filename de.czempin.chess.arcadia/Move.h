@@ -5,12 +5,13 @@ using namespace std;
 
 class Move{
 public:
-	Move(int from, int to){
+	Move(int from, int to, int captured = 0){
 		this->from = from;
 		this->to = to;
+		this->captured = captured;
 	}
-	Move(int from, int to, int promoted, int captured){}
-	Move(int from, int to, int promoted){}
+	//Move(int from, int to, int promoted, int captured){}
+	Move(int from, int to){}
 	Move(){}
 	void print(){
 		cout << this->from << "-" << this->to << endl;
@@ -18,4 +19,5 @@ public:
 private:
 	int from;
 	int to;
+	int captured;
 };

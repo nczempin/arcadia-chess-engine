@@ -83,21 +83,14 @@ public:
 	}
 
 	void generateKingMovesNoCastling(int from) {
-		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
+		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
 			int next = from + kingMoves[i];
 			if (!invalidSquare(next)) {
 				int capturedPiece = position.board[next];
-				if (capturedPiece == 0) {
-					//moves.add(
-					Move m = Move(from, next);
-					m.print();
-				} else if ((capturedPiece < 0) && (position.onMove)) {
-					//moves.add(Move(from, next, 0, capturedPiece));
-				} else if ((capturedPiece > 0) && (!position.onMove)) {
-					//moves.add(Move(from, next, 0, capturedPiece));
-				}
+				Move m = Move(from, next, capturedPiece);
+				m.print();
 			}
 		}
 	}
