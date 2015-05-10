@@ -15,7 +15,7 @@
 //#include "Character.h"
 //#include "Info.h"
 //#include "TreeSet.h"
-
+#include <string>
 using namespace std;
 
 class Position{
@@ -83,6 +83,22 @@ public:int board[MAX_BOARD_SIZE];
 //	static const int QUEEN = 5;
 //
 //	static const int ROOK = 4;
+
+
+
+	   
+	static string encodeSquare(int square) {
+		int ten =square / 10;
+		int one = square - ten * 10;
+		char letter = (int)'a' + one - 1;	
+		char number = (int)'1' + ten - 1;	
+		string retVal;
+		retVal+=letter;
+		retVal+=number;
+
+		return retVal;
+	}
+
 //static int convertToint(bool color, int rawint) {
 //		//if (color == null)
 //		//	return 0;

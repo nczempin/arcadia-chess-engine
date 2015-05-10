@@ -14,7 +14,7 @@ public:
 	Move(int from, int to){}
 	Move(){}
 	void print(){
-		cout << this->from << "-" << this->to << endl;
+		cout << Position::encodeSquare(from) << "-" << Position::encodeSquare(to) << endl;
 	}
 private:
 	int from;
