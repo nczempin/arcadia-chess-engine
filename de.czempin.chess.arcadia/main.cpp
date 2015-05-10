@@ -17,7 +17,7 @@ int main()
 	while (true){
 		getline (cin, mystr);
 		if (mystr == "uci"){
-			cout << "id name Arcadia 0.0.1"<< endl;
+			cout << "id name Arcadia 0.0.1RC"<< endl;
 			cout << "id author Nicolai Czempin" << endl;
 			cout << "uciok" << endl;
 		}else if (mystr == "isready"){
