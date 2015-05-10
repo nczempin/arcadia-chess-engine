@@ -69,12 +69,45 @@ public:
 
 	}
 
-	 void generatePawnMoves(int from) {
+	void generatePawnMoves(int from) {
 		generatePawnNonCapture(from);
-	//	generatePawnCaptures(from);
+		generatePawnCaptures(from);
 	}
 
-	 void generatePawnNonCapture(int from) {
+	void generatePawnCapture(int from, int multi, int next, int row) {
+		if (invalidSquare(next))
+			return;
+		int capturedPiece = position.board[next];
+		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
+			if (next / (row + multi * 6) == 1) {
+				int promoPiece =position.onMove?5:-5;
+				Move m = Move(from, next, capturedPiece,promoPiece);
+				m.print();
+			} else {
+				Move m = Move(from, next, capturedPiece);
+				m.print();
+			}
+			//if (position.enPassantSquare == next) {
+			//	moves.add(Move(from, next));
+			//}
+	}
+	void generatePawnCaptures(int from) {
+		int multi = 10;
+		int row = 20;
+		if (!position.onMove) {
+			multi = -multi;
+			row = 70;
+		}
+		int file = from % 10;
+		int next = from + multi - 1;
+		if (file != 1)
+			generatePawnCapture(from, multi, next, row);
+		next = from + multi + 1;
+		if (file != 8) {
+			generatePawnCapture(from, multi, next, row);
+		}
+	}
+	void generatePawnNonCapture(int from) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
