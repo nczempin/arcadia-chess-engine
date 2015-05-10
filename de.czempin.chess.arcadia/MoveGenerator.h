@@ -22,14 +22,14 @@ public:
 					color = WHITE;
 				}
 				if (color==position.onMove) {
-					generateMoves(i, piece, color);
+					generateMoves(i, piece);
 				}
 			}
 		}
 		//return moves;
 	}
 	//
-	void generateMoves(int i, int p, bool color) {
+	void generateMoves(int i, int p) {
 		switch (p) {
 		case -1:
 
@@ -40,7 +40,7 @@ public:
 		case -2:
 
 		case 2:
-			//generateKnightMoves(this, moves, i, color);
+			generateKnightMoves( i);
 			break;
 
 		case -3:
@@ -68,7 +68,21 @@ public:
 		}
 
 	}
-	void generateKingMoves(int from) {
+ void generateKnightMoves(int from) {
+		static const int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+
+		for (int i = 0; i <8; i++) {
+			int next = from + knightMoves[i];
+			if (!invalidSquare(next)) {
+				int capturedPiece = position.board[next];
+				Move m = Move(from, next, capturedPiece);
+				m.print();
+			}
+		}
+	}
+
+	 
+	 void generateKingMoves(int from) {
 		generateKingMovesNoCastling(from);
 		//generateCastling(position, moves, from);
 	}
