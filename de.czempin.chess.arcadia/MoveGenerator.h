@@ -1,4 +1,6 @@
 #pragma once
+#include <list>
+
 #include "Position.h"
 #include "Move.h"
 
@@ -6,12 +8,15 @@ using namespace std;
 class MoveGenerator
 {
 public:
-	MoveGenerator(void);
+	MoveGenerator(void){
+	}
 	~MoveGenerator(void);
 private:
 	Position position;
+	list<Move> moves;
 public: 
-	void generateAllMoves(Position position) {
+	list<Move> generateAllMoves(Position position) {
+		moves.clear();
 		this->position = position;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
@@ -26,7 +31,7 @@ public:
 				}
 			}
 		}
-		//return moves;
+		return moves;
 	}
 	//
 	void generateMoves(int i, int p) {
@@ -82,14 +87,14 @@ public:
 			if (next / (row + multi * 6) == 1) {
 				int promoPiece =position.onMove?5:-5;
 				Move m = Move(from, next, promoPiece, capturedPiece);
-				m.print();
+				moves.push_front(m);
 			} else {
 				Move m = Move(from, next, 0, capturedPiece);
-				m.print();
+				moves.push_front(m);
 			}
 			if (position.enPassantSquare == next) {
 				Move m = Move(from, next, 0, capturedPiece);
-				m.print();
+				moves.push_front(m);
 			}
 	}
 	void generatePawnCaptures(int from) {
@@ -121,10 +126,10 @@ public:
 			if (next / (row + multi * 6) == 1) {
 				//promotion. TODO: underpromotion
 				Move m = Move(from, next,-5,0);
-				m.print();
+				moves.push_front(m);
 			} else {
 				Move m = Move(from, next);
-				m.print();
+				moves.push_front(m);
 			}
 			//double step pawn move
 			if ((from > row) && (row + 9 > from)) {
@@ -132,7 +137,7 @@ public:
 				p = position.board[next];
 				if (p == 0) {
 					Move m = Move(from, next);
-					m.print();
+					moves.push_front(m);
 				}
 			}
 		}
@@ -150,8 +155,9 @@ public:
 					//no move. sorry about the reverse logic
 				}else{
 					Move m = Move(from, next, 0, capturedPiece);
-					m.print();
-				}}
+					moves.push_front(m);
+				}
+			}
 		}
 	}
 
@@ -187,7 +193,8 @@ public:
 				}else{
 					int capturedPiece = position.board[next];
 					Move m = Move(from, next, 0, capturedPiece);
-					m.print();}
+					moves.push_front(m);
+				}
 			}
 		}
 	}
@@ -260,7 +267,7 @@ public:
 		int piece = position.board[next];
 		if (piece == 0) {
 			Move move = Move(from, next);
-			move.print();
+			moves.push_front(move);
 			return false;
 		}
 		//own piece
@@ -269,7 +276,7 @@ public:
 		}
 		//enemy piece, presumably
 		Move move = Move(from, next, 0, piece);
-		move.print();
+		moves.push_front(move);
 		return true;
 	}
 	//

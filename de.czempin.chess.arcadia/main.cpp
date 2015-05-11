@@ -5,6 +5,7 @@
 #include <string>
 #include <sstream>
 #include <vector>
+#include < list>
 
 
 #include "Position.h"
@@ -74,6 +75,9 @@ std::vector<std::string> split(const std::string &s, char delim) {
 }
 static void perft(Position position, int maxDepth){
 	for (int i = 0; i < maxDepth; ++i){
+				MoveGenerator mg;
+		list<Move> moves = mg.generateAllMoves(position);
+
 	}
 }
 void parse(string toParse) {
@@ -107,10 +111,13 @@ void parse(string toParse) {
 				p.makeMove(move);
 			}
 		}
-	}else if (toParse == ""){			
+	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
-		mg.generateAllMoves(p);
+		list<Move> moves =mg.generateAllMoves(p);
+		for (Move move:moves){
+			move.print();
+		}
 	}
 }	 static int decodePiece(string promotedTo) {
 		int retValue = 0;
