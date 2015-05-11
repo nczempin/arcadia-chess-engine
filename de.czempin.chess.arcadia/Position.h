@@ -2631,9 +2631,9 @@ bool onMove;
 			//		this.blackKing = move.to;
 			//}
 			board[move.to] = movingPiece;
-			cout << "set " << move.to << " to " << movingPiece<<endl;
+			//cout << "set " << move.to << " to " << movingPiece<<endl;
 			board[move.from] = 0;
-			cout << "cleared " << move.from <<endl;
+			//cout << "cleared " << move.from <<endl;
 			//clearSquare(move.from, 0, this.board);
 		} else {
 			movingPiece = move.promoted;
