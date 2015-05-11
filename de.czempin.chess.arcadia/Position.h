@@ -128,7 +128,7 @@ public:int board[MAX_BOARD_SIZE];
 		//this.isGivingCheck = null;
 		//this.legalMoves = null;
 		//setStartPosition(false);
-		int movingPiece = 1;//moveRaw(move);
+		int movingPiece = moveRaw(move);
 		int movingPieceType = abs(movingPiece);
 	/*	if ((movingPieceType == 1) && (move.to == enPassant()))
 			clearEnPassantCapture(move, this.board);
@@ -2601,58 +2601,61 @@ bool onMove;
 //		this.onMove = Boolean.valueOf(!this.onMove.boolValue());
 //	}
 //
-//	int moveRaw(Move move) {
-//		int movingPiece = 0;
-//		Integer fromSquare = new Integer(move.from);
-//		Integer capturedSquare = new Integer(move.to);
-//		int capturedPiece = this.board[move.to];
-//		if (capturedPiece > 0) {
-//			this.whitePieces.remove(capturedSquare);
-//			if (capturedPiece == 6) {
-//				this.whiteKing = -1;
-//			}
-//		} else if (capturedPiece < 0) {
-//			this.blackPieces.remove(capturedSquare);
-//			if (capturedPiece == -6)
-//				this.blackKing = -1;
-//		}
-//		if (move.promotedTo == 0) {
-//			movingPiece = this.board[move.from];
-//			if (movingPiece > 0) {
-//				this.whitePieces.add(capturedSquare);
-//				this.whitePieces.remove(fromSquare);
-//				if (movingPiece == 6) {
-//					this.whiteKing = move.to;
-//				}
-//			} else {
-//				this.blackPieces.add(capturedSquare);
-//				this.blackPieces.remove(fromSquare);
-//				if (movingPiece == -6)
-//					this.blackKing = move.to;
-//			}
-//			this.board[move.to] = movingPiece;
-//			clearSquare(move.from, 0, this.board);
-//		} else {
-//			movingPiece = move.promotedTo;
-//			if (this.board[move.from] < 0)
-//				movingPiece *= -1;
-//			this.board[move.to] = movingPiece;
-//			clearSquare(move.from, 0, this.board);
-//			if (movingPiece > 0) {
-//				this.whitePieces.add(new Integer(move.to));
-//				this.whitePieces.remove(fromSquare);
-//				if (movingPiece == 6) {
-//					this.whiteKing = move.to;
-//				}
-//			} else {
-//				this.blackPieces.add(new Integer(move.to));
-//				this.blackPieces.remove(fromSquare);
-//				if (movingPiece == -6)
-//					this.blackKing = move.to;
-//			}
-//		}
-//		return movingPiece;
-//	}
+	int moveRaw(Move move) {
+		int movingPiece = board[move.from];
+		int fromSquare = move.from;
+		int capturedSquare = move.to;
+		int capturedPiece = board[capturedSquare];
+	/*	if (capturedPiece > 0) {
+			this.whitePieces.remove(capturedSquare);
+			if (capturedPiece == 6) {
+				this.whiteKing = -1;
+			}
+		} else if (capturedPiece < 0) {
+			this.blackPieces.remove(capturedSquare);
+			if (capturedPiece == -6)
+				this.blackKing = -1;
+		}*/
+		if (move.promoted == 0) {
+			//movingPiece = this.board[move.from];
+			//if (movingPiece > 0) {
+			//	this.whitePieces.add(capturedSquare);
+			//	this.whitePieces.remove(fromSquare);
+			//	if (movingPiece == 6) {
+			//		this.whiteKing = move.to;
+			//	}
+			//} else {
+			//	this.blackPieces.add(capturedSquare);
+			//	this.blackPieces.remove(fromSquare);
+			//	if (movingPiece == -6)
+			//		this.blackKing = move.to;
+			//}
+			board[move.to] = movingPiece;
+			cout << "set " << move.to << " to " << movingPiece<<endl;
+			board[move.from] = 0;
+			cout << "cleared " << move.from <<endl;
+			//clearSquare(move.from, 0, this.board);
+		} else {
+			movingPiece = move.promoted;
+			if (board[move.from] < 0)
+				movingPiece *= -1;
+			board[move.from] = 0;
+			//clearSquare(move.from, 0, this.board);
+			//if (movingPiece > 0) {
+			//	this.whitePieces.add(new Integer(move.to));
+			//	this.whitePieces.remove(fromSquare);
+			//	if (movingPiece == 6) {
+			//		this.whiteKing = move.to;
+			//	}
+			//} else {
+			//	this.blackPieces.add(new Integer(move.to));
+			//	this.blackPieces.remove(fromSquare);
+			//	if (movingPiece == -6)
+			//		this.blackKing = move.to;
+			//}
+		}
+		return movingPiece;
+	}
 //
 //	//Move getNextCaptureMove() {
 //	//	updateCaptureMove();

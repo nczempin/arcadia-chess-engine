@@ -17,6 +17,16 @@ string extractPosition(string);
 string extractMoves(string);
 
 bool done;
+
+ static int decodeSquare(string square) {
+		char letter = square[0];
+		char digit = square[1];
+		int one = letter-'a' + 1;
+		int ten =digit-'1'+1;
+		int index = 10 * ten + one;
+		return index;
+	}
+
 	static string encodeSquare(int square) {
 		int ten =square / 10;
 		int one = square - ten * 10;
@@ -95,7 +105,21 @@ void parse(string toParse) {
 		MoveGenerator mg;
 		mg.generateAllMoves(p);
 	}
-}
+}	 static int decodePiece(string promotedTo) {
+		int retValue = 0;
+		if (promotedTo=="q") {
+			retValue = 5;
+		} 
+		//TODO underpromotion
+		//else if (promotedTo.equals("r")) {
+		//	retValue = 4;
+		//} else if (promotedTo.equals("b")) {
+		//	retValue = 3;
+		//} else if (promotedTo.equals("n"))
+		//	retValue = 2;
+		return retValue;
+	}
+
 int main()
 {
 	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version 0.0.1" << endl;
