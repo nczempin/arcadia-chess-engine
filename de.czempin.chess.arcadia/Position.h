@@ -42,6 +42,32 @@ private:  static const int MAX_BOARD_SIZE = 89;
 //
 //
 public:int board[MAX_BOARD_SIZE];
+	   void setToStart(){
+		   clear();
+		   board[15] = 6; //white king
+			board[13] = 3; //white bishop
+			board[16] = 3; //white bishop
+			board[12] = 2; // white knight
+			board[17] = 2; //white knight
+			board[11] = 4; //white rook
+			board[18] = 4; //white rook
+			board[14] = 5; //white queen
+			for (int i = 1; i<=8; ++i){
+				board[20+i] = 1; // white pawns
+			}
+			board[85] = -6; //black king
+			board[83] = -3; //black bishop
+			board[86] = -3; //black bishop
+			board[82] = -2; // black knight
+			board[87] = -2; //black knight
+			board[81] = -4; //black rook
+			board[88] = -4; //black rook
+			board[84] = -5; //black queen
+
+			for (int i = 1; i<=8; ++i){
+				board[70+i] = -1; // black pawns
+			}
+	   }
 //
 //	static const int WK = 6;
 //
@@ -87,8 +113,7 @@ public:int board[MAX_BOARD_SIZE];
 
 
 
-	   
-	static string encodeSquare(int square) {
+		static string encodeSquare(int square) {
 		int ten =square / 10;
 		int one = square - ten * 10;
 		char letter = (int)'a' + one - 1;	
@@ -775,11 +800,11 @@ public:int board[MAX_BOARD_SIZE];
 //		return this.bestValue;
 //	}
 //
-//	void clearBoard() {
-//		for (int i = 0; i < 89; i++) {
-//			this.board[i] = 0;
-//		}
-//	}
+	void clear() {
+		for (int i = 0; i < 89; i++) {
+			board[i] = 0;
+		}
+	}
 //
 //	void clearEnPassantCapture(Move move, int board[]) {
 //		long zobi;
