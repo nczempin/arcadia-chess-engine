@@ -67,6 +67,7 @@ public:int board[MAX_BOARD_SIZE];
 			for (int i = 1; i<=8; ++i){
 				board[70+i] = -1; // black pawns
 			}
+			onMove = true;
 	   }
 //
 //	static const int WK = 6;
