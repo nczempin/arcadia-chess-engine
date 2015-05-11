@@ -72,12 +72,19 @@ std::vector<std::string> split(const std::string &s, char delim) {
 	split(s, delim, elems);
 	return elems;
 }
-
+static void perft(Position position, int maxDepth){
+	for (int i = 0; i < maxDepth; ++i){
+	}
+}
 void parse(string toParse) {
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1RC"<< endl;
 		cout << "id author Nicolai Czempin" << endl;
 		cout << "uciok" << endl;
+	}else if (startsWith(toParse,"perft")){
+		string perftDepthParameter = "4"; //TODO extract from toParse
+		int perftDepth = 4; // TODO extract from perftDepthParameter
+		perft (p, perftDepth);
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("position", toParse)){
