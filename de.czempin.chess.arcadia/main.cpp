@@ -31,6 +31,23 @@ bool done;
 bool startsWith(string smallString, string bigString){
 	return bigString.compare(0, smallString.length(), smallString)==0;
 }
+
+
+  static string extractMoves(string parameters)
+   {
+     string pattern = " moves ";
+     int index = parameters.find(pattern);
+     if (index == string::npos)
+     {
+       return ""; //not found
+     }
+     
+     string moves = parameters.substr(index + pattern.length());
+     return moves;
+   }
+   
+
+
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
 	std::stringstream ss(s);
 	std::string item;
@@ -55,7 +72,7 @@ void parse(string toParse) {
 		cout << "readyok" << endl;
 	}else if (startsWith("position", toParse)){
 		p.clear();
-		string positionString = "TODO";//extractPosition(mystr);
+		string positionString = "startpos";//extractPosition(mystr);
 		if (positionString =="startpos") {
 			p.setToStart();
 		}else if (startsWith("fen",positionString)){
@@ -63,19 +80,18 @@ void parse(string toParse) {
 			// this.brain.setFENPosition(positionFen);
 			cout << "TODO: fen" << endl;
 		}
-		string movesString ="";// extractMoves(toParse);
+		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');
 		//p.clearThreeDraws();
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
+				cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}
 	}else if (toParse == ""){			
 		cout << "Moves: " << endl;
-		p.setToStart();
-		p.onMove = false;
 		MoveGenerator mg;
 		mg.generateAllMoves(p);
 	}
