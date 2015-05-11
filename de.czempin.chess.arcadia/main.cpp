@@ -19,44 +19,44 @@ string extractMoves(string);
 
 bool done;
 
- static int decodeSquare(string square) {
-		char letter = square[0];
-		char digit = square[1];
-		int one = letter-'a' + 1;
-		int ten =digit-'1'+1;
-		int index = 10 * ten + one;
-		return index;
-	}
+static int decodeSquare(string square) {
+	char letter = square[0];
+	char digit = square[1];
+	int one = letter-'a' + 1;
+	int ten =digit-'1'+1;
+	int index = 10 * ten + one;
+	return index;
+}
 
-	static string encodeSquare(int square) {
-		int ten =square / 10;
-		int one = square - ten * 10;
-		char letter = (int)'a' + one - 1;	
-		char number = (int)'1' + ten - 1;	
-		string retVal;
-		retVal+=letter;
-		retVal+=number;
+static string encodeSquare(int square) {
+	int ten =square / 10;
+	int one = square - ten * 10;
+	char letter = (int)'a' + one - 1;	
+	char number = (int)'1' + ten - 1;	
+	string retVal;
+	retVal+=letter;
+	retVal+=number;
 
-		return retVal;
-	}
+	return retVal;
+}
 bool startsWith(string smallString, string bigString){
 	return bigString.compare(0, smallString.length(), smallString)==0;
 }
 
 
-  static string extractMoves(string parameters)
-   {
-     string pattern = " moves ";
-     int index = parameters.find(pattern);
-     if (index == string::npos)
-     {
-       return ""; //not found
-     }
-     
-     string moves = parameters.substr(index + pattern.length());
-     return moves;
-   }
-   
+static string extractMoves(string parameters)
+{
+	string pattern = " moves ";
+	int index = parameters.find(pattern);
+	if (index == string::npos)
+	{
+		return ""; //not found
+	}
+
+	string moves = parameters.substr(index + pattern.length());
+	return moves;
+}
+
 
 
 std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
@@ -73,12 +73,19 @@ std::vector<std::string> split(const std::string &s, char delim) {
 	split(s, delim, elems);
 	return elems;
 }
-static void perft(Position position, int maxDepth){
-	for (int i = 0; i < maxDepth; ++i){
-				MoveGenerator mg;
-		list<Move> moves = mg.generateAllMoves(position);
-
+static int perft(Position position, int maxDepth){
+	if (maxDepth==0){
+		return 1;
 	}
+	MoveGenerator mg;
+	list<Move> moves = mg.generateAllMoves(position);
+	int count = 0;
+	for(Move move: moves){
+		position.makeMove(move);
+		count += perft(position, maxDepth -1);
+	}
+	cout << maxDepth << ", " << count << endl;
+	return count;
 }
 void parse(string toParse) {
 	if (toParse == "uci"){
@@ -87,7 +94,7 @@ void parse(string toParse) {
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
 		string perftDepthParameter = "4"; //TODO extract from toParse
-		int perftDepth = 4; // TODO extract from perftDepthParameter
+		int perftDepth = 1; // TODO extract from perftDepthParameter
 		perft (p, perftDepth);
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
@@ -107,7 +114,7 @@ void parse(string toParse) {
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				cout << "making move: "<<move<<endl;
+				//cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}
@@ -120,19 +127,19 @@ void parse(string toParse) {
 		}
 	}
 }	 static int decodePiece(string promotedTo) {
-		int retValue = 0;
-		if (promotedTo=="q") {
-			retValue = 5;
-		} 
-		//TODO underpromotion
-		//else if (promotedTo.equals("r")) {
-		//	retValue = 4;
-		//} else if (promotedTo.equals("b")) {
-		//	retValue = 3;
-		//} else if (promotedTo.equals("n"))
-		//	retValue = 2;
-		return retValue;
-	}
+	int retValue = 0;
+	if (promotedTo=="q") {
+		retValue = 5;
+	} 
+	//TODO underpromotion
+	//else if (promotedTo.equals("r")) {
+	//	retValue = 4;
+	//} else if (promotedTo.equals("b")) {
+	//	retValue = 3;
+	//} else if (promotedTo.equals("n"))
+	//	retValue = 2;
+	return retValue;
+}
 
 int main()
 {
