@@ -1,7 +1,8 @@
 #pragma once
 #include <iostream>
-
+#include <string>
 using namespace std;
+string encodeSquare(int square);
 
 class Move{
 public:
@@ -11,12 +12,15 @@ public:
 		this->captured = captured;
 		this->promoted = promoted;
 	}
-	void print(){
-		cout << Position::encodeSquare(from) << "-" << Position::encodeSquare(to) << endl;
+	Move(string moveString){
 	}
-private:
+	void print(){
+		cout << encodeSquare(from) << "-" << encodeSquare(to) << endl;
+	}	
 	int from;
 	int to;
 	int captured;
 	int promoted;
+
+private:
 };

@@ -81,14 +81,14 @@ public:
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
 			if (next / (row + multi * 6) == 1) {
 				int promoPiece =position.onMove?5:-5;
-				Move m = Move(from, next, capturedPiece,promoPiece);
+				Move m = Move(from, next, promoPiece, capturedPiece);
 				m.print();
 			} else {
-				Move m = Move(from, next, capturedPiece);
+				Move m = Move(from, next, 0, capturedPiece);
 				m.print();
 			}
 			if (position.enPassantSquare == next) {
-				Move m = Move(from, next);
+				Move m = Move(from, next, 0, capturedPiece);
 				m.print();
 			}
 	}
@@ -120,10 +120,10 @@ public:
 		if (p == 0) {
 			if (next / (row + multi * 6) == 1) {
 				//promotion. TODO: underpromotion
-				Move m = Move(from, next,0,-5);
+				Move m = Move(from, next,-5,0);
 				m.print();
 			} else {
-				Move m = Move(from, next, 0);
+				Move m = Move(from, next);
 				m.print();
 			}
 			//double step pawn move
@@ -149,7 +149,7 @@ public:
 				if ((capturedPiece < 0) && (!position.onMove)||(capturedPiece > 0) && (position.onMove)) {
 					//no move. sorry about the reverse logic
 				}else{
-					Move m = Move(from, next, capturedPiece);
+					Move m = Move(from, next, 0, capturedPiece);
 					m.print();
 				}}
 		}
@@ -186,7 +186,7 @@ public:
 					//no move. sorry about the reverse logic
 				}else{
 					int capturedPiece = position.board[next];
-					Move m = Move(from, next, capturedPiece);
+					Move m = Move(from, next, 0, capturedPiece);
 					m.print();}
 			}
 		}
