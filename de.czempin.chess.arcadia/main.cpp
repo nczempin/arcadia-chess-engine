@@ -73,18 +73,19 @@ std::vector<std::string> split(const std::string &s, char delim) {
 	split(s, delim, elems);
 	return elems;
 }
-static int perft(Position position, int maxDepth){
+static int perft(const Position position, int maxDepth){
 	if (maxDepth==0){
 		return 1;
 	}
 	MoveGenerator mg;
 	list<Move> moves = mg.generateAllMoves(position);
 	int count = 0;
+	Position tmpPos = position;
 	for(Move move: moves){
-		position.makeMove(move);
-		count += perft(position, maxDepth -1);
+		tmpPos = position;
+		tmpPos.makeMove(move);
+		count += perft(tmpPos, maxDepth -1);
 	}
-	cout << maxDepth << ", " << count << endl;
 	return count;
 }
 void parse(string toParse) {
@@ -94,8 +95,10 @@ void parse(string toParse) {
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
 		string perftDepthParameter = "4"; //TODO extract from toParse
-		int perftDepth = 1; // TODO extract from perftDepthParameter
-		perft (p, perftDepth);
+		int perftDepth = 3; // TODO extract from perftDepthParameter
+		int nodes = perft (p, perftDepth);
+		cout << perftDepth << ", " << nodes << endl;
+
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("position", toParse)){
