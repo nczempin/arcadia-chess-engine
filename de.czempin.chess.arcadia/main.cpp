@@ -3,56 +3,155 @@
 
 #include <iostream>
 #include <string>
+#include <sstream>
+#include <vector>
+#include < list>
+
 
 #include "Position.h"
 #include "MoveGenerator.h"
+
 using namespace std;
 
+Position p;
+string extractPosition(string);
+string extractMoves(string);
+
+bool done;
+
+static int decodeSquare(string square) {
+	char letter = square[0];
+	char digit = square[1];
+	int one = letter-'a' + 1;
+	int ten =digit-'1'+1;
+	int index = 10 * ten + one;
+	return index;
+}
+
+static string encodeSquare(int square) {
+	int ten =square / 10;
+	int one = square - ten * 10;
+	char letter = (int)'a' + one - 1;	
+	char number = (int)'1' + ten - 1;	
+	string retVal;
+	retVal+=letter;
+	retVal+=number;
+
+	return retVal;
+}
+bool startsWith(string smallString, string bigString){
+	return bigString.compare(0, smallString.length(), smallString)==0;
+}
+
+
+static string extractMoves(string parameters)
+{
+	string pattern = " moves ";
+	int index = parameters.find(pattern);
+	if (index == string::npos)
+	{
+		return ""; //not found
+	}
+
+	string moves = parameters.substr(index + pattern.length());
+	return moves;
+}
+
+
+
+std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
+	std::stringstream ss(s);
+	std::string item;
+	while (std::getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+	return elems;
+}
+
+std::vector<std::string> split(const std::string &s, char delim) {
+	std::vector<std::string> elems;
+	split(s, delim, elems);
+	return elems;
+}
+static int perft(const Position position, int maxDepth){
+	if (maxDepth==0){
+		return 1;
+	}
+	MoveGenerator mg;
+	list<Move> moves = mg.generateAllMoves(position);
+	int count = 0;
+	Position tmpPos = position;
+	for(Move move: moves){
+		tmpPos = position;
+		tmpPos.makeMove(move);
+		count += perft(tmpPos, maxDepth -1);
+	}
+	return count;
+}
+void parse(string toParse) {
+	if (toParse == "uci"){
+		cout << "id name Arcadia 0.0.1RC"<< endl;
+		cout << "id author Nicolai Czempin" << endl;
+		cout << "uciok" << endl;
+	}else if (startsWith(toParse,"perft")){
+		string perftDepthParameter = "4"; //TODO extract from toParse
+		int perftDepth = 3; // TODO extract from perftDepthParameter
+		int nodes = perft (p, perftDepth);
+		cout << perftDepth << ", " << nodes << endl;
+
+	}else if (toParse == "isready"){
+		cout << "readyok" << endl;
+	}else if (startsWith("position", toParse)){
+		p.clear();
+		string positionString = "startpos";//extractPosition(mystr);
+		if (positionString =="startpos") {
+			p.setToStart();
+		}else if (startsWith("fen",positionString)){
+			// String positionFen = extractFen(positionString);
+			// this.brain.setFENPosition(positionFen);
+			cout << "TODO: fen" << endl;
+		}
+		string movesString =extractMoves(toParse);
+		vector<string> moves = split(movesString,' ');
+		//p.clearThreeDraws();
+		if ((movesString != "") && (moves.size() != 0))
+		{
+			for (string move:moves) {
+				//cout << "making move: "<<move<<endl;
+				p.makeMove(move);
+			}
+		}
+	}else if (toParse == "sm"){			
+		cout << "Moves: " << endl;
+		MoveGenerator mg;
+		list<Move> moves =mg.generateAllMoves(p);
+		for (Move move:moves){
+			move.print();
+		}
+	}
+}	 static int decodePiece(string promotedTo) {
+	int retValue = 0;
+	if (promotedTo=="q") {
+		retValue = 5;
+	} 
+	//TODO underpromotion
+	//else if (promotedTo.equals("r")) {
+	//	retValue = 4;
+	//} else if (promotedTo.equals("b")) {
+	//	retValue = 3;
+	//} else if (promotedTo.equals("n"))
+	//	retValue = 2;
+	return retValue;
+}
 
 int main()
 {
 	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version 0.0.1" << endl;
-
+	done = false;
 	string mystr;
-	while (true){
+	while (!done){
 		getline (cin, mystr);
-		if (mystr == "uci"){
-			cout << "id name Arcadia 0.0.1RC"<< endl;
-			cout << "id author Nicolai Czempin" << endl;
-			cout << "uciok" << endl;
-		}else if (mystr == "isready"){
-			cout << "readyok" << endl;
-		}else if (mystr == ""){
-			cout << "Moves: " << endl;
-			Position p = Position();
-			p.onMove = false;
-			p.board[15] = 6; //white king
-			p.board[13] = 3; //white bishop
-			p.board[16] = 3; //white bishop
-			p.board[12] = 2; // white knight
-			p.board[17] = 2; //white knight
-			p.board[11] = 4; //white rook
-			p.board[18] = 4; //white rook
-			p.board[14] = 5; //white queen
-			for (int i = 1; i<=8; ++i){
-				p.board[20+i] = 1; // white pawns
-			}
-			p.board[85] = -6; //black king
-			p.board[83] = -3; //black bishop
-			p.board[86] = -3; //black bishop
-			p.board[82] = -2; // black knight
-			p.board[87] = -2; //black knight
-			p.board[81] = -4; //black rook
-			p.board[88] = -4; //black rook
-			p.board[84] = -5; //black queen
-			
-			for (int i = 1; i<=8; ++i){
-				p.board[70+i] = -1; // black pawns
-			}
-			MoveGenerator mg;
-			mg.generateAllMoves(p);
-		}
+		parse(mystr);
 	}
 	return 0;
 }
-
