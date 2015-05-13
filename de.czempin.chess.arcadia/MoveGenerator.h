@@ -34,6 +34,57 @@ public:
 		return moves;
 	}
 	//
+	void removeIllegalMoves(list<Move> moves) {
+		//	list<Move> markForDelete = list<Move>();
+		for (Move move:moves) {
+			//			Info.ensureLegalNodes += 1;
+			Position nextPos = position.createTestPosition(move);
+			if (position.isReceivingCheck()) {
+				if (nextPos.isGivingCheck()) {
+					moves.remove(move);
+					continue;
+				}
+			} else {
+				int movingPiece = abs(position.board[move.from]);
+				switch (movingPiece) {
+				default:
+					break;
+
+				case 6:
+					if (nextPos.isGivingCheck())
+						moves.remove(move);
+					continue;
+					break;
+
+				case 1:
+
+				case 2:
+
+				case 3:
+
+				case 4:
+
+				case 5:
+					if (nextPos.isGivingCheckNonKingMoving(move.from)) {
+						moves.remove(move);
+						continue;
+					}
+					break;
+				}
+			}
+		}
+		//moves.removeAll(markForDelete);
+		//for (Iterator it1 = markForDelete.iterator(); it1.hasNext();) {
+		//	Move m = (Move) it1.next();
+		//	for (Iterator it2 = moves.iterator(); it2.hasNext();) {
+		//		Move m2 = (Move) it2.next();
+		//		if (m.getText().equals(m2.getText())) {
+		//			it2.remove();
+		//			break;
+		//		}
+		//	}
+		//}
+	}
 	void generateMoves(int i, int p) {
 		switch (p) {
 		case -1:

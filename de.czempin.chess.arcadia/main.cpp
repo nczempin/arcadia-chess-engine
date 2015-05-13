@@ -52,9 +52,19 @@ static string extractMoves(string parameters)
 	{
 		return ""; //not found
 	}
-
 	string moves = parameters.substr(index + pattern.length());
 	return moves;
+}
+static string extractPosition(string parameters)
+{
+	string pattern = "position ";
+	int index = parameters.find(pattern);
+	if (index == string::npos)
+	{
+		return ""; //not found
+	}
+	string retVal = parameters.substr(index + pattern.length());
+	return retVal;
 }
 
 
@@ -88,9 +98,20 @@ static int perft(const Position position, int maxDepth){
 	}
 	return count;
 }
+
+string extractFen(string positionString){
+	static string command = "position fen ";
+	string retValue = positionString.substr(command.length()); // remove "fen " TODO: more fail-safe / defensive
+	//remove moves
+	int movesFoundAt =  retValue.find("moves ");
+	if (movesFoundAt != string::npos){
+		retValue = retValue.substr(0,movesFoundAt);
+	}
+	return retValue;
+}
 void parse(string toParse) {
 	if (toParse == "uci"){
-		cout << "id name Arcadia 0.0.1RC"<< endl;
+		cout << "id name Arcadia 0.0.1dev"<< endl;
 		cout << "id author Nicolai Czempin" << endl;
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
@@ -103,13 +124,13 @@ void parse(string toParse) {
 		cout << "readyok" << endl;
 	}else if (startsWith("position", toParse)){
 		p.clear();
-		string positionString = "startpos";//extractPosition(mystr);
+		string positionString = extractPosition(toParse);
 		if (positionString =="startpos") {
 			p.setToStart();
-		}else if (startsWith("fen",positionString)){
-			// String positionFen = extractFen(positionString);
-			// this.brain.setFENPosition(positionFen);
-			cout << "TODO: fen" << endl;
+		}else if (startsWith("position fen",positionString)){
+			string positionFen = extractFen(positionString);
+			//p.setFENPosition(positionFen);
+			cout << "TODO: fen" << positionFen << endl;
 		}
 		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');

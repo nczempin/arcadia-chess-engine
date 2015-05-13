@@ -16,240 +16,382 @@
 //#include "Info.h"
 //#include "TreeSet.h"
 #include <string>
+#include <iterator>
 using namespace std;
 
 class Position{
 public:
-//	//void generateMoves();
-//private:
-//	int onMove;
-//	bool convertColor(int p){
-//		return p > 0;
-//	}
+	//	//void generateMoves();
+	//private:
+	//	int onMove;
+	//	bool convertColor(int p){
+	//		return p > 0;
+	//	}
 	int enPassantSquare;
 private:  static const int MAX_BOARD_SIZE = 89;
-//
-//
-//	static const  int pieceValues[6];
-//
-//
-//
-//private:   static const Map* pawnHash;
-//
-//	static const bool WHITE = true;
-//
-//	static const bool BLACK = false;
-//
-//
+		  //
+		  //
+		  //	static const  int pieceValues[6];
+		  //
+		  //
+		  //
+		  //private:   static const Map* pawnHash;
+		  //
+		  //	static const bool WHITE = true;
+		  //
+		  //	static const bool BLACK = false;
+		  //
+		  //
 public:int board[MAX_BOARD_SIZE];
 	   void setToStart(){
 		   clear();
 		   board[15] = 6; //white king
-			board[13] = 3; //white bishop
-			board[16] = 3; //white bishop
-			board[12] = 2; // white knight
-			board[17] = 2; //white knight
-			board[11] = 4; //white rook
-			board[18] = 4; //white rook
-			board[14] = 5; //white queen
-			for (int i = 1; i<=8; ++i){
-				board[20+i] = 1; // white pawns
-			}
-			board[85] = -6; //black king
-			board[83] = -3; //black bishop
-			board[86] = -3; //black bishop
-			board[82] = -2; // black knight
-			board[87] = -2; //black knight
-			board[81] = -4; //black rook
-			board[88] = -4; //black rook
-			board[84] = -5; //black queen
+		   board[13] = 3; //white bishop
+		   board[16] = 3; //white bishop
+		   board[12] = 2; // white knight
+		   board[17] = 2; //white knight
+		   board[11] = 4; //white rook
+		   board[18] = 4; //white rook
+		   board[14] = 5; //white queen
+		   for (int i = 1; i<=8; ++i){
+			   board[20+i] = 1; // white pawns
+		   }
+		   board[85] = -6; //black king
+		   board[83] = -3; //black bishop
+		   board[86] = -3; //black bishop
+		   board[82] = -2; // black knight
+		   board[87] = -2; //black knight
+		   board[81] = -4; //black rook
+		   board[88] = -4; //black rook
+		   board[84] = -5; //black queen
 
-			for (int i = 1; i<=8; ++i){
-				board[70+i] = -1; // black pawns
-			}
-			onMove = true;
+		   for (int i = 1; i<=8; ++i){
+			   board[70+i] = -1; // black pawns
+		   }
+		   onMove = true;
 	   }
 
-//
-//	static const int WK = 6;
-//
-//	static  const int WN = 2;
-//
-//	static const int WP = 1;
-//
-//	static const int WQ = 5;
-//
-//	static const int WB = 3;
-//
-//	static const int WR = 4;
-//
-//	static const int BB = -3;
-//
-//	static const int BISHOP = 3;
-//
-//	static const int BK = -6;
-//
-//	static const int BN = -2;
-//
-//	static const int BOARD_SIZE = 89;
-//
-//	static const int BP = -1;
-//
-//	static const int BQ = -5;
-//
-//	static const int BR = -4;
-//
-//	static const int EMPTY = 0;
-//
-//	static const int INVALID = 4294967295;
-//
-//	static const int KING = 6;
-//
-//	static const int KNIGHT = 2;
-//
-//	static const int PAWN = 1;
-//
-//	static const int QUEEN = 5;
-//
-//	static const int ROOK = 4;
+	   //
+	   //	static const int WK = 6;
+	   //
+	   //	static  const int WN = 2;
+	   //
+	   //	static const int WP = 1;
+	   //
+	   //	static const int WQ = 5;
+	   //
+	   //	static const int WB = 3;
+	   //
+	   //	static const int WR = 4;
+	   //
+	   //	static const int BB = -3;
+	   //
+	   //	static const int BISHOP = 3;
+	   //
+	   //	static const int BK = -6;
+	   //
+	   //	static const int BN = -2;
+	   //
+	   //	static const int BOARD_SIZE = 89;
+	   //
+	   //	static const int BP = -1;
+	   //
+	   //	static const int BQ = -5;
+	   //
+	   //	static const int BR = -4;
+	   //
+	   //	static const int EMPTY = 0;
+	   //
+	   //	static const int INVALID = 4294967295;
+	   //
+	   //	static const int KING = 6;
+	   //
+	   //	static const int KNIGHT = 2;
+	   //
+	   //	static const int PAWN = 1;
+	   //
+	   //	static const int QUEEN = 5;
+	   //
+	   //	static const int ROOK = 4;
+	   static void copyBoard(int from[], int to[]) {
+		   memcpy(to,from, sizeof(int)*88);
+	   }
+	   Position copyPosition() {
+		   Position p =  Position();
+		   /*	this.bishopCaptureCount = 0;
+		   this.bishopNonCaptureCount = 0;
+		   this.blackKing = -1;
+		   this.blackPieces = new TreeSet();
+		   this.captureMoves = null;
+		   this.castleLongBlack = true;
+		   this.castleLongWhite = true;
+		   this.castleShortBlack = true;
+		   this.castleShortWhite = true;
+		   this.enPassantSquare = 0;
+		   this.hasCastledBlack = false;
+		   this.hasCastledWhite = false;
+		   this.isGivingCheck = null;
+		   this.isReceivingCheck = null;
+		   this.isStartPosition = false;
+		   this.moveNr = 0;*/
+		   //this.whiteKing = -1;
+		   //this.whitePieces = new TreeSet();
+		   //Info.nodes += 1L;
+		   //p.board = new int[89];
+		   copyBoard(p.board, board);
+		   //this.whitePieces.addAll(position.whitePieces);
+		   //this.whiteKing = position.whiteKing;
+		   //this.blackPieces.addAll(position.blackPieces);
+		   //this.blackKing = position.blackKing;
+		   //this.isStartPosition = position.isStartPosition();
+
+		   p.onMove = onMove;
+		   /*	this.castleLongBlack = position.getCastleLongBlack();
+		   this.castleLongWhite = position.getCastleLongWhite();
+		   this.castleShortBlack = position.getCastleShortBlack();
+		   this.castleShortWhite = position.getCastleShortWhite();
+		   this.enPassantSquare = position.enPassant();
+		   this.hasCastledBlack = position.hasCastledBlack();
+		   this.hasCastledWhite = position.hasCastledWhite();
+		   this.isGivingCheck = null;
+		   this.isReceivingCheck = null;
+		   this.zobrist = position.zobrist;
+		   this.pawnZobrist = position.pawnZobrist;
+		   this.pzCache = position.pzCache;
+		   this.isEndGame = position.isEndGame;*/
+	   }
+
+
+void makeTestMove(Move move) {
+	//this.isGivingCheck = null;
+	//this.legalMoves = null;
+	//setStartPosition(false);
+	int movingPiece = moveRaw(move);
+	int movingPieceType = abs(movingPiece);
+	//if ((movingPieceType == 1) && (move.to == enPassant()))
+	// testClearEnPassantCapture(move, board);
+	if ((movingPieceType == 1) && (abs(move.to - move.from) == 20)) {
+		enPassantSquare = ((move.from + move.to) / 2);
+	} else
+		enPassantSquare = 0;
+
+	//castling
+	//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
+	// int rookTo;
+	// int rookFrom;
+	// if (move.to == 17) {
+	//  rookFrom = 18;
+	//  rookTo = 16;
+	// } else {
+	//  if (move.to == 87) {
+	//   rookFrom = 88;
+	//   rookTo = 86;
+	//  } else {
+	//   if (move.to == 13) {
+	//	   rookFrom = 11;
+	//	   rookTo = 14;
+	//   } else {
+	//	   if (move.to == 83) {
+	//		   rookFrom = 81;
+	//		   rookTo = 84;
+	//	   } else {
+	//		   rookFrom = -1;
+	//		   rookTo = -1;
+	//		   cerr << "move.from: " << move.from;
+	//		   cerr << "move.to.getIndex: " << move.to << " which is impossible!";
+	//	   }
+	//   }
+	//  }
+	// }
+	// Move rookJump = Move(rookFrom, rookTo);
+	// moveRaw(rookJump);
+	// if (movingPiece > 0) {
+	//  hasCastledWhite = true;
+	// } else
+	//  hasCastledBlack = true;
+	//}
+	//if (movingPieceType == 6) {
+	// if (onMove) {
+	//  castleShortWhite = false;
+	//  castleLongWhite = false;
+	// } else {
+	//  castleShortBlack = false;
+	//  castleLongBlack = false;
+	// }
+	//} else if (movingPieceType == 4){
+	// if (onMove) {
+	//  if (move.from == 18) {
+	//   castleShortWhite = false;
+	//  } else if (move.from == 11) {
+	//   castleLongWhite = false;
+	//  }
+	// } else if (move.from == 88) {
+	//  castleShortBlack = false;
+	// } else if (move.from == 81)
+	//  castleLongBlack = false;
+
+	//}
+	//int p = board[11];
+	//if (p != 4)
+	// castleLongWhite = false;
+	//p = board[18];
+	//if (p != 4)
+	// castleShortWhite = false;
+	//p = board[81];
+	//if (p != -4)
+	// castleLongBlack = false;
+	//p = board[88];
+	//if (p != -4)
+	// castleShortBlack = false;
+
+
+	onMove = !onMove;
+}
+
+Position createTestPosition( Move move) {
+	Position newPos = copyPosition();
+	//	Info.testNodes += 1;
+	newPos.makeTestMove(move);
+	return newPos;
+}
 
 
 
-	
-		void makeMove(Move move) {
-		//long z = getZobrist();
-		//this.zobrist = updateZobristForMove(move, z);
-		//long pz = getPawnZobrist().longValue();
-		//long incrementalZobrist = updatePawnZobristForMove(move, pz);
-		//this.pawnZobrist = new Long(incrementalZobrist);
-		//bool updateDrawCount = false;
-		//if ((move.capturedPiece != 0) || (Math.abs(EdenBrain.position.board[move.from]) == 1))
-		//	updateDrawCount = true;
-		//this.isGivingCheck = null;
-		//this.legalMoves = null;
-		//setStartPosition(false);
-		int movingPiece = moveRaw(move);
-		int movingPieceType = abs(movingPiece);
+
+void makeMove(Move move) {
+	//long z = getZobrist();
+	//this.zobrist = updateZobristForMove(move, z);
+	//long pz = getPawnZobrist().longValue();
+	//long incrementalZobrist = updatePawnZobristForMove(move, pz);
+	//this.pawnZobrist = new Long(incrementalZobrist);
+	//bool updateDrawCount = false;
+	//if ((move.capturedPiece != 0) || (Math.abs(EdenBrain.position.board[move.from]) == 1))
+	//	updateDrawCount = true;
+	//this.isGivingCheck = null;
+	//this.legalMoves = null;
+	//setStartPosition(false);
+	int movingPiece = moveRaw(move);
+	int movingPieceType = abs(movingPiece);
 	/*	if ((movingPieceType == 1) && (move.to == enPassant()))
-			clearEnPassantCapture(move, this.board);
-		if (this.enPassantSquare != 0) {
-			this.enPassantSquare = 0;
-			updateZobristEnPassant();
-		}
-		if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
-			this.enPassantSquare = ((move.from + move.to) / 2);
-			updateZobristEnPassant();
-		}*/
-		////castle
-		//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
-		//	int rookTo;
-		//	int rookFrom;
-		//	if (move.to == 17) {
-		//		rookFrom = 18;
-		//		rookTo = 16;
-		//	} else {
-		//		if (move.to == 87) {
-		//			rookFrom = 88;
-		//			rookTo = 86;
-		//		} else {
-		//			if (move.to == 13) {
-		//				rookFrom = 11;
-		//				rookTo = 14;
-		//			} else {
-		//				if (move.to == 83) {
-		//					rookFrom = 81;
-		//					rookTo = 84;
-		//				} else {
-		//					rookFrom = -1;
-		//					rookTo = -1;
-		//					System.out.println("move.from: " + move.from);
-		//					throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
-		//				}
-		//			}
-		//		}
-		//	}
-		//	Move rookJump = new Move(this, rookFrom, rookTo);
-		//	moveRaw(rookJump);
-		//	if (movingPiece > 0) {
-		//		this.hasCastledWhite = true;
-		//	} else
-		//		this.hasCastledBlack = true;
-		//}
-		//if (movingPieceType == 6) {
-		//	if (this.onMove.equals(WHITE)) {
-		//		this.castleShortWhite = false;
-		//		this.castleLongWhite = false;
-		//	} else {
-		//		this.castleShortBlack = false;
-		//		this.castleLongBlack = false;
-		//	}
-		//} else if (movingPieceType == 4)
-		//	if (this.onMove.equals(WHITE)) {
-		//		if (move.from == 18) {
-		//			this.castleShortWhite = false;
-		//		} else if (move.from == 11) {
-		//			this.castleLongWhite = false;
-		//		}
-		//	} else if (move.from == 88) {
-		//		this.castleShortBlack = false;
-		//	} else if (move.from == 81)
-		//		this.castleLongBlack = false;
-		//int p = this.board[11];
-		//if (p != 4)
-		//	this.castleLongWhite = false;
-		//p = this.board[18];
-		//if (p != 4)
-		//	this.castleShortWhite = false;
-		//p = this.board[81];
-		//if (p != -4)
-		//	this.castleLongBlack = false;
-		//p = this.board[88];
-		//if (p != -4)
-		//	this.castleShortBlack = false;
-		onMove = !onMove;
-
-		// handle draws
-	/*	if (!EdenBrain.withinAlphabeta) {
-			if (updateDrawCount) {
-				EdenBrain.threeDrawsTable.clear();
-			} else {
-				long myZobrist = getZobrist();
-				Long zobi = new Long(myZobrist);
-				if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
-					Integer count = (Integer) EdenBrain.threeDrawsTable.get(zobi);
-					EdenBrain.threeDrawsTable.remove(zobi);
-					if (count.intValue() >= 2)
-						throw new IllegalStateException("three-fold repetition!");
-					count = new Integer(count.intValue() + 1);
-					EdenBrain.threeDrawsTable.put(zobi, count);
-				} else {
-					Integer count = new Integer(1);
-					EdenBrain.threeDrawsTable.put(zobi, count);
-				}
-			}
-		} else if (updateDrawCount) {
-			EdenBrain.alphaBetaDraws.clear();
-		} else {
-			long myZobrist = getZobrist();
-			Long zobi = new Long(myZobrist);
-			int total = 0;
-			if (EdenBrain.alphaBetaDraws.containsKey(zobi)) {
-				total += ((Integer) EdenBrain.alphaBetaDraws.get(zobi)).intValue();
-
-				if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
-					total += ((Integer) EdenBrain.threeDrawsTable.get(zobi)).intValue();
-				} else {
-					Integer count = new Integer(1);
-					EdenBrain.alphaBetaDraws.put(zobi, count);
-				}
-				EdenBrain.alphaBetaDraws.remove(zobi);
-				if (total >= 2)
-					throw new ThreeRepetitionsAB("three-fold repetition!");
-				Integer count = new Integer(total + 1);
-				EdenBrain.alphaBetaDraws.put(zobi, count);
-			}
-		}*/
+	clearEnPassantCapture(move, this.board);
+	if (this.enPassantSquare != 0) {
+	this.enPassantSquare = 0;
+	updateZobristEnPassant();
 	}
+	if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
+	this.enPassantSquare = ((move.from + move.to) / 2);
+	updateZobristEnPassant();
+	}*/
+	////castle
+	//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
+	//	int rookTo;
+	//	int rookFrom;
+	//	if (move.to == 17) {
+	//		rookFrom = 18;
+	//		rookTo = 16;
+	//	} else {
+	//		if (move.to == 87) {
+	//			rookFrom = 88;
+	//			rookTo = 86;
+	//		} else {
+	//			if (move.to == 13) {
+	//				rookFrom = 11;
+	//				rookTo = 14;
+	//			} else {
+	//				if (move.to == 83) {
+	//					rookFrom = 81;
+	//					rookTo = 84;
+	//				} else {
+	//					rookFrom = -1;
+	//					rookTo = -1;
+	//					System.out.println("move.from: " + move.from);
+	//					throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
+	//				}
+	//			}
+	//		}
+	//	}
+	//	Move rookJump = new Move(this, rookFrom, rookTo);
+	//	moveRaw(rookJump);
+	//	if (movingPiece > 0) {
+	//		this.hasCastledWhite = true;
+	//	} else
+	//		this.hasCastledBlack = true;
+	//}
+	//if (movingPieceType == 6) {
+	//	if (this.onMove.equals(WHITE)) {
+	//		this.castleShortWhite = false;
+	//		this.castleLongWhite = false;
+	//	} else {
+	//		this.castleShortBlack = false;
+	//		this.castleLongBlack = false;
+	//	}
+	//} else if (movingPieceType == 4)
+	//	if (this.onMove.equals(WHITE)) {
+	//		if (move.from == 18) {
+	//			this.castleShortWhite = false;
+	//		} else if (move.from == 11) {
+	//			this.castleLongWhite = false;
+	//		}
+	//	} else if (move.from == 88) {
+	//		this.castleShortBlack = false;
+	//	} else if (move.from == 81)
+	//		this.castleLongBlack = false;
+	//int p = this.board[11];
+	//if (p != 4)
+	//	this.castleLongWhite = false;
+	//p = this.board[18];
+	//if (p != 4)
+	//	this.castleShortWhite = false;
+	//p = this.board[81];
+	//if (p != -4)
+	//	this.castleLongBlack = false;
+	//p = this.board[88];
+	//if (p != -4)
+	//	this.castleShortBlack = false;
+	onMove = !onMove;
+
+	// handle draws
+	/*	if (!EdenBrain.withinAlphabeta) {
+	if (updateDrawCount) {
+	EdenBrain.threeDrawsTable.clear();
+	} else {
+	long myZobrist = getZobrist();
+	Long zobi = new Long(myZobrist);
+	if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
+	Integer count = (Integer) EdenBrain.threeDrawsTable.get(zobi);
+	EdenBrain.threeDrawsTable.remove(zobi);
+	if (count.intValue() >= 2)
+	throw new IllegalStateException("three-fold repetition!");
+	count = new Integer(count.intValue() + 1);
+	EdenBrain.threeDrawsTable.put(zobi, count);
+	} else {
+	Integer count = new Integer(1);
+	EdenBrain.threeDrawsTable.put(zobi, count);
+	}
+	}
+	} else if (updateDrawCount) {
+	EdenBrain.alphaBetaDraws.clear();
+	} else {
+	long myZobrist = getZobrist();
+	Long zobi = new Long(myZobrist);
+	int total = 0;
+	if (EdenBrain.alphaBetaDraws.containsKey(zobi)) {
+	total += ((Integer) EdenBrain.alphaBetaDraws.get(zobi)).intValue();
+
+	if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
+	total += ((Integer) EdenBrain.threeDrawsTable.get(zobi)).intValue();
+	} else {
+	Integer count = new Integer(1);
+	EdenBrain.alphaBetaDraws.put(zobi, count);
+	}
+	EdenBrain.alphaBetaDraws.remove(zobi);
+	if (total >= 2)
+	throw new ThreeRepetitionsAB("three-fold repetition!");
+	Integer count = new Integer(total + 1);
+	EdenBrain.alphaBetaDraws.put(zobi, count);
+	}
+	}*/
+}
 
 //static int convertToint(bool color, int rawint) {
 //		//if (color == null)
@@ -926,11 +1068,11 @@ public:int board[MAX_BOARD_SIZE];
 //		return this.bestValue;
 //	}
 //
-	void clear() {
-		for (int i = 0; i < 89; i++) {
-			board[i] = 0;
-		}
+void clear() {
+	for (int i = 0; i < 89; i++) {
+		board[i] = 0;
 	}
+}
 //
 //	void clearEnPassantCapture(Move move, int board[]) {
 //		long zobi;
@@ -1402,7 +1544,7 @@ public:int board[MAX_BOARD_SIZE];
 #define WHITE true
 #define BLACK false
 bool onMove;
-	
+
 //	int getBishopValue(int i, int plusminus) {
 //		int retValue = bishopSquareValues[(i - 10)];
 //		if (plusminus > 0) {
@@ -2487,27 +2629,27 @@ bool onMove;
 //		return EdenBrain.zobrists[1][(-figur - 1)][(square - 11)];
 //	}*/
 //
-	void makeMove(int from, int to, int promotedTo) {
-		Move move = Move(from, to, promotedTo);
-		//bool isLegal = isLegal(from, to, promotedTo);
-		//if (isLegal) {
-		//	try {
-				makeMove(move);
-		//	} catch (ThreeRepetitionsAB e) {
-		//		e.printStackTrace();
-		//	}
-		//} else {
-		//	System.out.println("Illegal move:" + move);
-		//}
-	}
+void makeMove(int from, int to, int promotedTo) {
+	Move move = Move(from, to, promotedTo);
+	//bool isLegal = isLegal(from, to, promotedTo);
+	//if (isLegal) {
+	//	try {
+	makeMove(move);
+	//	} catch (ThreeRepetitionsAB e) {
+	//		e.printStackTrace();
+	//	}
+	//} else {
+	//	System.out.println("Illegal move:" + move);
+	//}
+}
 
 //	
-	void makeMove(string moveString)  {
-		Move m = Move(moveString);
-		makeMove(m.from, m.to, m.captured);
-		//this.isGivingCheck = null;
-		//this.isReceivingCheck = null;
-	}
+void makeMove(string moveString)  {
+	Move m = Move(moveString);
+	makeMove(m.from, m.to, m.captured);
+	//this.isGivingCheck = null;
+	//this.isReceivingCheck = null;
+}
 //
 //	Piece makeNewPiece(Square to, String promotedTo, Piece newPiece) {
 //		if (promotedTo.equals("q")) {
@@ -2601,61 +2743,61 @@ bool onMove;
 //		this.onMove = Boolean.valueOf(!this.onMove.boolValue());
 //	}
 //
-	int moveRaw(Move move) {
-		int movingPiece = board[move.from];
-		int fromSquare = move.from;
-		int capturedSquare = move.to;
-		int capturedPiece = board[capturedSquare];
+int moveRaw(Move move) {
+	int movingPiece = board[move.from];
+	int fromSquare = move.from;
+	int capturedSquare = move.to;
+	int capturedPiece = board[capturedSquare];
 	/*	if (capturedPiece > 0) {
-			this.whitePieces.remove(capturedSquare);
-			if (capturedPiece == 6) {
-				this.whiteKing = -1;
-			}
-		} else if (capturedPiece < 0) {
-			this.blackPieces.remove(capturedSquare);
-			if (capturedPiece == -6)
-				this.blackKing = -1;
-		}*/
-		if (move.promoted == 0) {
-			//movingPiece = this.board[move.from];
-			//if (movingPiece > 0) {
-			//	this.whitePieces.add(capturedSquare);
-			//	this.whitePieces.remove(fromSquare);
-			//	if (movingPiece == 6) {
-			//		this.whiteKing = move.to;
-			//	}
-			//} else {
-			//	this.blackPieces.add(capturedSquare);
-			//	this.blackPieces.remove(fromSquare);
-			//	if (movingPiece == -6)
-			//		this.blackKing = move.to;
-			//}
-			board[move.to] = movingPiece;
-			//cout << "set " << move.to << " to " << movingPiece<<endl;
-			board[move.from] = 0;
-			//cout << "cleared " << move.from <<endl;
-			//clearSquare(move.from, 0, this.board);
-		} else {
-			movingPiece = move.promoted;
-			if (board[move.from] < 0)
-				movingPiece *= -1;
-			board[move.from] = 0;
-			//clearSquare(move.from, 0, this.board);
-			//if (movingPiece > 0) {
-			//	this.whitePieces.add(new Integer(move.to));
-			//	this.whitePieces.remove(fromSquare);
-			//	if (movingPiece == 6) {
-			//		this.whiteKing = move.to;
-			//	}
-			//} else {
-			//	this.blackPieces.add(new Integer(move.to));
-			//	this.blackPieces.remove(fromSquare);
-			//	if (movingPiece == -6)
-			//		this.blackKing = move.to;
-			//}
-		}
-		return movingPiece;
+	this.whitePieces.remove(capturedSquare);
+	if (capturedPiece == 6) {
+	this.whiteKing = -1;
 	}
+	} else if (capturedPiece < 0) {
+	this.blackPieces.remove(capturedSquare);
+	if (capturedPiece == -6)
+	this.blackKing = -1;
+	}*/
+	if (move.promoted == 0) {
+		//movingPiece = this.board[move.from];
+		//if (movingPiece > 0) {
+		//	this.whitePieces.add(capturedSquare);
+		//	this.whitePieces.remove(fromSquare);
+		//	if (movingPiece == 6) {
+		//		this.whiteKing = move.to;
+		//	}
+		//} else {
+		//	this.blackPieces.add(capturedSquare);
+		//	this.blackPieces.remove(fromSquare);
+		//	if (movingPiece == -6)
+		//		this.blackKing = move.to;
+		//}
+		board[move.to] = movingPiece;
+		//cout << "set " << move.to << " to " << movingPiece<<endl;
+		board[move.from] = 0;
+		//cout << "cleared " << move.from <<endl;
+		//clearSquare(move.from, 0, this.board);
+	} else {
+		movingPiece = move.promoted;
+		if (board[move.from] < 0)
+			movingPiece *= -1;
+		board[move.from] = 0;
+		//clearSquare(move.from, 0, this.board);
+		//if (movingPiece > 0) {
+		//	this.whitePieces.add(new Integer(move.to));
+		//	this.whitePieces.remove(fromSquare);
+		//	if (movingPiece == 6) {
+		//		this.whiteKing = move.to;
+		//	}
+		//} else {
+		//	this.blackPieces.add(new Integer(move.to));
+		//	this.blackPieces.remove(fromSquare);
+		//	if (movingPiece == -6)
+		//		this.blackKing = move.to;
+		//}
+	}
+	return movingPiece;
+}
 //
 //	//Move getNextCaptureMove() {
 //	//	updateCaptureMove();
