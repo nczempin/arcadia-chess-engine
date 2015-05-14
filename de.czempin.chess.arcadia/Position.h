@@ -1,32 +1,16 @@
 #pragma once
 //
-//#include "Map.h"
-//#include "Set.h"
-//#include "String.h"
-//#include "SortedSet.h"
-//#include "Boolean.h"
-//#include "Square.h"
+
 #include "Move.h"
-//#include "Long.h"
-//#include "PieceCount.h"
-//#include "Piece.h"
-//#include "Integer.h"
-//#include "TransEntry.h"
-//#include "Character.h"
-//#include "Info.h"
-//#include "TreeSet.h"
+
 #include <string>
 #include <iterator>
+#include <list>
 using namespace std;
 
 class Position{
 public:
-	//	//void generateMoves();
-	//private:
-	//	int onMove;
-	//	bool convertColor(int p){
-	//		return p > 0;
-	//	}
+	
 	int enPassantSquare;
 private:  static const int MAX_BOARD_SIZE = 89;
 		  //
