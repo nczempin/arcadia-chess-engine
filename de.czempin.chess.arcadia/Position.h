@@ -2531,69 +2531,63 @@ bool onMove;
 //		return hasNoEnemyPawnsAhead(plusminus, file, rank);
 //	}
 //
-//	bool isReceivingCheck() {
-//		if (this.isReceivingCheck != null)
-//			return this.isReceivingCheck.boolValue();
-//		Boolean kingColor = onMove();
-//		int kingPosition = findKing(kingColor.boolValue());
-//		if (kingPosition == -1)
-//			throw new IllegalStateException("no king found");
-//		int i = kingPosition;
-//		SortedSet moves = new TreeSet();
-//		Iterator it = moves.iterator();
-//		generateRookCaptures(this, moves, i, kingColor);
-//		for (it = moves.iterator(); it.hasNext();) {
-//			Move move = (Move) it.next();
-//			if ((pieceOn(move.to).getType() == 4) || (pieceOn(move.to).getType() == 5)) {
-//				this.isReceivingCheck = new Boolean(true);
-//				return true;
-//			}
-//		}
-//
-//		moves.clear();
-//		generatePawnCaptures(this, moves, i, kingColor);
-//		for (it = moves.iterator(); it.hasNext();) {
-//			Move move = (Move) it.next();
-//			if (pieceOn(move.to).getType() == 1) {
-//				this.isReceivingCheck = new Boolean(true);
-//				return true;
-//			}
-//		}
-//
-//		moves.clear();
-//		generateKnightCaptures(this, moves, i, kingColor);
-//		for (it = moves.iterator(); it.hasNext();) {
-//			Move move = (Move) it.next();
-//			Piece p = pieceOn(move.to);
-//			if ((p != null) && (p.getType() == 2)) {
-//				this.isReceivingCheck = new Boolean(true);
-//				return true;
-//			}
-//		}
-//
-//		moves.clear();
-//		generateBishopCaptures(moves, i, kingColor);
-//		for (it = moves.iterator(); it.hasNext();) {
-//			Move move = (Move) it.next();
-//			if ((pieceOn(move.to).getType() == 3) || (pieceOn(move.to).getType() == 5)) {
-//				this.isReceivingCheck = new Boolean(true);
-//				return true;
-//			}
-//		}
-//
-//		moves.clear();
-//		generateKingMovesNoCastling(this, moves, i, kingColor);
-//		for (it = moves.iterator(); it.hasNext();) {
-//			Move move = (Move) it.next();
-//			if (pieceOn(move.to).getType() == 6) {
-//				this.isReceivingCheck = new Boolean(true);
-//				return true;
-//			}
-//		}
-//
-//		this.isReceivingCheck = new Boolean(false);
-//		return false;
-//	}
+	bool isReceivingCheck() {
+	/*	if (this.isReceivingCheck != null)
+			return this.isReceivingCheck.boolValue();*/
+		bool kingColor = onMove;
+		int kingPosition = findKing(kingColor);
+		//if (kingPosition == -1)
+		//	throw new IllegalStateException("no king found");
+		list<Move> moves;
+		generateRookCaptures(moves, kingPosition, kingColor);
+		for (Move move: moves) {
+			int pt = abs(board[move.to]);
+			if (pt == 4 || pt == 5) {
+				//this.isReceivingCheck = true;
+				return true;
+			}
+		}
+
+		moves.clear();
+		generatePawnCaptures(moves, kingPosition, kingColor);
+		for (Move move: moves) {
+			if (abs(board[move.to]) == 1) {
+				//this.isReceivingCheck = new Boolean(true);
+				return true;
+			}
+		}
+
+		moves.clear();
+		generateKnightCaptures( moves, kingPosition, kingColor);
+		for (Move move: moves) {
+			if (abs(board[move.to]) == 2) {
+				//this.isReceivingCheck = new Boolean(true);
+				return true;
+			}
+		}
+
+		moves.clear();
+		generateBishopCaptures(moves, kingPosition, kingColor);
+	for (Move move: moves) {
+				int pt = abs(board[move.to]);
+			if (pt == 3 || pt == 5){
+				//this.isReceivingCheck = new Boolean(true);
+				return true;
+			}
+		}
+
+		moves.clear();
+		generateKingMovesNoCastling( moves, kingPosition, kingColor);
+	for (Move move: moves) {
+			if (abs(board[move.to]) == 6) {
+					//this.isReceivingCheck = new Boolean(true);
+				return true;
+			}
+		}
+
+		//this.isReceivingCheck = new Boolean(false);
+		return false;
+	}
 //
 //	bool isStartPosition() {
 //		return this.isStartPosition;
