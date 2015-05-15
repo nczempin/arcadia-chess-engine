@@ -51,7 +51,7 @@ public:
 					break;
 
 				case 6:
-					if (nextPos.isGivingCheck())
+					if (nextPos.isGivingCheck()) //moving into check
 						moves.remove(move);
 					continue;
 					break;

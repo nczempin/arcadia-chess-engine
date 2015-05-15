@@ -106,53 +106,53 @@ public:int board[MAX_BOARD_SIZE];
 	   }
 	   Position copyPosition() {
 		   Position p =  Position();
-		   /*	this.bishopCaptureCount = 0;
-		   this.bishopNonCaptureCount = 0;
-		   this.blackKing = -1;
-		   this.blackPieces = new TreeSet();
-		   this.captureMoves = null;
-		   this.castleLongBlack = true;
-		   this.castleLongWhite = true;
-		   this.castleShortBlack = true;
-		   this.castleShortWhite = true;
-		   this.enPassantSquare = 0;
-		   this.hasCastledBlack = false;
-		   this.hasCastledWhite = false;
-		   this.isGivingCheck = null;
-		   this.isReceivingCheck = null;
-		   this.isStartPosition = false;
-		   this.moveNr = 0;*/
-		   //this.whiteKing = -1;
-		   //this.whitePieces = new TreeSet();
+		   /*	bishopCaptureCount = 0;
+		   bishopNonCaptureCount = 0;
+		   blackKing = -1;
+		   blackPieces = new TreeSet();
+		   captureMoves = null;
+		   castleLongBlack = true;
+		   castleLongWhite = true;
+		   castleShortBlack = true;
+		   castleShortWhite = true;
+		   enPassantSquare = 0;
+		   hasCastledBlack = false;
+		   hasCastledWhite = false;
+		   isGivingCheck = null;
+		   isReceivingCheck = null;
+		   isStartPosition = false;
+		   moveNr = 0;*/
+		   //whiteKing = -1;
+		   //whitePieces = new TreeSet();
 		   //Info.nodes += 1L;
 		   //p.board = new int[89];
 		   copyBoard(p.board, board);
-		   //this.whitePieces.addAll(position.whitePieces);
+		   //whitePieces.addAll(position.whitePieces);
 		   p.whiteKing = whiteKing;
-		   //this.blackPieces.addAll(position.blackPieces);
+		   //blackPieces.addAll(position.blackPieces);
 		   p.blackKing = blackKing;
-		   //this.isStartPosition = position.isStartPosition();
+		   //isStartPosition = position.isStartPosition();
 
 		   p.onMove = onMove;
-		   /*	this.castleLongBlack = position.getCastleLongBlack();
-		   this.castleLongWhite = position.getCastleLongWhite();
-		   this.castleShortBlack = position.getCastleShortBlack();
-		   this.castleShortWhite = position.getCastleShortWhite();
-		   this.enPassantSquare = position.enPassant();
-		   this.hasCastledBlack = position.hasCastledBlack();
-		   this.hasCastledWhite = position.hasCastledWhite();
-		   this.isGivingCheck = null;
-		   this.isReceivingCheck = null;
-		   this.zobrist = position.zobrist;
-		   this.pawnZobrist = position.pawnZobrist;
-		   this.pzCache = position.pzCache;
-		   this.isEndGame = position.isEndGame;*/
+		   /*	castleLongBlack = position.getCastleLongBlack();
+		   castleLongWhite = position.getCastleLongWhite();
+		   castleShortBlack = position.getCastleShortBlack();
+		   castleShortWhite = position.getCastleShortWhite();
+		   enPassantSquare = position.enPassant();
+		   hasCastledBlack = position.hasCastledBlack();
+		   hasCastledWhite = position.hasCastledWhite();
+		   isGivingCheck = null;
+		   isReceivingCheck = null;
+		   zobrist = position.zobrist;
+		   pawnZobrist = position.pawnZobrist;
+		   pzCache = position.pzCache;
+		   isEndGame = position.isEndGame;*/
 	   }
 
 
 	   void makeTestMove(Move move) {
-		   //this.isGivingCheck = null;
-		   //this.legalMoves = null;
+		   //isGivingCheck = null;
+		   //legalMoves = null;
 		   //setStartPosition(false);
 		   int movingPiece = moveRaw(move);
 		   int movingPieceType = abs(movingPiece);
@@ -248,26 +248,26 @@ public:int board[MAX_BOARD_SIZE];
 
 	   void makeMove(Move move) {
 		   //long z = getZobrist();
-		   //this.zobrist = updateZobristForMove(move, z);
+		   //zobrist = updateZobristForMove(move, z);
 		   //long pz = getPawnZobrist().longValue();
 		   //long incrementalZobrist = updatePawnZobristForMove(move, pz);
-		   //this.pawnZobrist = new Long(incrementalZobrist);
+		   //pawnZobrist = new Long(incrementalZobrist);
 		   //bool updateDrawCount = false;
 		   //if ((move.capturedPiece != 0) || (Math.abs(EdenBrain.position.board[move.from]) == 1))
 		   //	updateDrawCount = true;
-		   //this.isGivingCheck = null;
-		   //this.legalMoves = null;
+		   //isGivingCheck = null;
+		   //legalMoves = null;
 		   //setStartPosition(false);
 		   int movingPiece = moveRaw(move);
 		   int movingPieceType = abs(movingPiece);
 		   /*	if ((movingPieceType == 1) && (move.to == enPassant()))
-		   clearEnPassantCapture(move, this.board);
-		   if (this.enPassantSquare != 0) {
-		   this.enPassantSquare = 0;
+		   clearEnPassantCapture(move, board);
+		   if (enPassantSquare != 0) {
+		   enPassantSquare = 0;
 		   updateZobristEnPassant();
 		   }
 		   if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
-		   this.enPassantSquare = ((move.from + move.to) / 2);
+		   enPassantSquare = ((move.from + move.to) / 2);
 		   updateZobristEnPassant();
 		   }*/
 		   ////castle
@@ -301,41 +301,41 @@ public:int board[MAX_BOARD_SIZE];
 		   //	Move rookJump = new Move(this, rookFrom, rookTo);
 		   //	moveRaw(rookJump);
 		   //	if (movingPiece > 0) {
-		   //		this.hasCastledWhite = true;
+		   //		hasCastledWhite = true;
 		   //	} else
-		   //		this.hasCastledBlack = true;
+		   //		hasCastledBlack = true;
 		   //}
 		   //if (movingPieceType == 6) {
-		   //	if (this.onMove.equals(WHITE)) {
-		   //		this.castleShortWhite = false;
-		   //		this.castleLongWhite = false;
+		   //	if (onMove.equals(WHITE)) {
+		   //		castleShortWhite = false;
+		   //		castleLongWhite = false;
 		   //	} else {
-		   //		this.castleShortBlack = false;
-		   //		this.castleLongBlack = false;
+		   //		castleShortBlack = false;
+		   //		castleLongBlack = false;
 		   //	}
 		   //} else if (movingPieceType == 4)
-		   //	if (this.onMove.equals(WHITE)) {
+		   //	if (onMove.equals(WHITE)) {
 		   //		if (move.from == 18) {
-		   //			this.castleShortWhite = false;
+		   //			castleShortWhite = false;
 		   //		} else if (move.from == 11) {
-		   //			this.castleLongWhite = false;
+		   //			castleLongWhite = false;
 		   //		}
 		   //	} else if (move.from == 88) {
-		   //		this.castleShortBlack = false;
+		   //		castleShortBlack = false;
 		   //	} else if (move.from == 81)
-		   //		this.castleLongBlack = false;
-		   //int p = this.board[11];
+		   //		castleLongBlack = false;
+		   //int p = board[11];
 		   //if (p != 4)
-		   //	this.castleLongWhite = false;
-		   //p = this.board[18];
+		   //	castleLongWhite = false;
+		   //p = board[18];
 		   //if (p != 4)
-		   //	this.castleShortWhite = false;
-		   //p = this.board[81];
+		   //	castleShortWhite = false;
+		   //p = board[81];
 		   //if (p != -4)
-		   //	this.castleLongBlack = false;
-		   //p = this.board[88];
+		   //	castleLongBlack = false;
+		   //p = board[88];
 		   //if (p != -4)
-		   //	this.castleShortBlack = false;
+		   //	castleShortBlack = false;
 		   onMove = !onMove;
 
 		   // handle draws
@@ -471,7 +471,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int index = 10 * ten + one;
 	   //		return index;
 	   //	}
-	   //static void generateBishopMoves(Position position, SortedSet moves, int from, Boolean color) {
+	   //static void generateBishopMoves(Position position, SortedSet moves, int from, bool color) {
 	   //		for (int i = 1; i < 8; i++) {
 	   //			int next = from + i * 9;
 	   //			bool finished = tryMove(position, moves, from, next, color);
@@ -673,17 +673,17 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //	}
 	   //
-	   //	static void generateQueenCaptures(Position position, Set moves, int from, Boolean color) {
+	   //	static void generateQueenCaptures(Position position, Set moves, int from, bool color) {
 	   //		position.generateBishopCaptures(moves, from, color);
 	   //		generateRookCaptures(position, moves, from, color);
 	   //	}
 	   //
-	   //	static void generateQueenMoves(Position position, SortedSet moves, int from, Boolean color) {
+	   //	static void generateQueenMoves(Position position, SortedSet moves, int from, bool color) {
 	   //		generateBishopMoves(position, moves, from, color);
 	   //		generateRookMoves(position, moves, from, color);
 	   //	}
 	   //
-	   //	static void generateRookCaptures(Position position, Set moves, int from, Boolean color) {
+	   //	static void generateRookCaptures(Position position, Set moves, int from, bool color) {
 	   //		for (int i = 1; i < 8; i++) {
 	   //			int next = from + i * 10;
 	   //			if (next > 88)
@@ -718,7 +718,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //	}
 	   //
-	   //	static void generateRookMoves(Position position, SortedSet moves, int from, Boolean color) {
+	   //	static void generateRookMoves(Position position, SortedSet moves, int from, bool color) {
 	   //		for (int i = 1; i < 8; i++) {
 	   //			int next = from + i * 10;
 	   //			bool finished = tryMove(position, moves, from, next, color);
@@ -771,7 +771,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return isInvalid;
 	   //	}
 	   //
-	   //	static bool tryMove(Position position, SortedSet moves, int from, int next, Boolean color) {
+	   //	static bool tryMove(Position position, SortedSet moves, int from, int next, bool color) {
 	   //		if (invalidSquare(next))
 	   //			return true;
 	   //		int type = position.typeOn(next);
@@ -790,7 +790,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return true;
 	   //	}
 	   //
-	   //	static bool tryMoveCapture(Position position, Set moves, int from, int next, Boolean color) {
+	   //	static bool tryMoveCapture(Position position, Set moves, int from, int next, bool color) {
 	   //		if (invalidSquare(next))
 	   //			return true;
 	   //		int type = position.board[next];
@@ -839,7 +839,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //
 	   //	bool hasCastledWhite;
 	   //
-	   //	//Boolean isEndGame;
+	   //	//bool isEndGame;
 	   //
 	   //	bool isGivingCheck;
 	   //
@@ -895,76 +895,76 @@ public:int board[MAX_BOARD_SIZE];
 	   //	PieceCount bpc;
 	   //
 	   //	Position() {
-	   //		this.bishopCaptureCount = 0;
-	   //		this.bishopNonCaptureCount = 0;
-	   //		this.blackKing = -1;
-	   //		this.blackPieces = new TreeSet();
-	   //		this.captureMoves = null;
-	   //		this.castleLongBlack = true;
-	   //		this.castleLongWhite = true;
-	   //		this.castleShortBlack = true;
-	   //		this.castleShortWhite = true;
-	   //		this.enPassantSquare = 0;
-	   //		this.hasCastledBlack = false;
-	   //		this.hasCastledWhite = false;
-	   //		this.isGivingCheck = null;
-	   //		this.isReceivingCheck = null;
-	   //		this.isStartPosition = false;
-	   //		this.moveNr = 0;
-	   //		this.onMove = WHITE;
-	   //		this.whiteKing = -1;
-	   //		this.whitePieces = new TreeSet();
+	   //		bishopCaptureCount = 0;
+	   //		bishopNonCaptureCount = 0;
+	   //		blackKing = -1;
+	   //		blackPieces = new TreeSet();
+	   //		captureMoves = null;
+	   //		castleLongBlack = true;
+	   //		castleLongWhite = true;
+	   //		castleShortBlack = true;
+	   //		castleShortWhite = true;
+	   //		enPassantSquare = 0;
+	   //		hasCastledBlack = false;
+	   //		hasCastledWhite = false;
+	   //		isGivingCheck = null;
+	   //		isReceivingCheck = null;
+	   //		isStartPosition = false;
+	   //		moveNr = 0;
+	   //		onMove = WHITE;
+	   //		whiteKing = -1;
+	   //		whitePieces = new TreeSet();
 	   //		Info.nodes += 1L;
-	   //		this.board = new int[89];
-	   //		this.whitePieces.clear();
-	   //		this.whiteKing = -1;
-	   //		this.blackPieces.clear();
-	   //		this.blackKing = -1;
+	   //		board = new int[89];
+	   //		whitePieces.clear();
+	   //		whiteKing = -1;
+	   //		blackPieces.clear();
+	   //		blackKing = -1;
 	   //		clearBoard();
 	   //	}
 	   //
 	   //	Position(Position& position) {
-	   //		this.bishopCaptureCount = 0;
-	   //		this.bishopNonCaptureCount = 0;
-	   //		this.blackKing = -1;
-	   //		this.blackPieces = new TreeSet();
-	   //		this.captureMoves = null;
-	   //		this.castleLongBlack = true;
-	   //		this.castleLongWhite = true;
-	   //		this.castleShortBlack = true;
-	   //		this.castleShortWhite = true;
-	   //		this.enPassantSquare = 0;
-	   //		this.hasCastledBlack = false;
-	   //		this.hasCastledWhite = false;
-	   //		this.isGivingCheck = null;
-	   //		this.isReceivingCheck = null;
-	   //		this.isStartPosition = false;
-	   //		this.moveNr = 0;
-	   //		this.onMove = WHITE;
-	   //		this.whiteKing = -1;
-	   //		this.whitePieces = new TreeSet();
+	   //		bishopCaptureCount = 0;
+	   //		bishopNonCaptureCount = 0;
+	   //		blackKing = -1;
+	   //		blackPieces = new TreeSet();
+	   //		captureMoves = null;
+	   //		castleLongBlack = true;
+	   //		castleLongWhite = true;
+	   //		castleShortBlack = true;
+	   //		castleShortWhite = true;
+	   //		enPassantSquare = 0;
+	   //		hasCastledBlack = false;
+	   //		hasCastledWhite = false;
+	   //		isGivingCheck = null;
+	   //		isReceivingCheck = null;
+	   //		isStartPosition = false;
+	   //		moveNr = 0;
+	   //		onMove = WHITE;
+	   //		whiteKing = -1;
+	   //		whitePieces = new TreeSet();
 	   //		Info.nodes += 1L;
-	   //		this.board = new int[89];
-	   //		copyBoard(position.board, this.board);
-	   //		this.whitePieces.addAll(position.whitePieces);
-	   //		this.whiteKing = position.whiteKing;
-	   //		this.blackPieces.addAll(position.blackPieces);
-	   //		this.blackKing = position.blackKing;
-	   //		this.isStartPosition = position.isStartPosition();
-	   //		this.onMove = position.onMove();
-	   //		this.castleLongBlack = position.getCastleLongBlack();
-	   //		this.castleLongWhite = position.getCastleLongWhite();
-	   //		this.castleShortBlack = position.getCastleShortBlack();
-	   //		this.castleShortWhite = position.getCastleShortWhite();
-	   //		this.enPassantSquare = position.enPassant();
-	   //		this.hasCastledBlack = position.hasCastledBlack();
-	   //		this.hasCastledWhite = position.hasCastledWhite();
-	   //		this.isGivingCheck = null;
-	   //		this.isReceivingCheck = null;
-	   //		this.zobrist = position.zobrist;
-	   //		this.pawnZobrist = position.pawnZobrist;
-	   //		this.pzCache = position.pzCache;
-	   //		this.isEndGame = position.isEndGame;
+	   //		board = new int[89];
+	   //		copyBoard(position.board, board);
+	   //		whitePieces.addAll(position.whitePieces);
+	   //		whiteKing = position.whiteKing;
+	   //		blackPieces.addAll(position.blackPieces);
+	   //		blackKing = position.blackKing;
+	   //		isStartPosition = position.isStartPosition();
+	   //		onMove = position.onMove();
+	   //		castleLongBlack = position.getCastleLongBlack();
+	   //		castleLongWhite = position.getCastleLongWhite();
+	   //		castleShortBlack = position.getCastleShortBlack();
+	   //		castleShortWhite = position.getCastleShortWhite();
+	   //		enPassantSquare = position.enPassant();
+	   //		hasCastledBlack = position.hasCastledBlack();
+	   //		hasCastledWhite = position.hasCastledWhite();
+	   //		isGivingCheck = null;
+	   //		isReceivingCheck = null;
+	   //		zobrist = position.zobrist;
+	   //		pawnZobrist = position.pawnZobrist;
+	   //		pzCache = position.pzCache;
+	   //		isEndGame = position.isEndGame;
 	   //	}
 	   //
 	   //	void addPiece(Piece piece, String square) {
@@ -985,7 +985,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		addPiece(Piece.create(new Square("c1"), WHITE, 3), "c1");
 	   //		addPiece(Piece.create(new Square("d1"), WHITE, 5), "d1");
 	   //		addPiece(Piece.create(new Square("e1"), WHITE, 6), "e1");
-	   //		this.whiteKing = 15;
+	   //		whiteKing = 15;
 	   //		addPiece(Piece.create(new Square("f1"), WHITE, 3), "f1");
 	   //		addPiece(Piece.create(new Square("g1"), WHITE, 2), "g1");
 	   //		addPiece(Piece.create(new Square("h1"), WHITE, 4), "h1");
@@ -1002,7 +1002,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		addPiece(Piece.create(new Square("c8"), BLACK, 3), "c8");
 	   //		addPiece(Piece.create(new Square("d8"), BLACK, 5), "d8");
 	   //		addPiece(Piece.create(new Square("e8"), BLACK, 6), "e8");
-	   //		this.blackKing = 85;
+	   //		blackKing = 85;
 	   //		addPiece(Piece.create(new Square("f8"), BLACK, 3), "f8");
 	   //		addPiece(Piece.create(new Square("g8"), BLACK, 2), "g8");
 	   //		addPiece(Piece.create(new Square("h8"), BLACK, 4), "h8");
@@ -1012,48 +1012,48 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	void adjustKingSquaresForKBNK() {
-	   //		Boolean lightSquaredBishop = null;
-	   //		for (Iterator itW = this.whitePieces.iterator(); itW.hasNext();) {
+	   //		bool lightSquaredBishop = null;
+	   //		for (Iterator itW = whitePieces.iterator(); itW.hasNext();) {
 	   //			int s = ((Integer) itW.next()).intValue();
-	   //			int piece = this.board[s];
+	   //			int piece = board[s];
 	   //			if (piece == 3) {
 	   //				if (s % 2 == 0) {
-	   //					lightSquaredBishop = Boolean.TRUE;
+	   //					lightSquaredBishop = bool.TRUE;
 	   //					break;
 	   //				}
-	   //				lightSquaredBishop = Boolean.FALSE;
+	   //				lightSquaredBishop = bool.FALSE;
 	   //				break;
 	   //			}
 	   //		}
 	   //
 	   //		if (lightSquaredBishop == null) {
-	   //			for (Iterator itB = this.blackPieces.iterator(); itB.hasNext();) {
+	   //			for (Iterator itB = blackPieces.iterator(); itB.hasNext();) {
 	   //				int s = ((Integer) itB.next()).intValue();
-	   //				int piece = this.board[s];
+	   //				int piece = board[s];
 	   //				if (piece == -3) {
 	   //					if (s % 2 == 0) {
-	   //						lightSquaredBishop = Boolean.TRUE;
+	   //						lightSquaredBishop = bool.TRUE;
 	   //						break;
 	   //					}
-	   //					lightSquaredBishop = Boolean.FALSE;
+	   //					lightSquaredBishop = bool.FALSE;
 	   //					break;
 	   //				}
 	   //			}
 	   //		}
 	   //
 	   //		if (!lightSquaredBishop.boolValue()) {
-	   //			this.kingEndgameSquareValues = this.kingEndgameSquareValuesKBNKLight;
+	   //			kingEndgameSquareValues = kingEndgameSquareValuesKBNKLight;
 	   //		} else {
-	   //			this.kingEndgameSquareValues = this.kingEndgameSquareValuesKBNKDark;
+	   //			kingEndgameSquareValues = kingEndgameSquareValuesKBNKDark;
 	   //		}
 	   //	}
 	   //
 	   //	Move getBestMove() {
-	   //		return this.bestMove;
+	   //		return bestMove;
 	   //	}
 	   //
 	   //	int getBestValue() {
-	   //		return this.bestValue;
+	   //		return bestValue;
 	   //	}
 	   //
 	   void clear() {
@@ -1067,13 +1067,13 @@ public:int board[MAX_BOARD_SIZE];
 	   //		if (move.to > move.from) {
 	   //			zobi = kleinerZobristEntfernen(move.to - 10);
 	   //			clearSquare(move.to, -10, board);
-	   //			this.blackPieces.remove(new Integer(move.to - 10));
+	   //			blackPieces.remove(new Integer(move.to - 10));
 	   //		} else {
 	   //			zobi = kleinerZobristEntfernen(move.to + 10);
 	   //			clearSquare(move.to, 10, board);
-	   //			this.whitePieces.remove(new Integer(move.to + 10));
+	   //			whitePieces.remove(new Integer(move.to + 10));
 	   //		}
-	   //		this.zobrist ^= zobi;
+	   //		zobrist ^= zobi;
 	   //	}
 	   //
 	   //	PieceCount countBlackPieces() {
@@ -1082,9 +1082,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int knightsCount = 0;
 	   //		int bishopsCount = 0;
 	   //		int pawnsCount = 0;
-	   //		for (Iterator wpIt = this.blackPieces.iterator(); wpIt.hasNext();) {
+	   //		for (Iterator wpIt = blackPieces.iterator(); wpIt.hasNext();) {
 	   //			int i = ((Integer) wpIt.next()).intValue();
-	   //			int piece = this.board[i];
+	   //			int piece = board[i];
 	   //			switch (piece) {
 	   //			case -1:
 	   //				pawnsCount++;
@@ -1118,9 +1118,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int knightsCount = 0;
 	   //		int bishopsCount = 0;
 	   //		int pawnsCount = 0;
-	   //		for (Iterator wpIt = this.whitePieces.iterator(); wpIt.hasNext();) {
+	   //		for (Iterator wpIt = whitePieces.iterator(); wpIt.hasNext();) {
 	   //			int i = ((Integer) wpIt.next()).intValue();
-	   //			int piece = this.board[i];
+	   //			int piece = board[i];
 	   //			switch (piece) {
 	   //			case 1:
 	   //				pawnsCount++;
@@ -1149,7 +1149,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	int enPassant() {
-	   //		return this.enPassantSquare;
+	   //		return enPassantSquare;
 	   //	}
 	   //
 	   //	bool enPrise(Move prospectiveMove) {
@@ -1160,30 +1160,30 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   ///*	bool equals(Position position) {
-	   //			if (!this.board.equals(position.board))
+	   //			if (!board.equals(position.board))
 	   //				return false;
-	   //			if (this.isStartPosition != position.isStartPosition())
+	   //			if (isStartPosition != position.isStartPosition())
 	   //				return false;
-	   //			if (!this.onMove.equals(position.onMove()))
+	   //			if (!onMove.equals(position.onMove()))
 	   //				return false;
-	   //			if (this.castleLongBlack != position.getCastleLongBlack())
+	   //			if (castleLongBlack != position.getCastleLongBlack())
 	   //				return false;
-	   //			if (this.castleLongWhite != position.getCastleLongWhite())
+	   //			if (castleLongWhite != position.getCastleLongWhite())
 	   //				return false;
-	   //			if (this.castleShortBlack != position.getCastleShortBlack())
+	   //			if (castleShortBlack != position.getCastleShortBlack())
 	   //				return false;
-	   //			if (this.castleShortWhite != position.getCastleShortWhite())
+	   //			if (castleShortWhite != position.getCastleShortWhite())
 	   //				return false;
-	   //			if (this.enPassantSquare != position.enPassant())
+	   //			if (enPassantSquare != position.enPassant())
 	   //				return false;
-	   //			if (this.hasCastledBlack != position.hasCastledBlack())
+	   //			if (hasCastledBlack != position.hasCastledBlack())
 	   //				return false;
-	   //			if (this.hasCastledWhite != position.hasCastledWhite()) {
+	   //			if (hasCastledWhite != position.hasCastledWhite()) {
 	   //				return false;
 	   //			}
 	   //
-	   //			this.isGivingCheck = null;
-	   //			this.isReceivingCheck = null;
+	   //			isGivingCheck = null;
+	   //			isReceivingCheck = null;
 	   //			return true;
 	   //		
 	   //
@@ -1197,22 +1197,22 @@ public:int board[MAX_BOARD_SIZE];
 	   //			Info.pawnStructureHits += 1;
 	   //			return value.intValue();
 	   //		}
-	   //		Iterator whiteIt = this.whitePieces.iterator();
+	   //		Iterator whiteIt = whitePieces.iterator();
 	   //		int whiteCValue = 0;
 	   //		while (whiteIt.hasNext()) {
 	   //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	   //			int whitePiece = this.board[whiteSquare];
+	   //			int whitePiece = board[whiteSquare];
 	   //			if (whitePiece == 1) {
 	   //				whiteCValue += pieceValues[0];
 	   //				int file = whiteSquare % 10;
 	   //				whiteCValue += getPawnEndgameValue(whiteSquare, whitePiece, file);
 	   //			}
 	   //		}
-	   //		Iterator blackIt = this.blackPieces.iterator();
+	   //		Iterator blackIt = blackPieces.iterator();
 	   //		int blackCValue = 0;
 	   //		while (blackIt.hasNext()) {
 	   //			int blackSquare = ((Integer) blackIt.next()).intValue();
-	   //			int blackPiece = this.board[blackSquare];
+	   //			int blackPiece = board[blackSquare];
 	   //			if (blackPiece == -1) {
 	   //				blackCValue += pieceValues[0];
 	   //				int file = blackSquare % 10;
@@ -1234,22 +1234,22 @@ public:int board[MAX_BOARD_SIZE];
 	   //			Info.pawnStructureHits += 1;
 	   //			return value.intValue();
 	   //		}
-	   //		Iterator whiteIt = this.whitePieces.iterator();
+	   //		Iterator whiteIt = whitePieces.iterator();
 	   //		int whiteCValue = 0;
 	   //		while (whiteIt.hasNext()) {
 	   //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	   //			int whitePiece = this.board[whiteSquare];
+	   //			int whitePiece = board[whiteSquare];
 	   //			if (whitePiece == 1) {
 	   //				whiteCValue += pieceValues[0];
 	   //				int file = whiteSquare % 10;
 	   //				whiteCValue += getPawnMidgameValue(whiteSquare, whitePiece, file);
 	   //			}
 	   //		}
-	   //		Iterator blackIt = this.blackPieces.iterator();
+	   //		Iterator blackIt = blackPieces.iterator();
 	   //		int blackCValue = 0;
 	   //		while (blackIt.hasNext()) {
 	   //			int blackSquare = ((Integer) blackIt.next()).intValue();
-	   //			int blackPiece = this.board[blackSquare];
+	   //			int blackPiece = board[blackSquare];
 	   //			if (blackPiece == -1) {
 	   //				blackCValue += pieceValues[0];
 	   //				int file = blackSquare % 10;
@@ -1271,7 +1271,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //			if (Character.isDigit(currChar)) {
 	   //				int digit = Character.getNumericValue(currChar);
 	   //				for (int j = 0; j < digit; j++) {
-	   //					this.board[next] = 0;
+	   //					board[next] = 0;
 	   //					next++;
 	   //					if (next > 88) {
 	   //						break;
@@ -1280,65 +1280,65 @@ public:int board[MAX_BOARD_SIZE];
 	   //			} else if (Character.isLetter(currChar)) {
 	   //				switch (currChar) {
 	   //				case 'k':
-	   //					this.board[next] = -6;
-	   //					this.blackPieces.add(new Integer(next));
-	   //					this.blackKing = next;
+	   //					board[next] = -6;
+	   //					blackPieces.add(new Integer(next));
+	   //					blackKing = next;
 	   //					break;
 	   //
 	   //				case 'q':
-	   //					this.board[next] = -5;
-	   //					this.blackPieces.add(new Integer(next));
+	   //					board[next] = -5;
+	   //					blackPieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'r':
-	   //					this.board[next] = -4;
-	   //					this.blackPieces.add(new Integer(next));
+	   //					board[next] = -4;
+	   //					blackPieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'b':
-	   //					this.board[next] = -3;
-	   //					this.blackPieces.add(new Integer(next));
+	   //					board[next] = -3;
+	   //					blackPieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'n':
-	   //					this.board[next] = -2;
-	   //					this.blackPieces.add(new Integer(next));
+	   //					board[next] = -2;
+	   //					blackPieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'p':
-	   //					this.board[next] = -1;
-	   //					this.blackPieces.add(new Integer(next));
+	   //					board[next] = -1;
+	   //					blackPieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'K':
-	   //					this.board[next] = 6;
-	   //					this.whitePieces.add(new Integer(next));
-	   //					this.whiteKing = next;
+	   //					board[next] = 6;
+	   //					whitePieces.add(new Integer(next));
+	   //					whiteKing = next;
 	   //					break;
 	   //
 	   //				case 'Q':
-	   //					this.board[next] = 5;
-	   //					this.whitePieces.add(new Integer(next));
+	   //					board[next] = 5;
+	   //					whitePieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'R':
-	   //					this.board[next] = 4;
-	   //					this.whitePieces.add(new Integer(next));
+	   //					board[next] = 4;
+	   //					whitePieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'B':
-	   //					this.board[next] = 3;
-	   //					this.whitePieces.add(new Integer(next));
+	   //					board[next] = 3;
+	   //					whitePieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'N':
-	   //					this.board[next] = 2;
-	   //					this.whitePieces.add(new Integer(next));
+	   //					board[next] = 2;
+	   //					whitePieces.add(new Integer(next));
 	   //					break;
 	   //
 	   //				case 'P':
-	   //					this.board[next] = 1;
-	   //					this.whitePieces.add(new Integer(next));
+	   //					board[next] = 1;
+	   //					whitePieces.add(new Integer(next));
 	   //				}
 	   //
 	   //				next++;
@@ -1353,7 +1353,7 @@ public:int board[MAX_BOARD_SIZE];
 	   		return blackKing;
 	   	}
 	   
-	   //	void generateBishopCaptures(Set moves, int from, Boolean color) {
+	   //	void generateBishopCaptures(Set moves, int from, bool color) {
 	   //		for (int i = 1; i < 8; i++) {
 	   //			int next = from + i * 9;
 	   //			if (next > 88)
@@ -1392,7 +1392,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //	}
 	   //
-	   //	void generateBishopNonCaptures(Set moves, int from, Boolean color) {
+	   //	void generateBishopNonCaptures(Set moves, int from, bool color) {
 	   //		for (int i = 1; i < 8; i++) {
 	   //			int next = from + i * 9;
 	   //			if (next > 88)
@@ -1434,10 +1434,10 @@ public:int board[MAX_BOARD_SIZE];
 	   //	SortedSet generateCaptureMoves() {
 	   //		SortedSet moves = new TreeSet();
 	   //		for (int i = 11; i < 89; i++) {
-	   //			int p = this.board[i];
+	   //			int p = board[i];
 	   //			int type = Math.abs(p);
 	   //			if ((type >= 1) && (type <= 7)) {
-	   //				Boolean color = EdenBrain.convertColor(p);
+	   //				bool color = EdenBrain.convertColor(p);
 	   //				if (color.equals(onMove())) {
 	   //					SortedSet pieceMoves = generateCaptureMoves(i, p, color);
 	   //					moves.addAll(pieceMoves);
@@ -1448,7 +1448,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return moves;
 	   //	}
 	   //
-	   //	SortedSet generateCaptureMoves(int i, int p, Boolean color) {
+	   //	SortedSet generateCaptureMoves(int i, int p, bool color) {
 	   //		SortedSet moves = new TreeSet();
 	   //		switch (p) {
 	   //		case -1:
@@ -1490,13 +1490,13 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return moves;
 	   //	}
 	   //
-	   //	void generateKingNonCapturesNoCastling(Set moves, int from, Boolean color) {
+	   //	void generateKingNonCapturesNoCastling(Set moves, int from, bool color) {
 	   //		int[] kingMoves = { 9, 10, 11, -1, 1, -9, -10, -11 };
 	   //
 	   //		for (int i = 0; i < kingMoves.length; i++) {
 	   //			int next = from + kingMoves[i];
 	   //			if (!invalidSquare(next)) {
-	   //				int capturedPiece = this.board[next];
+	   //				int capturedPiece = board[next];
 	   //				if (capturedPiece == 0) {
 	   //					moves.add(new Move(this, from, next, 0, 0));
 	   //				}
@@ -1504,13 +1504,13 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //	}
 	   //
-	   //	void generateKnightNonCaptures(Set moves, int from, Boolean color) {
+	   //	void generateKnightNonCaptures(Set moves, int from, bool color) {
 	   //		int[] knightMoves = { 19, 21, 8, 12, -19, -21, -8, -12 };
 	   //
 	   //		for (int i = 0; i < knightMoves.length; i++) {
 	   //			int next = from + knightMoves[i];
 	   //			if (!invalidSquare(next)) {
-	   //				int capturedPiece = this.board[next];
+	   //				int capturedPiece = board[next];
 	   //				if (capturedPiece == 0) {
 	   //					moves.add(new Move(this, from, next));
 	   //				}
@@ -1519,13 +1519,13 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	SortedSet generateLegalMoves() {
-	   //		if (this.legalMoves != null) {
-	   //			return this.legalMoves;
+	   //		if (legalMoves != null) {
+	   //			return legalMoves;
 	   //		}
 	   //
 	   //		SortedSet moves = generateMoves();
 	   //		removeIllegalMoves(moves);
-	   //		this.legalMoves = moves;
+	   //		legalMoves = moves;
 	   //		return moves;
 	   //	}
 	   //
@@ -1537,57 +1537,57 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int retValue = bishopSquareValues[(i - 10)];
 	   //		if (plusminus > 0) {
 	   //			if (i == 16) {
-	   //				if (this.board[25] > 0)
+	   //				if (board[25] > 0)
 	   //					retValue -= 3;
-	   //				if (this.board[27] > 0)
+	   //				if (board[27] > 0)
 	   //					retValue--;
 	   //			}
-	   //			if ((i == 34) && (this.board[24] == 1)) {
+	   //			if ((i == 34) && (board[24] == 1)) {
 	   //				retValue -= 25;
 	   //			}
 	   //		} else {
 	   //			if (i == 86) {
-	   //				if (this.board[75] < 0)
+	   //				if (board[75] < 0)
 	   //					retValue -= 3;
-	   //				if (this.board[77] < 0)
+	   //				if (board[77] < 0)
 	   //					retValue--;
 	   //			}
-	   //			if ((i == 64) && (this.board[74] == -1))
+	   //			if ((i == 64) && (board[74] == -1))
 	   //				retValue -= 25;
 	   //		}
 	   //		return retValue;
 	   //	}
 	   //
 	   //	bool getCastleLongBlack() {
-	   //		return this.castleLongBlack;
+	   //		return castleLongBlack;
 	   //	}
 	   //
 	   //	bool getCastleLongWhite() {
-	   //		return this.castleLongWhite;
+	   //		return castleLongWhite;
 	   //	}
 	   //
 	   //	bool getCastleShortBlack() {
-	   //		return this.castleShortBlack;
+	   //		return castleShortBlack;
 	   //	}
 	   //
 	   //	bool getCastleShortWhite() {
-	   //		return this.castleShortWhite;
+	   //		return castleShortWhite;
 	   //	}
 	   //
 	   //	int getEndgameValue() {
-	   //		if ((this.wpc.isKBNK()) || (this.bpc.isKBNK()))
+	   //		if ((wpc.isKBNK()) || (bpc.isKBNK()))
 	   //			adjustKingSquaresForKBNK();
 	   //		int whiteValue = 0;
 	   //		int blackValue = 0;
 	   //		bool possibleBishopPairWhite = false;
 	   //		bool possibleBishopPairBlack = false;
 	   //		int pawnStructureValue = evaluatePawnStructureEndgame();
-	   //		Iterator whiteIt = this.whitePieces.iterator();
+	   //		Iterator whiteIt = whitePieces.iterator();
 	   //		int whiteCValue = 0;
 	   //		int whiteMValue = 0;
 	   //		while (whiteIt.hasNext()) {
 	   //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	   //			int whitePiece = this.board[whiteSquare];
+	   //			int whitePiece = board[whiteSquare];
 	   //			if (whitePiece != 1) {
 	   //				whiteMValue += getPieceMaterialValue(whitePiece);
 	   //				if (whitePiece == 3) {
@@ -1599,12 +1599,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //				whiteCValue += getPieceEndgameValue(whiteSquare, whitePiece, file);
 	   //			}
 	   //		}
-	   //		Iterator blackIt = this.blackPieces.iterator();
+	   //		Iterator blackIt = blackPieces.iterator();
 	   //		int blackCValue = 0;
 	   //		int blackMValue = 0;
 	   //		while (blackIt.hasNext()) {
 	   //			int blackSquare = ((Integer) blackIt.next()).intValue();
-	   //			int blackPiece = this.board[blackSquare];
+	   //			int blackPiece = board[blackSquare];
 	   //			if (blackPiece != -1) {
 	   //				blackMValue += getPieceMaterialValue(blackPiece);
 	   //				if (blackPiece == -3) {
@@ -1642,16 +1642,16 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int kingPosition;
 	   //
 	   //		if (plusminus > 0) {
-	   //			kingPosition = this.blackKing;
+	   //			kingPosition = blackKing;
 	   //		} else
-	   //			kingPosition = this.whiteKing;
+	   //			kingPosition = whiteKing;
 	   //		int myRank = square % 10;
 	   //		int yourRank = kingPosition % 10;
 	   //		return Math.abs(myRank - yourRank);
 	   //	}
 	   //
 	   //	int getKingEndgameValue(int square, int piece) {
-	   //		return this.kingEndgameSquareValues[(square - 10)];
+	   //		return kingEndgameSquareValues[(square - 10)];
 	   //	}
 	   //
 	   //	int getKingMidgameValue(int square, int piece, int file) {
@@ -1680,30 +1680,30 @@ public:int board[MAX_BOARD_SIZE];
 	   //				retValue -= 55;
 	   //			} else {
 	   //				if ((square == 17) || (square == 18)) {
-	   //					if (this.board[26] != 1)
+	   //					if (board[26] != 1)
 	   //						retValue -= 10;
-	   //					if ((this.board[27] != 1) && (this.board[27] != 3)) {
+	   //					if ((board[27] != 1) && (board[27] != 3)) {
 	   //						retValue -= 10;
-	   //						if (this.board[37] != 1)
+	   //						if (board[37] != 1)
 	   //							retValue -= 10;
 	   //					}
-	   //					if (this.board[28] != 1) {
+	   //					if (board[28] != 1) {
 	   //						retValue -= 6;
-	   //						if (this.board[38] != 1) {
+	   //						if (board[38] != 1) {
 	   //							retValue -= 11;
 	   //						}
 	   //					}
 	   //				} else if ((square == 12) || (square == 11) || (square == 13)) {
-	   //					if (this.board[23] != 1)
+	   //					if (board[23] != 1)
 	   //						retValue -= 10;
-	   //					if ((this.board[22] != 1) && (this.board[22] != 3)) {
+	   //					if ((board[22] != 1) && (board[22] != 3)) {
 	   //						retValue -= 10;
-	   //						if (this.board[32] != 1)
+	   //						if (board[32] != 1)
 	   //							retValue -= 10;
 	   //					}
-	   //					if (this.board[21] != 1) {
+	   //					if (board[21] != 1) {
 	   //						retValue -= 10;
-	   //						if (this.board[31] != 1)
+	   //						if (board[31] != 1)
 	   //							retValue -= 10;
 	   //					}
 	   //				}
@@ -1717,30 +1717,30 @@ public:int board[MAX_BOARD_SIZE];
 	   //			if (square < 80) {
 	   //				retValue -= 55;
 	   //			} else if ((square == 87) || (square == 88)) {
-	   //				if (this.board[76] != -1)
+	   //				if (board[76] != -1)
 	   //					retValue -= 10;
-	   //				if ((this.board[77] != -1) && (this.board[77] != -3)) {
+	   //				if ((board[77] != -1) && (board[77] != -3)) {
 	   //					retValue -= 10;
-	   //					if (this.board[67] != -1)
+	   //					if (board[67] != -1)
 	   //						retValue -= 10;
 	   //				}
-	   //				if (this.board[78] != -1) {
+	   //				if (board[78] != -1) {
 	   //					retValue -= 6;
-	   //					if (this.board[68] != -1) {
+	   //					if (board[68] != -1) {
 	   //						retValue -= 11;
 	   //					}
 	   //				}
 	   //			} else if ((square == 82) || (square == 81) || (square == 83)) {
-	   //				if (this.board[73] != -1)
+	   //				if (board[73] != -1)
 	   //					retValue -= 10;
-	   //				if ((this.board[72] != -1) || (this.board[72] != -3)) {
+	   //				if ((board[72] != -1) || (board[72] != -3)) {
 	   //					retValue -= 10;
-	   //					if (this.board[62] != -1)
+	   //					if (board[62] != -1)
 	   //						retValue -= 10;
 	   //				}
-	   //				if (this.board[71] != -1) {
+	   //				if (board[71] != -1) {
 	   //					retValue -= 10;
-	   //					if (this.board[61] != -1)
+	   //					if (board[61] != -1)
 	   //						retValue -= 10;
 	   //				}
 	   //				if (square == 83)
@@ -1765,12 +1765,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //		bool possibleBishopPairWhite = false;
 	   //		bool possibleBishopPairBlack = false;
 	   //		int pawnStructureValue = evaluatePawnStructureMidgame();
-	   //		Iterator whiteIt = this.whitePieces.iterator();
+	   //		Iterator whiteIt = whitePieces.iterator();
 	   //		int whiteCValue = 0;
 	   //		int whiteMValue = 0;
 	   //		while (whiteIt.hasNext()) {
 	   //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	   //			int whitePiece = this.board[whiteSquare];
+	   //			int whitePiece = board[whiteSquare];
 	   //			if (whitePiece != 1) {
 	   //				whiteMValue += getPieceMaterialValue(whitePiece);
 	   //				if (whitePiece == 3) {
@@ -1782,12 +1782,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //				whiteCValue += getPieceMidgameValue(whiteSquare, whitePiece, file);
 	   //			}
 	   //		}
-	   //		Iterator blackIt = this.blackPieces.iterator();
+	   //		Iterator blackIt = blackPieces.iterator();
 	   //		int blackCValue = 0;
 	   //		int blackMValue = 0;
 	   //		while (blackIt.hasNext()) {
 	   //			int blackSquare = ((Integer) blackIt.next()).intValue();
-	   //			int blackPiece = this.board[blackSquare];
+	   //			int blackPiece = board[blackSquare];
 	   //			if (blackPiece != -1) {
 	   //				blackMValue += getPieceMaterialValue(blackPiece);
 	   //				if (blackPiece == -3) {
@@ -1801,9 +1801,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //		blackValue += blackCValue;
 	   //		whiteValue += whiteCValue;
-	   //		if (!this.hasCastledBlack)
+	   //		if (!hasCastledBlack)
 	   //			blackValue -= 61;
-	   //		if (!this.hasCastledWhite)
+	   //		if (!hasCastledWhite)
 	   //			whiteValue -= 61;
 	   //		if (whiteMValue > blackMValue + 105) {
 	   //			int diff = whiteMValue + blackMValue - 500;
@@ -1834,9 +1834,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int rank = i / 10;
 	   //		if (isPassed(i, plusminus, file, rank))
 	   //			if (plusminus > 0) {
-	   //				retValue = (int) (retValue + 1.5 * this.passedPawnProgression[(rank - 2)]);
+	   //				retValue = (int) (retValue + 1.5 * passedPawnProgression[(rank - 2)]);
 	   //			} else
-	   //				retValue = (int) (retValue + 1.5 * this.passedPawnProgression[(7 - rank)]);
+	   //				retValue = (int) (retValue + 1.5 * passedPawnProgression[(7 - rank)]);
 	   //		if (isIsolated(i, file))
 	   //			retValue -= 15;
 	   //		if (isDoubled(i, file))
@@ -1855,9 +1855,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //		if (isPassed(i, plusminus, file, rank)) {
 	   //			int passedValue = 0;
 	   //			if (plusminus > 0) {
-	   //				passedValue += this.passedPawnProgression[(rank - 2)];
+	   //				passedValue += passedPawnProgression[(rank - 2)];
 	   //			} else
-	   //				passedValue += this.passedPawnProgression[(7 - rank)];
+	   //				passedValue += passedPawnProgression[(7 - rank)];
 	   //			retValue += passedValue;
 	   //		}
 	   //		if (isIsolated(i, file))
@@ -1868,21 +1868,21 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	Long getPawnZobrist() {
-	   //		if (this.pawnZobrist != null)
-	   //			return this.pawnZobrist;
+	   //		if (pawnZobrist != null)
+	   //			return pawnZobrist;
 	   //		long grosserZobrist = 0L;
-	   //		for (Iterator wIt = this.whitePieces.iterator(); wIt.hasNext();) {
+	   //		for (Iterator wIt = whitePieces.iterator(); wIt.hasNext();) {
 	   //			int square = ((Integer) wIt.next()).intValue();
-	   //			int figur = this.board[square];
+	   //			int figur = board[square];
 	   //			if (figur == 1) {
 	   //				long kleinerZobrist = kleinerZobristSetzen(figur, square);
 	   //				grosserZobrist ^= kleinerZobrist;
 	   //			}
 	   //		}
 	   //
-	   //		for (Iterator bIt = this.blackPieces.iterator(); bIt.hasNext();) {
+	   //		for (Iterator bIt = blackPieces.iterator(); bIt.hasNext();) {
 	   //			int square = ((Integer) bIt.next()).intValue();
-	   //			int figur = this.board[square];
+	   //			int figur = board[square];
 	   //			if (figur == -1) {
 	   //				long kleinerZobrist = kleinerZobristSetzen(figur, square);
 	   //				grosserZobrist ^= kleinerZobrist;
@@ -1890,7 +1890,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //
 	   //		Long pz = new Long(grosserZobrist);
-	   //		this.pawnZobrist = pz;
+	   //		pawnZobrist = pz;
 	   //		return pz;
 	   //	}
 	   //
@@ -2015,11 +2015,11 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	int getValue() {
-	   //		this.wpc = countWhitePieces();
-	   //		this.bpc = countBlackPieces();
-	   //		if (isInsufficientMaterial(this.wpc, this.bpc))
+	   //		wpc = countWhitePieces();
+	   //		bpc = countBlackPieces();
+	   //		if (isInsufficientMaterial(wpc, bpc))
 	   //			return 0;
-	   //		if (isInsufficientMaterial(this.bpc, this.wpc))
+	   //		if (isInsufficientMaterial(bpc, wpc))
 	   //			return 0;
 	   //		if (isEndgame()) {
 	   //			return getEndgameValue();
@@ -2031,20 +2031,20 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int kingPosition;
 	   //
 	   //		if (plusminus > 0) {
-	   //			kingPosition = this.blackKing;
+	   //			kingPosition = blackKing;
 	   //		} else
-	   //			kingPosition = this.whiteKing;
+	   //			kingPosition = whiteKing;
 	   //		int myRank = square / 10;
 	   //		int yourRank = kingPosition / 10;
 	   //		return Math.abs(myRank - yourRank);
 	   //	}
 	   //
 	   //	long getZobrist() {
-	   //		if (this.zobrist != 0L)
-	   //			return this.zobrist;
+	   //		if (zobrist != 0L)
+	   //			return zobrist;
 	   //		long grosserZobrist = 0L;
 	   //		for (int i = 11; i < 89; i++) {
-	   //			int figur = this.board[i];
+	   //			int figur = board[i];
 	   //			if (figur != 0) {
 	   //				int spalte = i % 10;
 	   //				if ((spalte != 0) && (spalte != 9)) {
@@ -2054,31 +2054,31 @@ public:int board[MAX_BOARD_SIZE];
 	   //			}
 	   //		}
 	   //
-	   //		if ((this.onMove != null) && (this.onMove.equals(BLACK)))
+	   //		if ((onMove != null) && (onMove.equals(BLACK)))
 	   //			grosserZobrist ^= EdenBrain.onMoveZobrist;
-	   //		if (this.enPassantSquare != 0)
+	   //		if (enPassantSquare != 0)
 	   //			grosserZobrist ^= EdenBrain.enPassantZobrist;
-	   //		this.zobrist = grosserZobrist;
+	   //		zobrist = grosserZobrist;
 	   //		return grosserZobrist;
 	   //	}
 	   //
 	   //
 	   //	int hashCode() {
-	   //		int base1 = this.board.hashCode();
+	   //		int base1 = board.hashCode();
 	   //		int base2 = 0;
-	   //		if (this.castleLongBlack)
+	   //		if (castleLongBlack)
 	   //			base2++;
-	   //		if (this.castleLongWhite)
+	   //		if (castleLongWhite)
 	   //			base2 += 2;
-	   //		if (this.castleShortBlack)
+	   //		if (castleShortBlack)
 	   //			base2 += 4;
-	   //		if (this.castleShortWhite)
+	   //		if (castleShortWhite)
 	   //			base2 += 8;
-	   //		if (this.hasCastledWhite)
+	   //		if (hasCastledWhite)
 	   //			base2 += 16;
-	   //		if (this.hasCastledBlack)
+	   //		if (hasCastledBlack)
 	   //			base2 += 32;
-	   //		if (this.onMove.boolValue())
+	   //		if (onMove.boolValue())
 	   //			base2 += 64;
 	   //		int retVal = base1 * base2;
 	   //		return retVal;
@@ -2086,12 +2086,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //
 	   //	bool hasNextCaptureMove() {
 	   //		updateCaptureMove();
-	   //		return this.nextCaptureMove != null;
+	   //		return nextCaptureMove != null;
 	   //	}
 	   //
 	   //	bool hasNextNonCaptureMove() {
 	   //		updateNonCaptureMove();
-	   //		return this.nextNonCaptureMove != null;
+	   //		return nextNonCaptureMove != null;
 	   //	}
 	   //
 	   //	bool hasNoEnemyPawns(int piece, int file) {
@@ -2101,7 +2101,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int conversion = 80 + file;
 	   //		int start = file + 10;
 	   //		for (int i = start; i < conversion; i += 10) {
-	   //			if (this.board[i] == -plusminus)
+	   //			if (board[i] == -plusminus)
 	   //				return false;
 	   //		}
 	   //		return true;
@@ -2115,7 +2115,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		int conversion = plusminus <= 0 ? 10 + file : 80 + file;
 	   //		int start = rank * 10 + file + direction;
 	   //		for (int i = start; i != conversion; i += direction) {
-	   //			if (this.board[i] == -plusminus)
+	   //			if (board[i] == -plusminus)
 	   //				return false;
 	   //		}
 	   //		return true;
@@ -2125,45 +2125,45 @@ public:int board[MAX_BOARD_SIZE];
 	   //		if ((file < 1) || (file > 8))
 	   //			return true;
 	   //		for (int i = 20 + file; i < 79; i += 10) {
-	   //			if (this.board[i] == this.board[square])
+	   //			if (board[i] == board[square])
 	   //				return false;
 	   //		}
 	   //		return true;
 	   //	}
 	   //
 	   //	void initCaptureMoveGenerator() {
-	   //		this.nextCaptureMove = null;
-	   //		this.persistentSquareForCapture = 11;
+	   //		nextCaptureMove = null;
+	   //		persistentSquareForCapture = 11;
 	   //		initializeCaptureMoveCounters();
 	   //	}
 	   //
 	   //	void initializeCaptureMoveCounters() {
-	   //		this.lastPawnCapture = 0;
-	   //		this.bishopCaptureCount = 0;
-	   //		this.knightCaptures = null;
-	   //		this.bishopCaptures = null;
-	   //		this.rookCaptures = null;
-	   //		this.queenCaptures = null;
-	   //		this.kingCaptures = null;
+	   //		lastPawnCapture = 0;
+	   //		bishopCaptureCount = 0;
+	   //		knightCaptures = null;
+	   //		bishopCaptures = null;
+	   //		rookCaptures = null;
+	   //		queenCaptures = null;
+	   //		kingCaptures = null;
 	   //	}
 	   //
 	   //	void initializeNonCaptureMoveCounters() {
-	   //		this.lastPawnNonCapture = 0;
-	   //		this.bishopNonCaptureCount = 0;
-	   //		this.knightNonCaptures = null;
-	   //		this.bishopNonCaptures = null;
-	   //		this.rookNonCaptures = null;
-	   //		this.queenNonCaptures = null;
-	   //		this.kingNonCaptures = null;
+	   //		lastPawnNonCapture = 0;
+	   //		bishopNonCaptureCount = 0;
+	   //		knightNonCaptures = null;
+	   //		bishopNonCaptures = null;
+	   //		rookNonCaptures = null;
+	   //		queenNonCaptures = null;
+	   //		kingNonCaptures = null;
 	   //	}
 	   //
 	   //	void initNonCaptureMoveGenerator() {
-	   //		this.nextNonCaptureMove = null;
-	   //		this.persistentSquareForNonCapture = 11;
+	   //		nextNonCaptureMove = null;
+	   //		persistentSquareForNonCapture = 11;
 	   //		initializeNonCaptureMoveCounters();
 	   //	}
 	   //
-	   //	bool isAttacked(int i, Boolean color) {
+	   //	bool isAttacked(int i, bool color) {
 	   //		SortedSet moves = new TreeSet();
 	   //		generateBishopCaptures(moves, i, color);
 	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
@@ -2210,38 +2210,38 @@ public:int board[MAX_BOARD_SIZE];
 	   //
 	   //	bool isDoubled(int square, int file) {
 	   //		for (int i = 20 + file; i < 79; i += 10) {
-	   //			if ((i != square) && (this.board[i] == this.board[square]))
+	   //			if ((i != square) && (board[i] == board[square]))
 	   //				return true;
 	   //		}
 	   //		return false;
 	   //	}
 	   //
 	   //	bool isEndgame() {
-	   //		if ((this.isEndGame != null) && (this.isEndGame.equals(Boolean.TRUE)))
+	   //		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
 	   //			return true;
-	   //		int lightPiecesCount = this.wpc.knightsCount + this.wpc.bishopsCount;
-	   //		int heavyPiecesCount = this.wpc.rookCount + this.wpc.queensCount;
-	   //		if (this.wpc.queensCount >= 1) {
-	   //			if (this.wpc.rookCount > 1)
+	   //		int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
+	   //		int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
+	   //		if (wpc.queensCount >= 1) {
+	   //			if (wpc.rookCount > 1)
 	   //				return false;
-	   //			if ((this.wpc.rookCount == 1) && (lightPiecesCount > 0))
+	   //			if ((wpc.rookCount == 1) && (lightPiecesCount > 0))
 	   //				return false;
 	   //			return lightPiecesCount <= 2;
 	   //		}
-	   //		if ((this.wpc.rookCount > 1) && (lightPiecesCount > 2))
+	   //		if ((wpc.rookCount > 1) && (lightPiecesCount > 2))
 	   //			return false;
-	   //		if ((this.wpc.rookCount == 1) && (lightPiecesCount > 3)) {
+	   //		if ((wpc.rookCount == 1) && (lightPiecesCount > 3)) {
 	   //			return false;
 	   //		}
 	   //
-	   //		this.isEndGame = Boolean.TRUE;
+	   //		isEndGame = bool.TRUE;
 	   //		return true;
 	   //	}
 	   //
 	   //	//bool isGivingCheck() {
-	   //	//	if (this.isGivingCheck != null)
-	   //	//		return this.isGivingCheck.boolValue();
-	   //	//	Boolean othercolor = Boolean.valueOf(!onMove().boolValue());
+	   //	//	if (isGivingCheck != null)
+	   //	//		return isGivingCheck.boolValue();
+	   //	//	bool othercolor = bool.valueOf(!onMove().boolValue());
 	   //	//	int currentPiece = findKing(othercolor.boolValue());
 	   //	//	if (currentPiece == -1)
 	   //	//		throw new IllegalStateException("no king found");
@@ -2250,12 +2250,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateBishopCaptures(moves, i, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if ((piece == 3) || (piece == 5)) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(othercolor)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
@@ -2265,12 +2265,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateRookCaptures(this, moves, i, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if ((piece == 4) || (piece == 5)) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(othercolor)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
@@ -2280,9 +2280,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateKingCaptures(this, moves, i, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if (piece == 6) {
-	   //	//			this.isGivingCheck = new Boolean(true);
+	   //	//			isGivingCheck = new bool(true);
 	   //	//			return true;
 	   //	//		}
 	   //	//	}
@@ -2291,12 +2291,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateKnightCaptures(this, moves, i, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if (piece == 2) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(othercolor)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
@@ -2306,36 +2306,36 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generatePawnCaptures(this, moves, i, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
-	   //	//		if ((piece == 1) && (Math.abs(this.board[move.to]) == 1)) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//		int piece = Math.abs(board[move.to]);
+	   //	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(othercolor)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
 	   //	//	}
 	   //
-	   //	//	this.isGivingCheck = new Boolean(false);
+	   //	//	isGivingCheck = new bool(false);
 	   //	//	return false;
 	   //	//}
 	   //
 	   //	bool isGivingCheckForCastling(int square) {
-	   //		if (this.isGivingCheck != null)
-	   //			return this.isGivingCheck.boolValue();
+	   //		if (isGivingCheck != null)
+	   //			return isGivingCheck.boolValue();
 	   //		int i = square;
-	   //		Boolean c1 = EdenBrain.convertColor(this.board[i]);
+	   //		bool c1 = EdenBrain.convertColor(board[i]);
 	   //		SortedSet moves = new TreeSet();
 	   //		generateBishopCaptures(moves, i, c1);
 	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //			Move move = (Move) it.next();
-	   //			int piece = Math.abs(this.board[move.to]);
+	   //			int piece = Math.abs(board[move.to]);
 	   //			if ((piece == 3) || (piece == 5)) {
-	   //				int t = this.board[move.to];
-	   //				Boolean c = EdenBrain.convertColor(t);
+	   //				int t = board[move.to];
+	   //				bool c = EdenBrain.convertColor(t);
 	   //				if (!c.equals(c1)) {
-	   //					this.isGivingCheck = new Boolean(true);
+	   //					isGivingCheck = new bool(true);
 	   //					return true;
 	   //				}
 	   //			}
@@ -2345,12 +2345,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateRookCaptures(this, moves, i, c1);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if ((piece == 4) || (piece == 5)) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(c1)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
@@ -2360,9 +2360,9 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateKingCaptures(this, moves, i, c1);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if (piece == 6) {
-	   //	//			this.isGivingCheck = new Boolean(true);
+	   //	//			isGivingCheck = new bool(true);
 	   //	//			return true;
 	   //	//		}
 	   //	//	}
@@ -2371,41 +2371,41 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateKnightCaptures(this, moves, i, c1);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if (piece == 2) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(c1)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
 	   //	//	}
 	   //
 	   //	//	moves.clear();
-	   //	//	generatePawnCaptures(this, moves, i, Boolean.valueOf(!onMove().boolValue()));
+	   //	//	generatePawnCaptures(this, moves, i, bool.valueOf(!onMove().boolValue()));
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
-	   //	//		if ((piece == 1) && (Math.abs(this.board[move.to]) == 1)) {
-	   //	//			int t = this.board[move.to];
-	   //	//			Boolean c = EdenBrain.convertColor(t);
+	   //	//		int piece = Math.abs(board[move.to]);
+	   //	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
+	   //	//			int t = board[move.to];
+	   //	//			bool c = EdenBrain.convertColor(t);
 	   //	//			if (!c.equals(c1)) {
-	   //	//				this.isGivingCheck = new Boolean(true);
+	   //	//				isGivingCheck = new bool(true);
 	   //	//				return true;
 	   //	//			}
 	   //	//		}
 	   //	//	}
 	   //
-	   //	//	this.isGivingCheck = new Boolean(false);
+	   //	//	isGivingCheck = new bool(false);
 	   //	//	return false;
 	   //	//}
 	   //
 	   //	//bool isGivingCheckNonKingMoving(int moveFrom) {
 	   //	//	Integer zobrist = null;
-	   //	//	if (this.isGivingCheck != null)
-	   //	//		return this.isGivingCheck.boolValue();
-	   //	//	Boolean othercolor = Boolean.valueOf(!onMove().boolValue());
+	   //	//	if (isGivingCheck != null)
+	   //	//		return isGivingCheck.boolValue();
+	   //	//	bool othercolor = bool.valueOf(!onMove().boolValue());
 	   //	//	int kingPosition = findKing(othercolor.boolValue());
 	   //	//	if (kingPosition == -1)
 	   //	//		throw new IllegalStateException("no king found");
@@ -2415,12 +2415,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//		generateBishopCaptures(moves, kingPosition, othercolor);
 	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(this.board[move.to]);
+	   //	//			int piece = Math.abs(board[move.to]);
 	   //	//			if ((piece == 3) || (piece == 5)) {
-	   //	//				int t = this.board[move.to];
-	   //	//				Boolean c = EdenBrain.convertColor(t);
+	   //	//				int t = board[move.to];
+	   //	//				bool c = EdenBrain.convertColor(t);
 	   //	//				if (!c.equals(othercolor)) {
-	   //	//					this.isGivingCheck = new Boolean(true);
+	   //	//					isGivingCheck = new bool(true);
 	   //	//					addToCheckHash(zobrist);
 	   //	//					return true;
 	   //	//				}
@@ -2431,12 +2431,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//		generatePawnCaptures(this, moves, kingPosition, othercolor);
 	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(this.board[move.to]);
+	   //	//			int piece = Math.abs(board[move.to]);
 	   //	//			if (piece == 1) {
-	   //	//				int t = this.board[move.to];
-	   //	//				Boolean c = EdenBrain.convertColor(t);
+	   //	//				int t = board[move.to];
+	   //	//				bool c = EdenBrain.convertColor(t);
 	   //	//				if (c.equals(othercolor)) {
-	   //	//					this.isGivingCheck = new Boolean(true);
+	   //	//					isGivingCheck = new bool(true);
 	   //	//					addToCheckHash(zobrist);
 	   //	//					return true;
 	   //	//				}
@@ -2449,12 +2449,12 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//		generateRookCaptures(this, moves, kingPosition, othercolor);
 	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(this.board[move.to]);
+	   //	//			int piece = Math.abs(board[move.to]);
 	   //	//			if ((piece == 4) || (piece == 5)) {
-	   //	//				int t = this.board[move.to];
-	   //	//				Boolean c = EdenBrain.convertColor(t);
+	   //	//				int t = board[move.to];
+	   //	//				bool c = EdenBrain.convertColor(t);
 	   //	//				if (!c.equals(othercolor)) {
-	   //	//					this.isGivingCheck = new Boolean(true);
+	   //	//					isGivingCheck = new bool(true);
 	   //	//					addToCheckHash(zobrist);
 	   //	//					return true;
 	   //	//				}
@@ -2466,15 +2466,15 @@ public:int board[MAX_BOARD_SIZE];
 	   //	//	generateKingCaptures(this, moves, kingPosition, othercolor);
 	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
 	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(this.board[move.to]);
+	   //	//		int piece = Math.abs(board[move.to]);
 	   //	//		if (piece == 6) {
-	   //	//			this.isGivingCheck = new Boolean(true);
+	   //	//			isGivingCheck = new bool(true);
 	   //	//			addToCheckHash(zobrist);
 	   //	//			return true;
 	   //	//		}
 	   //	//	}
 	   //
-	   //	//	this.isGivingCheck = new Boolean(false);
+	   //	//	isGivingCheck = new bool(false);
 	   //	//	addToCheckHash(zobrist);
 	   //	//	return false;
 	   //	//}
@@ -2513,7 +2513,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		if ((file < 1) || (file > 8))
 	   //			return false;
 	   //		for (int i = 20 + file; i < 80; i += 10) {
-	   //			if ((this.board[i] == 1) || (this.board[i] == -1))
+	   //			if ((board[i] == 1) || (board[i] == -1))
 	   //				return false;
 	   //		}
 	   //		return true;
@@ -2535,9 +2535,246 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return hasNoEnemyPawnsAhead(plusminus, file, rank);
 	   //	}
 	   //
-	   bool isReceivingCheck() {
-		   /*	if (this.isReceivingCheck != null)
-		   return this.isReceivingCheck.boolValue();*/
+	
+	bool isGivingCheck() {
+		//if (isGivingCheck != null)
+		//	return isGivingCheck.boolValue();
+		bool othercolor = !onMove;
+		int currentPiece = findKing(othercolor);
+		//if (currentPiece == -1)
+		//	assert "no king found";//throw new IllegalStateException("no king found");
+		int i = currentPiece;
+		list<Move> moves ;
+		generateBishopCaptures(moves, i, othercolor);
+		for (Move move:moves){
+			int piece = abs(board[move.to]);
+			if ((piece == 3) || (piece == 5)) {
+				int t = board[move.to];
+				bool c = t>0;//convertColor(t);
+				if (c!=othercolor) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
+
+		moves.clear();
+		generateRookCaptures(moves, i, othercolor);
+		for (Move move:moves){
+			int piece = abs(board[move.to]);
+			if ((piece == 4) || (piece == 5)) {
+				int t = board[move.to];
+				bool c = t>0;//EdenBrain.convertColor(t);
+				if (c!=othercolor) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
+
+		moves.clear();
+		generateKingCaptures(moves, i, othercolor);
+		for (Move move:moves){
+			int piece = abs(board[move.to]);
+			if (piece == 6) {
+				// king will always be the enemy
+				//isGivingCheck = new bool(true);
+				return true;
+			}
+		}
+
+		moves.clear();
+		generateKnightCaptures(this, moves, i, othercolor);
+		for (Move move:moves){
+			int piece = abs(board[move.to]);
+			if (piece == 2) {
+				int t = board[move.to];
+				bool c = t>0;//EdenBrain.convertColor(t);
+				if (c!=othercolor) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
+
+		moves.clear();
+		generatePawnCaptures(this, moves, i, othercolor);
+		for (Move move:moves){
+			int piece =abs(board[move.to]);
+			if (piece == 1) {
+				int t = board[move.to];
+				bool c = t>0;//EdenBrain.convertColor(t);
+				if (c!=othercolor) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
+
+		//isGivingCheck = new bool(false);
+		return false;
+	}
+
+	//bool isGivingCheckForCastling(int square) {
+	//	if (isGivingCheck != null)
+	//		return isGivingCheck.boolValue();
+	//	int i = square;
+	//	bool c1 = EdenBrain.convertColor(board[i]);
+	//	SortedSet moves = new TreeSet();
+	//	generateBishopCaptures(moves, i, c1);
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if ((piece == 3) || (piece == 5)) {
+	//			int t = board[move.to];
+	//			bool c = EdenBrain.convertColor(t);
+	//			if (!c.equals(c1)) {
+	//				isGivingCheck = new bool(true);
+	//				return true;
+	//			}
+	//		}
+	//	}
+
+	//	moves.clear();
+	//	generateRookCaptures(this, moves, i, c1);
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if ((piece == 4) || (piece == 5)) {
+	//			int t = board[move.to];
+	//			bool c = EdenBrain.convertColor(t);
+	//			if (!c.equals(c1)) {
+	//				isGivingCheck = new bool(true);
+	//				return true;
+	//			}
+	//		}
+	//	}
+
+	//	moves.clear();
+	//	generateKingCaptures(this, moves, i, c1);
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if (piece == 6) {
+	//			isGivingCheck = new bool(true);
+	//			return true;
+	//		}
+	//	}
+
+	//	moves.clear();
+	//	generateKnightCaptures(this, moves, i, c1);
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if (piece == 2) {
+	//			int t = board[move.to];
+	//			bool c = EdenBrain.convertColor(t);
+	//			if (!c.equals(c1)) {
+	//				isGivingCheck = new bool(true);
+	//				return true;
+	//			}
+	//		}
+	//	}
+
+	//	moves.clear();
+	//	generatePawnCaptures(this, moves, i, bool.valueOf(!onMove().boolValue()));
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
+	//			int t = board[move.to];
+	//			bool c = EdenBrain.convertColor(t);
+	//			if (!c.equals(c1)) {
+	//				isGivingCheck = new bool(true);
+	//				return true;
+	//			}
+	//		}
+	//	}
+
+	//	isGivingCheck = new bool(false);
+	//	return false;
+	//}
+
+	//bool isGivingCheckNonKingMoving(int moveFrom) {
+	//	Integer zobrist = null;
+	//	if (isGivingCheck != null)
+	//		return isGivingCheck.boolValue();
+	//	bool othercolor = bool.valueOf(!onMove().boolValue());
+	//	int kingPosition = findKing(othercolor.boolValue());
+	//	if (kingPosition == -1)
+	//		throw new IllegalStateException("no king found");
+	//	SortedSet moves = new TreeSet();
+	//	if (onDiagonal(moveFrom, kingPosition)) {
+	//		moves.clear();
+	//		generateBishopCaptures(moves, kingPosition, othercolor);
+	//		for (Iterator it = moves.iterator(); it.hasNext();) {
+	//			Move move = (Move) it.next();
+	//			int piece = Math.abs(board[move.to]);
+	//			if ((piece == 3) || (piece == 5)) {
+	//				int t = board[move.to];
+	//				bool c = EdenBrain.convertColor(t);
+	//				if (!c.equals(othercolor)) {
+	//					isGivingCheck = new bool(true);
+	//					addToCheckHash(zobrist);
+	//					return true;
+	//				}
+	//			}
+	//		}
+
+	//		moves.clear();
+	//		generatePawnCaptures(this, moves, kingPosition, othercolor);
+	//		for (Iterator it = moves.iterator(); it.hasNext();) {
+	//			Move move = (Move) it.next();
+	//			int piece = Math.abs(board[move.to]);
+	//			if (piece == 1) {
+	//				int t = board[move.to];
+	//				bool c = EdenBrain.convertColor(t);
+	//				if (c.equals(othercolor)) {
+	//					isGivingCheck = new bool(true);
+	//					addToCheckHash(zobrist);
+	//					return true;
+	//				}
+	//			}
+	//		}
+	//	}
+
+	//	if ((onRank(moveFrom, kingPosition)) || (onFile(moveFrom, kingPosition))) {
+	//		moves.clear();
+	//		generateRookCaptures(this, moves, kingPosition, othercolor);
+	//		for (Iterator it = moves.iterator(); it.hasNext();) {
+	//			Move move = (Move) it.next();
+	//			int piece = Math.abs(board[move.to]);
+	//			if ((piece == 4) || (piece == 5)) {
+	//				int t = board[move.to];
+	//				bool c = EdenBrain.convertColor(t);
+	//				if (!c.equals(othercolor)) {
+	//					isGivingCheck = new bool(true);
+	//					addToCheckHash(zobrist);
+	//					return true;
+	//				}
+	//			}
+	//		}
+	//	}
+
+	//	moves.clear();
+	//	generateKingCaptures(this, moves, kingPosition, othercolor);
+	//	for (Iterator it = moves.iterator(); it.hasNext();) {
+	//		Move move = (Move) it.next();
+	//		int piece = Math.abs(board[move.to]);
+	//		if (piece == 6) {
+	//			isGivingCheck = new bool(true);
+	//			addToCheckHash(zobrist);
+	//			return true;
+	//		}
+	//	}
+
+	//	isGivingCheck = new bool(false);
+	//	addToCheckHash(zobrist);
+	//	return false;
+	//}
+   bool isReceivingCheck() {
+		   /*	if (isReceivingCheck != null)
+		   return isReceivingCheck.boolValue();*/
 		   bool kingColor = onMove;
 		   int kingPosition = findKing(kingColor);
 		   //if (kingPosition == -1)
@@ -2547,7 +2784,7 @@ public:int board[MAX_BOARD_SIZE];
 		   for (Move move: moves) {
 			   int pt = abs(board[move.to]);
 			   if (pt == 4 || pt == 5) {
-				   //this.isReceivingCheck = true;
+				   //isReceivingCheck = true;
 				   return true;
 			   }
 		   }
@@ -2556,7 +2793,7 @@ public:int board[MAX_BOARD_SIZE];
 		   generatePawnCaptures(moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 1) {
-				   //this.isReceivingCheck = new Boolean(true);
+				   //isReceivingCheck = new bool(true);
 				   return true;
 			   }
 		   }
@@ -2565,7 +2802,7 @@ public:int board[MAX_BOARD_SIZE];
 		   generateKnightCaptures( moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 2) {
-				   //this.isReceivingCheck = new Boolean(true);
+				   //isReceivingCheck = new bool(true);
 				   return true;
 			   }
 		   }
@@ -2575,7 +2812,7 @@ public:int board[MAX_BOARD_SIZE];
 		   for (Move move: moves) {
 			   int pt = abs(board[move.to]);
 			   if (pt == 3 || pt == 5){
-				   //this.isReceivingCheck = new Boolean(true);
+				   //isReceivingCheck = new bool(true);
 				   return true;
 			   }
 		   }
@@ -2584,21 +2821,21 @@ public:int board[MAX_BOARD_SIZE];
 		   generateKingMovesNoCastling( moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 6) {
-				   //this.isReceivingCheck = new Boolean(true);
+				   //isReceivingCheck = new bool(true);
 				   return true;
 			   }
 		   }
 
-		   //this.isReceivingCheck = new Boolean(false);
+		   //isReceivingCheck = new bool(false);
 		   return false;
 	   }
 	   //
 	   //	bool isStartPosition() {
-	   //		return this.isStartPosition;
+	   //		return isStartPosition;
 	   //	}
 	   //
 	   //	long kleinerZobristEntfernen(int i) {
-	   //		int figur = this.board[i];
+	   //		int figur = board[i];
 	   //		return kleinerZobristSetzen(figur, i);
 	   //	}
 	   //
@@ -2629,8 +2866,8 @@ public:int board[MAX_BOARD_SIZE];
 	   void makeMove(string moveString)  {
 		   Move m = Move(moveString);
 		   makeMove(m.from, m.to, m.captured);
-		   //this.isGivingCheck = null;
-		   //this.isReceivingCheck = null;
+		   //isGivingCheck = null;
+		   //isReceivingCheck = null;
 	   }
 	   //
 	   //	Piece makeNewPiece(Square to, String promotedTo, Piece newPiece) {
@@ -2646,17 +2883,17 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	void makeTestMove(Move move) {
-	   //		this.isGivingCheck = null;
-	   //		this.legalMoves = null;
+	   //		isGivingCheck = null;
+	   //		legalMoves = null;
 	   //		setStartPosition(false);
 	   //		int movingPiece = moveRaw(move);
 	   //		int movingPieceType = Math.abs(movingPiece);
 	   //		if ((movingPieceType == 1) && (move.to == enPassant()))
-	   //			testClearEnPassantCapture(move, this.board);
+	   //			testClearEnPassantCapture(move, board);
 	   //		if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
-	   //			this.enPassantSquare = ((move.from + move.to) / 2);
+	   //			enPassantSquare = ((move.from + move.to) / 2);
 	   //		} else
-	   //			this.enPassantSquare = 0;
+	   //			enPassantSquare = 0;
 	   //		if ((movingPieceType == 6) && (Math.abs(move.from - move.to) == 2)) {
 	   //			int rookTo;
 	   //			int rookFrom;
@@ -2687,42 +2924,42 @@ public:int board[MAX_BOARD_SIZE];
 	   //			Move rookJump = new Move(this, rookFrom, rookTo);
 	   //			moveRaw(rookJump);
 	   //			if (movingPiece > 0) {
-	   //				this.hasCastledWhite = true;
+	   //				hasCastledWhite = true;
 	   //			} else
-	   //				this.hasCastledBlack = true;
+	   //				hasCastledBlack = true;
 	   //		}
 	   //		if (movingPieceType == 6) {
-	   //			if (this.onMove.equals(WHITE)) {
-	   //				this.castleShortWhite = false;
-	   //				this.castleLongWhite = false;
+	   //			if (onMove.equals(WHITE)) {
+	   //				castleShortWhite = false;
+	   //				castleLongWhite = false;
 	   //			} else {
-	   //				this.castleShortBlack = false;
-	   //				this.castleLongBlack = false;
+	   //				castleShortBlack = false;
+	   //				castleLongBlack = false;
 	   //			}
 	   //		} else if (movingPieceType == 4)
-	   //			if (this.onMove.equals(WHITE)) {
+	   //			if (onMove.equals(WHITE)) {
 	   //				if (move.from == 18) {
-	   //					this.castleShortWhite = false;
+	   //					castleShortWhite = false;
 	   //				} else if (move.from == 11) {
-	   //					this.castleLongWhite = false;
+	   //					castleLongWhite = false;
 	   //				}
 	   //			} else if (move.from == 88) {
-	   //				this.castleShortBlack = false;
+	   //				castleShortBlack = false;
 	   //			} else if (move.from == 81)
-	   //				this.castleLongBlack = false;
-	   //		int p = this.board[11];
+	   //				castleLongBlack = false;
+	   //		int p = board[11];
 	   //		if (p != 4)
-	   //			this.castleLongWhite = false;
-	   //		p = this.board[18];
+	   //			castleLongWhite = false;
+	   //		p = board[18];
 	   //		if (p != 4)
-	   //			this.castleShortWhite = false;
-	   //		p = this.board[81];
+	   //			castleShortWhite = false;
+	   //		p = board[81];
 	   //		if (p != -4)
-	   //			this.castleLongBlack = false;
-	   //		p = this.board[88];
+	   //			castleLongBlack = false;
+	   //		p = board[88];
 	   //		if (p != -4)
-	   //			this.castleShortBlack = false;
-	   //		this.onMove = Boolean.valueOf(!this.onMove.boolValue());
+	   //			castleShortBlack = false;
+	   //		onMove = bool.valueOf(!onMove.boolValue());
 	   //	}
 	   //
 	   int moveRaw(Move move) {
@@ -2731,25 +2968,25 @@ public:int board[MAX_BOARD_SIZE];
 		   int capturedSquare = move.to;
 		   int capturedPiece = board[capturedSquare];
 		   /*	if (capturedPiece > 0) {
-		   this.whitePieces.remove(capturedSquare);
+		   whitePieces.remove(capturedSquare);
 		   if (capturedPiece == 6) {
-		   this.whiteKing = -1;
+		   whiteKing = -1;
 		   }
 		   } else if (capturedPiece < 0) {
-		   this.blackPieces.remove(capturedSquare);
+		   blackPieces.remove(capturedSquare);
 		   if (capturedPiece == -6)
-		   this.blackKing = -1;
+		   blackKing = -1;
 		   }*/
 		   if (move.promoted == 0) {
 			   if (movingPiece > 0) {
-			   //	this.whitePieces.add(capturedSquare);
-			   //	this.whitePieces.remove(fromSquare);
+			   //	whitePieces.add(capturedSquare);
+			   //	whitePieces.remove(fromSquare);
 			   	if (movingPiece == 6) {
 			   		whiteKing = move.to;
 			   	}
 			   } else {
-			   //	this.blackPieces.add(capturedSquare);
-			   //	this.blackPieces.remove(fromSquare);
+			   //	blackPieces.add(capturedSquare);
+			   //	blackPieces.remove(fromSquare);
 			   	if (movingPiece == -6)
 			   		blackKing = move.to;
 			   }
@@ -2757,13 +2994,13 @@ public:int board[MAX_BOARD_SIZE];
 			   //cout << "set " << move.to << " to " << movingPiece<<endl;
 			   board[move.from] = 0;
 			   //cout << "cleared " << move.from <<endl;
-			   //clearSquare(move.from, 0, this.board);
+			   //clearSquare(move.from, 0, board);
 		   } else {
 			   movingPiece = move.promoted;
 			   if (board[move.from] < 0)
 				   movingPiece *= -1;
 			   board[move.from] = 0;
-			   //clearSquare(move.from, 0, this.board);
+			   //clearSquare(move.from, 0, board);
 			   
 		   }
 		   return movingPiece;
@@ -2771,23 +3008,23 @@ public:int board[MAX_BOARD_SIZE];
 	   //
 	   //	//Move getNextCaptureMove() {
 	   //	//	updateCaptureMove();
-	   //	//	if (this.nextCaptureMove == null) {
+	   //	//	if (nextCaptureMove == null) {
 	   //	//		throw new NoSuchElementException("next without hasnext");
 	   //	//	}
 	   //
-	   //	//	Move retVal = new Move(this.nextCaptureMove);
-	   //	//	this.nextCaptureMove = null;
+	   //	//	Move retVal = new Move(nextCaptureMove);
+	   //	//	nextCaptureMove = null;
 	   //	//	return retVal;
 	   //	//}
 	   //
 	   //	//Move nextNonCaptureMove() {
 	   //	//	updateNonCaptureMove();
-	   //	//	if (this.nextNonCaptureMove == null) {
+	   //	//	if (nextNonCaptureMove == null) {
 	   //	//		throw new NoSuchElementException("next without hasnext");
 	   //	//	}
 	   //
-	   //	//	Move retVal = new Move(this.nextNonCaptureMove);
-	   //	//	this.nextNonCaptureMove = null;
+	   //	//	Move retVal = new Move(nextNonCaptureMove);
+	   //	//	nextNonCaptureMove = null;
 	   //	//	return retVal;
 	   //	//}
 	   //
@@ -2806,8 +3043,8 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return diff / 10 == 0;
 	   //	}
 	   //
-	   //	Boolean getOnMove() {
-	   //		return this.onMove;
+	   //	bool getOnMove() {
+	   //		return onMove;
 	   //	}
 	   //
 	   //	bool onRank(int moveFrom, int kingPosition) {
@@ -2817,7 +3054,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	Piece pieceOn(int index) {
-	   //		return Piece.makePiece(index, this.board);
+	   //		return Piece.makePiece(index, board);
 	   //	}
 	   //
 	   //	Piece pieceOn(String string) {
@@ -2859,7 +3096,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //					markForDelete.add(move);
 	   //				}
 	   //			} else {
-	   //				int movingPiece = Math.abs(this.board[move.from]);
+	   //				int movingPiece = Math.abs(board[move.from]);
 	   //				switch (movingPiece) {
 	   //				default:
 	   //					break;
@@ -2899,11 +3136,11 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	void setBestMove(Move bestMove) {
-	   //		this.bestMove = bestMove;
+	   //		bestMove = bestMove;
 	   //	}
 	   //
 	   //	void setBestValue(int bestValue) {
-	   //		this.bestValue = bestValue;
+	   //		bestValue = bestValue;
 	   //	}
 	   //
 	   //	void setFENPosition(String fenString) {
@@ -2918,62 +3155,62 @@ public:int board[MAX_BOARD_SIZE];
 	   //
 	   //		String fenOnMove = fenFields[1];
 	   //		if (fenOnMove.equals("w")) {
-	   //			this.onMove = WHITE;
+	   //			onMove = WHITE;
 	   //		} else if (fenOnMove.equals("b"))
-	   //			this.onMove = BLACK;
+	   //			onMove = BLACK;
 	   //		String fenCastling = fenFields[2];
-	   //		this.castleShortWhite = (fenCastling.indexOf('K') != -1);
-	   //		this.castleLongWhite = (fenCastling.indexOf('Q') != -1);
-	   //		this.castleShortBlack = (fenCastling.indexOf('k') != -1);
-	   //		this.castleLongBlack = (fenCastling.indexOf('k') != -1);
+	   //		castleShortWhite = (fenCastling.indexOf('K') != -1);
+	   //		castleLongWhite = (fenCastling.indexOf('Q') != -1);
+	   //		castleShortBlack = (fenCastling.indexOf('k') != -1);
+	   //		castleLongBlack = (fenCastling.indexOf('k') != -1);
 	   //		String fenEnPassant = fenFields[3];
 	   //		if (fenEnPassant.equals("-")) {
-	   //			this.enPassantSquare = 0;
+	   //			enPassantSquare = 0;
 	   //		} else {
-	   //			this.enPassantSquare = decodeSquare(fenEnPassant);
+	   //			enPassantSquare = decodeSquare(fenEnPassant);
 	   //		}
 	   //	}
 	   //
-	   //	void setOnMove(Boolean onMove) {
-	   //		this.onMove = onMove;
+	   //	void setOnMove(bool onMove) {
+	   //		onMove = onMove;
 	   //	}
 	   //
 	   //	void setStartPosition(bool startPosition) {
-	   //		this.isStartPosition = startPosition;
+	   //		isStartPosition = startPosition;
 	   //	}
 	   //
 	   //	void setToStartPosition() {
 	   //		clearBoard();
 	   //		addStartPieces();
-	   //		this.castleShortWhite = true;
-	   //		this.castleLongWhite = true;
-	   //		this.castleShortBlack = true;
-	   //		this.castleLongBlack = true;
-	   //		this.enPassantSquare = 0;
-	   //		this.onMove = WHITE;
-	   //		this.isGivingCheck = null;
-	   //		this.isReceivingCheck = null;
+	   //		castleShortWhite = true;
+	   //		castleLongWhite = true;
+	   //		castleShortBlack = true;
+	   //		castleLongBlack = true;
+	   //		enPassantSquare = 0;
+	   //		onMove = WHITE;
+	   //		isGivingCheck = null;
+	   //		isReceivingCheck = null;
 	   //		setStartPosition(true);
 	   //	}
 	   //
 	   //	void testClearEnPassantCapture(Move move, int board[] ) {
 	   //		if (move.to > move.from) {
 	   //			clearSquare(move.to, -10, board);
-	   //			this.blackPieces.remove(new Integer(move.to - 10));
+	   //			blackPieces.remove(new Integer(move.to - 10));
 	   //		} else {
 	   //			clearSquare(move.to, 10, board);
-	   //			this.whitePieces.remove(new Integer(move.to + 10));
+	   //			whitePieces.remove(new Integer(move.to + 10));
 	   //		}
 	   //	}
 	   //
 	   //	String toString() {
-	   //		return this.board.toString();
+	   //		return board.toString();
 	   //	}
 	   //
-	   //	bool tryMoveNonCapture(Set moves, int from, int next, Boolean color) {
+	   //	bool tryMoveNonCapture(Set moves, int from, int next, bool color) {
 	   //		if (invalidSquare(next))
 	   //			return true;
-	   //		int type = this.board[next];
+	   //		int type = board[next];
 	   //		if (type != 0) {
 	   //			return true;
 	   //		}
@@ -2984,71 +3221,71 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	int typeOn(int nextIndex) {
-	   //		return this.board[nextIndex];
+	   //		return board[nextIndex];
 	   //	}
 	   //
 	   //	void updateCaptureMove() {
-	   //		if (this.nextCaptureMove != null)
+	   //		if (nextCaptureMove != null)
 	   //			return;
-	   //		Boolean color = null;
+	   //		bool color = null;
 	   //		bool finished = false;
 	   //		while (!finished) {
-	   //			if (this.persistentSquareForCapture > 88)
+	   //			if (persistentSquareForCapture > 88)
 	   //				return;
-	   //			int p = this.board[this.persistentSquareForCapture];
+	   //			int p = board[persistentSquareForCapture];
 	   //			int type = Math.abs(p);
 	   //			if ((type < 1) || (type > 6)) {
-	   //				this.persistentSquareForCapture += 1;
+	   //				persistentSquareForCapture += 1;
 	   //			} else {
 	   //				color = EdenBrain.convertColor(p);
 	   //				if (!color.equals(onMove())) {
-	   //					this.persistentSquareForCapture += 1;
+	   //					persistentSquareForCapture += 1;
 	   //				} else {
-	   //					Move nextCapture = generateNextCaptureMove(this.persistentSquareForCapture, p, color);
+	   //					Move nextCapture = generateNextCaptureMove(persistentSquareForCapture, p, color);
 	   //					if (nextCapture != null) {
-	   //						this.nextCaptureMove = nextCapture;
+	   //						nextCaptureMove = nextCapture;
 	   //						finished = true;
 	   //						break;
 	   //					}
 	   //					initializeCaptureMoveCounters();
-	   //					this.persistentSquareForCapture += 1;
+	   //					persistentSquareForCapture += 1;
 	   //				}
 	   //			}
 	   //		}
 	   //	}
 	   //
 	   //	void updateNonCaptureMove() {
-	   //		if (this.nextNonCaptureMove != null)
+	   //		if (nextNonCaptureMove != null)
 	   //			return;
-	   //		Boolean color = null;
+	   //		bool color = null;
 	   //		bool finished = false;
 	   //		while (!finished) {
-	   //			if (this.persistentSquareForNonCapture > 88)
+	   //			if (persistentSquareForNonCapture > 88)
 	   //				return;
-	   //			int p = this.board[this.persistentSquareForNonCapture];
+	   //			int p = board[persistentSquareForNonCapture];
 	   //			int type = Math.abs(p);
 	   //			if ((type < 1) || (type > 6)) {
-	   //				this.persistentSquareForNonCapture += 1;
+	   //				persistentSquareForNonCapture += 1;
 	   //			} else {
 	   //				color = EdenBrain.convertColor(p);
 	   //				if (!color.equals(onMove())) {
-	   //					this.persistentSquareForNonCapture += 1;
+	   //					persistentSquareForNonCapture += 1;
 	   //				} else {
-	   //					Move nextNonCapture = generateNextNonCaptureMove(this.persistentSquareForNonCapture, p, color);
+	   //					Move nextNonCapture = generateNextNonCaptureMove(persistentSquareForNonCapture, p, color);
 	   //					if (nextNonCapture != null) {
-	   //						this.nextNonCaptureMove = nextNonCapture;
+	   //						nextNonCaptureMove = nextNonCapture;
 	   //						finished = true;
 	   //						break;
 	   //					}
 	   //					initializeNonCaptureMoveCounters();
-	   //					this.persistentSquareForNonCapture += 1;
+	   //					persistentSquareForNonCapture += 1;
 	   //				}
 	   //			}
 	   //		}
 	   //	}
 	   //
 	   //	long updatePawnZobristForMove(Move move, long pzobrist) {
-	   //		int sourceType = this.board[move.from];
+	   //		int sourceType = board[move.from];
 	   //		long zoFrom = 0L;
 	   //		long zoTo = 0L;
 	   //		if ((sourceType == 1) || (sourceType == -1)) {
@@ -3057,7 +3294,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //				zoTo = kleinerZobristSetzen(sourceType, move.to);
 	   //		}
 	   //		long zoKick = 0L;
-	   //		if ((this.board[move.to] == 1) || (this.board[move.to] == -1))
+	   //		if ((board[move.to] == 1) || (board[move.to] == -1))
 	   //			zoKick = kleinerZobristEntfernen(move.to);
 	   //		pzobrist ^= zoFrom;
 	   //		pzobrist ^= zoTo;
@@ -3066,11 +3303,11 @@ public:int board[MAX_BOARD_SIZE];
 	   //	}
 	   //
 	   //	void updateZobristEnPassant() {
-	   //		this.zobrist ^= EdenBrain.enPassantZobrist;
+	   //		zobrist ^= EdenBrain.enPassantZobrist;
 	   //	}
 	   //
 	   //	long updateZobristForMove(Move move, long z) {
-	   //		int sourceType = this.board[move.from];
+	   //		int sourceType = board[move.from];
 	   //		long zoFrom = kleinerZobristEntfernen(move.from);
 	   //		long zoKick = 0L;
 	   //		if (move.capturedPiece != 0)
@@ -3083,7 +3320,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //		long zoRookJumpFrom = 0L;
 	   //		long zoRookJumpTo = 0L;
-	   //		if (move.isCastling(Math.abs(this.board[move.from]))) {
+	   //		if (move.isCastling(Math.abs(board[move.from]))) {
 	   //			int rookJumpTo;
 	   //			int rookJumpFrom;
 	   //			if (move.to % 10 == 7) {
@@ -3094,7 +3331,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //				rookJumpTo = move.to + 1;
 	   //			}
 	   //			zoRookJumpFrom = kleinerZobristEntfernen(rookJumpFrom);
-	   //			zoRookJumpTo = kleinerZobristSetzen(this.board[rookJumpFrom], rookJumpTo);
+	   //			zoRookJumpTo = kleinerZobristSetzen(board[rookJumpFrom], rookJumpTo);
 	   //		}
 	   //		z ^= zoFrom;
 	   //		z ^= zoTo;
