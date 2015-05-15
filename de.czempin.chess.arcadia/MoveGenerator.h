@@ -17,8 +17,8 @@ private:
 public: 
 	list<Move> generateLegalMoves(Position position){
 		list<Move> moves = generateAllMoves(position);
-		list<Move> legalMoves =  removeIllegalMoves(moves);
-		 return legalMoves;
+		 removeIllegalMoves(moves);
+		 return moves;
 	}
 	list<Move> generateAllMoves(Position position) {
 		moves.clear();
@@ -39,45 +39,49 @@ public:
 		return moves;
 	}
 		
-	list<Move> removeIllegalMoves(list<Move> moves) {
+	void removeIllegalMoves(list<Move>& moves) {
+		//TODO use a more efficient idiom, possibly remove_if
+		list<Move> movesToDelete;
 		for (Move move:moves) {
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
-			if (position.isReceivingCheck()) {
-				if (nextPos.isGivingCheck()) {
-					moves.remove(move);
+			if (nextPos.isGivingCheck()) {
+				//if (position.isGivingCheck()) {
+				movesToDelete.push_front(move);
 					continue;
-				}
-			} else {
-				int movingPiece = abs(position.board[move.from]);
-				switch (movingPiece) {
-				default:
-					break;
+				//}
+			//} else {
+			//	int movingPiece = abs(position.board[move.from]);
+			//	switch (movingPiece) {
+			//	default:
+			//		break;
 
-				case 6:
-					if (nextPos.isGivingCheck()) //moving into check
-						moves.remove(move);
-					continue;
-					break;
+			//	case 6:
+			//		if (nextPos.isGivingCheck()) //moving into check
+			//			moves.remove(move);
+			//		continue;
+			//		break;
 
-				case 1:
+			//	case 1:
 
-				case 2:
+			//	case 2:
 
-				case 3:
+			//	case 3:
 
-				case 4:
+			//	case 4:
 
-				case 5:
-					if (nextPos.isGivingCheckNonKingMoving(move.from)) {
-						moves.remove(move);
-						continue;
-					}
-					break;
-				}
+			//	case 5:
+			//		if (nextPos.isGivingCheckNonKingMoving(move.from)) {
+			//			moves.remove(move);
+			//			continue;
+			//		}
+			//		break;
+			//	}
 			}
 		}
-		return moves;
+		for(Move move: movesToDelete){
+			moves.remove(move);
+		}
 	}
 	void generateMoves(int i, int p) {
 		switch (p) {

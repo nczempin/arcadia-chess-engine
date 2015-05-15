@@ -138,7 +138,7 @@ public:
 		   //whitePieces = new TreeSet();
 		   //Info.nodes += 1L;
 		   //p.board = new int[89];
-		   copyBoard(p.board, board);
+		   copyBoard(board, p.board);
 		   //whitePieces.addAll(position.whitePieces);
 		   p.whiteKing = whiteKing;
 		   //blackPieces.addAll(position.blackPieces);
@@ -1237,12 +1237,13 @@ public:
 		   }
 		   return blackKing;
 	   }
-	   bool tryMoveCapture(list<Move> moves, int from, int next, bool color) {
+	   bool tryMoveCapture(list<Move>& moves, int from, int next, bool color) {
 		   //if (invalidSquare(next)) TODO
 		   //	return true;
 		   int type =board[next];
 		   if (type == 0)
 			   return false;
+		   //ignore own pieces
 		   if ((type < 0) && (!color))
 			   return true;
 		   if ((type > 0) && (color)) {
@@ -1254,7 +1255,7 @@ public:
 		   return true;
 	   }
 
-	   void generateBishopCaptures(list<Move> moves, int from, bool color) {
+	   void generateBishopCaptures(list<Move>& moves, int from, bool color) {
 		   for (int i = 1; i < 8; i++) {
 			   int next = from + i * 9;
 			   if (next > 88)
