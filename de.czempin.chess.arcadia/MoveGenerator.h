@@ -35,7 +35,6 @@ public:
 	}
 		
 	void removeIllegalMoves(list<Move> moves) {
-		//	list<Move> markForDelete = list<Move>();
 		for (Move move:moves) {
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
@@ -73,17 +72,6 @@ public:
 				}
 			}
 		}
-		//moves.removeAll(markForDelete);
-		//for (Iterator it1 = markForDelete.iterator(); it1.hasNext();) {
-		//	Move m = (Move) it1.next();
-		//	for (Iterator it2 = moves.iterator(); it2.hasNext();) {
-		//		Move m2 = (Move) it2.next();
-		//		if (m.getText().equals(m2.getText())) {
-		//			it2.remove();
-		//			break;
-		//		}
-		//	}
-		//}
 	}
 	void generateMoves(int i, int p) {
 		switch (p) {

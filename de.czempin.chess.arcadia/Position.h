@@ -463,54 +463,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return retValue;
 	   //	}
 	   //
-	   //	 int decodeSquare(String square) {
-	   //		char letter = square.charAt(0);
-	   //		char digit = square.charAt(1);
-	   //		int one = Character::getNumericValue(letter) - Character::getNumericValue('a') + 1;
-	   //		int ten = Character::getNumericValue(digit);
-	   //		int index = 10 * ten + one;
-	   //		return index;
-	   //	}
-	   //static void generateBishopMoves(Position position, SortedSet moves, int from, bool color) {
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * 9;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * -9;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * 11;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * -11;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //	}
-	   //
-	   //	 string encodeSquare(int square) {
-	   //		int ten = square / 10;
-	   //		int one = square - ten * 10;
-	   //		char letter = 97 + one - 1;
-	   //		char digit = (char)ten;
-	   //		return ""+letter + digit;
-	   //	}
-	   //
-	   //
+	  
 	   //	
 	   //	static void generateCastling(Position position, Set moves, int fromSquare) {
 	   //		int from = fromSquare;
@@ -587,23 +540,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		}
 	   //	}
 	   //
-	   //	static void generateKnightMoves(Position position, Set moves, int from, bool color) {
-	   //		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
-	   //
-	   //		for (int i = 0; i <8; i++) {
-	   //			int next = from + knightMoves[i];
-	   //			if (!invalidSquare(next)) {
-	   //				int capturedPiece = position.board[next];
-	   //				if (capturedPiece == 0) {
-	   //					moves.add(Move(from, next));
-	   //				} else if ((capturedPiece < 0) && (color)) {
-	   //					moves.add(Move(from, next, 0, capturedPiece));
-	   //				} else if ((capturedPiece > 0) && (!color)) {
-	   //					moves.add(Move(from, next, 0, capturedPiece));
-	   //				}
-	   //			}
-	   //		}
-	   //	}
+	  
 	   //
 	   //	static void generatePawnCapture(Position position, SortedSet moves, int from, bool color, int multi, int next, int row) {
 	   //		if (invalidSquare(next))
@@ -718,37 +655,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 	   }
 
-	   //	static void generateRookMoves(Position position, SortedSet moves, int from, bool color) {
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * 10;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * -10;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * 1;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //		for (int i = 1; i < 8; i++) {
-	   //			int next = from + i * -1;
-	   //			bool finished = tryMove(position, moves, from, next, color);
-	   //			if (finished) {
-	   //				break;
-	   //			}
-	   //		}
-	   //	}
-	   //
+	  
 	   //	static int getBishopValue(int square) {
 	   //		return bishopSquareValues[(square - 10)];
 	   //	}
@@ -771,42 +678,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return isInvalid;
 	   //	}
 	   //
-	   //	static bool tryMove(Position position, SortedSet moves, int from, int next, bool color) {
-	   //		if (invalidSquare(next))
-	   //			return true;
-	   //		int type = position.typeOn(next);
-	   //		if (type == 0) {
-	   //			moves.add(new Move(position, from, next));
-	   //			return false;
-	   //		}
-	   //		if ((type < 0) && (color.equals(BLACK)))
-	   //			return true;
-	   //		if ((type > 0) && (color.equals(WHITE))) {
-	   //			return true;
-	   //		}
-	   //
-	   //		Move m = new Move(position, from, next, 0, type);
-	   //		moves.add(m);
-	   //		return true;
-	   //	}
-	   //
-	   //	static bool tryMoveCapture(Position position, Set moves, int from, int next, bool color) {
-	   //		if (invalidSquare(next))
-	   //			return true;
-	   //		int type = position.board[next];
-	   //		if (type == 0)
-	   //			return false;
-	   //		if ((type < 0) && (color.equals(BLACK)))
-	   //			return true;
-	   //		if ((type > 0) && (color.equals(WHITE))) {
-	   //			return true;
-	   //		}
-	   //
-	   //		Move m = new Move(position, from, next, 0, type);
-	   //		moves.add(m);
-	   //		return true;
-	   //	}
-	   //
+	  
 	   //	//Move bestMove;
 	   //
 	   //	int bestValue;
@@ -2254,246 +2126,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return true;
 	   //	}
 	   //
-	   //	//bool isGivingCheck() {
-	   //	//	if (isGivingCheck != null)
-	   //	//		return isGivingCheck.boolValue();
-	   //	//	bool othercolor = bool.valueOf(!onMove().boolValue());
-	   //	//	int currentPiece = findKing(othercolor.boolValue());
-	   //	//	if (currentPiece == -1)
-	   //	//		throw new IllegalStateException("no king found");
-	   //	//	int i = currentPiece;
-	   //	//	SortedSet moves = new TreeSet();
-	   //	//	generateBishopCaptures(moves, i, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if ((piece == 3) || (piece == 5)) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(othercolor)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateRookCaptures(this, moves, i, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if ((piece == 4) || (piece == 5)) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(othercolor)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateKingCaptures(this, moves, i, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if (piece == 6) {
-	   //	//			isGivingCheck = new bool(true);
-	   //	//			return true;
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateKnightCaptures(this, moves, i, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if (piece == 2) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(othercolor)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generatePawnCaptures(this, moves, i, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(othercolor)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	isGivingCheck = new bool(false);
-	   //	//	return false;
-	   //	//}
-	   //
-	   //	bool isGivingCheckForCastling(int square) {
-	   //		if (isGivingCheck != null)
-	   //			return isGivingCheck.boolValue();
-	   //		int i = square;
-	   //		bool c1 = EdenBrain.convertColor(board[i]);
-	   //		SortedSet moves = new TreeSet();
-	   //		generateBishopCaptures(moves, i, c1);
-	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //			Move move = (Move) it.next();
-	   //			int piece = Math.abs(board[move.to]);
-	   //			if ((piece == 3) || (piece == 5)) {
-	   //				int t = board[move.to];
-	   //				bool c = EdenBrain.convertColor(t);
-	   //				if (!c.equals(c1)) {
-	   //					isGivingCheck = new bool(true);
-	   //					return true;
-	   //				}
-	   //			}
-	   //		}
-	   //	}
-	   //	//	moves.clear();
-	   //	//	generateRookCaptures(this, moves, i, c1);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if ((piece == 4) || (piece == 5)) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(c1)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateKingCaptures(this, moves, i, c1);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if (piece == 6) {
-	   //	//			isGivingCheck = new bool(true);
-	   //	//			return true;
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateKnightCaptures(this, moves, i, c1);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if (piece == 2) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(c1)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generatePawnCaptures(this, moves, i, bool.valueOf(!onMove().boolValue()));
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
-	   //	//			int t = board[move.to];
-	   //	//			bool c = EdenBrain.convertColor(t);
-	   //	//			if (!c.equals(c1)) {
-	   //	//				isGivingCheck = new bool(true);
-	   //	//				return true;
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	isGivingCheck = new bool(false);
-	   //	//	return false;
-	   //	//}
-	   //
-	   //	//bool isGivingCheckNonKingMoving(int moveFrom) {
-	   //	//	Integer zobrist = null;
-	   //	//	if (isGivingCheck != null)
-	   //	//		return isGivingCheck.boolValue();
-	   //	//	bool othercolor = bool.valueOf(!onMove().boolValue());
-	   //	//	int kingPosition = findKing(othercolor.boolValue());
-	   //	//	if (kingPosition == -1)
-	   //	//		throw new IllegalStateException("no king found");
-	   //	//	SortedSet moves = new TreeSet();
-	   //	//	if (onDiagonal(moveFrom, kingPosition)) {
-	   //	//		moves.clear();
-	   //	//		generateBishopCaptures(moves, kingPosition, othercolor);
-	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(board[move.to]);
-	   //	//			if ((piece == 3) || (piece == 5)) {
-	   //	//				int t = board[move.to];
-	   //	//				bool c = EdenBrain.convertColor(t);
-	   //	//				if (!c.equals(othercolor)) {
-	   //	//					isGivingCheck = new bool(true);
-	   //	//					addToCheckHash(zobrist);
-	   //	//					return true;
-	   //	//				}
-	   //	//			}
-	   //	//		}
-	   //
-	   //	//		moves.clear();
-	   //	//		generatePawnCaptures(this, moves, kingPosition, othercolor);
-	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(board[move.to]);
-	   //	//			if (piece == 1) {
-	   //	//				int t = board[move.to];
-	   //	//				bool c = EdenBrain.convertColor(t);
-	   //	//				if (c.equals(othercolor)) {
-	   //	//					isGivingCheck = new bool(true);
-	   //	//					addToCheckHash(zobrist);
-	   //	//					return true;
-	   //	//				}
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	if ((onRank(moveFrom, kingPosition)) || (onFile(moveFrom, kingPosition))) {
-	   //	//		moves.clear();
-	   //	//		generateRookCaptures(this, moves, kingPosition, othercolor);
-	   //	//		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//			Move move = (Move) it.next();
-	   //	//			int piece = Math.abs(board[move.to]);
-	   //	//			if ((piece == 4) || (piece == 5)) {
-	   //	//				int t = board[move.to];
-	   //	//				bool c = EdenBrain.convertColor(t);
-	   //	//				if (!c.equals(othercolor)) {
-	   //	//					isGivingCheck = new bool(true);
-	   //	//					addToCheckHash(zobrist);
-	   //	//					return true;
-	   //	//				}
-	   //	//			}
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	moves.clear();
-	   //	//	generateKingCaptures(this, moves, kingPosition, othercolor);
-	   //	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //	//		Move move = (Move) it.next();
-	   //	//		int piece = Math.abs(board[move.to]);
-	   //	//		if (piece == 6) {
-	   //	//			isGivingCheck = new bool(true);
-	   //	//			addToCheckHash(zobrist);
-	   //	//			return true;
-	   //	//		}
-	   //	//	}
-	   //
-	   //	//	isGivingCheck = new bool(false);
-	   //	//	addToCheckHash(zobrist);
-	   //	//	return false;
-	   //	//}
+	 
 	   //
 	   //	//bool isInsufficientMaterial(PieceCount pc) {
 	   //	//	return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
@@ -2711,83 +2344,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //	return false;
 	   //}
 
-	   //bool isGivingCheckNonKingMoving(int moveFrom) {
-	   //	Integer zobrist = null;
-	   //	if (isGivingCheck != null)
-	   //		return isGivingCheck.boolValue();
-	   //	bool othercolor = bool.valueOf(!onMove().boolValue());
-	   //	int kingPosition = findKing(othercolor.boolValue());
-	   //	if (kingPosition == -1)
-	   //		throw new IllegalStateException("no king found");
-	   //	SortedSet moves = new TreeSet();
-	   //	if (onDiagonal(moveFrom, kingPosition)) {
-	   //		moves.clear();
-	   //		generateBishopCaptures(moves, kingPosition, othercolor);
-	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //			Move move = (Move) it.next();
-	   //			int piece = Math.abs(board[move.to]);
-	   //			if ((piece == 3) || (piece == 5)) {
-	   //				int t = board[move.to];
-	   //				bool c = EdenBrain.convertColor(t);
-	   //				if (!c.equals(othercolor)) {
-	   //					isGivingCheck = new bool(true);
-	   //					addToCheckHash(zobrist);
-	   //					return true;
-	   //				}
-	   //			}
-	   //		}
-
-	   //		moves.clear();
-	   //		generatePawnCaptures(this, moves, kingPosition, othercolor);
-	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //			Move move = (Move) it.next();
-	   //			int piece = Math.abs(board[move.to]);
-	   //			if (piece == 1) {
-	   //				int t = board[move.to];
-	   //				bool c = EdenBrain.convertColor(t);
-	   //				if (c.equals(othercolor)) {
-	   //					isGivingCheck = new bool(true);
-	   //					addToCheckHash(zobrist);
-	   //					return true;
-	   //				}
-	   //			}
-	   //		}
-	   //	}
-
-	   //	if ((onRank(moveFrom, kingPosition)) || (onFile(moveFrom, kingPosition))) {
-	   //		moves.clear();
-	   //		generateRookCaptures(this, moves, kingPosition, othercolor);
-	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //			Move move = (Move) it.next();
-	   //			int piece = Math.abs(board[move.to]);
-	   //			if ((piece == 4) || (piece == 5)) {
-	   //				int t = board[move.to];
-	   //				bool c = EdenBrain.convertColor(t);
-	   //				if (!c.equals(othercolor)) {
-	   //					isGivingCheck = new bool(true);
-	   //					addToCheckHash(zobrist);
-	   //					return true;
-	   //				}
-	   //			}
-	   //		}
-	   //	}
-
-	   //	moves.clear();
-	   //	generateKingCaptures(this, moves, kingPosition, othercolor);
-	   //	for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //		Move move = (Move) it.next();
-	   //		int piece = Math.abs(board[move.to]);
-	   //		if (piece == 6) {
-	   //			isGivingCheck = new bool(true);
-	   //			addToCheckHash(zobrist);
-	   //			return true;
-	   //		}
-	   //	}
-
-	   //	isGivingCheck = new bool(false);
-	   //	addToCheckHash(zobrist);
-	   //	return false;
-	   //}
+	  
 	   bool isGivingCheckNonKingMoving(int moveFrom) {
 		   //Integer zobrist = null;
 		   //if (this.isGivingCheck != null)
@@ -2971,86 +2528,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return newPiece;
 	   //	}
 	   //
-	   //	void makeTestMove(Move move) {
-	   //		isGivingCheck = null;
-	   //		legalMoves = null;
-	   //		setStartPosition(false);
-	   //		int movingPiece = moveRaw(move);
-	   //		int movingPieceType = Math.abs(movingPiece);
-	   //		if ((movingPieceType == 1) && (move.to == enPassant()))
-	   //			testClearEnPassantCapture(move, board);
-	   //		if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
-	   //			enPassantSquare = ((move.from + move.to) / 2);
-	   //		} else
-	   //			enPassantSquare = 0;
-	   //		if ((movingPieceType == 6) && (Math.abs(move.from - move.to) == 2)) {
-	   //			int rookTo;
-	   //			int rookFrom;
-	   //			if (move.to == 17) {
-	   //				rookFrom = 18;
-	   //				rookTo = 16;
-	   //			} else {
-	   //				if (move.to == 87) {
-	   //					rookFrom = 88;
-	   //					rookTo = 86;
-	   //				} else {
-	   //					if (move.to == 13) {
-	   //						rookFrom = 11;
-	   //						rookTo = 14;
-	   //					} else {
-	   //						if (move.to == 83) {
-	   //							rookFrom = 81;
-	   //							rookTo = 84;
-	   //						} else {
-	   //							rookFrom = -1;
-	   //							rookTo = -1;
-	   //							System.out.println("move.from: " + move.from);
-	   //							throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
-	   //						}
-	   //					}
-	   //				}
-	   //			}
-	   //			Move rookJump = new Move(this, rookFrom, rookTo);
-	   //			moveRaw(rookJump);
-	   //			if (movingPiece > 0) {
-	   //				hasCastledWhite = true;
-	   //			} else
-	   //				hasCastledBlack = true;
-	   //		}
-	   //		if (movingPieceType == 6) {
-	   //			if (onMove.equals(WHITE)) {
-	   //				castleShortWhite = false;
-	   //				castleLongWhite = false;
-	   //			} else {
-	   //				castleShortBlack = false;
-	   //				castleLongBlack = false;
-	   //			}
-	   //		} else if (movingPieceType == 4)
-	   //			if (onMove.equals(WHITE)) {
-	   //				if (move.from == 18) {
-	   //					castleShortWhite = false;
-	   //				} else if (move.from == 11) {
-	   //					castleLongWhite = false;
-	   //				}
-	   //			} else if (move.from == 88) {
-	   //				castleShortBlack = false;
-	   //			} else if (move.from == 81)
-	   //				castleLongBlack = false;
-	   //		int p = board[11];
-	   //		if (p != 4)
-	   //			castleLongWhite = false;
-	   //		p = board[18];
-	   //		if (p != 4)
-	   //			castleShortWhite = false;
-	   //		p = board[81];
-	   //		if (p != -4)
-	   //			castleLongBlack = false;
-	   //		p = board[88];
-	   //		if (p != -4)
-	   //			castleShortBlack = false;
-	   //		onMove = bool.valueOf(!onMove.boolValue());
-	   //	}
-	   //
+	   
 	   int moveRaw(Move move) {
 		   int movingPiece = board[move.from];
 		   int fromSquare = move.from;
@@ -3132,10 +2610,7 @@ public:int board[MAX_BOARD_SIZE];
 	   		return diff / 10 == 0;
 	   	}
 	   
-	   //	bool getOnMove() {
-	   //		return onMove;
-	   //	}
-	   //
+	 
 	   	bool onRank(int moveFrom, int kingPosition) {
 	   		int col1 = moveFrom / 10;
 	   		int col2 = moveFrom / 10;
@@ -3174,56 +2649,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return null;
 	   //	}
 	   //
-	   //	void removeIllegalMoves(SortedSet moves) {
-	   //		Collection markForDelete = new TreeSet();
-	   //		for (Iterator it = moves.iterator(); it.hasNext();) {
-	   //			Move move = (Move) it.next();
-	   //			Info.ensureLegalNodes += 1;
-	   //			Position nextPos = createTestPosition(this, move);
-	   //			if (isReceivingCheck()) {
-	   //				if (nextPos.isGivingCheck()) {
-	   //					markForDelete.add(move);
-	   //				}
-	   //			} else {
-	   //				int movingPiece = Math.abs(board[move.from]);
-	   //				switch (movingPiece) {
-	   //				default:
-	   //					break;
-	   //
-	   //				case 6:
-	   //					if (nextPos.isGivingCheck())
-	   //						markForDelete.add(move);
-	   //					break;
-	   //
-	   //				case 1:
-	   //
-	   //				case 2:
-	   //
-	   //				case 3:
-	   //
-	   //				case 4:
-	   //
-	   //				case 5:
-	   //					if (nextPos.isGivingCheckNonKingMoving(move.from)) {
-	   //						markForDelete.add(move);
-	   //					}
-	   //					break;
-	   //				}
-	   //			}
-	   //		}
-	   //		moves.removeAll(markForDelete);
-	   //		for (Iterator it1 = markForDelete.iterator(); it1.hasNext();) {
-	   //			Move m = (Move) it1.next();
-	   //			for (Iterator it2 = moves.iterator(); it2.hasNext();) {
-	   //				Move m2 = (Move) it2.next();
-	   //				if (m.getText().equals(m2.getText())) {
-	   //					it2.remove();
-	   //					break;
-	   //				}
-	   //			}
-	   //		}
-	   //	}
-	   //
+	   
 	   //	void setBestMove(Move bestMove) {
 	   //		bestMove = bestMove;
 	   //	}
@@ -3296,18 +2722,7 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return board.toString();
 	   //	}
 	   //
-	   //	bool tryMoveNonCapture(Set moves, int from, int next, bool color) {
-	   //		if (invalidSquare(next))
-	   //			return true;
-	   //		int type = board[next];
-	   //		if (type != 0) {
-	   //			return true;
-	   //		}
-	   //
-	   //		Move m = new Move(this, from, next, 0, type);
-	   //		moves.add(m);
-	   //		return false;
-	   //	}
+
 	   //
 	   //	int typeOn(int nextIndex) {
 	   //		return board[nextIndex];

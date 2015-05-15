@@ -116,7 +116,7 @@ void parse(string toParse) {
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
 		string perftDepthParameter = "4"; //TODO extract from toParse
-		int perftDepth = 3; // TODO extract from perftDepthParameter
+		int perftDepth = 4; // TODO extract from perftDepthParameter
 		int nodes = perft (p, perftDepth);
 		cout << perftDepth << ", " << nodes << endl;
 
