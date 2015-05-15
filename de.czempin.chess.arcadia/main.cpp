@@ -125,7 +125,7 @@ void parse(string toParse) {
 	}else if (startsWith("position", toParse)){
 		p.clear();
 		string positionString = extractPosition(toParse);
-		if (positionString =="startpos") {
+		if (startsWith("startpos",positionString)) {
 			p.setToStart();
 		}else if (startsWith("position fen",positionString)){
 			string positionFen = extractFen(positionString);
