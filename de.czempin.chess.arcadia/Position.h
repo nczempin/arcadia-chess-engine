@@ -2589,7 +2589,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-	//TODO	   generateKingCaptures(moves, i, othercolor);
+		   //TODO	   generateKingCaptures(moves, i, othercolor);
 		   for (Move move:moves){
 			   int piece = abs(board[move.to]);
 			   if (piece == 6) {
@@ -2600,7 +2600,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-	//TODO	   generateKnightCaptures(this, moves, i, othercolor);
+		   //TODO	   generateKnightCaptures(this, moves, i, othercolor);
 		   for (Move move:moves){
 			   int piece = abs(board[move.to]);
 			   if (piece == 2) {
@@ -2614,7 +2614,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-	//TODO	   generatePawnCaptures(this, moves, i, othercolor);
+		   //TODO	   generatePawnCaptures(this, moves, i, othercolor);
 		   for (Move move:moves){
 			   int piece =abs(board[move.to]);
 			   if (piece == 1) {
@@ -2788,6 +2788,79 @@ public:int board[MAX_BOARD_SIZE];
 	   //	addToCheckHash(zobrist);
 	   //	return false;
 	   //}
+	   bool isGivingCheckNonKingMoving(int moveFrom) {
+		   //Integer zobrist = null;
+		   //if (this.isGivingCheck != null)
+		   //	return this.isGivingCheck.boolValue();
+		   bool othercolor = !onMove;
+		   int kingPosition = findKing(othercolor);
+		   //if (kingPosition == -1)
+		   //	throw new IllegalStateException("no king found");
+		   list<Move> moves;
+		   if (onDiagonal(moveFrom, kingPosition)) {
+			   moves.clear();
+			   generateBishopCaptures(moves, kingPosition, othercolor);
+			   for (Move move : moves){
+				   int piece = abs(board[move.to]);
+				   if ((piece == 3) || (piece == 5)) {
+					   int t = board[move.to];
+					   bool c = t>0;//convertColor(t);
+					   if (c!=othercolor) {
+						   //isGivingCheck = new bool(true);
+						   return true;
+					   }
+				   }
+			   }
+
+			   moves.clear();
+			   //generatePawnCaptures(this, moves, kingPosition, othercolor);TODO
+			   //for (Iterator it = moves.iterator(); it.hasNext();) {
+			   //	Move move = (Move) it.next();
+			   //	int piece = Math.abs(this.board[move.to]);
+			   //	if (piece == 1) {
+			   //		int t = this.board[move.to];
+			   //		bool c = EdenBrain.convertColor(t);
+			   //		if (c.equals(othercolor)) {
+			   //			this.isGivingCheck = new bool(true);
+			   //			addToCheckHash(zobrist);
+			   //			return true;
+			   //		}
+			   //	}
+			   //}
+		   }
+
+		   if ((onRank(moveFrom, kingPosition)) || (onFile(moveFrom, kingPosition))) {
+			   moves.clear();
+			   generateRookCaptures(moves, kingPosition, othercolor); //TODO separate rank and file generation
+			   for (Move move:moves){
+				   int piece = abs(board[move.to]);
+				   if ((piece == 4) || (piece == 5)) {
+					   int t = board[move.to];
+					   bool c = t>0;//convertColor(t);
+					   if (c!=othercolor) {
+						   //isGivingCheck = new bool(true);
+						   return true;
+					   }
+				   }
+			   }
+		   }
+
+		   moves.clear();
+		   //generateKingCaptures(this, moves, kingPosition, othercolor); TODO
+		   //for (Iterator it = moves.iterator(); it.hasNext();) {
+		   //	Move move = (Move) it.next();
+		   //	int piece = Math.abs(this.board[move.to]);
+		   //	if (piece == 6) {
+		   //		this.isGivingCheck = new bool(true);
+		   //		addToCheckHash(zobrist);
+		   //		return true;
+		   //	}
+		   //}
+
+		   //		this.isGivingCheck = new bool(false);
+		   //		addToCheckHash(zobrist);
+		   return false;
+	   }
 	   bool isReceivingCheck() {
 		   /*	if (isReceivingCheck != null)
 		   return isReceivingCheck.boolValue();*/
@@ -2806,7 +2879,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-//TODO		   generatePawnCaptures(moves, kingPosition, kingColor);
+		   //TODO		   generatePawnCaptures(moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 1) {
 				   //isReceivingCheck = new bool(true);
@@ -2815,7 +2888,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-	//TODO	   generateKnightCaptures( moves, kingPosition, kingColor);
+		   //TODO	   generateKnightCaptures( moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 2) {
 				   //isReceivingCheck = new bool(true);
@@ -2834,7 +2907,7 @@ public:int board[MAX_BOARD_SIZE];
 		   }
 
 		   moves.clear();
-	//TODO	   generateKingMovesNoCastling( moves, kingPosition, kingColor);
+		   //TODO	   generateKingMovesNoCastling( moves, kingPosition, kingColor);
 		   for (Move move: moves) {
 			   if (abs(board[move.to]) == 6) {
 				   //isReceivingCheck = new bool(true);

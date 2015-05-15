@@ -33,7 +33,7 @@ public:
 		}
 		return moves;
 	}
-	//
+		
 	void removeIllegalMoves(list<Move> moves) {
 		//	list<Move> markForDelete = list<Move>();
 		for (Move move:moves) {
@@ -331,7 +331,7 @@ public:
 		return true;
 	}
 	//
-	//	Move generateNextBishopCapture(int from, Boolean color) {
+	//	Move generateNextBishopCapture(int from, bool color) {
 	//		SortedSet moves = new TreeSet();
 	//		if (this.bishopCaptureCount == 4)
 	//			return null;
@@ -402,7 +402,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generateNextCaptureMove(int i, int p, Boolean color) {
+	//	Move generateNextCaptureMove(int i, int p, bool color) {
 	//		SortedSet moves = new TreeSet();
 	//		switch (p) {
 	//		case -1:
@@ -439,7 +439,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generateNextKingCapture(int i, Boolean color, SortedSet moves) {
+	//	Move generateNextKingCapture(int i, bool color, SortedSet moves) {
 	//		if (this.kingCaptures == null) {
 	//			this.kingCaptures = new TreeSet();
 	//			generateKingCaptures(this, moves, i, color);
@@ -454,7 +454,7 @@ public:
 	//		return retVal;
 	//	}
 	//
-	//	Move generateNextKnightCapture(int i, Boolean color, SortedSet moves) {
+	//	Move generateNextKnightCapture(int i, bool color, SortedSet moves) {
 	//		if (this.knightCaptures == null) {
 	//			this.knightCaptures = new TreeSet();
 	//			generateKnightCaptures(this, moves, i, color);
@@ -469,7 +469,7 @@ public:
 	//		return retVal;
 	//	}
 	//
-	//	Move generateNextNonCaptureMove(int i, int p, Boolean color) {
+	//	Move generateNextNonCaptureMove(int i, int p, bool color) {
 	//		SortedSet moves = new TreeSet();
 	//		switch (p) {
 	//		case -1:
@@ -506,7 +506,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generateNextPawnCapture(SortedSet moves, int from, Boolean color) {
+	//	Move generateNextPawnCapture(SortedSet moves, int from, bool color) {
 	//		if (this.lastPawnCapture < 0) {
 	//			if (this.lastPawnCapture == -from)
 	//				return null;
@@ -539,7 +539,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generateNextPawnNonCapture(SortedSet moves, int from, Boolean color) {
+	//	Move generateNextPawnNonCapture(SortedSet moves, int from, bool color) {
 	//		if (this.lastPawnNonCapture == 2)
 	//			return null;
 	//		if (this.lastPawnNonCapture == 0) {
@@ -559,7 +559,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generateNextQueenCapture(int i, Boolean color, SortedSet moves) {
+	//	Move generateNextQueenCapture(int i, bool color, SortedSet moves) {
 	//		if (this.queenCaptures == null) {
 	//			this.queenCaptures = new TreeSet();
 	//			generateQueenCaptures(this, moves, i, color);
@@ -574,7 +574,7 @@ public:
 	//		return retVal;
 	//	}
 	//
-	//	Move generateNextRookCapture(int i, Boolean color, SortedSet moves) {
+	//	Move generateNextRookCapture(int i, bool color, SortedSet moves) {
 	//		if (this.rookCaptures == null) {
 	//			this.rookCaptures = new TreeSet();
 	//			generateRookCaptures(this, moves, i, color);
@@ -595,7 +595,7 @@ public:
 	//			int p = this.board[i];
 	//			int type = Math.abs(p);
 	//			if ((type >= 1) && (type <= 7)) {
-	//				Boolean color = EdenBrain.convertColor(p);
+	//				bool color = EdenBrain.convertColor(p);
 	//				if (color.equals(onMove())) {
 	//					SortedSet pieceMoves = generateNonCaptureMoves(i, p, color);
 	//					moves.addAll(pieceMoves);
@@ -606,7 +606,7 @@ public:
 	//		return moves;
 	//	}
 	//
-	//	SortedSet generateNonCaptureMoves(int square, int piece, Boolean color) {
+	//	SortedSet generateNonCaptureMoves(int square, int piece, bool color) {
 	//		SortedSet moves = new TreeSet();
 	//		switch (piece) {
 	//		case -1:
@@ -649,7 +649,7 @@ public:
 	//		return moves;
 	//	}
 	//
-	//	Move generatePawnNonCapture1(int from, Boolean color) {
+	//	Move generatePawnNonCapture1(int from, bool color) {
 	//		int multi = 10;
 	//		int row = 20;
 	//		if (color == BLACK) {
@@ -668,7 +668,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	Move generatePawnNonCapture2(int from, Boolean color) {
+	//	Move generatePawnNonCapture2(int from, bool color) {
 	//		int multi = 10;
 	//		int row = 20;
 	//		if (color == BLACK) {
@@ -686,7 +686,7 @@ public:
 	//		return null;
 	//	}
 	//
-	//	void generatePawnNonCaptures(Position position, SortedSet moves, int from, Boolean color) {
+	//	void generatePawnNonCaptures(Position position, SortedSet moves, int from, bool color) {
 	//		Move step1 = generatePawnNonCapture1(from, color);
 	//		if (step1 != null)
 	//			moves.add(step1);
@@ -696,12 +696,12 @@ public:
 	//		}
 	//	}
 	//
-	//	void generateQueenNonCaptures(Set moves, int from, Boolean color) {
+	//	void generateQueenNonCaptures(Set moves, int from, bool color) {
 	//		generateBishopNonCaptures(moves, from, color);
 	//		generateRookNonCaptures(moves, from, color);
 	//	}
 	//
-	//	void generateRookNonCaptures(Set moves, int from, Boolean color) {
+	//	void generateRookNonCaptures(Set moves, int from, bool color) {
 	//		for (int i = 1; i < 8; i++) {
 	//			int next = from + i * 10;
 	//			if (next > 88)
