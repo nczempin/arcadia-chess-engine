@@ -18,7 +18,14 @@ public:
 	list<Move> generateLegalMoves(Position position){
 		list<Move> moves = generateAllMoves(position);
 		 removeIllegalMoves(moves);
-		 return moves;
+		if (moves.size()==0){
+			if (position.isReceivingCheck()){
+				cout << "I am Mate." << endl;
+			}else{
+				cout << "I am Stalemate." << endl;
+			}
+		}
+	 return moves;
 	}
 	list<Move> generateAllMoves(Position position) {
 		moves.clear();
@@ -36,7 +43,7 @@ public:
 				}
 			}
 		}
-		return moves;
+			return moves;
 	}
 		
 	void removeIllegalMoves(list<Move>& moves) {
