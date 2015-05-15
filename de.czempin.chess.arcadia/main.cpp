@@ -88,7 +88,7 @@ static int perft(const Position position, int maxDepth){
 		return 1;
 	}
 	MoveGenerator mg;
-	list<Move> moves = mg.generateAllMoves(position);
+	list<Move> moves = mg.generateLegalMoves(position);
 	int count = 0;
 	Position tmpPos = position;
 	for(Move move: moves){
@@ -112,7 +112,7 @@ string extractFen(string positionString){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position startpos moves d2d4 g8f6 c2c4 c7c5 d4d5 b7b5 c4b5 a7a6 b5a6 g7g6 b1c3 c8a6";
+		toParse = "position startpos moves e2e4 d7d6 f1b5";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;
@@ -152,7 +152,7 @@ void parse(string toParse) {
 	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
-		list<Move> moves =mg.generateAllMoves(p);
+		list<Move> moves =mg.generateLegalMoves(p);
 		for (Move move:moves){
 			move.print();
 		}

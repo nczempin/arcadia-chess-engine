@@ -159,6 +159,7 @@ public:
 		   pawnZobrist = position.pawnZobrist;
 		   pzCache = position.pzCache;
 		   isEndGame = position.isEndGame;*/
+		   return p;
 	   }
 
 

@@ -15,6 +15,11 @@ private:
 	Position position;
 	list<Move> moves;
 public: 
+	list<Move> generateLegalMoves(Position position){
+		list<Move> moves = generateAllMoves(position);
+		list<Move> legalMoves =  removeIllegalMoves(moves);
+		 return legalMoves;
+	}
 	list<Move> generateAllMoves(Position position) {
 		moves.clear();
 		this->position = position;
@@ -34,7 +39,7 @@ public:
 		return moves;
 	}
 		
-	void removeIllegalMoves(list<Move> moves) {
+	list<Move> removeIllegalMoves(list<Move> moves) {
 		for (Move move:moves) {
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
@@ -72,6 +77,7 @@ public:
 				}
 			}
 		}
+		return moves;
 	}
 	void generateMoves(int i, int p) {
 		switch (p) {
