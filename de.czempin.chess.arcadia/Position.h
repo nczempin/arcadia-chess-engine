@@ -3122,25 +3122,25 @@ public:int board[MAX_BOARD_SIZE];
 	   //		return moves.size() == 0;
 	   //	}
 	   //
-	   //	bool onDiagonal(int moveFrom, int kingPosition) {
-	   //		int diff = moveFrom - kingPosition;
-	   //		return (diff % 11 == 0) || (diff % 9 == 0);
-	   //	}
-	   //
-	   //	bool onFile(int moveFrom, int kingPosition) {
-	   //		int diff = moveFrom - kingPosition;
-	   //		return diff / 10 == 0;
-	   //	}
-	   //
+	   	bool onDiagonal(int moveFrom, int kingPosition) {
+	   		int diff = moveFrom - kingPosition;
+	   		return (diff % 11 == 0) || (diff % 9 == 0);
+	   	}
+	   
+	   	bool onFile(int moveFrom, int kingPosition) {
+	   		int diff = moveFrom - kingPosition;
+	   		return diff / 10 == 0;
+	   	}
+	   
 	   //	bool getOnMove() {
 	   //		return onMove;
 	   //	}
 	   //
-	   //	bool onRank(int moveFrom, int kingPosition) {
-	   //		int col1 = moveFrom / 10;
-	   //		int col2 = moveFrom / 10;
-	   //		return col1 == col2;
-	   //	}
+	   	bool onRank(int moveFrom, int kingPosition) {
+	   		int col1 = moveFrom / 10;
+	   		int col2 = moveFrom / 10;
+	   		return col1 == col2;
+	   	}
 	   //
 	   //	Piece pieceOn(int index) {
 	   //		return Piece.makePiece(index, board);
