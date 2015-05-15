@@ -3,6 +3,7 @@
 
 #include "Move.h"
 #include "global.h"
+#include "Character.h"
 #include <string>
 #include <iterator>
 #include <list>
@@ -1148,89 +1149,89 @@ public:
 	   //		return retVal;
 	   //	}
 	   //
-	   //	void fillRank(int rank, String currentRank) {
-	   //		int rankStart = 10 * (rank + 1);
-	   //		int next = rankStart + 1;
-	   //		for (int i = 0; i < currentRank.length(); i++) {
-	   //			char currChar = currentRank.charAt(i);
-	   //			if (Character.isDigit(currChar)) {
-	   //				int digit = Character.getNumericValue(currChar);
-	   //				for (int j = 0; j < digit; j++) {
-	   //					board[next] = 0;
-	   //					next++;
-	   //					if (next > 88) {
-	   //						break;
-	   //					}
-	   //				}
-	   //			} else if (Character.isLetter(currChar)) {
-	   //				switch (currChar) {
-	   //				case 'k':
-	   //					board[next] = -6;
-	   //					blackPieces.add(new Integer(next));
-	   //					blackKing = next;
-	   //					break;
-	   //
-	   //				case 'q':
-	   //					board[next] = -5;
-	   //					blackPieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'r':
-	   //					board[next] = -4;
-	   //					blackPieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'b':
-	   //					board[next] = -3;
-	   //					blackPieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'n':
-	   //					board[next] = -2;
-	   //					blackPieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'p':
-	   //					board[next] = -1;
-	   //					blackPieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'K':
-	   //					board[next] = 6;
-	   //					whitePieces.add(new Integer(next));
-	   //					whiteKing = next;
-	   //					break;
-	   //
-	   //				case 'Q':
-	   //					board[next] = 5;
-	   //					whitePieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'R':
-	   //					board[next] = 4;
-	   //					whitePieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'B':
-	   //					board[next] = 3;
-	   //					whitePieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'N':
-	   //					board[next] = 2;
-	   //					whitePieces.add(new Integer(next));
-	   //					break;
-	   //
-	   //				case 'P':
-	   //					board[next] = 1;
-	   //					whitePieces.add(new Integer(next));
-	   //				}
-	   //
-	   //				next++;
-	   //			}
-	   //		}
-	   //	}
-	   //
+	   	void fillRank(int rank, string currentRank) {
+	   		int rankStart = 10 * (rank + 1);
+	   		int next = rankStart + 1;
+	   		for (int i = 0; i < currentRank.length(); i++) {
+	   			char currChar = currentRank[i];
+	   			if (Character::isDigit(currChar)) {
+	   				int digit = Character::getNumericValue(currChar);
+	   				for (int j = 0; j < digit; j++) {
+	   					board[next] = 0;
+	   					next++;
+	   					if (next > 88) {
+	   						break;
+	   					}
+	   				}
+	   			} else if (Character::isLetter(currChar)) {
+	   				switch (currChar) {
+	   				case 'k':
+	   					board[next] = -6;
+	   					//blackPieces.add(new Integer(next));
+	   					blackKing = next;
+	   					break;
+	   
+	   				case 'q':
+	   					board[next] = -5;
+	   					//blackPieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'r':
+	   					board[next] = -4;
+	   					//blackPieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'b':
+	   					board[next] = -3;
+	   					//blackPieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'n':
+	   					board[next] = -2;
+	   					//blackPieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'p':
+	   					board[next] = -1;
+	   					//blackPieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'K':
+	   					board[next] = 6;
+	   					//whitePieces.add(new Integer(next));
+	   					whiteKing = next;
+	   					break;
+	   
+	   				case 'Q':
+	   					board[next] = 5;
+	   					//whitePieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'R':
+	   					board[next] = 4;
+	   					//whitePieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'B':
+	   					board[next] = 3;
+	   					//whitePieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'N':
+	   					board[next] = 2;
+	   					//whitePieces.add(new Integer(next));
+	   					break;
+	   
+	   				case 'P':
+	   					board[next] = 1;
+	   					//whitePieces.add(new Integer(next));
+	   				}
+	   
+	   				next++;
+	   			}
+	   		}
+	   	}
+	   
 	   int findKing(bool colorWhite) {
 		   if (colorWhite) {
 			   return whiteKing;
@@ -2679,7 +2680,7 @@ public:
 	   		vector<string> ranks = split(fenPosition,'/');
 	   		for (int i = 0; i < 8; i++) {
 	   			string currentRank = ranks[(7 - i)];
-	   			//fillRank(i, currentRank);
+	   			fillRank(i, currentRank);
 	   		}
 	   
 	   		string fenOnMove = fenFields[1];
