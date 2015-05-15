@@ -2691,7 +2691,7 @@ public:
 			}else{
 				//huh?
 			}
-	/*   		string fenCastling = fenFields[2];
+	/*   TODO		string fenCastling = fenFields[2];
 	   		castleShortWhite = (fenCastling.indexOf('K') != -1);
 	   		castleLongWhite = (fenCastling.indexOf('Q') != -1);
 	   		castleShortBlack = (fenCastling.indexOf('k') != -1);

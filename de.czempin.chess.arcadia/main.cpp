@@ -96,7 +96,7 @@ static int perft(const Position position, int maxDepth){
 }
 
 string extractFen(string positionString){
-	static string command = "position fen ";
+	static string command = "fen ";
 	string retValue = positionString.substr(command.length()); // remove "fen " TODO: more fail-safe / defensive
 	//remove moves
 	int movesFoundAt =  retValue.find("moves ");
@@ -130,6 +130,7 @@ void parse(string toParse) {
 		}else if (startsWith("fen",positionString)){
 			string positionFen = extractFen(positionString);
 			p.setFenPosition(positionFen);
+			p.print();
 			cout << "TODO: fen " << positionFen << endl;
 		}
 		string movesString =extractMoves(toParse);
