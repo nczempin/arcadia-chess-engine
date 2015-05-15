@@ -2,7 +2,7 @@
 //
 
 #include "Move.h"
-
+#include "global.h"
 #include <string>
 #include <iterator>
 #include <list>
@@ -2672,34 +2672,37 @@ public:
 	   //		bestValue = bestValue;
 	   //	}
 	   //
-	   //	void setFENPosition(String fenString) {
-	   //		clearBoard();
-	   //		String[] fenFields = fenString.split(" ");
-	   //		String fenPosition = fenFields[0];
-	   //		String[] ranks = fenPosition.split("/");
-	   //		for (int i = 0; i < 8; i++) {
-	   //			String currentRank = ranks[(7 - i)];
-	   //			fillRank(i, currentRank);
-	   //		}
-	   //
-	   //		String fenOnMove = fenFields[1];
-	   //		if (fenOnMove.equals("w")) {
-	   //			onMove = WHITE;
-	   //		} else if (fenOnMove.equals("b"))
-	   //			onMove = BLACK;
-	   //		String fenCastling = fenFields[2];
-	   //		castleShortWhite = (fenCastling.indexOf('K') != -1);
-	   //		castleLongWhite = (fenCastling.indexOf('Q') != -1);
-	   //		castleShortBlack = (fenCastling.indexOf('k') != -1);
-	   //		castleLongBlack = (fenCastling.indexOf('k') != -1);
-	   //		String fenEnPassant = fenFields[3];
-	   //		if (fenEnPassant.equals("-")) {
-	   //			enPassantSquare = 0;
-	   //		} else {
-	   //			enPassantSquare = decodeSquare(fenEnPassant);
-	   //		}
-	   //	}
-	   //
+	   	void setFenPosition(string fenString) {
+	   		clear();
+	   		vector<string> fenFields = split(fenString,' ');
+	   		string fenPosition = fenFields[0];
+	   		vector<string> ranks = split(fenPosition,'/');
+	   		for (int i = 0; i < 8; i++) {
+	   			string currentRank = ranks[(7 - i)];
+	   			//fillRank(i, currentRank);
+	   		}
+	   
+	   		string fenOnMove = fenFields[1];
+	   		if (fenOnMove=="w") {
+	   			onMove = WHITE;
+	   		} else if (fenOnMove=="b"){
+	   			onMove = BLACK;
+			}else{
+				//huh?
+			}
+	/*   		string fenCastling = fenFields[2];
+	   		castleShortWhite = (fenCastling.indexOf('K') != -1);
+	   		castleLongWhite = (fenCastling.indexOf('Q') != -1);
+	   		castleShortBlack = (fenCastling.indexOf('k') != -1);
+	   		castleLongBlack = (fenCastling.indexOf('k') != -1);
+	   		string fenEnPassant = fenFields[3];
+	   		if (fenEnPassant.equals("-")) {
+	   			enPassantSquare = 0;
+	   		} else {
+	   			enPassantSquare = decodeSquare(fenEnPassant);
+	   		}*/
+	   	}
+	   
 	   //	void setOnMove(bool onMove) {
 	   //		onMove = onMove;
 	   //	}

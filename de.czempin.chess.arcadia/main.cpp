@@ -2,12 +2,8 @@
 
 
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include < list>
 
-
+#include "global.h"
 #include "Position.h"
 #include "MoveGenerator.h"
 
@@ -18,7 +14,20 @@ string extractPosition(string);
 string extractMoves(string);
 
 bool done;
+vector<string> &split(const string &s, char delim, vector<string> &elems) {
+	stringstream ss(s);
+	string item;
+	while (getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+	return elems;
+}
 
+vector<string> split(const string &s, char delim) {
+	vector<string> elems;
+	split(s, delim, elems);
+	return elems;
+}
 static int decodeSquare(string square) {
 	char letter = square[0];
 	char digit = square[1];
@@ -69,20 +78,7 @@ static string extractPosition(string parameters)
 
 
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-	std::stringstream ss(s);
-	std::string item;
-	while (std::getline(ss, item, delim)) {
-		elems.push_back(item);
-	}
-	return elems;
-}
 
-std::vector<std::string> split(const std::string &s, char delim) {
-	std::vector<std::string> elems;
-	split(s, delim, elems);
-	return elems;
-}
 static int perft(const Position position, int maxDepth){
 	if (maxDepth==0){
 		return 1;
@@ -112,7 +108,7 @@ string extractFen(string positionString){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position startpos moves e2e4 g7g5 f1c4 f7f6 d1h5";
+		toParse = "position fen 8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;
@@ -131,10 +127,10 @@ void parse(string toParse) {
 		string positionString = extractPosition(toParse);
 		if (startsWith("startpos",positionString)) {
 			p.setToStart();
-		}else if (startsWith("position fen",positionString)){
+		}else if (startsWith("fen",positionString)){
 			string positionFen = extractFen(positionString);
-			//p.setFENPosition(positionFen);
-			cout << "TODO: fen" << positionFen << endl;
+			p.setFenPosition(positionFen);
+			cout << "TODO: fen " << positionFen << endl;
 		}
 		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');

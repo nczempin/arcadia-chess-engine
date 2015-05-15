@@ -146,6 +146,7 @@
   <ItemGroup>
     <ClInclude Include="Boolean.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="global.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Info.h" />
     <ClInclude Include="Integer.h" />
