@@ -110,6 +110,10 @@ string extractFen(string positionString){
 	return retValue;
 }
 void parse(string toParse) {
+	// for debugging
+	if (toParse=="."){
+		toParse = "position startpos moves d2d4 g8f6 c2c4 c7c5 d4d5 b7b5 c4b5 a7a6 b5a6 g7g6 b1c3 c8a6";
+	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;
 		cout << "id author Nicolai Czempin" << endl;
@@ -138,10 +142,13 @@ void parse(string toParse) {
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				//cout << "making move: "<<move<<endl;
+				p.print();
+				cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}
+	}else if (toParse == "sp"){	
+		p.print();
 	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
@@ -149,6 +156,8 @@ void parse(string toParse) {
 		for (Move move:moves){
 			move.print();
 		}
+	}else {
+		cout << "???" << endl;
 	}
 }	 static int decodePiece(string promotedTo) {
 	int retValue = 0;

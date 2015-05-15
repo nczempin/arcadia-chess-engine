@@ -12,7 +12,9 @@ class Position{
 public:
 
 	int enPassantSquare;
-private:  static const int MAX_BOARD_SIZE = 89;
+private:  
+	
+	static const int MAX_BOARD_SIZE = 89;
 		  //
 		  //
 		  //	static const  int pieceValues[6];
@@ -26,9 +28,19 @@ private:  static const int MAX_BOARD_SIZE = 89;
 		  //	static const bool BLACK = false;
 		  //
 		  //
-public:int board[MAX_BOARD_SIZE];
+public:
+	int board[MAX_BOARD_SIZE];
 	   int whiteKing;
 	   int blackKing;
+
+	   void print(){
+		   for (int i = 0; i < MAX_BOARD_SIZE; ++i){
+			   cout << i << ": " << board[i];// << endl;
+		   }
+		   cout << endl;
+
+	   }
+
 	   void setToStart(){
 		   clear();
 		   board[15] = 6; //white king
