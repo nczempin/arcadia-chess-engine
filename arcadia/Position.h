@@ -121,7 +121,7 @@ public:
 	//
 	//	static const int ROOK = 4;
 	static void copyBoard(int from[], int to[]) {
-		memcpy(to,from, sizeof(int)*88);
+		memcpy(to,from, sizeof(int)*89);
 	}
 	Position copyPosition() {
 		Position p =  Position();
@@ -1296,7 +1296,7 @@ public:
 			return true;
 		}
 
-		Move m = Move(from, next, 0, type);
+		Move m = Move(from, next);
 		moves.push_front(m);
 		return true;
 	}
@@ -2273,10 +2273,10 @@ public:
 
 		moves.clear();
 		generateRookCaptures(moves, i, othercolor);
-		//cout << "rook captures: " << endl;
-		//for (Move move:moves){
-		//	move.print();
-		//}
+		cout << "rook captures: " << endl;
+		for (Move move:moves){
+			move.print();
+		}
 		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if ((piece == 4) || (piece == 5)) {
