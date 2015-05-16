@@ -29,8 +29,12 @@ public:
 		 return from == i.from && to == i.to;
 	 }
 	void print(){
-		cout << encodeSquare(from) << "-" << encodeSquare(to) << endl;
+		cout << toString() << endl;
 	}	
+	string toString(){
+		string retVal =  encodeSquare(from) + "-" + encodeSquare(to);
+		return retVal;
+	}
 	int from;
 	int to;
 	int captured;
