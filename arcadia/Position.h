@@ -151,13 +151,13 @@ public:
 		//blackPieces.addAll(position.blackPieces);
 		p.blackKing = blackKing;
 		//isStartPosition = position.isStartPosition();
-
+		p.enPassantSquare = enPassantSquare;
 		p.onMove = onMove;
 		/*	castleLongBlack = position.getCastleLongBlack();
 		castleLongWhite = position.getCastleLongWhite();
 		castleShortBlack = position.getCastleShortBlack();
 		castleShortWhite = position.getCastleShortWhite();
-		enPassantSquare = position.enPassant();
+		
 		hasCastledBlack = position.hasCastledBlack();
 		hasCastledWhite = position.hasCastledWhite();
 		isGivingCheck = null;
@@ -994,7 +994,7 @@ public:
 	//
 	void clearEnPassantCapture(Move move) {
 		//long zobi;
-		if (move.to > move.from) {
+		if (move.to > move.from) { //move towards black's back rank
 			board[move.to-10] = 0;
 			//zobi = kleinerZobristEntfernen(move.to - 10);
 			//clearSquare(move.to, -10, board);

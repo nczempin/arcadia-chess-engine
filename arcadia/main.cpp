@@ -120,7 +120,7 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - - 0 1";
+		toParse = "position fen 8/8/8/8/1R3p1k/8/4P3/K7 w - - 0 1 moves e2e4";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
