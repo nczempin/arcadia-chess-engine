@@ -2574,8 +2574,8 @@ public:
 	//		return EdenBrain.zobrists[1][(-figur - 1)][(square - 11)];
 	//	}*/
 	//
-	void makeMove(int from, int to, int promotedTo) {
-		Move move = Move(from, to, promotedTo);
+	void makeMove(int from, int to, int captured, int promotedTo) {
+		Move move = Move(from, to, captured, promotedTo);
 		//bool isLegal = isLegal(from, to, promotedTo);
 		//if (isLegal) {
 		//	try {
@@ -2591,7 +2591,7 @@ public:
 	//	
 	void makeMove(string moveString)  {
 		Move m = Move(moveString);
-		makeMove(m.from, m.to, m.captured);
+		makeMove(m.from, m.to, m.captured, m.promoted);
 		//isGivingCheck = null;
 		//isReceivingCheck = null;
 	}
@@ -2643,10 +2643,12 @@ public:
 			//cout << "cleared " << move.from <<endl;
 			//clearSquare(move.from, 0, board);
 		} else {
+			cout << move.toString() << " promoted" << endl;
 			movingPiece = move.promoted;
 			if (board[move.from] < 0)
 				movingPiece *= -1;
 			board[move.from] = 0;
+			board[move.to] = movingPiece;
 			//clearSquare(move.from, 0, board);
 
 		}

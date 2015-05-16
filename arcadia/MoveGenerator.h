@@ -153,14 +153,15 @@ public:
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
 			if (next / (row + multi * 6) == 1) {
 				int promoPiece =position.onMove?5:-5;
-				Move m = Move(from, next, promoPiece, capturedPiece);
+				Move m = Move(from, next, capturedPiece, promoPiece);
+				cout << m.toString() << "*" << promoPiece << endl;
 				moves.push_front(m);
 			} else {
-				Move m = Move(from, next, 0, capturedPiece);
+				Move m = Move(from, next);
 				moves.push_front(m);
 			}
 			if (position.enPassantSquare == next) {
-				Move m = Move(from, next, 0, capturedPiece);
+				Move m = Move(from, next);
 				moves.push_front(m);
 			}
 	}
@@ -221,7 +222,7 @@ public:
 				if ((capturedPiece < 0) && (!position.onMove)||(capturedPiece > 0) && (position.onMove)) {
 					//no move. sorry about the reverse logic
 				}else{
-					Move m = Move(from, next, 0, capturedPiece);
+					Move m = Move(from, next);
 					moves.push_front(m);
 				}
 			}
@@ -250,7 +251,7 @@ public:
 					//no move. sorry about the reverse logic
 				}else{
 					int capturedPiece = position.board[next];
-					Move m = Move(from, next, 0, capturedPiece);
+					Move m = Move(from, next);
 					moves.push_front(m);
 				}
 			}

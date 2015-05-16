@@ -119,7 +119,7 @@ string extractFen(string positionString){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
+		toParse = "position startpos moves h2h4 g8f6 h4h5 h8g8 h5h6 g8h8 h6g7 h8g8 g7f8q g8f8 g2g4 f8h8 g4g5 h8f8 g5f6 f8h8 f6e7 h8f8 e7f8q";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;

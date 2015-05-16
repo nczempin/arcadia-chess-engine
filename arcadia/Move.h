@@ -13,21 +13,22 @@ public:
 		this->captured = captured;
 		this->promoted = promoted;
 	}
-	
-	 Move(string move) {
+
+	Move(string move) {
 		int from = decodeSquare(move.substr(0, 2));
 		int to = decodeSquare(move.substr(2, 4));
 		string promotedTo = move.substr(4);
+		promoted = 0;
 		if (promotedTo!="") {
 			promoted = 5; //TODO underpromotion
-			}
-			this->from = from;
-		this->to = to;
-		//FIXME what about captured?
 		}
-	 bool operator == (const Move &i) const {
-		 return from == i.from && to == i.to;
-	 }
+		this->from = from;
+		this->to = to;
+		captured = 0;
+	}
+	bool operator == (const Move &i) const {
+		return from == i.from && to == i.to;
+	}
 	void print(){
 		cout << toString() << endl;
 	}	
