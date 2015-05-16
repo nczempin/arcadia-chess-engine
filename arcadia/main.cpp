@@ -136,6 +136,24 @@ void parse(string toParse) {
 		}
 		cout << "Done." << endl;
 
+	}else if (startsWith("divide ",toParse)){
+		char perftDepthParameter = toParse[7];//'4'; //TODO extract from toParse
+		int perftDepth = Character::getNumericValue(perftDepthParameter);
+		//TODO do this more elegantly
+	MoveGenerator mg;
+	list<Move> moves = mg.generateLegalMoves(p);
+	int count = 0;
+	Position tmpPos = p;
+	for(Move move: moves){
+		tmpPos = p; //simple but inefficient way to undo the move
+		tmpPos.makeMove(move);
+		
+		count = perft(tmpPos, perftDepth -1);
+		cout << move.toString() << ": " << count << endl;
+	}
+
+		cout << "Done." << endl;
+
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
