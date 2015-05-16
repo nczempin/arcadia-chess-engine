@@ -105,6 +105,17 @@ string extractFen(string positionString){
 	}
 	return retValue;
 }
+
+	bool invalidSquare(int next) {
+		bool isInvalid = false;
+		if ((next < 11) || (next > 88))
+			isInvalid = true;
+		int mod = next % 10;
+		if ((mod == 0) || (mod == 9))
+			isInvalid = true;
+		return isInvalid;
+	}
+
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){

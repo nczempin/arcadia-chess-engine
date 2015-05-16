@@ -17,7 +17,15 @@ private:
 public: 
 	list<Move> generateLegalMoves(Position position){
 		list<Move> moves = generateAllMoves(position);
-		 removeIllegalMoves(moves);
+		cout << "all moves (including illegal)" << endl;
+		for (Move move:moves){
+			move.print();
+		}
+		removeIllegalMoves(moves);
+		cout << "only legal moves" << endl;
+		for (Move move:moves){
+			move.print();
+		}
 		if (moves.size()==0){
 			if (position.isReceivingCheck()){
 				cout << "I am Mate." << endl;
@@ -25,7 +33,7 @@ public:
 				cout << "I am Stalemate." << endl;
 			}
 		}
-	 return moves;
+		return moves;
 	}
 	list<Move> generateAllMoves(Position position) {
 		moves.clear();
@@ -43,47 +51,50 @@ public:
 				}
 			}
 		}
-			return moves;
+		return moves;
 	}
-		
+
 	void removeIllegalMoves(list<Move>& moves) {
 		//TODO use a more efficient idiom, possibly remove_if
 		list<Move> movesToDelete;
 		for (Move move:moves) {
+		cout << "testing move" << endl;
+			move.print();
+
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
 			if (nextPos.isGivingCheck()) {
 				//if (position.isGivingCheck()) {
 				movesToDelete.push_front(move);
-					continue;
+				continue;
 				//}
-			//} else {
-			//	int movingPiece = abs(position.board[move.from]);
-			//	switch (movingPiece) {
-			//	default:
-			//		break;
+				//} else {
+				//	int movingPiece = abs(position.board[move.from]);
+				//	switch (movingPiece) {
+				//	default:
+				//		break;
 
-			//	case 6:
-			//		if (nextPos.isGivingCheck()) //moving into check
-			//			moves.remove(move);
-			//		continue;
-			//		break;
+				//	case 6:
+				//		if (nextPos.isGivingCheck()) //moving into check
+				//			moves.remove(move);
+				//		continue;
+				//		break;
 
-			//	case 1:
+				//	case 1:
 
-			//	case 2:
+				//	case 2:
 
-			//	case 3:
+				//	case 3:
 
-			//	case 4:
+				//	case 4:
 
-			//	case 5:
-			//		if (nextPos.isGivingCheckNonKingMoving(move.from)) {
-			//			moves.remove(move);
-			//			continue;
-			//		}
-			//		break;
-			//	}
+				//	case 5:
+				//		if (nextPos.isGivingCheckNonKingMoving(move.from)) {
+				//			moves.remove(move);
+				//			continue;
+				//		}
+				//		break;
+				//	}
 			}
 		}
 		for(Move move: movesToDelete){
@@ -227,15 +238,6 @@ public:
 		generateRookMoves(from);
 	}
 
-	static bool invalidSquare(int next) {
-		bool isInvalid = false;
-		if ((next < 11) || (next > 88))
-			isInvalid = true;
-		int mod = next % 10;
-		if ((mod == 0) || (mod == 9))
-			isInvalid = true;
-		return isInvalid;
-	}
 
 	void generateKingMovesNoCastling(int from) {
 		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
