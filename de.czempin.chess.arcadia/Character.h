@@ -2,7 +2,7 @@ class Character{
 public:
 	static int getNumericValue(char c){
 		if (isDigit(c)){
-			return c-'1'+1;
+			return c-'0';
 		} else if (isSmallLetter(c)){
 			return c-'a'+1;
 		}else if (isCapitalLetter(c)){
@@ -10,7 +10,7 @@ public:
 		}
 	}
 	static bool isDigit(char c){
-		return 0 <= c && c <= 9;
+		return '0' <= c && c <= '9';
 	}
 	static bool isSmallLetter(char c){
 		return 'a' <= c && c <= 'z';

@@ -1162,6 +1162,7 @@ public:
 	   			char currChar = currentRank[i];
 	   			if (Character::isDigit(currChar)) {
 	   				int digit = Character::getNumericValue(currChar);
+					cout << "skipping " << digit << "("<<currChar << ")" << endl;
 	   				for (int j = 0; j < digit; j++) {
 	   					board[next] = 0;
 	   					next++;
@@ -1232,6 +1233,7 @@ public:
 	   					board[next] = 1;
 	   					//whitePieces.add(new Integer(next));
 	   				}
+					cout << next << ": " << board[next] << endl;
 	   
 	   				next++;
 	   			}
@@ -2682,9 +2684,15 @@ public:
 	   	void setFenPosition(string fenString) {
 	   		clear();
 	   		vector<string> fenFields = split(fenString,' ');
+			for(string field: fenFields){
+				cout << field<< endl;
+			}
 	   		string fenPosition = fenFields[0];
 	   		vector<string> ranks = split(fenPosition,'/');
-	   		for (int i = 0; i < 8; i++) {
+				for(string rank: ranks){
+				cout << rank<< endl;
+			}
+   		for (int i = 0; i < 8; i++) {
 	   			string currentRank = ranks[(7 - i)];
 	   			fillRank(i, currentRank);
 	   		}
