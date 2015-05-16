@@ -1199,7 +1199,7 @@ public:
 			char currChar = currentRank[i];
 			if (Character::isDigit(currChar)) {
 				int digit = Character::getNumericValue(currChar);
-				cout << "skipping " << digit << "("<<currChar << ")" << endl;
+				//cout << "skipping " << digit << "("<<currChar << ")" << endl;
 				for (int j = 0; j < digit; j++) {
 					board[next] = 0;
 					next++;
@@ -2255,10 +2255,10 @@ public:
 		int i = currentPiece;
 		list<Move> moves ;
 		generateBishopCaptures(moves, i, othercolor);
-		cout << "bishop captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "bishop captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if ((piece == 3) || (piece == 5)) {
@@ -2273,10 +2273,10 @@ public:
 
 		moves.clear();
 		generateRookCaptures(moves, i, othercolor);
-		cout << "rook captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "rook captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if ((piece == 4) || (piece == 5)) {
@@ -2291,10 +2291,10 @@ public:
 
 		moves.clear();
 		//TODO	   generateKingCaptures(moves, i, othercolor);
-			cout << "king captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//	cout << "king captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 	for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if (piece == 6) {
@@ -2306,10 +2306,10 @@ public:
 
 		moves.clear();
 		//TODO	   generateKnightCaptures(this, moves, i, othercolor);
-		cout << "knight captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "knight captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if (piece == 2) {
@@ -2324,10 +2324,10 @@ public:
 
 		moves.clear();
 		generatePawnCaptures(moves, i, othercolor);
-		cout << "pawn captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "pawn captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		for (Move move:moves){
 			int piece =abs(board[move.to]);
 			if (piece == 1) {

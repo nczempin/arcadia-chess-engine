@@ -17,15 +17,15 @@ private:
 public: 
 	list<Move> generateLegalMoves(Position position){
 		list<Move> moves = generateAllMoves(position);
-		cout << "all moves (including illegal)" << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "all moves (including illegal)" << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		removeIllegalMoves(moves);
-		cout << "only legal moves" << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "only legal moves" << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		if (moves.size()==0){
 			if (position.isReceivingCheck()){
 				cout << "I am Mate." << endl;
@@ -58,8 +58,8 @@ public:
 		//TODO use a more efficient idiom, possibly remove_if
 		list<Move> movesToDelete;
 		for (Move move:moves) {
-		cout << "testing move" << endl;
-			move.print();
+		//cout << "testing move" << endl;
+		//	move.print();
 
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
