@@ -334,7 +334,7 @@ public:
 			return true;
 		}
 		//enemy piece, presumably
-		Move move = Move(from, next, 0, piece);
+		Move move = Move(from, next);
 		moves.push_front(move);
 		return true;
 	}

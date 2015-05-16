@@ -106,20 +106,20 @@ string extractFen(string positionString){
 	return retValue;
 }
 
-	bool invalidSquare(int next) {
-		bool isInvalid = false;
-		if ((next < 11) || (next > 88))
-			isInvalid = true;
-		int mod = next % 10;
-		if ((mod == 0) || (mod == 9))
-			isInvalid = true;
-		return isInvalid;
-	}
+bool invalidSquare(int next) {
+	bool isInvalid = false;
+	if ((next < 11) || (next > 88))
+		isInvalid = true;
+	int mod = next % 10;
+	if ((mod == 0) || (mod == 9))
+		isInvalid = true;
+	return isInvalid;
+}
 
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position startpos moves h2h4 g8f6 h4h5 h8g8 h5h6 g8h8 h6g7 h8g8 g7f8q g8f8 g2g4 f8h8 g4g5 h8f8 g5f6 f8h8 f6e7 h8f8 e7f8q e8f8 f2f4 f8e7 f4f5 d8h8 f5f6 e7d6 e2e4 h8d8 e4e5 d6c5 e5e6 d8h8 e6f7 h8d8 f7f8q d8f8 f6f7 f8d8 f7f8q d8f8 d2d4 c5b4 d4d5 f8d8 d5d6 d8h8 d6c7 h8d8 c7d8q b8a6 d8c8 a8c8 c2c4 c8a8 c4c5 a8h8 c5c6 h8a8 c6d7 a8h8 d7d8q h8d8 b2b3 d8a8 a2a4 a8h8 a4a5 h8a8 h1h7 a8h8 h7b7";
+		toParse = "position startpos moves h2h4 e7e6 h4h5 g8f6 h5h6 g7g6 g2g4 f6g4 f2f4 f8e7 f4f5 e7h4";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;
@@ -135,10 +135,16 @@ void parse(string toParse) {
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
 		MoveGenerator mg;
-	list<Move> moves = mg.generateLegalMoves(p);
-	if (moves.size() > 0){
-		cout << "bestmove " << moves.front().toString() << endl;
-	}
+		list<Move> moves = mg.generateLegalMoves(p);
+		if (moves.size() > 0){
+			cout << "bestmove " << moves.front().toString() << endl;
+		}
+	}else if (startsWith("stop", toParse)){
+		MoveGenerator mg;
+		list<Move> moves = mg.generateLegalMoves(p);
+		if (moves.size() > 0){
+			cout << "bestmove " << moves.front().toString() << endl;
+		}
 	}else if (startsWith("position", toParse)){
 		p.clear();
 		string positionString = extractPosition(toParse);

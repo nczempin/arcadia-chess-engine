@@ -2516,7 +2516,7 @@ public:
 		}
 
 		moves.clear();
-		//TODO		   generatePawnCaptures(moves, kingPosition, kingColor);
+		generatePawnCaptures(moves, kingPosition, kingColor);
 		for (Move move: moves) {
 			if (abs(board[move.to]) == 1) {
 				//isReceivingCheck = new bool(true);
