@@ -134,7 +134,11 @@ void parse(string toParse) {
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
-		cout << "bestmove e2e4" << endl;
+		MoveGenerator mg;
+	list<Move> moves = mg.generateLegalMoves(p);
+	if (moves.size() > 0){
+		cout << "bestmove " << moves.front().toString() << endl;
+	}
 	}else if (startsWith("position", toParse)){
 		p.clear();
 		string positionString = extractPosition(toParse);
