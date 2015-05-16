@@ -25,6 +25,9 @@ public:
 		this->to = to;
 		//FIXME what about captured?
 		}
+	 bool operator == (const Move &i) const {
+		 return from == i.from && to == i.to;
+	 }
 	void print(){
 		cout << encodeSquare(from) << "-" << encodeSquare(to) << endl;
 	}	

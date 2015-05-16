@@ -2,12 +2,8 @@
 
 
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
-#include < list>
 
-
+#include "global.h"
 #include "Position.h"
 #include "MoveGenerator.h"
 
@@ -18,7 +14,20 @@ string extractPosition(string);
 string extractMoves(string);
 
 bool done;
+vector<string> &split(const string &s, char delim, vector<string> &elems) {
+	stringstream ss(s);
+	string item;
+	while (getline(ss, item, delim)) {
+		elems.push_back(item);
+	}
+	return elems;
+}
 
+vector<string> split(const string &s, char delim) {
+	vector<string> elems;
+	split(s, delim, elems);
+	return elems;
+}
 static int decodeSquare(string square) {
 	char letter = square[0];
 	char digit = square[1];
@@ -52,33 +61,30 @@ static string extractMoves(string parameters)
 	{
 		return ""; //not found
 	}
-
 	string moves = parameters.substr(index + pattern.length());
 	return moves;
 }
-
-
-
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-	std::stringstream ss(s);
-	std::string item;
-	while (std::getline(ss, item, delim)) {
-		elems.push_back(item);
+static string extractPosition(string parameters)
+{
+	string pattern = "position ";
+	int index = parameters.find(pattern);
+	if (index == string::npos)
+	{
+		return ""; //not found
 	}
-	return elems;
+	string retVal = parameters.substr(index + pattern.length());
+	return retVal;
 }
 
-std::vector<std::string> split(const std::string &s, char delim) {
-	std::vector<std::string> elems;
-	split(s, delim, elems);
-	return elems;
-}
+
+
+
 static int perft(const Position position, int maxDepth){
 	if (maxDepth==0){
 		return 1;
 	}
 	MoveGenerator mg;
-	list<Move> moves = mg.generateAllMoves(position);
+	list<Move> moves = mg.generateLegalMoves(position);
 	int count = 0;
 	Position tmpPos = position;
 	for(Move move: moves){
@@ -88,14 +94,40 @@ static int perft(const Position position, int maxDepth){
 	}
 	return count;
 }
+
+string extractFen(string positionString){
+	static string command = "fen ";
+	string retValue = positionString.substr(command.length()); // remove "fen " TODO: more fail-safe / defensive
+	//remove moves
+	int movesFoundAt =  retValue.find("moves ");
+	if (movesFoundAt != string::npos){
+		retValue = retValue.substr(0,movesFoundAt);
+	}
+	return retValue;
+}
+
+	bool invalidSquare(int next) {
+		bool isInvalid = false;
+		if ((next < 11) || (next > 88))
+			isInvalid = true;
+		int mod = next % 10;
+		if ((mod == 0) || (mod == 9))
+			isInvalid = true;
+		return isInvalid;
+	}
+
 void parse(string toParse) {
+	// for debugging
+	if (toParse=="."){
+		toParse = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
+	}
 	if (toParse == "uci"){
-		cout << "id name Arcadia 0.0.1RC"<< endl;
+		cout << "id name Arcadia 0.0.1dev"<< endl;
 		cout << "id author Nicolai Czempin" << endl;
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
 		string perftDepthParameter = "4"; //TODO extract from toParse
-		int perftDepth = 3; // TODO extract from perftDepthParameter
+		int perftDepth = 4; // TODO extract from perftDepthParameter
 		int nodes = perft (p, perftDepth);
 		cout << perftDepth << ", " << nodes << endl;
 
@@ -103,13 +135,13 @@ void parse(string toParse) {
 		cout << "readyok" << endl;
 	}else if (startsWith("position", toParse)){
 		p.clear();
-		string positionString = "startpos";//extractPosition(mystr);
-		if (positionString =="startpos") {
+		string positionString = extractPosition(toParse);
+		if (startsWith("startpos",positionString)) {
 			p.setToStart();
 		}else if (startsWith("fen",positionString)){
-			// String positionFen = extractFen(positionString);
-			// this.brain.setFENPosition(positionFen);
-			cout << "TODO: fen" << endl;
+			string positionFen = extractFen(positionString);
+			p.setFenPosition(positionFen);
+			p.print();
 		}
 		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');
@@ -117,17 +149,22 @@ void parse(string toParse) {
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				//cout << "making move: "<<move<<endl;
+				p.print();
+				cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}
+	}else if (toParse == "sp"){	
+		p.print();
 	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
-		list<Move> moves =mg.generateAllMoves(p);
+		list<Move> moves =mg.generateLegalMoves(p);
 		for (Move move:moves){
 			move.print();
 		}
+	}else {
+		cout << "???" << endl;
 	}
 }	 static int decodePiece(string promotedTo) {
 	int retValue = 0;
