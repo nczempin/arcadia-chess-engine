@@ -542,24 +542,24 @@ public:
 	//	}
 	//
 
-	//	static void generateKnightCaptures(Position position, Set moves, int from, bool color) {
-	//		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
-	//
-	//		for (int i = 0; i < 8; i++) {
-	//			int next = from + knightMoves[i];
-	//			if (!invalidSquare(next)) {
-	//				int capturedPiece = position.board[next];
-	//				if (capturedPiece != 0) {
-	//					if ((capturedPiece < 0) && (color))
-	//						moves.add( Move( from, next, 0, capturedPiece));
-	//					if ((capturedPiece > 0) && (!color)) {
-	//						moves.add( Move( from, next, 0, capturedPiece));
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//
+		void generateKnightCaptures(list<Move>& moves, int from, bool color) {
+			int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+	
+			for (int i = 0; i < 8; i++) {
+				int next = from + knightMoves[i];
+				if (!invalidSquare(next)) {
+					int capturedPiece = board[next];
+					if (capturedPiece != 0) {
+						if ((capturedPiece < 0) && (color))
+							moves.push_front( Move( from, next));
+						if ((capturedPiece > 0) && (!color)) {
+							moves.push_front( Move( from, next));
+						}
+					}
+				}
+			}
+		}
+	
 
 	//
 	//	static void generatePawnCapture(Position position, SortedSet moves, int from, bool color, int multi, int next, int row) {
@@ -2305,7 +2305,7 @@ public:
 		}
 
 		moves.clear();
-		//TODO	   generateKnightCaptures(this, moves, i, othercolor);
+		generateKnightCaptures( moves, i, othercolor);
 		//cout << "knight captures: " << endl;
 		//for (Move move:moves){
 		//	move.print();
@@ -2525,7 +2525,7 @@ public:
 		}
 
 		moves.clear();
-		//TODO	   generateKnightCaptures( moves, kingPosition, kingColor);
+		generateKnightCaptures( moves, kingPosition, kingColor);
 		for (Move move: moves) {
 			if (abs(board[move.to]) == 2) {
 				//isReceivingCheck = new bool(true);
