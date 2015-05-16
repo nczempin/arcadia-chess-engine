@@ -142,7 +142,6 @@ void parse(string toParse) {
 			string positionFen = extractFen(positionString);
 			p.setFenPosition(positionFen);
 			p.print();
-			cout << "TODO: fen " << positionFen << endl;
 		}
 		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');
