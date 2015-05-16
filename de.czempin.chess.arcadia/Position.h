@@ -4,6 +4,7 @@
 #include "Move.h"
 #include "global.h"
 #include "Character.h"
+#include <iomanip>
 #include <string>
 #include <iterator>
 #include <list>
@@ -35,8 +36,13 @@ public:
 	   int blackKing;
 
 	   void print(){
-		   for (int i = 0; i < MAX_BOARD_SIZE; ++i){
-			   cout << i << ": " << board[i];// << endl;
+		   for (int i = 11; i < MAX_BOARD_SIZE; ++i){
+			   if (i%10>=1 && i%10 <=8){
+				   cout << setw(2)<< board[i];
+			   }
+			   if (i%10==8){
+				   cout << endl;
+			   }
 		   }
 		   cout << endl;
 
