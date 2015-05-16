@@ -176,8 +176,9 @@ public:
 		//setStartPosition(false);
 		int movingPiece = moveRaw(move);
 		int movingPieceType = abs(movingPiece);
-		//if ((movingPieceType == 1) && (move.to == enPassant()))
-		// testClearEnPassantCapture(move, board);
+		if ((movingPieceType == 1) && (move.to == enPassantSquare)){
+			testClearEnPassantCapture(move);
+		}
 		if ((movingPieceType == 1) && (abs(move.to - move.from) == 20)) {
 			enPassantSquare = ((move.from + move.to) / 2);
 		} else
@@ -280,16 +281,16 @@ public:
 		//setStartPosition(false);
 		int movingPiece = moveRaw(move);
 		int movingPieceType = abs(movingPiece);
-		/*	if ((movingPieceType == 1) && (move.to == enPassant()))
-		clearEnPassantCapture(move, board);
+		if ((movingPieceType == 1) && (move.to == enPassantSquare))
+			clearEnPassantCapture(move);
 		if (enPassantSquare != 0) {
-		enPassantSquare = 0;
-		updateZobristEnPassant();
+			enPassantSquare = 0;
+			//updateZobristEnPassant();
 		}
-		if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
-		enPassantSquare = ((move.from + move.to) / 2);
-		updateZobristEnPassant();
-		}*/
+		if ((movingPieceType == 1) && (abs(move.to - move.from) == 20)) {
+			enPassantSquare = ((move.from + move.to) / 2);
+			//updateZobristEnPassant();
+		}
 		////castle
 		//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
 		//	int rookTo;
@@ -542,24 +543,24 @@ public:
 	//	}
 	//
 
-		void generateKnightCaptures(list<Move>& moves, int from, bool color) {
-			int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
-	
-			for (int i = 0; i < 8; i++) {
-				int next = from + knightMoves[i];
-				if (!invalidSquare(next)) {
-					int capturedPiece = board[next];
-					if (capturedPiece != 0) {
-						if ((capturedPiece < 0) && (color))
-							moves.push_front( Move( from, next));
-						if ((capturedPiece > 0) && (!color)) {
-							moves.push_front( Move( from, next));
-						}
+	void generateKnightCaptures(list<Move>& moves, int from, bool color) {
+		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+
+		for (int i = 0; i < 8; i++) {
+			int next = from + knightMoves[i];
+			if (!invalidSquare(next)) {
+				int capturedPiece = board[next];
+				if (capturedPiece != 0) {
+					if ((capturedPiece < 0) && (color))
+						moves.push_front( Move( from, next));
+					if ((capturedPiece > 0) && (!color)) {
+						moves.push_front( Move( from, next));
 					}
 				}
 			}
 		}
-	
+	}
+
 
 	//
 	//	static void generatePawnCapture(Position position, SortedSet moves, int from, bool color, int multi, int next, int row) {
@@ -991,20 +992,22 @@ public:
 		}
 	}
 	//
-	//	void clearEnPassantCapture(Move move, int board[]) {
-	//		long zobi;
-	//		if (move.to > move.from) {
-	//			zobi = kleinerZobristEntfernen(move.to - 10);
-	//			clearSquare(move.to, -10, board);
-	//			blackPieces.remove(new Integer(move.to - 10));
-	//		} else {
-	//			zobi = kleinerZobristEntfernen(move.to + 10);
-	//			clearSquare(move.to, 10, board);
-	//			whitePieces.remove(new Integer(move.to + 10));
-	//		}
-	//		zobrist ^= zobi;
-	//	}
-	//
+	void clearEnPassantCapture(Move move) {
+		//long zobi;
+		if (move.to > move.from) {
+			board[move.to-10] = 0;
+			//zobi = kleinerZobristEntfernen(move.to - 10);
+			//clearSquare(move.to, -10, board);
+			//blackPieces.remove(new Integer(move.to - 10));
+		} else {
+			board[move.to+10] = 0;
+			//zobi = kleinerZobristEntfernen(move.to + 10);
+			//clearSquare(move.to, 10, board);
+			//whitePieces.remove(new Integer(move.to + 10));
+		}
+		//zobrist ^= zobi;
+	}
+
 	//	PieceCount countBlackPieces() {
 	//		int queensCount = 0;
 	//		int rookCount = 0;
@@ -2295,7 +2298,7 @@ public:
 		//for (Move move:moves){
 		//	move.print();
 		//}
-	for (Move move:moves){
+		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if (piece == 6) {
 				// king will always be the enemy
@@ -2799,15 +2802,17 @@ public:
 	//		setStartPosition(true);
 	//	}
 	//
-	//	void testClearEnPassantCapture(Move move, int board[] ) {
-	//		if (move.to > move.from) {
-	//			clearSquare(move.to, -10, board);
-	//			blackPieces.remove(new Integer(move.to - 10));
-	//		} else {
-	//			clearSquare(move.to, 10, board);
-	//			whitePieces.remove(new Integer(move.to + 10));
-	//		}
-	//	}
+	void testClearEnPassantCapture(Move move) {
+		if (move.to > move.from) {
+			board[move.to-10] = 0;
+			//			clearSquare(move.to, -10, board);
+			//			blackPieces.remove(new Integer(move.to - 10));
+		} else {
+			board[move.to+10] = 0;
+			//			clearSquare(move.to, 10, board);
+			//			whitePieces.remove(new Integer(move.to + 10));
+		}
+	}
 	//
 	//	String toString() {
 	//		return board.toString();
