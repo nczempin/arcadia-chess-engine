@@ -2273,10 +2273,10 @@ public:
 
 		moves.clear();
 		generateRookCaptures(moves, i, othercolor);
-		cout << "rook captures: " << endl;
-		for (Move move:moves){
-			move.print();
-		}
+		//cout << "rook captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
 		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if ((piece == 4) || (piece == 5)) {

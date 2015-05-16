@@ -126,8 +126,8 @@ void parse(string toParse) {
 		cout << "id author Nicolai Czempin" << endl;
 		cout << "uciok" << endl;
 	}else if (startsWith(toParse,"perft")){
-		string perftDepthParameter = "4"; //TODO extract from toParse
-		int perftDepth = 4; // TODO extract from perftDepthParameter
+		char perftDepthParameter = '5'; //TODO extract from toParse
+		int perftDepth = Character::getNumericValue(perftDepthParameter);
 		int nodes = perft (p, perftDepth);
 		cout << perftDepth << ", " << nodes << endl;
 
