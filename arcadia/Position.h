@@ -280,16 +280,16 @@ public:
 		//setStartPosition(false);
 		int movingPiece = moveRaw(move);
 		int movingPieceType = abs(movingPiece);
-		/*	if ((movingPieceType == 1) && (move.to == enPassant()))
-		clearEnPassantCapture(move, board);
+			//if ((movingPieceType == 1) && (move.to == enPassantSquare))
+		//clearEnPassantCapture(move, board);
 		if (enPassantSquare != 0) {
 		enPassantSquare = 0;
-		updateZobristEnPassant();
+		//updateZobristEnPassant();
 		}
-		if ((movingPieceType == 1) && (Math.abs(move.to - move.from) == 20)) {
+		if ((movingPieceType == 1) && (abs(move.to - move.from) == 20)) {
 		enPassantSquare = ((move.from + move.to) / 2);
-		updateZobristEnPassant();
-		}*/
+		//updateZobristEnPassant();
+		}
 		////castle
 		//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
 		//	int rookTo;
@@ -542,24 +542,24 @@ public:
 	//	}
 	//
 
-		void generateKnightCaptures(list<Move>& moves, int from, bool color) {
-			int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
-	
-			for (int i = 0; i < 8; i++) {
-				int next = from + knightMoves[i];
-				if (!invalidSquare(next)) {
-					int capturedPiece = board[next];
-					if (capturedPiece != 0) {
-						if ((capturedPiece < 0) && (color))
-							moves.push_front( Move( from, next));
-						if ((capturedPiece > 0) && (!color)) {
-							moves.push_front( Move( from, next));
-						}
+	void generateKnightCaptures(list<Move>& moves, int from, bool color) {
+		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+
+		for (int i = 0; i < 8; i++) {
+			int next = from + knightMoves[i];
+			if (!invalidSquare(next)) {
+				int capturedPiece = board[next];
+				if (capturedPiece != 0) {
+					if ((capturedPiece < 0) && (color))
+						moves.push_front( Move( from, next));
+					if ((capturedPiece > 0) && (!color)) {
+						moves.push_front( Move( from, next));
 					}
 				}
 			}
 		}
-	
+	}
+
 
 	//
 	//	static void generatePawnCapture(Position position, SortedSet moves, int from, bool color, int multi, int next, int row) {
@@ -2295,7 +2295,7 @@ public:
 		//for (Move move:moves){
 		//	move.print();
 		//}
-	for (Move move:moves){
+		for (Move move:moves){
 			int piece = abs(board[move.to]);
 			if (piece == 6) {
 				// king will always be the enemy

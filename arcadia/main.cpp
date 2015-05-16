@@ -92,6 +92,7 @@ static int perft(const Position position, int maxDepth){
 		tmpPos.makeMove(move);
 		count += perft(tmpPos, maxDepth -1);
 	}
+
 	return count;
 }
 
@@ -119,17 +120,21 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position startpos moves d2d4 g8f6 c2c4 h8g8 g1f3 g8h8 b1c3 h8g8 e2e4 g8h8 e4e5 h8g8 d1c2 g8h8 e5f6 h8g8 c2h7 g8h8 h7h8 b8a6 f6g7";
+		toParse = "position fen 8/2p5/3p4/KP5r/1R3p1k/8/4P1P1/8 w - -";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia 0.0.1dev"<< endl;
 		cout << "id author Nicolai Czempin" << endl;
 		cout << "uciok" << endl;
-	}else if (startsWith(toParse,"perft")){
-		char perftDepthParameter = '5'; //TODO extract from toParse
+	}else if (startsWith("perft ",toParse)){
+		char perftDepthParameter = toParse[6];//'4'; //TODO extract from toParse
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
-		int nodes = perft (p, perftDepth);
-		cout << perftDepth << ", " << nodes << endl;
+		//TODO do this more elegantly
+		for (int i = 0; i< perftDepth; ++i){
+			int nodes = perft (p, i+1);
+			cout << i+1 << ", " << nodes << endl;
+		}
+		cout << "Done." << endl;
 
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;

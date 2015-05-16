@@ -26,13 +26,13 @@ public:
 		//for (Move move:moves){
 		//	move.print();
 		//}
-		if (moves.size()==0){
-			if (position.isReceivingCheck()){
-				cout << "I am Mate." << endl;
-			}else{
-				cout << "I am Stalemate." << endl;
-			}
-		}
+		//if (moves.size()==0){
+		//	if (position.isReceivingCheck()){
+		//		cout << "I am Mate." << endl;
+		//	}else{
+		//		cout << "I am Stalemate." << endl;
+		//	}
+		//}
 		return moves;
 	}
 	list<Move> generateAllMoves(Position position) {
@@ -204,7 +204,10 @@ public:
 				next += multi;
 				p = position.board[next];
 				if (p == 0) {
+					//position.enPassantSquare = next - multi;
+					//cout << "ep set: " << position.enPassantSquare << endl;
 					Move m = Move(from, next);
+					//m.print();
 					moves.push_front(m);
 				}
 			}
