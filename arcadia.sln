@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "de.czempin.chess.arcadia", "de.czempin.chess.arcadia\de.czempin.chess.arcadia.vcxproj", "{FDE963C3-72B7-4D97-B071-2E0ECC58A93F}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "arcadia", "arcadia\arcadia.vcxproj", "{FDE963C3-72B7-4D97-B071-2E0ECC58A93F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

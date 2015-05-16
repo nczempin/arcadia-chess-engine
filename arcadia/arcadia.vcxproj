@@ -21,7 +21,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{FDE963C3-72B7-4D97-B071-2E0ECC58A93F}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>deczempinchessarcadia</RootNamespace>
+    <RootNamespace>arcadia</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
