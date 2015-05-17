@@ -28,6 +28,10 @@ vector<string> split(const string &s, char delim) {
 	split(s, delim, elems);
 	return elems;
 }
+
+bool convertColor(int piece){
+	return piece > 0;
+}
 static int decodeSquare(string square) {
 	char letter = square[0];
 	char digit = square[1];

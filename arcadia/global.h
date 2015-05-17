@@ -12,6 +12,4 @@ vector<string> split(const string &s, char delim);
 
 bool invalidSquare(int next);
 
-bool convertColor(int piece){
-	return piece > 0;
-}
+bool convertColor(int piece);

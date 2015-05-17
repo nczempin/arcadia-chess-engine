@@ -235,7 +235,7 @@ public:
 
 	void generateKingMoves(int from) {
 		generateKingMovesNoCastling(from);
-		generateCastling(moves, from);
+		position.generateCastling(moves, from);
 	}
 	void generateQueenMoves(int from) {
 		generateBishopMoves(from);
