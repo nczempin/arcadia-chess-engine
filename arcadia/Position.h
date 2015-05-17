@@ -448,42 +448,7 @@ public:
 	//		//throw new AssertionError("should never happen");
 	//	}
 	//
-	//	//static void copyBoard(int[] from, int[] to) {
-	//	//	System.arraycopy(from, 0, to, 0, from.length);
-	//	//}
-	//
-	//	 static Position copyPosition(Position position) {
-	//	
-	//			return Position(position);
-	//
-	//	}
-	//
-	//	//static Position createPosition(Position p, Move move) throws ThreeRepetitionsAB {
-	//	//	Position newPos = copyPosition(p);
-	//	//	newPos.makeMove(move);
-	//	//	return newPos;
-	//	//}
-	//
-	//	 static Position createTestPosition(Position p, Move move) {
-	//		Position newPos = copyPosition(p);
-	//		Info::testNodes += 1;
-	//		newPos.makeTestMove(move);
-	//		return newPos;
-	//	}
-	//
-	//	 int decodePiece(String promotedTo) {
-	//		int retValue = 0;
-	//		if (promotedTo.equals("q")) {
-	//			retValue = 5;
-	//		} else if (promotedTo.equals("r")) {
-	//			retValue = 4;
-	//		} else if (promotedTo.equals("b")) {
-	//			retValue = 3;
-	//		} else if (promotedTo.equals("n"))
-	//			retValue = 2;
-	//		return retValue;
-	//	}
-	//
+	
 
 	//	
 	void generateCastling(list<Move>& moves, const int from) {
