@@ -152,10 +152,16 @@ public:
 		int capturedPiece = position.board[next];
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
 			if (next / (row + multi * 6) == 1) {
-				int promoPiece =position.onMove?5:-5;
-				Move m = Move(from, next, capturedPiece, promoPiece);
-				cout << m.toString() << "*" << promoPiece << endl;
+				Move m = Move(from, next, capturedPiece, 5);
 				moves.push_front(m);
+#ifdef USE_UNDERPROMOTION
+				m = Move(from, next, capturedPiece, 4);
+				moves.push_front(m);
+				m = Move(from, next, capturedPiece, 3);
+				moves.push_front(m);
+				m = Move(from, next, capturedPiece, 2);
+				moves.push_front(m);
+#endif
 			} else {
 				Move m = Move(from, next);
 				moves.push_front(m);
@@ -192,9 +198,18 @@ public:
 		int p = position.board[next];
 		if (p == 0) {
 			if (next / (row + multi * 6) == 1) {
-				//promotion. TODO: underpromotion
-				Move m = Move(from, next,-5,0);
+				//promotion.
+				Move m = Move(from, next,0,5);
 				moves.push_front(m);
+#ifdef USE_UNDERPROMOTION
+				m = Move(from, next,0,4);
+				moves.push_front(m);
+				m = Move(from, next,0,3);
+				moves.push_front(m);
+				m = Move(from, next,0,2);
+				moves.push_front(m);
+
+#endif
 			} else {
 				Move m = Move(from, next);
 				moves.push_front(m);

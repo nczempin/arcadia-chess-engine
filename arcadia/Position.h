@@ -646,15 +646,23 @@ public:
 		int capturedPiece = board[next];
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (color)) || ((capturedPiece > 0) && (!color))))
 			if (next / (row + multi * 6) == 1) {
-				int promoPiece =color?5:-5;
-				Move m = Move(from, next, promoPiece, capturedPiece);
+				//promotion
+				Move m = Move(from, next, capturedPiece, 5);
 				moves.push_front(m);
+#ifdef USE_UNDERPROMOTION
+				m = Move(from, next, capturedPiece, 4);
+				moves.push_front(m);
+				m = Move(from, next, capturedPiece, 3);
+				moves.push_front(m);
+				m = Move(from, next, capturedPiece, 2);
+				moves.push_front(m);
+#endif
 			} else {
-				Move m = Move(from, next, 0, capturedPiece);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_front(m);
 			}
 			if (enPassantSquare == next) {
-				Move m = Move(from, next, 0, capturedPiece);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_front(m);
 			}
 	}

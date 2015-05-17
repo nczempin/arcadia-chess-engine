@@ -7,7 +7,7 @@ int decodeSquare(string square);
 int decodePiece(string promotedTo);
 class Move{
 public:
-	Move(int from, int to, int captured = 0, int promoted = 0){
+	Move(int from, int to, unsigned int captured = 0, unsigned int promoted = 0){
 		this->from = from;
 		this->to = to;
 		this->captured = captured;
@@ -20,7 +20,7 @@ public:
 		string promotedTo = move.substr(4);
 		promoted = 0;
 		if (promotedTo!="") {
-			promoted = 5; //TODO underpromotion
+			promoted = decodePiece(promotedTo);
 		}
 		this->from = from;
 		this->to = to;
@@ -36,14 +36,23 @@ public:
 	void print(){
 		cout << toString() << endl;
 	}	
+	static string encodePiece(int piece){
+		static const string pieces = "-pnbrqk";
+		return string(1,pieces[piece]);
+	}
+	string encodePromoted(void){
+		string retVal = "";
+		retVal +=promoted==0?"":encodePiece(promoted);
+		return retVal;
+	}
 	string toString(){
-		string retVal =  encodeSquare(from) + "-" + encodeSquare(to);
+		string retVal =  encodeSquare(from) + (captured==0?"-":"x") + encodeSquare(to)+encodePromoted();
 		return retVal;
 	}
 	int from;
 	int to;
-	int captured;
-	int promoted;
+	unsigned int captured;
+	unsigned int promoted;
 
 private:
 };
