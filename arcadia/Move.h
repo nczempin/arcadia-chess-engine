@@ -20,7 +20,7 @@ public:
 		string promotedTo = move.substr(4);
 		promoted = 0;
 		if (promotedTo!="") {
-			promoted = 5; //TODO underpromotion
+			promoted = decodePiece(promotedTo);
 		}
 		this->from = from;
 		this->to = to;
