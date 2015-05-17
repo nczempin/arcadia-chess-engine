@@ -28,6 +28,10 @@ vector<string> split(const string &s, char delim) {
 	split(s, delim, elems);
 	return elems;
 }
+
+bool convertColor(int piece){
+	return piece > 0;
+}
 static int decodeSquare(string square) {
 	char letter = square[0];
 	char digit = square[1];
@@ -120,7 +124,7 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 8/8/8/8/1R3p1k/8/4P3/K7 w - - 0 1 moves e2e4";
+		toParse = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
