@@ -76,6 +76,11 @@ public:
 			board[70+i] = -1; // black pawns
 		}
 		onMove = true;
+		castleLongBlack = true;
+		castleShortBlack = true;
+		castleLongWhite = true;
+		castleShortWhite = true;
+
 	}
 
 	//
@@ -127,15 +132,15 @@ public:
 		Position p =  Position();
 		/*	bishopCaptureCount = 0;
 		bishopNonCaptureCount = 0;
-		
+
 		blackPieces = new TreeSet();
 		captureMoves = null;
-		
+
 		isGivingCheck = null;
 		isReceivingCheck = null;
 		isStartPosition = false;
 		moveNr = 0;*/
-		
+
 		//whitePieces = new TreeSet();
 		//Info.nodes += 1L;
 		copyBoard(board, p.board);
@@ -150,7 +155,7 @@ public:
 		p.castleLongWhite = castleLongWhite;
 		p.castleShortBlack = castleShortBlack;
 		p.castleShortWhite = castleShortWhite;
-		
+
 		p.hasCastledBlack = hasCastledBlack;
 		p.hasCastledWhite = hasCastledWhite;
 
@@ -481,43 +486,43 @@ public:
 	//
 
 	//	
-		void generateCastling(list<Move>& moves, const int from) {
-			int p = board[from];
-			int kingHome = -1;
-			bool castlingLong;
-			bool castlingShort;
-			if (p == 6) {
-				kingHome = 15;
-				castlingShort = castleShortWhite;
-				castlingLong = castleLongWhite;
-			} else {
-				kingHome = 85;
-				castlingShort = castleShortBlack;
-				castlingLong = castleLongBlack;
-			}
-			if (from != kingHome)
+	void generateCastling(list<Move>& moves, const int from) {
+		int p = board[from];
+		int kingHome = -1;
+		bool castlingLong;
+		bool castlingShort;
+		if (p == 6) {
+			kingHome = 15;
+			castlingShort = castleShortWhite;
+			castlingLong = castleLongWhite;
+		} else {
+			kingHome = 85;
+			castlingShort = castleShortBlack;
+			castlingLong = castleLongBlack;
+		}
+		if (from != kingHome)
+			return;
+		int pieceNextToKingR = board[(from + 1)];
+		if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
+			if (isReceivingCheck())
 				return;
-			int pieceNextToKingR = board[(from + 1)];
-			if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
-				if (isReceivingCheck())
-					return;
-				Move testCastleThrough =  Move(from, from + 1);
-				Position testPosition = createTestPosition(testCastleThrough);
-				//Info::castlingNodes += 1;
-				if (!testPosition.isGivingCheckForCastling(from + 1))
-					moves.push_front(Move(from, from + 2));
-			}
-			if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
-				if (isReceivingCheck())
-					return;
-				Move testCastleThrough = Move(from, from - 1);
-				Position testPosition = createTestPosition(testCastleThrough);
-				if (!testPosition.isGivingCheckForCastling(from - 1)) {
-					moves.push_front(Move(from, from - 2));
-				}
+			Move testCastleThrough =  Move(from, from + 1);
+			Position testPosition = createTestPosition(testCastleThrough);
+			//Info::castlingNodes += 1;
+			if (!testPosition.isGivingCheckForCastling(from + 1))
+				moves.push_front(Move(from, from + 2));
+		}
+		if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
+			if (isReceivingCheck())
+				return;
+			Move testCastleThrough = Move(from, from - 1);
+			Position testPosition = createTestPosition(testCastleThrough);
+			if (!testPosition.isGivingCheckForCastling(from - 1)) {
+				moves.push_front(Move(from, from - 2));
 			}
 		}
-	
+	}
+
 	//	static void generateKingCaptures(Position position, Set moves, int from, bool color) {
 	//		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 	//
@@ -749,19 +754,19 @@ public:
 	//
 	//	SortedSet captureMoves;
 	//
-		bool castleLongBlack;
-	
-		bool castleLongWhite;
-	
-		bool castleShortBlack;
-	
-		bool castleShortWhite;
-	
-	
-		bool hasCastledBlack;
-	
-		bool hasCastledWhite;
-	
+	bool castleLongBlack;
+
+	bool castleLongWhite;
+
+	bool castleShortBlack;
+
+	bool castleShortWhite;
+
+
+	bool hasCastledBlack;
+
+	bool hasCastledWhite;
+
 	//	//bool isEndGame;
 	//
 	//	bool isGivingCheck;
@@ -2400,7 +2405,7 @@ public:
 
 		moves.clear();
 		generatePawnCaptures(moves, i, !onMove);
-			for (Move move: moves){
+		for (Move move: moves){
 			int piece = abs(board[move.to]);
 			if ((piece == 1) && (abs(board[move.to]) == 1)) {
 				int t = board[move.to];
@@ -2756,17 +2761,18 @@ public:
 		}else{
 			//huh?
 		}
-		/*   TODO		string fenCastling = fenFields[2];
-		castleShortWhite = (fenCastling.indexOf('K') != -1);
-		castleLongWhite = (fenCastling.indexOf('Q') != -1);
-		castleShortBlack = (fenCastling.indexOf('k') != -1);
-		castleLongBlack = (fenCastling.indexOf('k') != -1);
+		string fenCastling = fenFields[2];
+		castleShortWhite = (fenCastling.find('K') != string::npos);
+		castleLongWhite = (fenCastling.find('Q') != string::npos);
+		castleShortBlack = (fenCastling.find('k') != string::npos);
+		castleLongBlack = (fenCastling.find('q') != string::npos);
+
 		string fenEnPassant = fenFields[3];
-		if (fenEnPassant.equals("-")) {
-		enPassantSquare = 0;
+		if (fenEnPassant=="-") {
+			enPassantSquare = 0;
 		} else {
-		enPassantSquare = decodeSquare(fenEnPassant);
-		}*/
+			enPassantSquare = decodeSquare(fenEnPassant);
+		}
 	}
 
 	//	void setOnMove(bool onMove) {
