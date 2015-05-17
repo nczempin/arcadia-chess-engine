@@ -345,61 +345,61 @@ public:
 				castleShortBlack = false;
 			} else if (move.from == 81)
 				castleLongBlack = false;
-		int p = board[11];
-		if (p != 4)
-			castleLongWhite = false;
-		p = board[18];
-		if (p != 4)
-			castleShortWhite = false;
-		p = board[81];
-		if (p != -4)
-			castleLongBlack = false;
-		p = board[88];
-		if (p != -4)
-			castleShortBlack = false;
-		onMove = !onMove;
+			int p = board[11];
+			if (p != 4)
+				castleLongWhite = false;
+			p = board[18];
+			if (p != 4)
+				castleShortWhite = false;
+			p = board[81];
+			if (p != -4)
+				castleLongBlack = false;
+			p = board[88];
+			if (p != -4)
+				castleShortBlack = false;
+			onMove = !onMove;
 
-		// handle draws
-		/*	if (!EdenBrain.withinAlphabeta) {
-		if (updateDrawCount) {
-		EdenBrain.threeDrawsTable.clear();
-		} else {
-		long myZobrist = getZobrist();
-		Long zobi = new Long(myZobrist);
-		if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
-		Integer count = (Integer) EdenBrain.threeDrawsTable.get(zobi);
-		EdenBrain.threeDrawsTable.remove(zobi);
-		if (count.intValue() >= 2)
-		throw new IllegalStateException("three-fold repetition!");
-		count = new Integer(count.intValue() + 1);
-		EdenBrain.threeDrawsTable.put(zobi, count);
-		} else {
-		Integer count = new Integer(1);
-		EdenBrain.threeDrawsTable.put(zobi, count);
-		}
-		}
-		} else if (updateDrawCount) {
-		EdenBrain.alphaBetaDraws.clear();
-		} else {
-		long myZobrist = getZobrist();
-		Long zobi = new Long(myZobrist);
-		int total = 0;
-		if (EdenBrain.alphaBetaDraws.containsKey(zobi)) {
-		total += ((Integer) EdenBrain.alphaBetaDraws.get(zobi)).intValue();
+			// handle draws
+			/*	if (!EdenBrain.withinAlphabeta) {
+			if (updateDrawCount) {
+			EdenBrain.threeDrawsTable.clear();
+			} else {
+			long myZobrist = getZobrist();
+			Long zobi = new Long(myZobrist);
+			if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
+			Integer count = (Integer) EdenBrain.threeDrawsTable.get(zobi);
+			EdenBrain.threeDrawsTable.remove(zobi);
+			if (count.intValue() >= 2)
+			throw new IllegalStateException("three-fold repetition!");
+			count = new Integer(count.intValue() + 1);
+			EdenBrain.threeDrawsTable.put(zobi, count);
+			} else {
+			Integer count = new Integer(1);
+			EdenBrain.threeDrawsTable.put(zobi, count);
+			}
+			}
+			} else if (updateDrawCount) {
+			EdenBrain.alphaBetaDraws.clear();
+			} else {
+			long myZobrist = getZobrist();
+			Long zobi = new Long(myZobrist);
+			int total = 0;
+			if (EdenBrain.alphaBetaDraws.containsKey(zobi)) {
+			total += ((Integer) EdenBrain.alphaBetaDraws.get(zobi)).intValue();
 
-		if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
-		total += ((Integer) EdenBrain.threeDrawsTable.get(zobi)).intValue();
-		} else {
-		Integer count = new Integer(1);
-		EdenBrain.alphaBetaDraws.put(zobi, count);
-		}
-		EdenBrain.alphaBetaDraws.remove(zobi);
-		if (total >= 2)
-		throw new ThreeRepetitionsAB("three-fold repetition!");
-		Integer count = new Integer(total + 1);
-		EdenBrain.alphaBetaDraws.put(zobi, count);
-		}
-		}*/
+			if (EdenBrain.threeDrawsTable.containsKey(zobi)) {
+			total += ((Integer) EdenBrain.threeDrawsTable.get(zobi)).intValue();
+			} else {
+			Integer count = new Integer(1);
+			EdenBrain.alphaBetaDraws.put(zobi, count);
+			}
+			EdenBrain.alphaBetaDraws.remove(zobi);
+			if (total >= 2)
+			throw new ThreeRepetitionsAB("three-fold repetition!");
+			Integer count = new Integer(total + 1);
+			EdenBrain.alphaBetaDraws.put(zobi, count);
+			}
+			}*/
 	}
 
 	//static int convertToint(bool color, int rawint) {
@@ -448,7 +448,7 @@ public:
 	//		//throw new AssertionError("should never happen");
 	//	}
 	//
-	
+
 
 	//	
 	void generateCastling(list<Move>& moves, const int from) {
@@ -488,24 +488,24 @@ public:
 		}
 	}
 
-	//	static void generateKingCaptures(Position position, Set moves, int from, bool color) {
-	//		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
-	//
-	//		for (int i = 0; i < 8; i++) {
-	//			int next = from + kingMoves[i];
-	//			if (!invalidSquare(next)) {
-	//				int capturedPiece = position.board[next];
-	//				if (capturedPiece != 0) {
-	//					if ((capturedPiece < 0) && (color)) {
-	//						moves.add(Move(from, next, 0, capturedPiece));
-	//					} else if ((capturedPiece > 0) && (!color)) {
-	//						moves.add(Move(from, next, 0, capturedPiece));
-	//					}
-	//				}
-	//			}
-	//		}
-	//	}
-	//
+	void generateKingCaptures(list<Move>& moves, int from, bool color) {
+		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
+
+		for (int i = 0; i < 8; i++) {
+			int next = from + kingMoves[i];
+			if (!invalidSquare(next)) {
+				int capturedPiece = board[next];
+				if (capturedPiece != 0) {
+					if ((capturedPiece < 0) && (color)) {
+						moves.push_front(Move(from, next, 0, capturedPiece));
+					} else if ((capturedPiece > 0) && (!color)) {
+						moves.push_front(Move(from, next, 0, capturedPiece));
+					}
+				}
+			}
+		}
+	}
+
 
 	void generateKnightCaptures(list<Move>& moves, int from, bool color) {
 		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
@@ -2264,7 +2264,7 @@ public:
 		}
 
 		moves.clear();
-		//TODO	   generateKingCaptures(moves, i, othercolor);
+		generateKingCaptures(moves, i, othercolor);
 		//	cout << "king captures: " << endl;
 		//for (Move move:moves){
 		//	move.print();
