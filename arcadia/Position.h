@@ -2340,85 +2340,81 @@ public:
 		return false;
 	}
 
-	//bool isGivingCheckForCastling(int square) {
-	//	if (isGivingCheck != null)
-	//		return isGivingCheck.boolValue();
-	//	int i = square;
-	//	bool c1 = EdenBrain.convertColor(board[i]);
-	//	SortedSet moves = new TreeSet();
-	//	generateBishopCaptures(moves, i, c1);
-	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	//		Move move = (Move) it.next();
-	//		int piece = Math.abs(board[move.to]);
-	//		if ((piece == 3) || (piece == 5)) {
-	//			int t = board[move.to];
-	//			bool c = EdenBrain.convertColor(t);
-	//			if (!c.equals(c1)) {
-	//				isGivingCheck = new bool(true);
-	//				return true;
-	//			}
-	//		}
-	//	}
+	bool isGivingCheckForCastling(int square) {
+		//if (isGivingCheck != null)
+		//	return isGivingCheck.boolValue();
+		int i = square;
+		bool c1 = convertColor(board[i]);
+		list<Move> moves;
+		generateBishopCaptures(moves, i, c1);
+		for (Move move: moves){
+			int piece = abs(board[move.to]);
+			if ((piece == 3) || (piece == 5)) {
+				int t = board[move.to];
+				bool c = convertColor(t);
+				if (c!=c1) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
 
-	//	moves.clear();
-	//	generateRookCaptures(this, moves, i, c1);
-	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	//		Move move = (Move) it.next();
-	//		int piece = Math.abs(board[move.to]);
-	//		if ((piece == 4) || (piece == 5)) {
-	//			int t = board[move.to];
-	//			bool c = EdenBrain.convertColor(t);
-	//			if (!c.equals(c1)) {
-	//				isGivingCheck = new bool(true);
-	//				return true;
-	//			}
-	//		}
-	//	}
+		moves.clear();
+		generateRookCaptures(moves, i, c1);
+		for (Move move: moves){
+			int piece = abs(board[move.to]);
+			if ((piece == 4) || (piece == 5)) {
+				int t = board[move.to];
+				bool c = convertColor(t);
+				if (c!=c1) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
 
-	//	moves.clear();
-	//	generateKingCaptures(this, moves, i, c1);
-	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	//		Move move = (Move) it.next();
-	//		int piece = Math.abs(board[move.to]);
-	//		if (piece == 6) {
-	//			isGivingCheck = new bool(true);
-	//			return true;
-	//		}
-	//	}
+		//moves.clear();
+		//generateKingCaptures(this, moves, i, c1);
+		//for (Iterator it = moves.iterator(); it.hasNext();) {
+		//	Move move = (Move) it.next();
+		//	int piece = Math.abs(board[move.to]);
+		//	if (piece == 6) {
+		//		isGivingCheck = new bool(true);
+		//		return true;
+		//	}
+		//}
 
-	//	moves.clear();
-	//	generateKnightCaptures(this, moves, i, c1);
-	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	//		Move move = (Move) it.next();
-	//		int piece = Math.abs(board[move.to]);
-	//		if (piece == 2) {
-	//			int t = board[move.to];
-	//			bool c = EdenBrain.convertColor(t);
-	//			if (!c.equals(c1)) {
-	//				isGivingCheck = new bool(true);
-	//				return true;
-	//			}
-	//		}
-	//	}
+		moves.clear();
+		generateKnightCaptures(moves, i, c1);
+		for (Move move: moves){
+			int piece = abs(board[move.to]);
+			if (piece == 2) {
+				int t = board[move.to];
+				bool c = convertColor(t);
+				if (c!=c1) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
 
-	//	moves.clear();
-	//	generatePawnCaptures(this, moves, i, bool.valueOf(!onMove().boolValue()));
-	//	for (Iterator it = moves.iterator(); it.hasNext();) {
-	//		Move move = (Move) it.next();
-	//		int piece = Math.abs(board[move.to]);
-	//		if ((piece == 1) && (Math.abs(board[move.to]) == 1)) {
-	//			int t = board[move.to];
-	//			bool c = EdenBrain.convertColor(t);
-	//			if (!c.equals(c1)) {
-	//				isGivingCheck = new bool(true);
-	//				return true;
-	//			}
-	//		}
-	//	}
+		moves.clear();
+		generatePawnCaptures(moves, i, !onMove);
+			for (Move move: moves){
+			int piece = abs(board[move.to]);
+			if ((piece == 1) && (abs(board[move.to]) == 1)) {
+				int t = board[move.to];
+				bool c = convertColor(t);
+				if (c!=c1) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
 
-	//	isGivingCheck = new bool(false);
-	//	return false;
-	//}
+		//isGivingCheck = new bool(false);
+		return false;
+	}
 
 
 	bool isGivingCheckNonKingMoving(int moveFrom) {
