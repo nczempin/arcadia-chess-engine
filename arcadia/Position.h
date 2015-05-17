@@ -127,24 +127,17 @@ public:
 		Position p =  Position();
 		/*	bishopCaptureCount = 0;
 		bishopNonCaptureCount = 0;
-		blackKing = -1;
+		
 		blackPieces = new TreeSet();
 		captureMoves = null;
-		castleLongBlack = true;
-		castleLongWhite = true;
-		castleShortBlack = true;
-		castleShortWhite = true;
-		enPassantSquare = 0;
-		hasCastledBlack = false;
-		hasCastledWhite = false;
+		
 		isGivingCheck = null;
 		isReceivingCheck = null;
 		isStartPosition = false;
 		moveNr = 0;*/
-		//whiteKing = -1;
+		
 		//whitePieces = new TreeSet();
 		//Info.nodes += 1L;
-		//p.board = new int[89];
 		copyBoard(board, p.board);
 		//whitePieces.addAll(position.whitePieces);
 		p.whiteKing = whiteKing;
@@ -153,13 +146,15 @@ public:
 		//isStartPosition = position.isStartPosition();
 		p.enPassantSquare = enPassantSquare;
 		p.onMove = onMove;
-		/*	castleLongBlack = position.getCastleLongBlack();
-		castleLongWhite = position.getCastleLongWhite();
-		castleShortBlack = position.getCastleShortBlack();
-		castleShortWhite = position.getCastleShortWhite();
+		p.castleLongBlack =castleLongBlack;
+		p.castleLongWhite = castleLongWhite;
+		p.castleShortBlack = castleShortBlack;
+		p.castleShortWhite = castleShortWhite;
 		
-		hasCastledBlack = position.hasCastledBlack();
-		hasCastledWhite = position.hasCastledWhite();
+		p.hasCastledBlack = hasCastledBlack;
+		p.hasCastledWhite = hasCastledWhite;
+
+		/*
 		isGivingCheck = null;
 		isReceivingCheck = null;
 		zobrist = position.zobrist;
@@ -486,44 +481,43 @@ public:
 	//
 
 	//	
-	//	static void generateCastling(Position position, Set moves, int fromSquare) {
-	//		int from = fromSquare;
-	//		int p = position.board[from];
-	//		int kingHome = -1;
-	//		bool castlingLong;
-	//		bool castlingShort;
-	//		if (p == 6) {
-	//			kingHome = 15;
-	//			castlingShort = position.getCastleShortWhite();
-	//			castlingLong = position.getCastleLongWhite();
-	//		} else {
-	//			kingHome = 85;
-	//			castlingShort = position.getCastleShortBlack();
-	//			castlingLong = position.getCastleLongBlack();
-	//		}
-	//		if (from != kingHome)
-	//			return;
-	//		int pieceNextToKingR = position.board[(from + 1)];
-	//		if ((castlingShort) && (pieceNextToKingR == 0) && (position.board[(from + 2)] == 0)) {
-	//			if (position.isReceivingCheck)
-	//				return;
-	//			Move testCastleThrough =  Move(fromSquare, from + 1);
-	//			Position testPosition = createTestPosition(position, testCastleThrough);
-	//			Info::castlingNodes += 1;
-	//			if (!testPosition.isGivingCheckForCastling(from + 1))
-	//				moves.add(Move(fromSquare, from + 2));
-	//		}
-	//		if ((castlingLong) && (abs(position.board[(from - 1)]) == 0) && (position.board[(from - 2)] == 0) && (position.board[(from - 3)] == 0)) {
-	//			if (position.isReceivingCheck)
-	//				return;
-	//			Move testCastleThrough = Move(fromSquare, from - 1);
-	//			Position testPosition = createTestPosition(position, testCastleThrough);
-	//			if (!testPosition.isGivingCheckForCastling(from - 1)) {
-	//				moves.add(Move(fromSquare, from - 2));
-	//			}
-	//		}
-	//	}
-	//
+		void generateCastling(list<Move>& moves, const int from) {
+			int p = board[from];
+			int kingHome = -1;
+			bool castlingLong;
+			bool castlingShort;
+			if (p == 6) {
+				kingHome = 15;
+				castlingShort = castleShortWhite;
+				castlingLong = castleLongWhite;
+			} else {
+				kingHome = 85;
+				castlingShort = castleShortBlack;
+				castlingLong = castleLongBlack;
+			}
+			if (from != kingHome)
+				return;
+			int pieceNextToKingR = board[(from + 1)];
+			if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
+				if (isReceivingCheck())
+					return;
+				Move testCastleThrough =  Move(from, from + 1);
+				Position testPosition = createTestPosition(testCastleThrough);
+				//Info::castlingNodes += 1;
+				if (!testPosition.isGivingCheckForCastling(from + 1))
+					moves.push_front(Move(from, from + 2));
+			}
+			if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
+				if (isReceivingCheck())
+					return;
+				Move testCastleThrough = Move(from, from - 1);
+				Position testPosition = createTestPosition(testCastleThrough);
+				if (!testPosition.isGivingCheckForCastling(from - 1)) {
+					moves.push_front(Move(from, from - 2));
+				}
+			}
+		}
+	
 	//	static void generateKingCaptures(Position position, Set moves, int from, bool color) {
 	//		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 	//
@@ -755,20 +749,19 @@ public:
 	//
 	//	SortedSet captureMoves;
 	//
-	//	bool castleLongBlack;
-	//
-	//	bool castleLongWhite;
-	//
-	//	bool castleShortBlack;
-	//
-	//	bool castleShortWhite;
-	//
-	//	int enPassantSquare;
-	//
-	//	bool hasCastledBlack;
-	//
-	//	bool hasCastledWhite;
-	//
+		bool castleLongBlack;
+	
+		bool castleLongWhite;
+	
+		bool castleShortBlack;
+	
+		bool castleShortWhite;
+	
+	
+		bool hasCastledBlack;
+	
+		bool hasCastledWhite;
+	
 	//	//bool isEndGame;
 	//
 	//	bool isGivingCheck;
