@@ -291,72 +291,72 @@ public:
 			enPassantSquare = ((move.from + move.to) / 2);
 			//updateZobristEnPassant();
 		}
-		////castle
-		//if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
-		//	int rookTo;
-		//	int rookFrom;
-		//	if (move.to == 17) {
-		//		rookFrom = 18;
-		//		rookTo = 16;
-		//	} else {
-		//		if (move.to == 87) {
-		//			rookFrom = 88;
-		//			rookTo = 86;
-		//		} else {
-		//			if (move.to == 13) {
-		//				rookFrom = 11;
-		//				rookTo = 14;
-		//			} else {
-		//				if (move.to == 83) {
-		//					rookFrom = 81;
-		//					rookTo = 84;
-		//				} else {
-		//					rookFrom = -1;
-		//					rookTo = -1;
-		//					System.out.println("move.from: " + move.from);
-		//					throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
-		//				}
-		//			}
-		//		}
-		//	}
-		//	Move rookJump = new Move(this, rookFrom, rookTo);
-		//	moveRaw(rookJump);
-		//	if (movingPiece > 0) {
-		//		hasCastledWhite = true;
-		//	} else
-		//		hasCastledBlack = true;
-		//}
-		//if (movingPieceType == 6) {
-		//	if (onMove.equals(WHITE)) {
-		//		castleShortWhite = false;
-		//		castleLongWhite = false;
-		//	} else {
-		//		castleShortBlack = false;
-		//		castleLongBlack = false;
-		//	}
-		//} else if (movingPieceType == 4)
-		//	if (onMove.equals(WHITE)) {
-		//		if (move.from == 18) {
-		//			castleShortWhite = false;
-		//		} else if (move.from == 11) {
-		//			castleLongWhite = false;
-		//		}
-		//	} else if (move.from == 88) {
-		//		castleShortBlack = false;
-		//	} else if (move.from == 81)
-		//		castleLongBlack = false;
-		//int p = board[11];
-		//if (p != 4)
-		//	castleLongWhite = false;
-		//p = board[18];
-		//if (p != 4)
-		//	castleShortWhite = false;
-		//p = board[81];
-		//if (p != -4)
-		//	castleLongBlack = false;
-		//p = board[88];
-		//if (p != -4)
-		//	castleShortBlack = false;
+		//castle
+		if ((movingPieceType == 6) && (abs(move.from - move.to) == 2)) {
+			int rookTo;
+			int rookFrom;
+			if (move.to == 17) {
+				rookFrom = 18;
+				rookTo = 16;
+			} else {
+				if (move.to == 87) {
+					rookFrom = 88;
+					rookTo = 86;
+				} else {
+					if (move.to == 13) {
+						rookFrom = 11;
+						rookTo = 14;
+					} else {
+						if (move.to == 83) {
+							rookFrom = 81;
+							rookTo = 84;
+						} else {
+							rookFrom = -1;
+							rookTo = -1;
+							cerr << "move.from: " << move.from <<endl;
+							//throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
+						}
+					}
+				}
+			}
+			Move rookJump =  Move(rookFrom, rookTo);
+			moveRaw(rookJump);
+			if (movingPiece > 0) {
+				hasCastledWhite = true;
+			} else
+				hasCastledBlack = true;
+		}
+		if (movingPieceType == 6) {
+			if (onMove) {
+				castleShortWhite = false;
+				castleLongWhite = false;
+			} else {
+				castleShortBlack = false;
+				castleLongBlack = false;
+			}
+		} else if (movingPieceType == 4)
+			if (onMove) {
+				if (move.from == 18) {
+					castleShortWhite = false;
+				} else if (move.from == 11) {
+					castleLongWhite = false;
+				}
+			} else if (move.from == 88) {
+				castleShortBlack = false;
+			} else if (move.from == 81)
+				castleLongBlack = false;
+		int p = board[11];
+		if (p != 4)
+			castleLongWhite = false;
+		p = board[18];
+		if (p != 4)
+			castleShortWhite = false;
+		p = board[81];
+		if (p != -4)
+			castleLongBlack = false;
+		p = board[88];
+		if (p != -4)
+			castleShortBlack = false;
 		onMove = !onMove;
 
 		// handle draws
@@ -2640,7 +2640,7 @@ public:
 			//cout << "cleared " << move.from <<endl;
 			//clearSquare(move.from, 0, board);
 		} else {
-			cout << move.toString() << " promoted" << endl;
+			//cout << move.toString() << " promoted" << endl;
 			movingPiece = move.promoted;
 			if (board[move.from] < 0)
 				movingPiece *= -1;

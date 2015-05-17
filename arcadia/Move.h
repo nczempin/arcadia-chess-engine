@@ -29,6 +29,10 @@ public:
 	bool operator == (const Move &i) const {
 		return from == i.from && to == i.to;
 	}
+	
+	bool isCastling(int piece) {
+		return (piece == 6) && (abs(from - to) == 2);
+		}
 	void print(){
 		cout << toString() << endl;
 	}	
