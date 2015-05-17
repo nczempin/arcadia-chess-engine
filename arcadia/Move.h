@@ -1,10 +1,11 @@
 #pragma once
 #include <iostream>
 #include <string>
+
+#include "global.h"
+
 using namespace std;
-string encodeSquare(int square);
-int decodeSquare(string square);
-int decodePiece(string promotedTo);
+
 class Move{
 public:
 	Move(int from, int to, unsigned int captured = 0, unsigned int promoted = 0){
