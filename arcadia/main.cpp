@@ -124,7 +124,7 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen r3k2r/p1ppqpb1/bn2pnp1/3PN3/1p2P3/2N2Q1p/PPPBBPPP/R3K2R w KQkq -";
+		toParse = "position fen n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
@@ -210,13 +210,12 @@ void parse(string toParse) {
 	if (promotedTo=="q") {
 		retValue = 5;
 	} 
-	//TODO underpromotion
-	//else if (promotedTo.equals("r")) {
-	//	retValue = 4;
-	//} else if (promotedTo.equals("b")) {
-	//	retValue = 3;
-	//} else if (promotedTo.equals("n"))
-	//	retValue = 2;
+		else if (promotedTo=="r") {
+		retValue = 4;
+	} else if (promotedTo=="b") {
+		retValue = 3;
+	} else if (promotedTo=="n")
+		retValue = 2;
 	return retValue;
 }
 
