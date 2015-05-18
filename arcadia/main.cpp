@@ -6,6 +6,7 @@
 #include "global.h"
 #include "Position.h"
 #include "MoveGenerator.h"
+#include "Searcher.h"
 
 using namespace std;
 
@@ -32,7 +33,7 @@ vector<string> split(const string &s, char delim) {
 bool convertColor(int piece){
 	return piece > 0;
 }
-static int decodeSquare(string square) {
+int decodeSquare(string square) {
 	char letter = square[0];
 	char digit = square[1];
 	int one = letter-'a' + 1;
@@ -41,7 +42,7 @@ static int decodeSquare(string square) {
 	return index;
 }
 
-static string encodeSquare(int square) {
+string encodeSquare(int square) {
 	int ten =square / 10;
 	int one = square - ten * 10;
 	char letter = (int)'a' + one - 1;	
@@ -144,34 +145,31 @@ void parse(string toParse) {
 		char perftDepthParameter = toParse[7];//'4'; //TODO extract from toParse
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
 		//TODO do this more elegantly
-	MoveGenerator mg;
-	list<Move> moves = mg.generateLegalMoves(p);
-	int count = 0;
-	Position tmpPos = p;
-	for(Move move: moves){
-		tmpPos = p; //simple but inefficient way to undo the move
-		tmpPos.makeMove(move);
-		
-		count = perft(tmpPos, perftDepth -1);
-		cout << move.toString() << ": " << count << endl;
-	}
+		MoveGenerator mg;
+		list<Move> moves = mg.generateLegalMoves(p);
+		int count = 0;
+		Position tmpPos = p;
+		for(Move move: moves){
+			tmpPos = p; //simple but inefficient way to undo the move
+			tmpPos.makeMove(move);
+
+			count = perft(tmpPos, perftDepth -1);
+			cout << move.toString() << ": " << count << endl;
+		}
 
 		cout << "Done." << endl;
 
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
-		MoveGenerator mg;
-		list<Move> moves = mg.generateLegalMoves(p);
-		if (moves.size() > 0){
-			cout << "bestmove " << moves.front().toString() << endl;
-		}
-	}else if (startsWith("stop", toParse)){
-		MoveGenerator mg;
-		list<Move> moves = mg.generateLegalMoves(p);
-		if (moves.size() > 0){
-			cout << "bestmove " << moves.front().toString() << endl;
-		}
+		Searcher s;
+		Move bestmove = s.analyze(p);
+		cout << "bestmove " << bestmove.toString() << endl;
+	}else if (startsWith("stop", toParse)){ //TODO this is not really how 'stop' is supposed to work
+		Searcher s;
+		Move bestmove = s.analyze(p);
+		cout << "bestmove " << bestmove.toString() << endl;
+
 	}else if (startsWith("position", toParse)){
 		p.clear();
 		string positionString = extractPosition(toParse);
@@ -205,12 +203,12 @@ void parse(string toParse) {
 	}else {
 		cout << "???" << endl;
 	}
-}	 static int decodePiece(string promotedTo) {
+}	 
+int decodePiece(string promotedTo) {
 	int retValue = 0;
 	if (promotedTo=="q") {
 		retValue = 5;
-	} 
-		else if (promotedTo=="r") {
+	} else if (promotedTo=="r") {
 		retValue = 4;
 	} else if (promotedTo=="b") {
 		retValue = 3;

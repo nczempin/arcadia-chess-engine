@@ -3,7 +3,6 @@
 #include "Map.h"
 
 #include <cmath>
-	// const  int Position::pieceValues[6] = { 100, 325, 325, 500, 975, 250 };
 	 //const Map* Position::pawnHash = new HashMap(256000, 1.0F);
 //void Position::generateMoves(){
 //	for (int i = 11; i < 89; i++) {
