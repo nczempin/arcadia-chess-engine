@@ -139,6 +139,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Evaluator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveGenerator.cpp" />
     <ClCompile Include="Position.cpp" />
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Boolean.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Evaluator.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Info.h" />

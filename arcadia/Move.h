@@ -8,7 +8,7 @@ using namespace std;
 
 class Move{
 public:
-	Move(int from, int to, unsigned int captured = 0, unsigned int promoted = 0){
+	Move(int from=-1, int to=-1, unsigned int captured = 0, unsigned int promoted = 0){
 		this->from = from;
 		this->to = to;
 		this->captured = captured;

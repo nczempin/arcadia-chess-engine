@@ -595,10 +595,10 @@ public:
 	//		}
 	//	}
 	//
-	//	static void generateQueenCaptures(Position position, Set moves, int from, bool color) {
-	//		position.generateBishopCaptures(moves, from, color);
-	//		generateRookCaptures(position, moves, from, color);
-	//	}
+		void generateQueenCaptures(list<Move> moves, int from, bool color) {
+			generateBishopCaptures(moves, from, color);
+			generateRookCaptures(moves, from, color);
+		}
 	//
 	//	static void generateQueenMoves(Position position, SortedSet moves, int from, bool color) {
 	//		generateBishopMoves(position, moves, from, color);
@@ -1353,65 +1353,59 @@ public:
 	//		}
 	//	}
 	//
-	//	SortedSet generateCaptureMoves() {
-	//		SortedSet moves = new TreeSet();
-	//		for (int i = 11; i < 89; i++) {
-	//			int p = board[i];
-	//			int type = Math.abs(p);
-	//			if ((type >= 1) && (type <= 7)) {
-	//				bool color = EdenBrain.convertColor(p);
-	//				if (color.equals(onMove())) {
-	//					SortedSet pieceMoves = generateCaptureMoves(i, p, color);
-	//					moves.addAll(pieceMoves);
-	//				}
-	//			}
-	//		}
-	//
-	//		return moves;
-	//	}
-	//
-	//	SortedSet generateCaptureMoves(int i, int p, bool color) {
-	//		SortedSet moves = new TreeSet();
-	//		switch (p) {
-	//		case -1:
-	//
-	//		case 1:
-	//			generatePawnCaptures(this, moves, i, color);
-	//			break;
-	//
-	//		case -2:
-	//
-	//		case 2:
-	//			generateKnightCaptures(this, moves, i, color);
-	//			break;
-	//
-	//		case -3:
-	//
-	//		case 3:
-	//			generateBishopCaptures(moves, i, color);
-	//			break;
-	//
-	//		case -4:
-	//
-	//		case 4:
-	//			generateRookCaptures(this, moves, i, color);
-	//			break;
-	//
-	//		case -5:
-	//
-	//		case 5:
-	//			generateQueenCaptures(this, moves, i, color);
-	//			break;
-	//
-	//		case -6:
-	//
-	//		case 6:
-	//			generateKingCaptures(this, moves, i, color);
-	//		}
-	//
-	//		return moves;
-	//	}
-	//
+		//list<Move> generateCaptureMoves() {
+		//	list<Move> moves;
+		//	for (int i = 11; i < 89; i++) {
+		//		int p = board[i];
+		//		int type = abs(p);
+		//		if ((type >= 1) && (type <= 7)) {
+		//			bool color = convertColor(p);
+		//			if (color==onMove) {
+		//				list<Move> pieceMoves = generateCaptureMoves(i, p, color);
+		//				moves.merge(pieceMoves);
+		//			}
+		//		}
+		//	}
+	
+		//	return moves;
+		//}
+	
+		list<Move> generateCaptureMoves(int i, int p, bool color) {
+			list<Move> moves;
+			switch (p) {
+			case -1:
+			case 1:
+				generatePawnCaptures(moves, i, color);
+				break;
+	
+			case -2:
+			case 2:
+				generateKnightCaptures(moves, i, color);
+				break;
+	
+			case -3:
+			case 3:
+				generateBishopCaptures(moves,i, color);
+				break;
+	
+			case -4:
+			case 4:
+				generateRookCaptures( moves, i, color);
+				break;
+	
+			case -5:
+			case 5:
+				generateQueenCaptures(moves, i, color);
+				break;
+	
+			case -6:
+			case 6:
+				generateKingCaptures(moves, i, color);
+			}
+	
+			return moves;
+		}
+	
 	//	void generateKingNonCapturesNoCastling(Set moves, int from, bool color) {
 	//		int[] kingMoves = { 9, 10, 11, -1, 1, -9, -10, -11 };
 	//
@@ -1440,17 +1434,7 @@ public:
 	//		}
 	//	}
 	//
-	//	SortedSet generateLegalMoves() {
-	//		if (legalMoves != null) {
-	//			return legalMoves;
-	//		}
-	//
-	//		SortedSet moves = generateMoves();
-	//		removeIllegalMoves(moves);
-	//		legalMoves = moves;
-	//		return moves;
-	//	}
-	//
+	
 #define WHITE true
 #define BLACK false
 	bool onMove;
