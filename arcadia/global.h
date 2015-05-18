@@ -5,7 +5,7 @@
 #include <list>
 
 using namespace std;
-const string VERSION = "0.0.2";
+const string VERSION = "0.0.3dev";
 #define USE_UNDERPROMOTION
 vector<string> &split(const string &s, char delim, vector<string> &elems);
 
