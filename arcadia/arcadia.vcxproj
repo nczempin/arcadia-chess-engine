@@ -139,13 +139,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Evaluator.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MoveGenerator.cpp" />
     <ClCompile Include="Position.cpp" />
+    <ClCompile Include="Searcher.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Boolean.h" />
     <ClInclude Include="Character.h" />
+    <ClInclude Include="Evaluator.h" />
     <ClInclude Include="global.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="Info.h" />
@@ -157,6 +160,7 @@
     <ClInclude Include="Piece.h" />
     <ClInclude Include="PieceCount.h" />
     <ClInclude Include="Position.h" />
+    <ClInclude Include="Searcher.h" />
     <ClInclude Include="Set.h" />
     <ClInclude Include="SortedSet.h" />
     <ClInclude Include="Square.h" />
