@@ -12,10 +12,10 @@ public:
 	}
 	~MoveGenerator(void);
 private:
-	Position position;
-	list<Move> moves;
+	static Position position;
+	static list<Move> moves;
 public: 
-	list<Move> generateLegalMoves(Position position){
+	static list<Move> generateLegalMoves(Position position){
 		list<Move> moves = generateAllMoves(position);
 		//cout << "all moves (including illegal)" << endl;
 		//for (Move move:moves){
@@ -35,9 +35,9 @@ public:
 		//}
 		return moves;
 	}
-	list<Move> generateAllMoves(Position position) {
+	static list<Move> generateAllMoves(Position p) {
 		moves.clear();
-		this->position = position;
+		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
 			int type = abs(piece);
@@ -54,7 +54,7 @@ public:
 		return moves;
 	}
 
-	void removeIllegalMoves(list<Move>& moves) {
+	static void removeIllegalMoves(list<Move>& moves) {
 		//TODO use a more efficient idiom, possibly remove_if
 		list<Move> movesToDelete;
 		for (Move move:moves) {
@@ -101,7 +101,7 @@ public:
 			moves.remove(move);
 		}
 	}
-	void generateMoves(int i, int p) {
+	static void generateMoves(int i, int p) {
 		switch (p) {
 		case -1:
 
@@ -141,12 +141,12 @@ public:
 
 	}
 
-	void generatePawnMoves(int from) {
+	static void generatePawnMoves(int from) {
 		generatePawnNonCapture(from);
 		generatePawnCaptures(from);
 	}
 
-	void generatePawnCapture(int from, int multi, int next, int row) {
+	static void generatePawnCapture(int from, int multi, int next, int row) {
 		if (invalidSquare(next))
 			return;
 		int capturedPiece = position.board[next];
@@ -171,7 +171,7 @@ public:
 				moves.push_front(m);
 			}
 	}
-	void generatePawnCaptures(int from) {
+	static void generatePawnCaptures(int from) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -187,7 +187,7 @@ public:
 			generatePawnCapture(from, multi, next, row);
 		}
 	}
-	void generatePawnNonCapture(int from) {
+	static void generatePawnNonCapture(int from) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -230,7 +230,7 @@ public:
 	}
 
 
-	void generateKnightMoves(int from) {
+	static void generateKnightMoves(int from) {
 		static const int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i <8; i++) {
@@ -246,19 +246,18 @@ public:
 			}
 		}
 	}
-
-
-	void generateKingMoves(int from) {
+	
+	static void generateKingMoves(int from) {
 		generateKingMovesNoCastling(from);
 		position.generateCastling(moves, from);
 	}
-	void generateQueenMoves(int from) {
+	static void generateQueenMoves(int from) {
 		generateBishopMoves(from);
 		generateRookMoves(from);
 	}
 
 
-	void generateKingMovesNoCastling(int from) {
+	static void generateKingMovesNoCastling(int from) {
 		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
@@ -275,7 +274,7 @@ public:
 			}
 		}
 	}
-	void generateRookMoves(int from) {
+	static void generateRookMoves(int from) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
@@ -307,7 +306,7 @@ public:
 		}
 	}
 
-	void generateBishopMoves(int from) {
+	static void generateBishopMoves(int from) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 9;
@@ -338,7 +337,7 @@ public:
 			}
 		}
 	}
-	bool tryMove(int from, int next) {
+	static bool tryMove(int from, int next) {
 		if (invalidSquare(next))
 			return true;
 		int piece = position.board[next];
