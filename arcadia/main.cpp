@@ -170,6 +170,8 @@ void parse(string toParse) {
 		Move bestmove = s.analyze(p);
 		cout << "bestmove " << bestmove.toString() << endl;
 
+	}else if (startsWith("quit", toParse)){
+		exit(0); //TODO more elegance
 	}else if (startsWith("position", toParse)){
 		p.clear();
 		string positionString = extractPosition(toParse);
