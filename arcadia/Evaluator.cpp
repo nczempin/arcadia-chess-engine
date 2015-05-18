@@ -9,6 +9,4 @@ Evaluator::Evaluator(void)
 Evaluator::~Evaluator(void)
 {
 }
-int Evaluator::getValue(Position position){
-	return 0;
-}
+int Evaluator::pieceValues[6]= { 100, 325, 325, 500, 975, 250 };
