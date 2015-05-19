@@ -451,7 +451,7 @@ public:
 
 
 	//	
-	void generateCastling(list<Move>& moves, const int from) {
+	void generateCastling(vector<Move>& moves, const int from) {
 		int p = board[from];
 		int kingHome = -1;
 		bool castlingLong;
@@ -475,7 +475,7 @@ public:
 			Position testPosition = createTestPosition(testCastleThrough);
 			//Info::castlingNodes += 1;
 			if (!testPosition.isGivingCheckForCastling(from + 1))
-				moves.push_front(Move(from, from + 2));
+				moves.push_back(Move(from, from + 2));
 		}
 		if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
 			if (isReceivingCheck())
@@ -483,12 +483,12 @@ public:
 			Move testCastleThrough = Move(from, from - 1);
 			Position testPosition = createTestPosition(testCastleThrough);
 			if (!testPosition.isGivingCheckForCastling(from - 1)) {
-				moves.push_front(Move(from, from - 2));
+				moves.push_back(Move(from, from - 2));
 			}
 		}
 	}
 
-	void generateKingCaptures(list<Move>& moves, int from, bool color) {
+	void generateKingCaptures(vector<Move>& moves, int from, bool color) {
 		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
@@ -497,9 +497,9 @@ public:
 				int capturedPiece = board[next];
 				if (capturedPiece != 0) {
 					if ((capturedPiece < 0) && (color)) {
-						moves.push_front(Move(from, next, 0, capturedPiece));
+						moves.push_back(Move(from, next, 0, capturedPiece));
 					} else if ((capturedPiece > 0) && (!color)) {
-						moves.push_front(Move(from, next, 0, capturedPiece));
+						moves.push_back(Move(from, next, 0, capturedPiece));
 					}
 				}
 			}
@@ -507,7 +507,7 @@ public:
 	}
 
 
-	void generateKnightCaptures(list<Move>& moves, int from, bool color) {
+	void generateKnightCaptures(vector<Move>& moves, int from, bool color) {
 		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i < 8; i++) {
@@ -516,9 +516,9 @@ public:
 				int capturedPiece = board[next];
 				if (capturedPiece != 0) {
 					if ((capturedPiece < 0) && (color))
-						moves.push_front( Move( from, next));
+						moves.push_back( Move( from, next));
 					if ((capturedPiece > 0) && (!color)) {
-						moves.push_front( Move( from, next));
+						moves.push_back( Move( from, next));
 					}
 				}
 			}
@@ -595,7 +595,7 @@ public:
 	//		}
 	//	}
 	//
-		void generateQueenCaptures(list<Move> moves, int from, bool color) {
+		void generateQueenCaptures(vector<Move> moves, int from, bool color) {
 			generateBishopCaptures(moves, from, color);
 			generateRookCaptures(moves, from, color);
 		}
@@ -605,7 +605,7 @@ public:
 	//		generateRookMoves(position, moves, from, color);
 	//	}
 	//
-	void generatePawnCapture(list<Move>& moves, int from, int multi, int next, int row, bool color) {
+	void generatePawnCapture(vector<Move>& moves, int from, int multi, int next, int row, bool color) {
 		if (invalidSquare(next))
 			return;
 		int capturedPiece = board[next];
@@ -613,25 +613,25 @@ public:
 			if (next / (row + multi * 6) == 1) {
 				//promotion
 				Move m = Move(from, next, capturedPiece, 5);
-				moves.push_front(m);
+				moves.push_back(m);
 #ifdef USE_UNDERPROMOTION
 				m = Move(from, next, capturedPiece, 4);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next, capturedPiece, 3);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next, capturedPiece, 2);
-				moves.push_front(m);
+				moves.push_back(m);
 #endif
 			} else {
 				Move m = Move(from, next, capturedPiece);
-				moves.push_front(m);
+				moves.push_back(m);
 			}
 			if (enPassantSquare == next) {
 				Move m = Move(from, next, capturedPiece);
-				moves.push_front(m);
+				moves.push_back(m);
 			}
 	}
-	void generatePawnCaptures(list<Move>& moves, int from, bool color) {
+	void generatePawnCaptures(vector<Move>& moves, int from, bool color) {
 		if ((board[from]<0 && color)||(board[from]>0 && !color)){
 			return;
 		}
@@ -650,7 +650,7 @@ public:
 			generatePawnCapture(moves, from, multi, next, row, color);
 		}
 	}
-	void generateRookCaptures(list<Move>&moves, int from, bool color) {
+	void generateRookCaptures(vector<Move>&moves, int from, bool color) {
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
 			if (next > 88)
@@ -1257,7 +1257,7 @@ public:
 		}
 		return blackKing;
 	}
-	bool tryMoveCapture(list<Move>& moves, int from, int next, bool color) {
+	bool tryMoveCapture(vector<Move>& moves, int from, int next, bool color) {
 		if (invalidSquare(next))
 			return true;
 		int type =board[next];
@@ -1271,11 +1271,11 @@ public:
 		}
 
 		Move m = Move(from, next);
-		moves.push_front(m);
+		moves.push_back(m);
 		return true;
 	}
 
-	void generateBishopCaptures(list<Move>& moves, int from, bool color) {
+	void generateBishopCaptures(vector<Move>& moves, int from, bool color) {
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 9;
 			if (next > 88)
@@ -1353,15 +1353,15 @@ public:
 	//		}
 	//	}
 	//
-		//list<Move> generateCaptureMoves() {
-		//	list<Move> moves;
+		//vector<Move> generateCaptureMoves() {
+		//	vector<Move> moves;
 		//	for (int i = 11; i < 89; i++) {
 		//		int p = board[i];
 		//		int type = abs(p);
 		//		if ((type >= 1) && (type <= 7)) {
 		//			bool color = convertColor(p);
 		//			if (color==onMove) {
-		//				list<Move> pieceMoves = generateCaptureMoves(i, p, color);
+		//				vector<Move> pieceMoves = generateCaptureMoves(i, p, color);
 		//				moves.merge(pieceMoves);
 		//			}
 		//		}
@@ -1370,8 +1370,8 @@ public:
 		//	return moves;
 		//}
 	
-		list<Move> generateCaptureMoves(int i, int p, bool color) {
-			list<Move> moves;
+		vector<Move> generateCaptureMoves(int i, int p, bool color) {
+			vector<Move> moves;
 			switch (p) {
 			case -1:
 			case 1:
@@ -1439,31 +1439,7 @@ public:
 #define BLACK false
 	bool onMove;
 
-	//	int getBishopValue(int i, int plusminus) {
-	//		int retValue = bishopSquareValues[(i - 10)];
-	//		if (plusminus > 0) {
-	//			if (i == 16) {
-	//				if (board[25] > 0)
-	//					retValue -= 3;
-	//				if (board[27] > 0)
-	//					retValue--;
-	//			}
-	//			if ((i == 34) && (board[24] == 1)) {
-	//				retValue -= 25;
-	//			}
-	//		} else {
-	//			if (i == 86) {
-	//				if (board[75] < 0)
-	//					retValue -= 3;
-	//				if (board[77] < 0)
-	//					retValue--;
-	//			}
-	//			if ((i == 64) && (board[74] == -1))
-	//				retValue -= 25;
-	//		}
-	//		return retValue;
-	//	}
-	//
+	
 	//	bool getCastleLongBlack() {
 	//		return castleLongBlack;
 	//	}
@@ -1863,7 +1839,7 @@ public:
 		//if (currentPiece == -1)
 		//	assert "no king found";//throw new IllegalStateException("no king found");
 		int i = currentPiece;
-		list<Move> moves ;
+		vector<Move> moves ;
 		generateBishopCaptures(moves, i, othercolor);
 		//cout << "bishop captures: " << endl;
 		//for (Move move:moves){
@@ -1959,7 +1935,7 @@ public:
 		//	return isGivingCheck.boolValue();
 		int i = square;
 		bool c1 = convertColor(board[i]);
-		list<Move> moves;
+		vector<Move> moves;
 		generateBishopCaptures(moves, i, c1);
 		for (Move move: moves){
 			int piece = abs(board[move.to]);
@@ -2039,7 +2015,7 @@ public:
 		int kingPosition = findKing(othercolor);
 		//if (kingPosition == -1)
 		//	throw new IllegalStateException("no king found");
-		list<Move> moves;
+		vector<Move> moves;
 		if (onDiagonal(moveFrom, kingPosition)) {
 			moves.clear();
 			generateBishopCaptures(moves, kingPosition, othercolor);
@@ -2111,7 +2087,7 @@ public:
 		int kingPosition = findKing(kingColor);
 		//if (kingPosition == -1)
 		//	throw new IllegalStateException("no king found");
-		list<Move> moves;
+		vector<Move> moves;
 		generateRookCaptures(moves, kingPosition, kingColor);
 		for (Move move: moves) {
 			int pt = abs(board[move.to]);

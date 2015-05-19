@@ -12,10 +12,10 @@ public:
 	Searcher(void);
 	~Searcher(void);
 	int alphabeta(int depth, double extension, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, int checkExtensions, bool justExtended);
-	Move findBestmove(list<Move> moves, Position p);
+	Move findBestmove(vector<Move> moves, Position p);
 	Move analyze(Position p){
 		MoveGenerator mg;
-		list<Move> moves = mg.generateLegalMoves(p);
+		vector<Move> moves = mg.generateLegalMoves(p);
 		if (moves.size() == 0){
 			return NULL;
 		} else if (moves.size() == 1){

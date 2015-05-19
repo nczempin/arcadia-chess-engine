@@ -2,6 +2,7 @@
 
 
 #include <iostream>
+#include <chrono>
 
 #include "global.h"
 #include "Position.h"
@@ -89,7 +90,7 @@ static int perft(const Position position, int maxDepth){
 		return 1;
 	}
 	MoveGenerator mg;
-	list<Move> moves = mg.generateLegalMoves(position);
+	vector<Move> moves = mg.generateLegalMoves(position);
 	int count = 0;
 	Position tmpPos = position;
 	for(Move move: moves){
@@ -134,19 +135,27 @@ void parse(string toParse) {
 	}else if (startsWith("perft ",toParse)){
 		char perftDepthParameter = toParse[6];//'4'; //TODO extract from toParse
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
+
+		chrono::time_point<chrono::system_clock> start, end;
+
+
 		//TODO do this more elegantly
 		for (int i = 0; i< perftDepth; ++i){
+			start = chrono::system_clock::now();
 			int nodes = perft (p, i+1);
-			cout << i+1 << ", " << nodes << endl;
+			end = chrono::system_clock::now();
+			chrono::duration<double> elapsed_seconds = end-start;
+			cout << i+1 << ", " << nodes << " @ "  << elapsed_seconds.count()<<endl;
+			time_t end_time = chrono::system_clock::to_time_t(end);
 		}
 		cout << "Done." << endl;
 
 	}else if (startsWith("divide ",toParse)){
-		char perftDepthParameter = toParse[7];//'4'; //TODO extract from toParse
+		char perftDepthParameter = toParse[7];
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
 		//TODO do this more elegantly
 		MoveGenerator mg;
-		list<Move> moves = mg.generateLegalMoves(p);
+		vector<Move> moves = mg.generateLegalMoves(p);
 		int count = 0;
 		Position tmpPos = p;
 		for(Move move: moves){
@@ -198,7 +207,7 @@ void parse(string toParse) {
 	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
-		list<Move> moves =mg.generateLegalMoves(p);
+		vector<Move> moves =mg.generateLegalMoves(p);
 		for (Move move:moves){
 			move.print();
 		}

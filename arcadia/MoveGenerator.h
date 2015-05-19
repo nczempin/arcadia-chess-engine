@@ -12,16 +12,16 @@ public:
 	}
 	~MoveGenerator(void);
 private:
-	Position position;
-	list<Move> moves;
+	static Position position;
+	static vector<Move> moves;
 public: 
-	list<Move> generateLegalMoves(Position position){
-		list<Move> moves = generateAllMoves(position);
+	static vector<Move> generateLegalMoves(Position position){
+		vector<Move> moves = generateAllMoves(position);
 		//cout << "all moves (including illegal)" << endl;
 		//for (Move move:moves){
 		//	move.print();
 		//}
-		removeIllegalMoves(moves);
+		moves = removeIllegalMoves(moves);
 		//cout << "only legal moves" << endl;
 		//for (Move move:moves){
 		//	move.print();
@@ -35,9 +35,9 @@ public:
 		//}
 		return moves;
 	}
-	list<Move> generateAllMoves(Position position) {
+	static vector<Move> generateAllMoves(Position p) {
 		moves.clear();
-		this->position = position;
+		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
 			int type = abs(piece);
@@ -54,54 +54,19 @@ public:
 		return moves;
 	}
 
-	void removeIllegalMoves(list<Move>& moves) {
-		//TODO use a more efficient idiom, possibly remove_if
-		list<Move> movesToDelete;
-		for (Move move:moves) {
-		//cout << "testing move" << endl;
-		//	move.print();
+	static vector<Move> removeIllegalMoves(vector<Move> moves) {
+		vector<Move> legalMoves;
+		for(Move move: moves){
 
 			//			Info.ensureLegalNodes += 1;
 			Position nextPos = position.createTestPosition(move);
-			if (nextPos.isGivingCheck()) {
-				//if (position.isGivingCheck()) {
-				movesToDelete.push_front(move);
-				continue;
-				//}
-				//} else {
-				//	int movingPiece = abs(position.board[move.from]);
-				//	switch (movingPiece) {
-				//	default:
-				//		break;
-
-				//	case 6:
-				//		if (nextPos.isGivingCheck()) //moving into check
-				//			moves.remove(move);
-				//		continue;
-				//		break;
-
-				//	case 1:
-
-				//	case 2:
-
-				//	case 3:
-
-				//	case 4:
-
-				//	case 5:
-				//		if (nextPos.isGivingCheckNonKingMoving(move.from)) {
-				//			moves.remove(move);
-				//			continue;
-				//		}
-				//		break;
-				//	}
+			if (!nextPos.isGivingCheck()) {
+				legalMoves.push_back(move);
 			}
 		}
-		for(Move move: movesToDelete){
-			moves.remove(move);
-		}
+		return legalMoves;
 	}
-	void generateMoves(int i, int p) {
+	static void generateMoves(int i, int p) {
 		switch (p) {
 		case -1:
 
@@ -141,37 +106,37 @@ public:
 
 	}
 
-	void generatePawnMoves(int from) {
+	static void generatePawnMoves(int from) {
 		generatePawnNonCapture(from);
 		generatePawnCaptures(from);
 	}
 
-	void generatePawnCapture(int from, int multi, int next, int row) {
+	static void generatePawnCapture(int from, int multi, int next, int row) {
 		if (invalidSquare(next))
 			return;
 		int capturedPiece = position.board[next];
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
 			if (next / (row + multi * 6) == 1) {
 				Move m = Move(from, next, capturedPiece, 5);
-				moves.push_front(m);
+				moves.push_back(m);
 #ifdef USE_UNDERPROMOTION
 				m = Move(from, next, capturedPiece, 4);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next, capturedPiece, 3);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next, capturedPiece, 2);
-				moves.push_front(m);
+				moves.push_back(m);
 #endif
 			} else {
 				Move m = Move(from, next);
-				moves.push_front(m);
+				moves.push_back(m);
 			}
 			if (position.enPassantSquare == next) {
 				Move m = Move(from, next);
-				moves.push_front(m);
+				moves.push_back(m);
 			}
 	}
-	void generatePawnCaptures(int from) {
+	static void generatePawnCaptures(int from) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -187,7 +152,7 @@ public:
 			generatePawnCapture(from, multi, next, row);
 		}
 	}
-	void generatePawnNonCapture(int from) {
+	static void generatePawnNonCapture(int from) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -200,19 +165,19 @@ public:
 			if (next / (row + multi * 6) == 1) {
 				//promotion.
 				Move m = Move(from, next,0,5);
-				moves.push_front(m);
+				moves.push_back(m);
 #ifdef USE_UNDERPROMOTION
 				m = Move(from, next,0,4);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next,0,3);
-				moves.push_front(m);
+				moves.push_back(m);
 				m = Move(from, next,0,2);
-				moves.push_front(m);
+				moves.push_back(m);
 
 #endif
 			} else {
 				Move m = Move(from, next);
-				moves.push_front(m);
+				moves.push_back(m);
 			}
 			//double step pawn move
 			if ((from > row) && (row + 9 > from)) {
@@ -223,14 +188,14 @@ public:
 					//cout << "ep set: " << position.enPassantSquare << endl;
 					Move m = Move(from, next);
 					//m.print();
-					moves.push_front(m);
+					moves.push_back(m);
 				}
 			}
 		}
 	}
 
 
-	void generateKnightMoves(int from) {
+	static void generateKnightMoves(int from) {
 		static const int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i <8; i++) {
@@ -241,24 +206,23 @@ public:
 					//no move. sorry about the reverse logic
 				}else{
 					Move m = Move(from, next);
-					moves.push_front(m);
+					moves.push_back(m);
 				}
 			}
 		}
 	}
 
-
-	void generateKingMoves(int from) {
+	static void generateKingMoves(int from) {
 		generateKingMovesNoCastling(from);
 		position.generateCastling(moves, from);
 	}
-	void generateQueenMoves(int from) {
+	static void generateQueenMoves(int from) {
 		generateBishopMoves(from);
 		generateRookMoves(from);
 	}
 
 
-	void generateKingMovesNoCastling(int from) {
+	static void generateKingMovesNoCastling(int from) {
 		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
@@ -270,12 +234,12 @@ public:
 				}else{
 					int capturedPiece = position.board[next];
 					Move m = Move(from, next);
-					moves.push_front(m);
+					moves.push_back(m);
 				}
 			}
 		}
 	}
-	void generateRookMoves(int from) {
+	static void generateRookMoves(int from) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
@@ -307,7 +271,7 @@ public:
 		}
 	}
 
-	void generateBishopMoves(int from) {
+	static void generateBishopMoves(int from) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 9;
@@ -338,13 +302,13 @@ public:
 			}
 		}
 	}
-	bool tryMove(int from, int next) {
+	static bool tryMove(int from, int next) {
 		if (invalidSquare(next))
 			return true;
 		int piece = position.board[next];
 		if (piece == 0) {
 			Move move = Move(from, next);
-			moves.push_front(move);
+			moves.push_back(move);
 			return false;
 		}
 		//own piece
@@ -353,7 +317,7 @@ public:
 		}
 		//enemy piece, presumably
 		Move move = Move(from, next);
-		moves.push_front(move);
+		moves.push_back(move);
 		return true;
 	}
 	//
