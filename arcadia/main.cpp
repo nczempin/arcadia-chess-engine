@@ -90,7 +90,7 @@ static int perft(const Position position, int maxDepth){
 		return 1;
 	}
 	MoveGenerator mg;
-	list<Move> moves = mg.generateLegalMoves(position);
+	vector<Move> moves = mg.generateLegalMoves(position);
 	int count = 0;
 	Position tmpPos = position;
 	for(Move move: moves){
@@ -155,7 +155,7 @@ void parse(string toParse) {
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
 		//TODO do this more elegantly
 		MoveGenerator mg;
-		list<Move> moves = mg.generateLegalMoves(p);
+		vector<Move> moves = mg.generateLegalMoves(p);
 		int count = 0;
 		Position tmpPos = p;
 		for(Move move: moves){
@@ -207,7 +207,7 @@ void parse(string toParse) {
 	}else if (toParse == "sm"){			
 		cout << "Moves: " << endl;
 		MoveGenerator mg;
-		list<Move> moves =mg.generateLegalMoves(p);
+		vector<Move> moves =mg.generateLegalMoves(p);
 		for (Move move:moves){
 			move.print();
 		}
