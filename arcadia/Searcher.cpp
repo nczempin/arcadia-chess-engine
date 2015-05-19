@@ -28,15 +28,15 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	return bestMove;
 }
 int Searcher::alphabeta(int depth, double extension, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, int checkExtensions, bool justExtended){
-	cout << "ab: " << depth<< "(" << move.toString() << ")"  << endl;
+	//cout << "ab: " << depth<< "(" << move.toString() << ")"  << endl;
 	int alpha = originalAlpha;
 	int value = 0;
 	Position nextPos = position.copyPosition();
 	nextPos.makeMove(move);
 	//vector<Move>captureMoves = nextPos.generateCaptureMoves();
-	if (depth >= 2){ //TODO set depth dynamically of course
+	if (depth >= 4){ //TODO set depth dynamically of course
 		value = Evaluator::getValue(nextPos);
-		cout << "evaluating: "  << value << endl;
+		//cout << "evaluating: "  << value << endl;
 		return -value;
 	}
 	vector<Move> moves = MoveGenerator::generateLegalMoves(nextPos);
@@ -45,7 +45,7 @@ int Searcher::alphabeta(int depth, double extension, Position position, Move mov
 	for(Move newMove : moves){
 		value = alphabeta(depth + 1, extension, nextPos, newMove, -beta, -alpha, downPv, checkExtensions, false);
 		if (value > alpha) {
-			cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
+			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 			alpha = value;
 			bestMove = newMove;
 		}

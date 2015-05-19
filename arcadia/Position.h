@@ -1439,31 +1439,7 @@ public:
 #define BLACK false
 	bool onMove;
 
-	//	int getBishopValue(int i, int plusminus) {
-	//		int retValue = bishopSquareValues[(i - 10)];
-	//		if (plusminus > 0) {
-	//			if (i == 16) {
-	//				if (board[25] > 0)
-	//					retValue -= 3;
-	//				if (board[27] > 0)
-	//					retValue--;
-	//			}
-	//			if ((i == 34) && (board[24] == 1)) {
-	//				retValue -= 25;
-	//			}
-	//		} else {
-	//			if (i == 86) {
-	//				if (board[75] < 0)
-	//					retValue -= 3;
-	//				if (board[77] < 0)
-	//					retValue--;
-	//			}
-	//			if ((i == 64) && (board[74] == -1))
-	//				retValue -= 25;
-	//		}
-	//		return retValue;
-	//	}
-	//
+	
 	//	bool getCastleLongBlack() {
 	//		return castleLongBlack;
 	//	}
