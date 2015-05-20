@@ -89,7 +89,7 @@ static vector<Move> generateAllCaptures(Position p) {
 		}
 		return legalMoves;
 	}
-	static void generateCaptures(int i, int p, int color) {
+	static void generateCaptures(int i, int p, bool color) {
 		switch (p) {
 		case -1:
 
