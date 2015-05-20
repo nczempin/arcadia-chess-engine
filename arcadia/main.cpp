@@ -15,7 +15,6 @@ Position p;
 string extractPosition(string);
 string extractMoves(string);
 
-bool done;
 vector<string> &split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss(s);
 	string item;
@@ -74,9 +73,10 @@ void resetClock(){
    {
   /*   if (timePerMove <= 0L)
        return false;*/
+	   return false;
 	   chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
-	return elapsed_seconds.count() >= 10; //TODO make a parameter
+	return elapsed_seconds.count() >= 20; //TODO make a parameter
    }
 
 
@@ -147,7 +147,7 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
+		toParse = "position fen 4k3/4Pp2/3P4/8/8/8/2K3Q1/4q3 w - - 0 1";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
@@ -252,9 +252,8 @@ int decodePiece(string promotedTo) {
 int main()
 {
 	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version "<< VERSION << endl;
-	done = false;
 	string mystr;
-	while (!done){
+	while (true){
 		getline (cin, mystr);
 		parse(mystr);
 	}
