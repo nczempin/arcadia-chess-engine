@@ -19,10 +19,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	resetClock();
 	vector<Move> pvec;
 	idDepth = 1;
-	int bestValue = -9999999;
 Move bestMove;
 	done = false;
 	do {
+		int bestValue = -9999999;
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
