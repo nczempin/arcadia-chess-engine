@@ -18,3 +18,4 @@ bool convertColor(int piece);
 string encodeSquare(int square);
 int decodeSquare(string square);
 int decodePiece(string promotedTo);
+long calculateTimePerMove(long t, long inc, int movesToGo);

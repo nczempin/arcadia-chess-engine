@@ -57,6 +57,16 @@ string encodeSquare(int square) {
 bool startsWith(string smallString, string bigString){
 	return bigString.compare(0, smallString.length(), smallString)==0;
 }
+long calculateTimePerMove(long t, long inc, int movesToGo){
+	if ((t == 0L) && (inc == 0L))
+		return -1L; //TODO Exception?
+	int slice = movesToGo + 1;
+	long retVal = (t - inc) / slice + inc - 500L;
+	if (retVal < 100L)
+		retVal = 100L;
+	return retVal;
+}
+
 
 
 static string extractMoves(string parameters)
