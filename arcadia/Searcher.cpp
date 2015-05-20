@@ -21,7 +21,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		if (value > bestValue){
 			bestValue = value;
 			bestMove = move;
-			cout << move.toString() << ": " << value << endl;
+			cout << "info depth 6 score cp " <<   value << " pv "<< move.toString() <<endl;
 		}
 	}
 
