@@ -66,7 +66,18 @@ long calculateTimePerMove(long t, long inc, int movesToGo){
 		retVal = 100L;
 	return retVal;
 }
-
+chrono::system_clock::time_point start;
+void resetClock(){
+	start = chrono::system_clock::now();
+}
+  bool timeUp()
+   {
+  /*   if (timePerMove <= 0L)
+       return false;*/
+	   chrono::system_clock::time_point now = chrono::system_clock::now(); 
+	chrono::duration<double> elapsed_seconds = now-start; 
+	return elapsed_seconds.count() >= 10; //TODO make a parameter
+   }
 
 
 static string extractMoves(string parameters)
