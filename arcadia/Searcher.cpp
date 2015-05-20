@@ -11,22 +11,35 @@ Searcher::Searcher(void)
 Searcher::~Searcher(void)
 {
 }
+bool done;
 int idDepth;
+Move bestMove;
+
 Move Searcher::findBestmove(vector<Move> moves, Position position){
 	// assumption: moves.size() > 1
 	resetClock();
-	Move bestMove;
 	vector<Move> pvec;
 	idDepth = 1;
 	int bestValue = -9999999;
-	bool done = false;
+	done = false;
 	do {
 		for (Move move : moves){
-			int value = alphabeta(1, position, move, -9999999, -bestValue);
+			Position newPos = position.copyPosition();
+			newPos.makeMove(move);
+			//cout << "trying " << move.toString() << endl;
+			int value = -alphabeta(1, newPos, -9999999, -bestValue);
 			if (value > bestValue){
 				bestValue = value;
 				bestMove = move;
-				cout << "info depth " << idDepth << " score cp " <<   value << " pv "<< bestMove.toString() <<endl;
+				cout << "info depth " << idDepth;
+				cout << " score ";
+				if (bestValue >80000){
+					cout << "mate " <<   idDepth/2 ;
+					done = true;
+				}else {
+					cout << "cp " <<   bestValue ;
+				}
+				cout << " pv "<< bestMove.toString() <<endl;
 			}
 			if (timeUp()){
 				done = true;
@@ -36,10 +49,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		cout << "info depth " << idDepth;
 		cout << " score ";
 		if (bestValue >80000){
-					cout << "mate " <<   idDepth/2 ;
+			cout << "mate " <<   idDepth/2 ;
 			done = true;
 		}else {
-		cout << "cp " <<   bestValue ;
+			cout << "cp " <<   bestValue ;
 		}
 		cout << " pv "<< bestMove.toString() <<endl;
 		++idDepth;
@@ -47,51 +60,54 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	} while (!done);
 	return bestMove;
 }
-int Searcher::alphabeta(int depth, Position position, Move move, const int originalAlpha, int beta){
-	//cout << "ab: " << depth<< "(" << move.toString() << ")"  << endl;
-	int alpha = originalAlpha;
+int Searcher::alphabeta(int depth, Position position, int alpha, int beta){
 	int value = 0;
-	Position nextPos = position.copyPosition();
-	nextPos.makeMove(move);
-	//vector<Move>captureMoves = nextPos.generateCaptureMoves();
 	if (depth >= idDepth){
-		//vector<Move> downPv ;
-		//value = quiescence_alphabeta(depth, position, move, alpha, beta, downPv, nextPos);
-		//upPv.clear();
-		//upPv.addAll(downPv);
-		value = Evaluator::getValue(nextPos);	
+		//value = quiescence_alphabeta(depth, position, alpha, beta);
+		value = Evaluator::getValue(position);
 		return value;
 	}
-	vector<Move> moves = MoveGenerator::generateLegalMoves(nextPos);
+	vector<Move> moves = MoveGenerator::generateLegalMoves(position);
 	if (moves.size()==0){
 		//cout << "no more moves!" << endl;
-		if (nextPos.isReceivingCheck()){
-			return 888888; // Checkmate
+		if (position.isReceivingCheck()){
+			return -888888; // Checkmate
 		}else{
 			return 0; // Stalemate
 		}
 	}
-	vector<Move> downPv;
-	Move bestMove;
 	for(Move newMove : moves){
-		value = alphabeta(depth + 1, nextPos, newMove, -beta, -alpha);
+
+		//expensive way to make next move
+		Position nextPos = position.copyPosition();
+		nextPos.makeMove(newMove);
+
+		//cout << "making " << newMove.toString() << endl;
+		value = -alphabeta(depth + 1, nextPos, -beta, -alpha);
+		// back to "position" = expensive take back move
+
+
 		if (value >= beta){
-			return -beta;
+			return beta;
 		}
 		if (value > alpha) {
 			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 			alpha = value;
 			bestMove = newMove;
 			if (value > 800000){
-				return -value;
+				return value;
 			}
 		}
+		if (timeUp()){
+			done = true;
+			return alpha;
+		}
+
 	}
-	return -alpha;
+	return alpha;
 }
 
-int Searcher::quiescence_alphabeta(int depth, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, Position nextPos) {
-	int alpha = originalAlpha;
+int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta) {
 	//ValidFlag bestMoveValidFlag = new ValidFlag();
 	//if ((timeUp()) || (timeIsUp)) {
 	//	timeIsUp = true;
@@ -107,10 +123,10 @@ int Searcher::quiescence_alphabeta(int depth, Position position, Move move, int 
 	//		System.err.println("three repetitions. what to do?");
 	//		return 0;
 	//	}
-	int v = Evaluator::getValue(nextPos);
-	if (depth>20){
+	int v = Evaluator::getValue(position);
+	/*if (depth>20){
 		return -v;
-	}
+	}*/
 	if (v >= beta)
 		return -beta;
 	if (v > alpha) {
@@ -119,7 +135,9 @@ int Searcher::quiescence_alphabeta(int depth, Position position, Move move, int 
 	}
 	//kingCapture = false;
 	int loopCount = 0;
-	vector<Move> moves = MoveGenerator::generateAllCaptures(nextPos);
+	Position nextPos = position.copyPosition();
+	//nextPos.makeMove(move);
+	vector<Move> moves = MoveGenerator::generateAllCaptures(position);
 	if (moves.size()==0){
 		return -v;
 	}
@@ -134,7 +152,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, Move move, int 
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
 		//moveStack.push(newMove);
 		vector<Move> downPv;
-		int value = quiescence_alphabeta(depth + 1, nextPos, newMove, -beta, -alpha, downPv, nextPos);
+		int value = quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha);
 		//if (kingCapture) {
 		//	illegalCount += 1;
 		//	moveStack.pop();
