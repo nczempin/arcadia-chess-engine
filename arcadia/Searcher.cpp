@@ -34,7 +34,7 @@ int Searcher::alphabeta(int depth, double extension, Position position, Move mov
 	Position nextPos = position.copyPosition();
 	nextPos.makeMove(move);
 	//vector<Move>captureMoves = nextPos.generateCaptureMoves();
-	if (depth >= 4){ //TODO set depth dynamically of course
+	if (depth >= 6){ //TODO set depth dynamically of course
 		value = Evaluator::getValue(nextPos);
 		//cout << "evaluating: "  << value << endl;
 		return -value;
@@ -44,6 +44,9 @@ int Searcher::alphabeta(int depth, double extension, Position position, Move mov
 	Move bestMove;
 	for(Move newMove : moves){
 		value = alphabeta(depth + 1, extension, nextPos, newMove, -beta, -alpha, downPv, checkExtensions, false);
+		if (value >= beta){
+			return -beta;
+		}
 		if (value > alpha) {
 			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 			alpha = value;
