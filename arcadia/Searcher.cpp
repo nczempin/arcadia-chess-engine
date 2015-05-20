@@ -1,3 +1,5 @@
+#include <stack>
+
 #include "Searcher.h"
 #include "Evaluator.h"
 #include "Move.h"
@@ -19,18 +21,29 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	resetClock();
 	vector<Move> pvec;
 	idDepth = 1;
-Move bestMove;
+	int maxIdDepth = 0;
+	Move bestMove;
 	done = false;
+	deque<Move> lineUp;
+	deque<Move> lineDown;
 	do {
 		int bestValue = -9999999;
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
 			//cout << "trying " << move.toString() << endl;
-			int value = -alphabeta(1, newPos, -9999999, -bestValue);
+			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
 			if (value > bestValue){
 				bestValue = value;
 				bestMove = move;
+				/*			cout << "lineDown: ";
+				for(Move m: lineDown){
+				cout << m.toString();
+				}
+				cout << endl;*/
+				lineUp = lineDown;
+				lineUp.push_front(move);
+
 				cout << "info depth " << idDepth;
 				cout << " score ";
 				if (bestValue >80000){
@@ -39,13 +52,18 @@ Move bestMove;
 				}else {
 					cout << "cp " <<   bestValue ;
 				}
-				cout << " pv "<< bestMove.toString() <<endl;
+				cout << " pv ";
+				for(Move m: lineUp){
+					cout << m.toString()<< " ";
+				}
+				cout << endl;
 			}
 			if (timeUp()){
 				done = true;
 				break;
 			}
 		}
+		
 		cout << "info depth " << idDepth;
 		cout << " score ";
 		if (bestValue >80000){
@@ -54,13 +72,20 @@ Move bestMove;
 		}else {
 			cout << "cp " <<   bestValue ;
 		}
-		cout << " pv "<< bestMove.toString() <<endl;
+		cout << " pv ";
+		for(Move m: lineUp){
+			cout << m.toString()<< " ";
+		}
+		cout << endl;
+		if (maxIdDepth > 0 && idDepth > maxIdDepth){
+			done = true;
+		}
 		++idDepth;
 
 	} while (!done);
 	return bestMove;
 }
-int Searcher::alphabeta(int depth, Position position, int alpha, int beta){
+int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp){
 	int value = 0;
 	if (depth >= idDepth){
 		//value = quiescence_alphabeta(depth, position, alpha, beta);
@@ -81,18 +106,28 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta){
 		//expensive way to make next move
 		Position nextPos = position.copyPosition();
 		nextPos.makeMove(newMove);
-
 		//cout << "making " << newMove.toString() << endl;
-		value = -alphabeta(depth + 1, nextPos, -beta, -alpha);
+		deque<Move> lineDown;
+		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
 		// back to "position" = expensive take back move
-
-
+		/*	if (lineDown.size()>0){
+		cout << "new lineDown: ";
+		for(Move m: lineDown){
+		cout << m.toString()<< " ";
+		}
+		cout << endl;
+		}*/
 		if (value >= beta){
+			//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
 			return beta;
 		}
 		if (value > alpha) {
 			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 			alpha = value;
+			lineUp = lineDown;
+			lineUp.push_front(newMove);
+			
+
 			//bestMove = newMove;
 			if (value > 800000){
 				return value;
@@ -125,7 +160,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//	}
 	int v = Evaluator::getValue(position);
 	/*if (depth>20){
-		return -v;
+	return -v;
 	}*/
 	if (v >= beta)
 		return -beta;
