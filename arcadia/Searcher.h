@@ -11,7 +11,8 @@ class Searcher
 public:
 	Searcher(void);
 	~Searcher(void);
-	int alphabeta(int depth, double extension, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, int checkExtensions, bool justExtended);
+	int quiescence_alphabeta(int depth, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, Position nextPos);
+	int alphabeta(int depth, Position position, Move move, int originalAlpha, int beta);
 	Move findBestmove(vector<Move> moves, Position p);
 	Move analyze(Position p){
 		MoveGenerator mg;
