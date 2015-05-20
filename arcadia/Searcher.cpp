@@ -13,7 +13,6 @@ Searcher::~Searcher(void)
 }
 bool done;
 int idDepth;
-Move bestMove;
 
 Move Searcher::findBestmove(vector<Move> moves, Position position){
 	// assumption: moves.size() > 1
@@ -21,6 +20,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	vector<Move> pvec;
 	idDepth = 1;
 	int bestValue = -9999999;
+Move bestMove;
 	done = false;
 	do {
 		for (Move move : moves){
@@ -93,7 +93,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta){
 		if (value > alpha) {
 			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 			alpha = value;
-			bestMove = newMove;
+			//bestMove = newMove;
 			if (value > 800000){
 				return value;
 			}
