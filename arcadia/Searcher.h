@@ -1,4 +1,6 @@
 #pragma once
+#include <deque>
+
 #include "global.h"
 #include "Move.h"
 #include "Position.h"
@@ -11,7 +13,8 @@ class Searcher
 public:
 	Searcher(void);
 	~Searcher(void);
-	int alphabeta(int depth, double extension, Position position, Move move, int originalAlpha, int beta, vector<Move> upPv, int checkExtensions, bool justExtended);
+	int quiescence_alphabeta(int depth, Position position, int alpha, int beta);
+	int alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& cv);
 	Move findBestmove(vector<Move> moves, Position p);
 	Move analyze(Position p){
 		MoveGenerator mg;

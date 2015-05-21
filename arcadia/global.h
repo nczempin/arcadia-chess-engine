@@ -5,7 +5,7 @@
 #include <list>
 
 using namespace std;
-const string VERSION = "0.0.3";
+const string VERSION = "0.0.4";
 #define USE_UNDERPROMOTION
 vector<string> &split(const string &s, char delim, vector<string> &elems);
 
@@ -18,3 +18,6 @@ bool convertColor(int piece);
 string encodeSquare(int square);
 int decodeSquare(string square);
 int decodePiece(string promotedTo);
+bool timeUp();
+long calculateTimePerMove(long t, long inc, int movesToGo);
+void resetClock();

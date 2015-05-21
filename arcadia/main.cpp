@@ -15,7 +15,6 @@ Position p;
 string extractPosition(string);
 string extractMoves(string);
 
-bool done;
 vector<string> &split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss(s);
 	string item;
@@ -57,6 +56,28 @@ string encodeSquare(int square) {
 bool startsWith(string smallString, string bigString){
 	return bigString.compare(0, smallString.length(), smallString)==0;
 }
+long calculateTimePerMove(long t, long inc, int movesToGo){
+	if ((t == 0L) && (inc == 0L))
+		return -1L; //TODO Exception?
+	int slice = movesToGo + 1;
+	long retVal = (t - inc) / slice + inc - 500L;
+	if (retVal < 100L)
+		retVal = 100L;
+	return retVal;
+}
+chrono::system_clock::time_point start;
+void resetClock(){
+	start = chrono::system_clock::now();
+}
+  bool timeUp()
+   {
+  /*   if (timePerMove <= 0L)
+       return false;*/
+//	   return false;
+	   chrono::system_clock::time_point now = chrono::system_clock::now(); 
+	chrono::duration<double> elapsed_seconds = now-start; 
+	return elapsed_seconds.count() >= 20; //TODO make a parameter
+   }
 
 
 static string extractMoves(string parameters)
@@ -126,7 +147,7 @@ bool invalidSquare(int next) {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen n1n5/PPPk4/8/8/8/8/4Kppp/5N1N b - - 0 1";
+		toParse = "position fen r1b2rk1/pp1p1pp1/1b1p2B1/n1qQ2p1/8/5N2/P3RPPP/4R1K1 w - - 0 1";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
@@ -197,8 +218,8 @@ void parse(string toParse) {
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				p.print();
-				cout << "making move: "<<move<<endl;
+				//p.print();
+				//cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}
@@ -231,9 +252,8 @@ int decodePiece(string promotedTo) {
 int main()
 {
 	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version "<< VERSION << endl;
-	done = false;
 	string mystr;
-	while (!done){
+	while (true){
 		getline (cin, mystr);
 		parse(mystr);
 	}

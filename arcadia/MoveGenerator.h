@@ -15,6 +15,11 @@ private:
 	static Position position;
 	static vector<Move> moves;
 public: 
+	static vector<Move> generateLegalCaptureMoves(Position position){
+		vector<Move> moves = generateAllCaptures(position);
+		moves = removeIllegalMoves(moves);
+		return moves;
+	}
 	static vector<Move> generateLegalMoves(Position position){
 		vector<Move> moves = generateAllMoves(position);
 		//cout << "all moves (including illegal)" << endl;
@@ -53,6 +58,24 @@ public:
 		}
 		return moves;
 	}
+static vector<Move> generateAllCaptures(Position p) {
+		moves.clear();
+		position = p;
+		for (int i = 11; i < 89; i++) {
+			int piece = position.board[i];
+			int type = abs(piece);
+			if ((type >= 1) && (type <= 6)) {
+				bool color = BLACK;
+				if (piece > 0) {
+					color = WHITE;
+				}
+				if (color==position.onMove) {
+					generateCaptures(i, piece, color);
+				}
+			}
+		}
+		return moves;
+	}
 
 	static vector<Move> removeIllegalMoves(vector<Move> moves) {
 		vector<Move> legalMoves;
@@ -65,6 +88,45 @@ public:
 			}
 		}
 		return legalMoves;
+	}
+	static void generateCaptures(int i, int p, bool color) {
+		switch (p) {
+		case -1:
+
+		case 1:
+			generatePawnCaptures(i);
+			break;
+
+		case -2:
+
+		case 2:
+			position.generateKnightCaptures(moves,i,color);
+			break;
+
+		case -3:
+
+		case 3:
+			position.generateBishopCaptures(moves,i,color);
+			break;
+
+		case -4:
+
+		case 4:
+			position.generateRookCaptures(moves,i,color);
+			break;
+
+		case -5:
+
+		case 5:
+			position.generateQueenCaptures(moves,i,color);
+			break;
+
+		case -6:
+		case 6:
+			position.generateKingCaptures(moves,i,color);
+			break;
+		}
+
 	}
 	static void generateMoves(int i, int p) {
 		switch (p) {
