@@ -23,10 +23,12 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	idDepth = 1;
 	int maxIdDepth = 0;
 	Move bestMove;
+	Move lastIterationBestMove;
 	done = false;
 	deque<Move> lineUp;
 	deque<Move> lineDown;
 	do {
+		lastIterationBestMove = bestMove;
 		int bestValue = -9999999;
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
@@ -59,6 +61,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 				cout << endl;
 			}
 			if (timeUp()){
+				return lastIterationBestMove;
 				done = true;
 				break;
 			}

@@ -218,8 +218,8 @@ void parse(string toParse) {
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				p.print();
-				cout << "making move: "<<move<<endl;
+				//p.print();
+				//cout << "making move: "<<move<<endl;
 				p.makeMove(move);
 			}
 		}

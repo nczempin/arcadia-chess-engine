@@ -2325,14 +2325,14 @@ public:
 	void setFenPosition(string fenString) {
 		clear();
 		vector<string> fenFields = split(fenString,' ');
-		for(string field: fenFields){
-			cout << field<< endl;
-		}
+		//for(string field: fenFields){
+		//	cout << field<< endl;
+		//}
 		string fenPosition = fenFields[0];
 		vector<string> ranks = split(fenPosition,'/');
-		for(string rank: ranks){
+	/*	for(string rank: ranks){
 			cout << rank<< endl;
-		}
+		}*/
 		for (int i = 0; i < 8; i++) {
 			string currentRank = ranks[(7 - i)];
 			fillRank(i, currentRank);
