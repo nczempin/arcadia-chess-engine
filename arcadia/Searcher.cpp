@@ -31,19 +31,21 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	deque<Move> lineUp;
 	deque<Move> lineDown;
 	set<Move> sortedMoves;
+	set<Move> otherMoves;
 	do {
 		lastIterationBestMove = bestMove;
 		int bestValue = -9999999;
 		sortedMoves.clear();
+		otherMoves.clear();
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
 			move.value = value;
-			cout << "inserting " << move.toString() << endl;
-			sortedMoves.insert(move);
 			if (value > bestValue){
+				cout << "inserting " << move.toString() << "@" << value << endl;
+				sortedMoves.insert(move);
 				bestValue = value;
 				bestMove = move;
 				/*			cout << "lineDown: ";
@@ -67,7 +69,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 					cout << m.toString()<< " ";
 				}
 				cout << endl;
-			}
+			}else{
+					cout << "inserting alt." << move.toString() << "@" << value << endl;
+					otherMoves.insert(move);
+		}
 			if (timeUp()){
 				//return lastIterationBestMove;
 				done = true;
@@ -96,7 +101,12 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		cout << "sortedMoves.size(): " << sortedMoves.size() << endl;
 		for (Move move : sortedMoves){
 			moves.push_back(move);
-			cout << "pushing back " << move.toString() << endl;
+			cout << "pushing back " << move.toString() <<" @ " << move.value <<  endl;
+
+		}
+		for (Move move : otherMoves){
+			moves.push_back(move);
+			cout << "pushing back " << move.toString() <<" @ " << move.value <<  endl;
 
 		}
 		for (Move move : moves){
