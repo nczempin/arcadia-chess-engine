@@ -100,7 +100,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 
 		}
 		for (Move move : moves){
-			cout << move.toString();
+			cout << move.toString()<<" ";
 		}
 		cout << endl;
 	} while (!done);
