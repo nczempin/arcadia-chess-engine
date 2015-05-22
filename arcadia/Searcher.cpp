@@ -1,4 +1,7 @@
-#include <stack>
+#include <vector>
+#include <algorithm>
+#include <set>
+#include <iostream>
 
 #include "Searcher.h"
 #include "Evaluator.h"
@@ -27,14 +30,19 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	done = false;
 	deque<Move> lineUp;
 	deque<Move> lineDown;
+	set<Move> sortedMoves;
 	do {
 		lastIterationBestMove = bestMove;
 		int bestValue = -9999999;
+		sortedMoves.clear();
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
+			move.value = value;
+			cout << "inserting " << move.toString() << endl;
+			sortedMoves.insert(move);
 			if (value > bestValue){
 				bestValue = value;
 				bestMove = move;
@@ -61,12 +69,12 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 				cout << endl;
 			}
 			if (timeUp()){
-				return lastIterationBestMove;
+				//return lastIterationBestMove;
 				done = true;
 				break;
 			}
 		}
-		
+
 		cout << "info depth " << idDepth;
 		cout << " score ";
 		if (bestValue >80000){
@@ -84,7 +92,17 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			done = true;
 		}
 		++idDepth;
+		moves.clear();
+		cout << "sortedMoves.size(): " << sortedMoves.size() << endl;
+		for (Move move : sortedMoves){
+			moves.push_back(move);
+			cout << "pushing back " << move.toString() << endl;
 
+		}
+		for (Move move : moves){
+			cout << move.toString();
+		}
+		cout << endl;
 	} while (!done);
 	return bestMove;
 }
@@ -129,7 +147,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 			alpha = value;
 			lineUp = lineDown;
 			lineUp.push_front(newMove);
-			
+
 
 			//bestMove = newMove;
 			if (value > 800000){
