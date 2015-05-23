@@ -122,7 +122,9 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp){
 	int value = 0;
 	if (depth >= idDepth){
-		value = quiescence_alphabeta(depth, position, alpha, beta);
+		deque<Move> lineDown;
+		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
+			lineUp = lineDown;
 		//value = Evaluator::getValue(position);
 		return value;
 	}
@@ -176,7 +178,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	return alpha;
 }
 
-int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta) {
+int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp) {
 	//ValidFlag bestMoveValidFlag = new ValidFlag();
 	//if ((timeUp()) || (timeIsUp)) {
 	//	timeIsUp = true;
@@ -184,7 +186,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//}
 	if (depth > Info::seldepth){
 		Info::seldepth = depth;
-}
+	}
 	//if (nextPos == null)
 	//	try {
 	//		Info.qs_nodes += 1L;
@@ -206,7 +208,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//kingCapture = false;
 	//int loopCount = 0;
 	vector<Move> moves = MoveGenerator::generateAllCaptures(position);
-	moves = MoveGenerator::removeIllegalMoves(moves);
+	//moves = MoveGenerator::removeIllegalMoves(moves);
 	for(Move newMove: moves){
 		//int capture = newMove.captured;
 		//int capturing = abs(position.board[newMove.from]);
@@ -220,7 +222,8 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		//vector<Move> downPv;
 		Position nextPos = position.copyPosition();
 		nextPos.makeMove(newMove);
-		int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha);
+		deque<Move> lineDown;
+		int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
 		//if (kingCapture) {
 		//	illegalCount += 1;
 		//	moveStack.pop();
@@ -234,6 +237,8 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		//bestMoveValidFlag.setNr(-1);
 		if (value > alpha) {
 			alpha = value;
+			lineUp = lineDown;
+			lineUp.push_front(newMove);
 			//upPv.clear();
 			//upPv.add(newMove);
 			//upPv.addAll(downPv);
