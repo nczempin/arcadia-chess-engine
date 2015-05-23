@@ -6,4 +6,5 @@ class Info{
 public:
 	static int seldepth;
 	static Move currmove;
+	static int currmovenumber;
 };

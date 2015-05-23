@@ -38,6 +38,7 @@ public:
 				cout << "info depth " << idDepth;
 				cout << " seldepth " << Info::seldepth;
 				cout << " currmove " << Info::currmove.toString();
+				cout << " currmovenumber " << Info::currmovenumber;
 				cout << " score ";
 				if (bestValue >80000){
 					cout << "mate " <<   idDepth/2 ;

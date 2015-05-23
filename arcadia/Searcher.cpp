@@ -34,10 +34,13 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		bestValue = -9999999;
 		sortedMoves.clear();
 		otherMoves.clear();
+		Info::currmovenumber=0;
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
 			Info::currmove = move;
+			Info::currmovenumber++;
+			printInfo();
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
 			move.value = value;
