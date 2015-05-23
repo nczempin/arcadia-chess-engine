@@ -111,10 +111,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			//cout << "pushing back " << move.toString() <<" @ " << move.value <<  endl;
 
 		}
-		for (Move move : moves){
-			cout << move.toString()<<" ";
-		}
-		cout << endl;
+		//for (Move move : moves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
 	} while (!done);
 	return bestMove;
 }
