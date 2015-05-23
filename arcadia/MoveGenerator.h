@@ -27,8 +27,9 @@ public:
 		}
 		return legalMoves;
 	}
-static vector<Move> generateLegalCaptureMoves(Position position){
-		vector<Move> moves = generateAllCaptures(position);
+	static vector<Move> generateLegalCaptureMoves(Position position){
+		vector<Move> moves;
+		generateAllCaptures(position,moves);
 		moves = removeIllegalMoves(moves);
 		return moves;
 	}
@@ -54,7 +55,7 @@ static vector<Move> generateLegalCaptureMoves(Position position){
 		return moves;
 	}
 	static void generateAllMoves(Position p,vector<Move>& moves) {
-		
+
 		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
@@ -70,8 +71,8 @@ static vector<Move> generateLegalCaptureMoves(Position position){
 			}
 		}
 	}
-	static vector<Move> generateAllCaptures(Position p) {
-		vector<Move> moves;
+	static void generateAllCaptures(Position p,vector<Move>& moves) {
+
 		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
@@ -86,10 +87,9 @@ static vector<Move> generateLegalCaptureMoves(Position position){
 				}
 			}
 		}
-		return moves;
 	}
 
-		static void generateCaptures(int i, int p, bool color,	vector<Move>& moves) {
+	static void generateCaptures(int i, int p, bool color,	vector<Move>& moves) {
 		switch (p) {
 		case -1:
 
@@ -129,7 +129,7 @@ static vector<Move> generateLegalCaptureMoves(Position position){
 
 	}
 	static void generateMoves(int i, int p,	vector<Move>& moves) {
-	switch (p) {
+		switch (p) {
 		case -1:
 
 		case 1:
@@ -168,11 +168,11 @@ static vector<Move> generateLegalCaptureMoves(Position position){
 	}
 
 	static void  generatePawnMoves(int from,vector<Move>& moves) {
-				generatePawnCaptures(from, moves);
-generatePawnNonCapture(from,moves);
-		}
+		generatePawnCaptures(from, moves);
+		generatePawnNonCapture(from,moves);
+	}
 
-	static 		void generatePawnCapture(int from, int multi, int next, int row,vector<Move> moves) {
+	static 	void generatePawnCapture(int from, int multi, int next, int row,vector<Move>& moves) {
 		if (invalidSquare(next))
 			return ;
 		int capturedPiece = position.board[next];
@@ -303,7 +303,7 @@ generatePawnNonCapture(from,moves);
 		}
 	}
 	static void generateRookMoves(int from,vector<Move>& moves) {
-			bool finished = false;
+		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
 			finished = tryMove(from, next,moves);
