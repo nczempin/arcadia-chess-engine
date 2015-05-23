@@ -17,7 +17,7 @@ Position p;
 Searcher s;
 string extractPosition(string);
 string extractMoves(string);
-
+future<Move> fut;
 vector<string> &split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss(s);
 	string item;
@@ -152,8 +152,17 @@ Move asyncAnalyze(){
 	return bestmove;
 }
 
-void stopBrain()
+void stopBrain(bool printMove)
 {
+	if (fut.valid()){
+		s.done = true;
+		if (printMove){
+			Move bestMoveSoFar = s.bestMove;
+			cout << "bestmove " << bestMoveSoFar.toString() << endl;
+
+		}
+	}
+
 	//if ((brainThread != null) && (brainThread.isAlive())) {
 	//	String move = this.brain.getBestMoveSoFar();
 	//	String toPrint; if (move == null) {
@@ -168,15 +177,15 @@ void stopBrain()
 }
 
 void startBrain() {
-	stopBrain();
+	stopBrain(false);
 
-	future<Move> fut = async(asyncAnalyze);
-	this_thread::sleep_for (chrono::seconds(10));
-	Move bestMoveSoFar = s.bestMove;
-	cout << "best move so far " << bestMoveSoFar.toString() << endl;
-	this_thread::sleep_for (chrono::seconds(10));
-	Move move = fut.get();
-	cout << "bestmove " << move.toString() << endl;
+	fut = async(asyncAnalyze);
+//	this_thread::sleep_for (chrono::seconds(10));
+	//Move bestMoveSoFar = s.bestMove;
+	//cout << "best move so far " << bestMoveSoFar.toString() << endl;
+	//this_thread::sleep_for (chrono::seconds(10));
+	//Move move = fut.get();
+	//cout << "bestmove " << move.toString() << endl;
 
 	/*printInfoThread = new Thread()
 	{
@@ -247,11 +256,8 @@ void parse(string toParse) {
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
 		startBrain();
-	}else if (startsWith("stop", toParse)){ //TODO this is not really how 'stop' is supposed to work
-		Searcher s;
-		Move bestmove = s.analyze(p);
-		cout << "bestmove " << bestmove.toString() << endl;
-
+	}else if (startsWith("stop", toParse)){
+		stopBrain(true);
 	}else if (startsWith("quit", toParse)){
 		exit(0); //TODO more elegance
 	}else if (startsWith("position", toParse)){

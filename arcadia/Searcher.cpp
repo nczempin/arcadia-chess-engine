@@ -17,8 +17,6 @@ Searcher::Searcher(void)
 Searcher::~Searcher(void)
 {
 }
-bool done;
-int idDepth;
 
 Move Searcher::findBestmove(vector<Move> moves, Position position){
 	// assumption: moves.size() > 1
