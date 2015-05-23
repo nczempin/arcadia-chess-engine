@@ -210,7 +210,7 @@ void startBrain() {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen k1rBqb2/3P2P1/8/8/8/8/8/7K w - - 12 1";
+		toParse = "position fen 2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - - 0 1";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
