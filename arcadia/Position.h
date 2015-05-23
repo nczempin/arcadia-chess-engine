@@ -451,7 +451,7 @@ public:
 
 
 	//	
-	void generateCastling(vector<Move>& moves, const int from) {
+	void generateCastling(const int from,vector<Move>& moves) {
 		int p = board[from];
 		int kingHome = -1;
 		bool castlingLong;
@@ -595,7 +595,7 @@ public:
 	//		}
 	//	}
 	//
-		void generateQueenCaptures(vector<Move> moves, int from, bool color) {
+		void generateQueenCaptures(vector<Move>& moves, int from, bool color) {
 			generateBishopCaptures(moves, from, color);
 			generateRookCaptures(moves, from, color);
 		}
