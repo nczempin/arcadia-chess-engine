@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <future>
 
 #include "global.h"
 #include "Position.h"
@@ -69,15 +70,15 @@ chrono::system_clock::time_point start;
 void resetClock(){
 	start = chrono::system_clock::now();
 }
-  bool timeUp()
-   {
-  /*   if (timePerMove <= 0L)
-       return false;*/
-//	   return false;
-	   chrono::system_clock::time_point now = chrono::system_clock::now(); 
+bool timeUp()
+{
+	/*   if (timePerMove <= 0L)
+	return false;*/
+	//	   return false;
+	chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
 	return elapsed_seconds.count() >= 20; //TODO make a parameter
-   }
+}
 
 
 static string extractMoves(string parameters)
@@ -144,6 +145,54 @@ bool invalidSquare(int next) {
 	return isInvalid;
 }
 
+Move asyncAnalyze(){
+	Searcher s;
+	Move bestmove = s.analyze(p);
+	return bestmove;
+}
+
+void stopBrain()
+{
+	//if ((brainThread != null) && (brainThread.isAlive())) {
+	//	String move = this.brain.getBestMoveSoFar();
+	//	String toPrint; if (move == null) {
+	//		toPrint = printMove(null);
+	//	} else
+	//		toPrint = printMove(move);
+	//	System.out.println(toPrint);
+	//	brainThread.stop();
+	//}
+	//if ((printInfoThread != null) && (printInfoThread.isAlive()))
+	//	printInfoThread.stop();
+}
+
+void startBrain() {
+	stopBrain();
+
+	future<Move> fut = async(asyncAnalyze);
+	Move move = fut.get();
+	cout << "bestmove " << move.toString() << endl;
+
+	/*printInfoThread = new Thread()
+	{
+	public void run() {
+	while (AbstractEngine.brainThread.isAlive()) {
+	Options.protocol.printInfo();
+	try {
+	Thread.sleep(1000L);
+	} catch (InterruptedException e) {
+	e.printStackTrace();
+	}
+
+	}
+
+	}
+
+
+	};*/
+	//printInfoThread.start();
+}
+
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
@@ -192,9 +241,7 @@ void parse(string toParse) {
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
-		Searcher s;
-		Move bestmove = s.analyze(p);
-		cout << "bestmove " << bestmove.toString() << endl;
+		startBrain();
 	}else if (startsWith("stop", toParse)){ //TODO this is not really how 'stop' is supposed to work
 		Searcher s;
 		Move bestmove = s.analyze(p);
