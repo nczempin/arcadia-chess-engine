@@ -30,8 +30,8 @@ public:
 	static vector<Move> generateLegalCaptureMoves(Position position){
 		vector<Move> moves;
 		generateAllCaptures(position,moves);
-		moves = removeIllegalMoves(moves);
-		return moves;
+		vector<Move> legalMoves = removeIllegalMoves(moves);
+		return legalMoves;
 	}
 	static vector<Move> generateLegalMoves(Position position){
 		vector<Move> moves;
