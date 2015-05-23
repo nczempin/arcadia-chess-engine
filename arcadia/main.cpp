@@ -4,6 +4,7 @@
 #include <iostream>
 #include <chrono>
 #include <future>
+#include <thread>
 
 #include "global.h"
 #include "Position.h"
@@ -13,6 +14,7 @@
 using namespace std;
 
 Position p;
+Searcher s;
 string extractPosition(string);
 string extractMoves(string);
 
@@ -77,7 +79,7 @@ bool timeUp()
 	//	   return false;
 	chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
-	return elapsed_seconds.count() >= 20; //TODO make a parameter
+	return elapsed_seconds.count() >= 30; //TODO make a parameter
 }
 
 
@@ -146,7 +148,6 @@ bool invalidSquare(int next) {
 }
 
 Move asyncAnalyze(){
-	Searcher s;
 	Move bestmove = s.analyze(p);
 	return bestmove;
 }
@@ -170,6 +171,10 @@ void startBrain() {
 	stopBrain();
 
 	future<Move> fut = async(asyncAnalyze);
+	this_thread::sleep_for (chrono::seconds(10));
+	Move bestMoveSoFar = s.bestMove;
+	cout << "best move so far " << bestMoveSoFar.toString() << endl;
+	this_thread::sleep_for (chrono::seconds(10));
 	Move move = fut.get();
 	cout << "bestmove " << move.toString() << endl;
 

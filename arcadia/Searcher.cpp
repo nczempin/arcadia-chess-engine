@@ -27,7 +27,6 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	idDepth = 1;
 	int maxIdDepth = 0;
 	Info::seldepth = 0;
-	Move bestMove;
 	Move lastIterationBestMove;
 	done = false;
 	deque<Move> lineUp;
