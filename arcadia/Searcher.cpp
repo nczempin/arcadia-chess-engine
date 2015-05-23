@@ -21,24 +21,23 @@ Searcher::~Searcher(void)
 Move Searcher::findBestmove(vector<Move> moves, Position position){
 	// assumption: moves.size() > 1
 	resetClock();
-	vector<Move> pvec;
 	idDepth = 1;
 	int maxIdDepth = 0;
 	Info::seldepth = 0;
 	Move lastIterationBestMove;
 	done = false;
-	deque<Move> lineUp;
 	deque<Move> lineDown;
 	set<Move> sortedMoves;
 	set<Move> otherMoves;
 	do {
 		lastIterationBestMove = bestMove;
-		int bestValue = -9999999;
+		bestValue = -9999999;
 		sortedMoves.clear();
 		otherMoves.clear();
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
+			Info::currmove = move;
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
 			move.value = value;
@@ -52,23 +51,9 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 				cout << m.toString();
 				}
 				cout << endl;*/
-				lineUp = lineDown;
-				lineUp.push_front(move);
-
-				cout << "info depth " << idDepth;
-				cout << " seldepth " << Info::seldepth;
-				cout << " score ";
-				if (bestValue >80000){
-					cout << "mate " <<   idDepth/2 ;
-					done = true;
-				}else {
-					cout << "cp " <<   bestValue ;
-				}
-				cout << " pv ";
-				for(Move m: lineUp){
-					cout << m.toString()<< " ";
-				}
-				cout << endl;
+				pv = lineDown;
+				pv.push_front(move);
+				printInfo();
 			}else{
 				//cout << "inserting alt." << move.toString() << "@" << value << endl;
 				otherMoves.insert(move);
@@ -89,7 +74,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			cout << "cp " <<   bestValue ;
 		}
 		cout << " pv ";
-		for(Move m: lineUp){
+		for(Move m: pv){
 			cout << m.toString()<< " ";
 		}
 		cout << endl;
