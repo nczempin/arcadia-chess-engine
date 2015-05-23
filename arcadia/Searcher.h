@@ -31,5 +31,9 @@ public:
 			return m;
 		}
 	}
+	void printInfo(){
+		Move m = bestMove;
+		cout << "currently best move: " << m.toString() << endl;
+	}
 };
 
