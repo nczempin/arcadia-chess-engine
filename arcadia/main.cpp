@@ -76,7 +76,7 @@ bool timeUp()
 {
 	/*   if (timePerMove <= 0L)
 	return false;*/
-	//	   return false;
+		   return false;
 	chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
 	return elapsed_seconds.count() >= 30; //TODO make a parameter
