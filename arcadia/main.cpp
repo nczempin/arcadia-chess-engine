@@ -182,7 +182,7 @@ void startBrain() {
 	//stopBrain(false);
 
 	fut = async(asyncAnalyze);
-	async(printInfo);
+	//async(printInfo);
 	//	this_thread::sleep_for (chrono::seconds(10));
 	//Move bestMoveSoFar = s.bestMove;
 	//cout << "best move so far " << bestMoveSoFar.toString() << endl;
