@@ -60,9 +60,13 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 				pv = lineDown;
 				pv.push_front(move);
 				printInfo();
-			//}else if (value==bestValue){
-			//	//cout << "inserting alt." << move.toString() << "@" << value << endl;
-			//	sortedMoves.push_front(move);
+				if (bestValue >80000){
+					done = true;
+					break;
+				}
+				//}else if (value==bestValue){
+				//	//cout << "inserting alt." << move.toString() << "@" << value << endl;
+				//	sortedMoves.push_front(move);
 			}else{
 				otherMoves.push_front(move);
 			}
@@ -168,7 +172,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp) {
 	//ValidFlag bestMoveValidFlag = new ValidFlag();
 	if (done||(timeUp()) ) {
-	//	timeIsUp = true;
+		//	timeIsUp = true;
 		return 0;
 	}
 	if (depth > Info::seldepth){

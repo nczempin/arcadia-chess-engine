@@ -35,22 +35,21 @@ public:
 		}
 	}
 	void printInfo(){
-				cout << "info depth " << idDepth;
-				cout << " seldepth " << Info::seldepth;
-				cout << " currmove " << Info::currmove.toString();
-				cout << " currmovenumber " << Info::currmovenumber;
-				cout << " score ";
-				if (bestValue >80000){
-					cout << "mate " <<   idDepth/2 ;
-					done = true;
-				}else {
-					cout << "cp " <<   bestValue ;
-				}
-				cout << " pv ";
-				for(Move m: pv){
-					cout << m.toString()<< " ";
-				}
-				cout << endl;
+		cout << "info depth " << idDepth;
+		cout << " seldepth " << Info::seldepth;
+		cout << " currmove " << Info::currmove.toString();
+		cout << " currmovenumber " << Info::currmovenumber;
+		cout << " score ";
+		if (bestValue >80000){
+			cout << "mate " <<   idDepth/2 ;
+		}else {
+			cout << "cp " <<   bestValue ;
+		}
+		cout << " pv ";
+		for(Move m: pv){
+			cout << m.toString()<< " ";
+		}
+		cout << endl;
 	}
 };
 
