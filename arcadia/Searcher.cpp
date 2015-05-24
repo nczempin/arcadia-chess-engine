@@ -82,9 +82,18 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		}
 		for (Move move : otherMoves){
 			moves.push_back(move);
-			//cout << "pushing back " << move.toString() <<" @ " << move.value <<  endl;
-
 		}
+		//cout << "sortedMoves: ";
+		//for (Move move : sortedMoves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
+		//cout << "otherMoves: ";
+		//for (Move move : otherMoves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
+		//cout << "moves: ";
 		//for (Move move : moves){
 		//	cout << move.toString()<<" ";
 		//}
