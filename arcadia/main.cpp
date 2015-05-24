@@ -157,7 +157,7 @@ void stopBrain()
 	if (fut.valid()){
 		s.done = true;
 		Move m = s.bestMove;
-		cout << m.toString() << endl;
+		cout << "bestmove "<< m.toString() << endl;
 	}
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
