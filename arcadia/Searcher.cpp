@@ -43,6 +43,11 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			printInfo();
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
+			if (timeUp()){
+				//return lastIterationBestMove;
+				done = true;
+				break;
+			}
 			move.value = value;
 			if (value > bestValue){
 				//cout << "inserting " << move.toString() << "@" << value << endl;
