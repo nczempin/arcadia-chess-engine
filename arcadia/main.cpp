@@ -159,6 +159,7 @@ void stopBrain()
 		Move m = s.bestMove;
 		cout << "bestmove "<< m.toString() << endl;
 	}
+	cout << "info string after fut.get" << endl;
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
 	//	String move = this.brain.getBestMoveSoFar();
@@ -188,6 +189,7 @@ void startBrain() {
 	//cout << "best move so far " << bestMoveSoFar.toString() << endl;
 	//this_thread::sleep_for (chrono::seconds(10));
 	//Move move = fut.get();
+	//cout << "info string after fut.get" << endl;
 	//cout << "bestmove " << move.toString() << endl;
 
 	/*printInfoThread = new Thread()
