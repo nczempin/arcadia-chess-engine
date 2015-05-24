@@ -38,10 +38,10 @@ public:
 	//}
 	bool operator< (const Move & other)const{
 		if (value != other.value){
-			return value > other.value;
+			return value < other.value;
 		}
 		if (captured != other.captured){
-			return captured > other.captured;
+			return captured < other.captured;
 		}
 		if (promoted != other.promoted){
 			return promoted < other.promoted;
