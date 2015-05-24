@@ -40,7 +40,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			newPos.makeMove(move);
 			Info::currmove = move;
 			Info::currmovenumber++;
-			printInfo();
+			cout << "info ";
+			cout << " currmove " << Info::currmove.toString();
+			cout << " currmovenumber " << Info::currmovenumber << endl;
+
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
 			if (timeUp()){
