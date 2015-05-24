@@ -313,7 +313,7 @@ public:
 						} else {
 							rookFrom = -1;
 							rookTo = -1;
-							cerr << "move.from: " << move.from <<endl;
+							cerr << "move.from: " << move.from << " to " << move.to <<endl;
 							//throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
 						}
 					}
