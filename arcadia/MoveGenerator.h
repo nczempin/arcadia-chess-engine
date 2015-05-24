@@ -189,11 +189,11 @@ public:
 				moves.push_back(m);
 #endif
 			} else {
-				Move m = Move(from, next);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_back(m);
 			}
 			if (position.enPassantSquare == next) {
-				Move m = Move(from, next);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_back(m);
 			}
 	}
