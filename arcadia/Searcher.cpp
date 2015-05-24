@@ -102,6 +102,10 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	return bestMove;
 }
 int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp){
+	if (done||(timeUp()) ) {
+		//	timeIsUp = true;
+		return 0;
+	}
 	int value = 0;
 	if (depth >= idDepth){
 		deque<Move> lineDown;
@@ -162,10 +166,10 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 
 int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp) {
 	//ValidFlag bestMoveValidFlag = new ValidFlag();
-	//if ((timeUp()) || (timeIsUp)) {
+	if (done||(timeUp()) ) {
 	//	timeIsUp = true;
-	//	return 0;
-	//}
+		return 0;
+	}
 	if (depth > Info::seldepth){
 		Info::seldepth = depth;
 		printInfo();
