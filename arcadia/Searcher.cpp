@@ -27,8 +27,8 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	Move lastIterationBestMove;
 	done = false;
 	deque<Move> lineDown;
-	set<Move> sortedMoves;
-	set<Move> otherMoves;
+	list<Move> sortedMoves;
+	list<Move> otherMoves;
 	do {
 		lastIterationBestMove = bestMove;
 		bestValue = -9999999;
@@ -54,26 +54,19 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			move.value = value;
 			if (value > bestValue){
 				//cout << "inserting " << move.toString() << "@" << value << endl;
-				sortedMoves.insert(move);
+				sortedMoves.push_front(move);
 				bestValue = value;
 				bestMove = move;
-				/*			cout << "lineDown: ";
-				for(Move m: lineDown){
-				cout << m.toString();
-				}
-				cout << endl;*/
 				pv = lineDown;
 				pv.push_front(move);
 				printInfo();
+			//}else if (value==bestValue){
+			//	//cout << "inserting alt." << move.toString() << "@" << value << endl;
+			//	sortedMoves.push_front(move);
 			}else{
-				//cout << "inserting alt." << move.toString() << "@" << value << endl;
-				otherMoves.insert(move);
+				otherMoves.push_front(move);
 			}
-			if (timeUp()){
-				//return lastIterationBestMove;
-				done = true;
-				break;
-			}
+
 		}
 
 		printInfo();
