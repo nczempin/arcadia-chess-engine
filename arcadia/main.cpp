@@ -76,7 +76,7 @@ bool timeUp()
 {
 	/*   if (timePerMove <= 0L)
 	return false;*/
-		   return false;
+	return false;
 	chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
 	return elapsed_seconds.count() >= 30; //TODO make a parameter
@@ -152,15 +152,12 @@ Move asyncAnalyze(){
 	return bestmove;
 }
 
-void stopBrain(bool printMove)
+void stopBrain()
 {
 	if (fut.valid()){
 		s.done = true;
-		if (printMove){
-			Move bestMoveSoFar = s.bestMove;
-			cout << "bestmove " << bestMoveSoFar.toString() << endl;
-
-		}
+		Move m = s.bestMove;
+		cout << m.toString() << endl;
 	}
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
@@ -182,7 +179,7 @@ void printInfo(){
 	}
 }
 void startBrain() {
-	stopBrain(false);
+	//stopBrain(false);
 
 	fut = async(asyncAnalyze);
 	async(printInfo);
@@ -216,7 +213,7 @@ void startBrain() {
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 2rr3k/pp3pp1/1nnqbN1p/3pN3/2pP4/2P3Q1/PPB4P/R4RK1 w - - 0 1";
+		toParse = "position fen 5rk1/1ppb3p/p1pb4/6q1/3P1p1r/2P1R2P/PP1BQ1P1/5RKN w - - 0 1";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
@@ -263,7 +260,7 @@ void parse(string toParse) {
 	}else if (startsWith("go", toParse)){
 		startBrain();
 	}else if (startsWith("stop", toParse)){
-		stopBrain(true);
+		stopBrain();
 	}else if (startsWith("quit", toParse)){
 		exit(0); //TODO more elegance
 	}else if (startsWith("position", toParse)){

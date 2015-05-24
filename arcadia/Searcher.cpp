@@ -68,19 +68,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			}
 		}
 
-		cout << "info depth " << idDepth;
-		cout << " score ";
-		if (bestValue >80000){
-			cout << "mate " <<   idDepth/2 ;
-			done = true;
-		}else {
-			cout << "cp " <<   bestValue ;
-		}
-		cout << " pv ";
-		for(Move m: pv){
-			cout << m.toString()<< " ";
-		}
-		cout << endl;
+		printInfo();
 		if (maxIdDepth > 0 && idDepth > maxIdDepth){
 			done = true;
 		}
@@ -109,7 +97,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	if (depth >= idDepth){
 		deque<Move> lineDown;
 		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
-			lineUp = lineDown;
+		lineUp = lineDown;
 		//value = Evaluator::getValue(position);
 		return value;
 	}
@@ -171,6 +159,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//}
 	if (depth > Info::seldepth){
 		Info::seldepth = depth;
+		printInfo();
 	}
 	//if (nextPos == null)
 	//	try {
@@ -225,6 +214,11 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			alpha = value;
 			lineUp = lineDown;
 			lineUp.push_front(newMove);
+			/*		cout << "new q best: " << newMove.toString() << endl;
+			for(Move move: lineUp){
+			cout << move.toString() << " ";
+			}
+			cout << endl;*/
 			//upPv.clear();
 			//upPv.add(newMove);
 			//upPv.addAll(downPv);
