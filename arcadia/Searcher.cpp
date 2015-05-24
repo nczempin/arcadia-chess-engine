@@ -194,8 +194,8 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//int loopCount = 0;
 	vector<Move> moves;
 	MoveGenerator::generateAllCaptures(position,moves);
-	//moves = MoveGenerator::removeIllegalMoves(moves);
-	for(Move newMove: moves){
+	vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
+	for(Move newMove: legalMoves){
 		//int capture = newMove.captured;
 		//int capturing = abs(position.board[newMove.from]);
 		//if (capture == 6) {
