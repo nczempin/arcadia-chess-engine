@@ -154,12 +154,11 @@ Move asyncAnalyze(){
 
 void stopBrain()
 {
-	if (fut.valid()){
-		s.done = true;
-		Move m = s.bestMove;
-		cout << "bestmove "<< m.toString() << endl;
-	}
+	s.done = true; // ask the thread to finish
+	Move move = fut.get(); //wait until the thread is finished
+	s.printInfo();
 	cout << "info string after fut.get" << endl;
+	cout << "bestmove " << move.toString() << endl;
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
 	//	String move = this.brain.getBestMoveSoFar();
