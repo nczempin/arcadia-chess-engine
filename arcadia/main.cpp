@@ -150,7 +150,7 @@ bool invalidSquare(int next) {
 Move asyncAnalyze(){
 	Move bestmove = s.analyze(p);
 	s.printInfo();
-	cout << "info string after fut.get" << endl;
+	//cout << "info string after fut.get" << endl;
 	cout << "bestmove " << bestmove.toString() << endl;
 	return bestmove;
 }
