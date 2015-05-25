@@ -43,8 +43,9 @@ This is version 0.0.5, released 2015-05-25.
 
 ##TODO LIST = Limitations/Known Bugs/Future Features (in no particular order)##
 Get all the features of Eden 0.0.13 in.
-
-##Probable focus for the next version##
+###Known issues###
+* UCI score gets reported as the minimum value whenever we switch to the next iteration depth
+###Probable focus for the next version###
 * more raw speed
 * UCI protocol compliance: use the "go" time parameters properly
 * UCI protocol compliance: show "nodes" and "nps"
