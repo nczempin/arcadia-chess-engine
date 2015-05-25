@@ -313,7 +313,7 @@ public:
 						} else {
 							rookFrom = -1;
 							rookTo = -1;
-							cerr << "move.from: " << move.from <<endl;
+							cerr << "move.from: " << move.from << " to " << move.to <<endl;
 							//throw new RuntimeException("move.to.getIndex: " + move.to + " which is impossible!");
 						}
 					}
@@ -451,7 +451,7 @@ public:
 
 
 	//	
-	void generateCastling(vector<Move>& moves, const int from) {
+	void generateCastling(const int from,vector<Move>& moves) {
 		int p = board[from];
 		int kingHome = -1;
 		bool castlingLong;
@@ -497,9 +497,9 @@ public:
 				int capturedPiece = board[next];
 				if (capturedPiece != 0) {
 					if ((capturedPiece < 0) && (color)) {
-						moves.push_back(Move(from, next, 0, capturedPiece));
+						moves.push_back(Move(from, next, capturedPiece));
 					} else if ((capturedPiece > 0) && (!color)) {
-						moves.push_back(Move(from, next, 0, capturedPiece));
+						moves.push_back(Move(from, next, capturedPiece));
 					}
 				}
 			}
@@ -595,7 +595,7 @@ public:
 	//		}
 	//	}
 	//
-		void generateQueenCaptures(vector<Move> moves, int from, bool color) {
+		void generateQueenCaptures(vector<Move>& moves, int from, bool color) {
 			generateBishopCaptures(moves, from, color);
 			generateRookCaptures(moves, from, color);
 		}

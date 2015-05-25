@@ -17,85 +17,63 @@ Searcher::Searcher(void)
 Searcher::~Searcher(void)
 {
 }
-bool done;
-int idDepth;
 
 Move Searcher::findBestmove(vector<Move> moves, Position position){
 	// assumption: moves.size() > 1
 	resetClock();
-	vector<Move> pvec;
 	idDepth = 1;
 	int maxIdDepth = 0;
 	Info::seldepth = 0;
-	Move bestMove;
 	Move lastIterationBestMove;
 	done = false;
-	deque<Move> lineUp;
 	deque<Move> lineDown;
-	set<Move> sortedMoves;
-	set<Move> otherMoves;
+	list<Move> sortedMoves;
+	list<Move> otherMoves;
 	do {
 		lastIterationBestMove = bestMove;
-		int bestValue = -9999999;
+		bestValue = -9999999;
 		sortedMoves.clear();
 		otherMoves.clear();
+		Info::currmovenumber=0;
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
+			Info::currmove = move;
+			Info::currmovenumber++;
+			cout << "info ";
+			cout << " currmove " << Info::currmove.toString();
+			cout << " currmovenumber " << Info::currmovenumber << endl;
+
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
-			move.value = value;
-			if (value > bestValue){
-				//cout << "inserting " << move.toString() << "@" << value << endl;
-				sortedMoves.insert(move);
-				bestValue = value;
-				bestMove = move;
-				/*			cout << "lineDown: ";
-				for(Move m: lineDown){
-				cout << m.toString();
-				}
-				cout << endl;*/
-				lineUp = lineDown;
-				lineUp.push_front(move);
-
-				cout << "info depth " << idDepth;
-				cout << " seldepth " << Info::seldepth;
-				cout << " score ";
-				if (bestValue >80000){
-					cout << "mate " <<   idDepth/2 ;
-					done = true;
-				}else {
-					cout << "cp " <<   bestValue ;
-				}
-				cout << " pv ";
-				for(Move m: lineUp){
-					cout << m.toString()<< " ";
-				}
-				cout << endl;
-			}else{
-				//cout << "inserting alt." << move.toString() << "@" << value << endl;
-				otherMoves.insert(move);
-			}
 			if (timeUp()){
 				//return lastIterationBestMove;
 				done = true;
 				break;
 			}
+			move.value = value;
+			if (value > bestValue){
+				//cout << "inserting " << move.toString() << "@" << value << endl;
+				sortedMoves.push_front(move);
+				bestValue = value;
+				bestMove = move;
+				pv = lineDown;
+				pv.push_front(move);
+				printInfo();
+				if (bestValue >80000){
+					done = true;
+					break;
+				}
+				//}else if (value==bestValue){
+				//	//cout << "inserting alt." << move.toString() << "@" << value << endl;
+				//	sortedMoves.push_front(move);
+			}else{
+				otherMoves.push_front(move);
+			}
+
 		}
 
-		cout << "info depth " << idDepth;
-		cout << " score ";
-		if (bestValue >80000){
-			cout << "mate " <<   idDepth/2 ;
-			done = true;
-		}else {
-			cout << "cp " <<   bestValue ;
-		}
-		cout << " pv ";
-		for(Move m: lineUp){
-			cout << m.toString()<< " ";
-		}
-		cout << endl;
+		printInfo();
 		if (maxIdDepth > 0 && idDepth > maxIdDepth){
 			done = true;
 		}
@@ -109,22 +87,35 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		}
 		for (Move move : otherMoves){
 			moves.push_back(move);
-			//cout << "pushing back " << move.toString() <<" @ " << move.value <<  endl;
-
 		}
-		for (Move move : moves){
-			cout << move.toString()<<" ";
-		}
-		cout << endl;
+		//cout << "sortedMoves: ";
+		//for (Move move : sortedMoves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
+		//cout << "otherMoves: ";
+		//for (Move move : otherMoves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
+		//cout << "moves: ";
+		//for (Move move : moves){
+		//	cout << move.toString()<<" ";
+		//}
+		//cout << endl;
 	} while (!done);
 	return bestMove;
 }
 int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp){
+	if (done||(timeUp()) ) {
+		//	timeIsUp = true;
+		return 0;
+	}
 	int value = 0;
 	if (depth >= idDepth){
 		deque<Move> lineDown;
 		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
-			lineUp = lineDown;
+		lineUp = lineDown;
 		//value = Evaluator::getValue(position);
 		return value;
 	}
@@ -180,12 +171,13 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 
 int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp) {
 	//ValidFlag bestMoveValidFlag = new ValidFlag();
-	//if ((timeUp()) || (timeIsUp)) {
-	//	timeIsUp = true;
-	//	return 0;
-	//}
+	if (done||(timeUp()) ) {
+		//	timeIsUp = true;
+		return 0;
+	}
 	if (depth > Info::seldepth){
 		Info::seldepth = depth;
+		printInfo();
 	}
 	//if (nextPos == null)
 	//	try {
@@ -207,9 +199,10 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	}
 	//kingCapture = false;
 	//int loopCount = 0;
-	vector<Move> moves = MoveGenerator::generateAllCaptures(position);
-	//moves = MoveGenerator::removeIllegalMoves(moves);
-	for(Move newMove: moves){
+	vector<Move> moves;
+	MoveGenerator::generateAllCaptures(position,moves);
+	vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
+	for(Move newMove: legalMoves){
 		//int capture = newMove.captured;
 		//int capturing = abs(position.board[newMove.from]);
 		//if (capture == 6) {
@@ -239,6 +232,11 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			alpha = value;
 			lineUp = lineDown;
 			lineUp.push_front(newMove);
+			/*		cout << "new q best: " << newMove.toString() << endl;
+			for(Move move: lineUp){
+			cout << move.toString() << " ";
+			}
+			cout << endl;*/
 			//upPv.clear();
 			//upPv.add(newMove);
 			//upPv.addAll(downPv);
