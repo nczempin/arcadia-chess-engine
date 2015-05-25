@@ -3,9 +3,11 @@
 #include <sstream>
 #include <vector>
 #include <list>
+#include <chrono>
 
 using namespace std;
 const string VERSION = "0.0.6dev";
+
 #define USE_UNDERPROMOTION
 vector<string> &split(const string &s, char delim, vector<string> &elems);
 

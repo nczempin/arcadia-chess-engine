@@ -24,6 +24,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	idDepth = 1;
 	int maxIdDepth = 0;
 	Info::seldepth = 0;
+	Info::nodes=0;
 	Move lastIterationBestMove;
 	done = false;
 	deque<Move> lineDown;
@@ -38,11 +39,14 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 		for (Move move : moves){
 			Position newPos = position.copyPosition();
 			newPos.makeMove(move);
+			++Info::nodes;
 			Info::currmove = move;
 			Info::currmovenumber++;
 			cout << "info ";
 			cout << " currmove " << Info::currmove.toString();
-			cout << " currmovenumber " << Info::currmovenumber << endl;
+			cout << " currmovenumber " << Info::currmovenumber;
+			cout << " nodes " << Info::nodes << endl;
+			//cout << " nps " << Info::nps << endl;
 
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
@@ -133,6 +137,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		//expensive way to make next move
 		Position nextPos = position.copyPosition();
 		nextPos.makeMove(newMove);
+		++Info::nodes;
 		//cout << "making " << newMove.toString() << endl;
 		deque<Move> lineDown;
 		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
@@ -215,6 +220,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		//vector<Move> downPv;
 		Position nextPos = position.copyPosition();
 		nextPos.makeMove(newMove);
+		++Info::nodes;
 		deque<Move> lineDown;
 		int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
 		//if (kingCapture) {
