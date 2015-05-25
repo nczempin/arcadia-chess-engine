@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <vector>
 
 #include "Position.h"
 #include "Move.h"
@@ -13,15 +14,28 @@ public:
 	~MoveGenerator(void);
 private:
 	static Position position;
-	static vector<Move> moves;
 public: 
+	static vector<Move> removeIllegalMoves(vector<Move>& moves) {
+		vector<Move> legalMoves;
+		for(Move move: moves){
+
+			//			Info.ensureLegalNodes += 1;
+			Position nextPos = position.createTestPosition(move);
+			if (!nextPos.isGivingCheck()) {
+				legalMoves.push_back(move);
+			}
+		}
+		return legalMoves;
+	}
 	static vector<Move> generateLegalCaptureMoves(Position position){
-		vector<Move> moves = generateAllCaptures(position);
-		moves = removeIllegalMoves(moves);
-		return moves;
+		vector<Move> moves;
+		generateAllCaptures(position,moves);
+		vector<Move> legalMoves = removeIllegalMoves(moves);
+		return legalMoves;
 	}
 	static vector<Move> generateLegalMoves(Position position){
-		vector<Move> moves = generateAllMoves(position);
+		vector<Move> moves;
+		generateAllMoves(position,moves);
 		//cout << "all moves (including illegal)" << endl;
 		//for (Move move:moves){
 		//	move.print();
@@ -40,8 +54,8 @@ public:
 		//}
 		return moves;
 	}
-	static vector<Move> generateAllMoves(Position p) {
-		moves.clear();
+	static void generateAllMoves(Position p,vector<Move>& moves) {
+
 		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
@@ -52,14 +66,13 @@ public:
 					color = WHITE;
 				}
 				if (color==position.onMove) {
-					generateMoves(i, piece);
+					generateMoves(i, piece,moves);
 				}
 			}
 		}
-		return moves;
 	}
-static vector<Move> generateAllCaptures(Position p) {
-		moves.clear();
+	static void generateAllCaptures(Position p,vector<Move>& moves) {
+
 		position = p;
 		for (int i = 11; i < 89; i++) {
 			int piece = position.board[i];
@@ -70,31 +83,18 @@ static vector<Move> generateAllCaptures(Position p) {
 					color = WHITE;
 				}
 				if (color==position.onMove) {
-					generateCaptures(i, piece, color);
+					generateCaptures(i, piece, color,moves);
 				}
 			}
 		}
-		return moves;
 	}
 
-	static vector<Move> removeIllegalMoves(vector<Move> moves) {
-		vector<Move> legalMoves;
-		for(Move move: moves){
-
-			//			Info.ensureLegalNodes += 1;
-			Position nextPos = position.createTestPosition(move);
-			if (!nextPos.isGivingCheck()) {
-				legalMoves.push_back(move);
-			}
-		}
-		return legalMoves;
-	}
-	static void generateCaptures(int i, int p, bool color) {
+	static void generateCaptures(int i, int p, bool color,	vector<Move>& moves) {
 		switch (p) {
 		case -1:
 
 		case 1:
-			generatePawnCaptures(i);
+			generatePawnCaptures(i,moves);
 			break;
 
 		case -2:
@@ -128,54 +128,53 @@ static vector<Move> generateAllCaptures(Position p) {
 		}
 
 	}
-	static void generateMoves(int i, int p) {
+	static void generateMoves(int i, int p,	vector<Move>& moves) {
 		switch (p) {
 		case -1:
 
 		case 1:
-			generatePawnMoves(i);
+			generatePawnMoves(i, moves);
 			break;
 
 		case -2:
 
 		case 2:
-			generateKnightMoves( i);
+			generateKnightMoves( i, moves);
 			break;
 
 		case -3:
 
 		case 3:
-			generateBishopMoves(i);
+			generateBishopMoves(i, moves);
 			break;
 
 		case -4:
 
 		case 4:
-			generateRookMoves(i);
+			generateRookMoves(i, moves);
 			break;
 
 		case -5:
 
 		case 5:
-			generateQueenMoves(i);
+			generateQueenMoves(i, moves);
 			break;
 
 		case -6:
 		case 6:
-			generateKingMoves(i);
+			generateKingMoves(i, moves);
 			break;
 		}
-
 	}
 
-	static void generatePawnMoves(int from) {
-		generatePawnNonCapture(from);
-		generatePawnCaptures(from);
+	static void  generatePawnMoves(int from,vector<Move>& moves) {
+		generatePawnCaptures(from, moves);
+		generatePawnNonCapture(from,moves);
 	}
 
-	static void generatePawnCapture(int from, int multi, int next, int row) {
+	static 	void generatePawnCapture(int from, int multi, int next, int row,vector<Move>& moves) {
 		if (invalidSquare(next))
-			return;
+			return ;
 		int capturedPiece = position.board[next];
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
 			if (next / (row + multi * 6) == 1) {
@@ -190,15 +189,15 @@ static vector<Move> generateAllCaptures(Position p) {
 				moves.push_back(m);
 #endif
 			} else {
-				Move m = Move(from, next);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_back(m);
 			}
 			if (position.enPassantSquare == next) {
-				Move m = Move(from, next);
+				Move m = Move(from, next, capturedPiece);
 				moves.push_back(m);
 			}
 	}
-	static void generatePawnCaptures(int from) {
+	static void generatePawnCaptures(int from,vector<Move>& moves) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -208,13 +207,13 @@ static vector<Move> generateAllCaptures(Position p) {
 		int file = from % 10;
 		int next = from + multi - 1;
 		if (file != 1)
-			generatePawnCapture(from, multi, next, row);
+			generatePawnCapture(from, multi, next, row,moves);
 		next = from + multi + 1;
 		if (file != 8) {
-			generatePawnCapture(from, multi, next, row);
+			generatePawnCapture(from, multi, next, row,moves);
 		}
 	}
-	static void generatePawnNonCapture(int from) {
+	static void generatePawnNonCapture(int from,vector<Move>& moves) {
 		int multi = 10;
 		int row = 20;
 		if (!position.onMove) {
@@ -257,7 +256,7 @@ static vector<Move> generateAllCaptures(Position p) {
 	}
 
 
-	static void generateKnightMoves(int from) {
+	static void generateKnightMoves(int from,vector<Move>& moves) {
 		static const int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i <8; i++) {
@@ -274,17 +273,19 @@ static vector<Move> generateAllCaptures(Position p) {
 		}
 	}
 
-	static void generateKingMoves(int from) {
-		generateKingMovesNoCastling(from);
-		position.generateCastling(moves, from);
+	static vector<Move> generateKingMoves(int from,vector<Move>& moves) {
+		generateKingMovesNoCastling(from, moves);
+		position.generateCastling(from, moves);
+		return moves;
 	}
-	static void generateQueenMoves(int from) {
-		generateBishopMoves(from);
-		generateRookMoves(from);
+	static void generateQueenMoves(int from,vector<Move>& moves) {
+		generateBishopMoves(from, moves);
+		generateRookMoves(from, moves);
 	}
 
 
-	static void generateKingMovesNoCastling(int from) {
+	static void generateKingMovesNoCastling(int from,vector<Move>& moves) {
+
 		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
@@ -301,70 +302,71 @@ static vector<Move> generateAllCaptures(Position p) {
 			}
 		}
 	}
-	static void generateRookMoves(int from) {
+	static void generateRookMoves(int from,vector<Move>& moves) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -10;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 1;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -1;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 	}
 
-	static void generateBishopMoves(int from) {
+	static void generateBishopMoves(int from,vector<Move>& moves) {
 		bool finished = false;
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 9;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -9;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 11;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -11;
-			finished = tryMove(from, next);
+			finished = tryMove(from, next,moves);
 			if (finished) {
 				break;
 			}
 		}
 	}
-	static bool tryMove(int from, int next) {
+	static bool tryMove(int from, int next,vector<Move>& moves) {
+
 		if (invalidSquare(next))
 			return true;
 		int piece = position.board[next];

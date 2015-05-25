@@ -30,10 +30,33 @@ public:
 	bool operator == (const Move &i) const {
 		return from == i.from && to == i.to;
 	}
-	
+	bool operator != (const Move &i) const {
+		return from != i.from || to != i.to;
+	}
+	//bool operator> (const Move & other)const{
+	//	return value > other.value;
+	//}
+	bool operator< (const Move & other)const{
+		if (value != other.value){
+			return value < other.value;
+		}
+		if (captured != other.captured){
+			return captured < other.captured;
+		}
+		if (promoted != other.promoted){
+			return promoted < other.promoted;
+		}
+		if (from!=other.from){
+			return from < other.from;
+		}
+		if (to!=other.to){
+			return 	to < other.to;
+		}
+		//TODO else???
+	}
 	bool isCastling(int piece) {
 		return (piece == 6) && (abs(from - to) == 2);
-		}
+	}
 	void print(){
 		cout << toString() << endl;
 	}	
@@ -47,13 +70,15 @@ public:
 		return retVal;
 	}
 	string toString(){
-		string retVal =  encodeSquare(from) + (captured==0?"-":"x") + encodeSquare(to)+encodePromoted();
+		string retVal =  encodeSquare(from) + (captured==0?"-":"x") + encodeSquare(to)+encodePromoted();//+" ("+to_string(value)+")";
 		return retVal;
 	}
 	int from;
 	int to;
 	unsigned int captured;
 	unsigned int promoted;
+
+	int value;
 
 private:
 };
