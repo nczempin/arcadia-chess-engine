@@ -76,10 +76,10 @@ bool timeUp()
 {
 	/*   if (timePerMove <= 0L)
 	return false;*/
-	return false;
+	//return false;
 	chrono::system_clock::time_point now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-start; 
-	return elapsed_seconds.count() >= 30; //TODO make a parameter
+	return elapsed_seconds.count() >= 20; //TODO make a parameter
 }
 
 
@@ -149,6 +149,9 @@ bool invalidSquare(int next) {
 
 Move asyncAnalyze(){
 	Move bestmove = s.analyze(p);
+	s.printInfo();
+	cout << "info string after fut.get" << endl;
+	cout << "bestmove " << bestmove.toString() << endl;
 	return bestmove;
 }
 
@@ -156,9 +159,6 @@ void stopBrain()
 {
 	s.done = true; // ask the thread to finish
 	Move move = fut.get(); //wait until the thread is finished
-	s.printInfo();
-	cout << "info string after fut.get" << endl;
-	cout << "bestmove " << move.toString() << endl;
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
 	//	String move = this.brain.getBestMoveSoFar();
