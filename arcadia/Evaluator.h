@@ -422,12 +422,12 @@ public:
 
 	static int getPawnMidgameValue(int i, int plusminus, int file) {
 		int retValue;
-
-		if (plusminus > 0) {
-			retValue = pawnSquareValues[(79 - i)];
-		} else
-			retValue = pawnSquareValues[(i - 20)];
 		int rank = i / 10;
+		if (plusminus > 0) {
+			retValue = pawnSquareValues[(7-rank)*10+file];
+		} else{
+			retValue = pawnSquareValues[(rank-2)*10+file];
+		}
 		//if (isPassed(i, plusminus, file, rank)) {
 		//	int passedValue = 0;
 		//	if (plusminus > 0) {
