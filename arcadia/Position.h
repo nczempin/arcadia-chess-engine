@@ -489,7 +489,7 @@ public:
 	}
 
 	void generateKingCaptures(vector<Move>& moves, int from, bool color) {
-		int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
+		static int kingMoves[] = { 9, 10, 11, -1, 1, -9, -10, -11 };
 
 		for (int i = 0; i < 8; i++) {
 			int next = from + kingMoves[i];
@@ -508,7 +508,7 @@ public:
 
 
 	void generateKnightCaptures(vector<Move>& moves, int from, bool color) {
-		int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+		static int knightMoves[] = { 19, 21, 8, 12, -19, -21, -8, -12 };
 
 		for (int i = 0; i < 8; i++) {
 			int next = from + knightMoves[i];
@@ -653,8 +653,8 @@ public:
 	void generateRookCaptures(vector<Move>&moves, int from, bool color) {
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 10;
-			if (next > 88)
-				break;
+	/*		if (next > 88)
+				break;*/
 			bool finished = tryMoveCapture( moves, from, next, color);
 			if (finished) {
 				break;
@@ -662,8 +662,8 @@ public:
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -10;
-			if (next < 0)
-				break;
+			//if (next < 0)
+			//	break;
 			bool finished = tryMoveCapture( moves, from, next, color);
 			if (finished) {
 				break;
@@ -1278,8 +1278,8 @@ public:
 	void generateBishopCaptures(vector<Move>& moves, int from, bool color) {
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 9;
-			if (next > 88)
-				break;
+			//if (next > 88)
+			//	break;
 			bool finished = tryMoveCapture( moves, from, next, color);
 			if (finished) {
 				break;
@@ -1287,8 +1287,8 @@ public:
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -9;
-			if (next < 0)
-				break;
+			//if (next < 0)
+			//	break;
 			bool finished = tryMoveCapture(moves, from, next, color);
 			if (finished) {
 				break;
@@ -1296,8 +1296,8 @@ public:
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * 11;
-			if (next > 88)
-				break;
+			//if (next > 88)
+			//	break;
 			bool finished = tryMoveCapture(moves, from, next, color);
 			if (finished) {
 				break;
@@ -1305,8 +1305,8 @@ public:
 		}
 		for (int i = 1; i < 8; i++) {
 			int next = from + i * -11;
-			if (next < 0)
-				break;
+			//if (next < 0)
+			//	break;
 			bool finished = tryMoveCapture( moves, from, next, color);
 			if (finished) {
 				break;
@@ -1840,6 +1840,24 @@ public:
 		//	assert "no king found";//throw new IllegalStateException("no king found");
 		int i = currentPiece;
 		vector<Move> moves ;
+		generateKnightCaptures( moves, i, othercolor);
+		//cout << "knight captures: " << endl;
+		//for (Move move:moves){
+		//	move.print();
+		//}
+		for (Move move:moves){
+			int piece = abs(board[move.to]);
+			if (piece == 2) {
+				int t = board[move.to];
+				bool c = t>0;//EdenBrain.convertColor(t);
+				if (c!=othercolor) {
+					//isGivingCheck = new bool(true);
+					return true;
+				}
+			}
+		}
+
+		moves.clear();
 		generateBishopCaptures(moves, i, othercolor);
 		//cout << "bishop captures: " << endl;
 		//for (Move move:moves){
@@ -1887,24 +1905,6 @@ public:
 				// king will always be the enemy
 				//isGivingCheck = new bool(true);
 				return true;
-			}
-		}
-
-		moves.clear();
-		generateKnightCaptures( moves, i, othercolor);
-		//cout << "knight captures: " << endl;
-		//for (Move move:moves){
-		//	move.print();
-		//}
-		for (Move move:moves){
-			int piece = abs(board[move.to]);
-			if (piece == 2) {
-				int t = board[move.to];
-				bool c = t>0;//EdenBrain.convertColor(t);
-				if (c!=othercolor) {
-					//isGivingCheck = new bool(true);
-					return true;
-				}
 			}
 		}
 

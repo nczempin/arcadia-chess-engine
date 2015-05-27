@@ -68,9 +68,9 @@ long calculateTimePerMove(long t, long inc, int movesToGo){
 		retVal = 100L;
 	return retVal;
 }
-chrono::system_clock::time_point start;
+
 void resetClock(){
-	start = chrono::system_clock::now();
+	Info::start = chrono::system_clock::now();
 }
 bool timeUp()
 {
@@ -78,7 +78,7 @@ bool timeUp()
 	return false;*/
 	//return false;
 	chrono::system_clock::time_point now = chrono::system_clock::now(); 
-	chrono::duration<double> elapsed_seconds = now-start; 
+	chrono::duration<double> elapsed_seconds = now-Info::start; 
 	return elapsed_seconds.count() >= 20; //TODO make a parameter
 }
 
@@ -224,15 +224,15 @@ void parse(string toParse) {
 		char perftDepthParameter = toParse[6];//'4'; //TODO extract from toParse
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
 
-		chrono::time_point<chrono::system_clock> start, end;
+		chrono::time_point<chrono::system_clock> end;
 
 
 		//TODO do this more elegantly
 		for (int i = 0; i< perftDepth; ++i){
-			start = chrono::system_clock::now();
+			Info::start = chrono::system_clock::now();
 			int nodes = perft (p, i+1);
 			end = chrono::system_clock::now();
-			chrono::duration<double> elapsed_seconds = end-start;
+			chrono::duration<double> elapsed_seconds = end-Info::start;
 			cout << i+1 << ", " << nodes << " @ "  << elapsed_seconds.count()<<endl;
 			time_t end_time = chrono::system_clock::to_time_t(end);
 		}

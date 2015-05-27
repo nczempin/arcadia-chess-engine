@@ -1,5 +1,6 @@
 #pragma once
 #include <deque>
+#include <chrono>
 
 #include "global.h"
 #include "Move.h"
@@ -34,11 +35,21 @@ public:
 			return m;
 		}
 	}
+
+	void updateNps(){
+		chrono::duration<double> elapsed_seconds = chrono::system_clock::now()-Info::start;
+		double seconds = elapsed_seconds.count();
+		Info::nps =  (Info::nodes/seconds);
+	}
+
 	void printInfo(){
 		cout << "info depth " << idDepth;
 		cout << " seldepth " << Info::seldepth;
 		cout << " currmove " << Info::currmove.toString();
 		cout << " currmovenumber " << Info::currmovenumber;
+		cout << " nodes " << Info::nodes;
+		updateNps();
+		cout << " nps " << Info::nps;
 		cout << " score ";
 		if (bestValue >80000){
 			cout << "mate " <<   idDepth/2 ;
