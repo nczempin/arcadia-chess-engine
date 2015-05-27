@@ -72,14 +72,17 @@ long calculateTimePerMove(long t, long inc, int movesToGo){
 void resetClock(){
 	Info::start = chrono::system_clock::now();
 }
+
+
+int timePerMove;
 bool timeUp()
 {
-	/*   if (timePerMove <= 0L)
-	return false;*/
+	if (timePerMove <= 0L)
+		return false;
 	//return false;
-	chrono::system_clock::time_point now = chrono::system_clock::now(); 
+	auto now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-Info::start; 
-	return elapsed_seconds.count() >= 20; //TODO make a parameter
+	return elapsed_seconds.count() >= timePerMove/1000.0;
 }
 
 
@@ -210,6 +213,8 @@ void startBrain() {
 	};*/
 	//printInfoThread.start();
 }
+
+
 int extractIntValue(string parameters, string s){
 	size_t index = parameters.find(s);
 	if (index == string::npos) {
@@ -268,6 +273,28 @@ void parse(string toParse) {
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
 	}else if (startsWith("go", toParse)){
+		int wtime = extractIntValue(toParse, "wtime");
+		int btime = extractIntValue(toParse, "btime");
+		int winc = extractIntValue(toParse, "winc");
+		int binc = extractIntValue(toParse, "binc");
+		int mtg = extractIntValue(toParse, "movestogo");
+		if (mtg == 0){
+			mtg = 25;
+		}
+
+		long tpm;
+		if (p.onMove) {
+			tpm = calculateTimePerMove(wtime,winc,mtg);
+		} else {
+			tpm = calculateTimePerMove(btime, binc,mtg);
+		}
+		timePerMove = tpm;
+
+
+		/*    this.engine.setMovesToGo(mtg);
+		this.engine.setTimes(wtime, btime, winc, binc);
+		int depth = extractIntValue(parameters, "depth");
+		this.engine.setDepth(depth);*/
 		startBrain();
 	}else if (startsWith("stop", toParse)){
 		stopBrain();
