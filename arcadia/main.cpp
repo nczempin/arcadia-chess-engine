@@ -210,7 +210,14 @@ void startBrain() {
 	};*/
 	//printInfoThread.start();
 }
-
+int extractIntValue(string parameters, string string){
+	int index = parameters.indexOf(string);
+	if (index == -1) {
+		return 0;
+	}
+	string extracted = parameters.substring(parameters.indexOf(string) + string.length() + 1).split(" ")[0];
+	return Integer.parseInt(extracted);
+}
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
