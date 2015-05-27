@@ -16,7 +16,7 @@ public:
 
 	static int bishopSquareValues[];
 
-	static int blackPawnSquareValues[];
+	static int pawnSquareValues[];
 
 	static int kingEndgameSquareValues[];
 
@@ -25,9 +25,6 @@ public:
 	static int kingEndgameSquareValuesKBNKDark[];
 
 	static int knightSquareValues[];
-
-
-	static int whitePawnSquareValues[];
 
 	static int passedPawnProgression[];
 	/*int getPieceEndgameValue(int square, int piece, int file) {
@@ -423,9 +420,9 @@ public:
 		int retValue;
 
 		if (plusminus > 0) {
-			retValue = whitePawnSquareValues[(79 - i)];
+			retValue = pawnSquareValues[(79 - i)];
 		} else
-			retValue = blackPawnSquareValues[(i - 20)];
+			retValue = pawnSquareValues[(i - 20)];
 		int rank = i / 10;
 		//if (isPassed(i, plusminus, file, rank)) {
 		//	int passedValue = 0;
