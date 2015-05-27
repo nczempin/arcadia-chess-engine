@@ -394,7 +394,6 @@ public:
 				bonus = 74;
 			blackValue += bonus;
 		}
-		cout << whiteValue << " - " << whiteMValue << " . " << blackValue << " - " << blackMValue << endl;
 		int retVal = whiteValue + whiteMValue  - blackValue - blackMValue;
 		if (position.onMove == BLACK)
 			retVal = -retVal;
