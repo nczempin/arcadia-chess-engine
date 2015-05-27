@@ -210,13 +210,15 @@ void startBrain() {
 	};*/
 	//printInfoThread.start();
 }
-int extractIntValue(string parameters, string string){
-	int index = parameters.indexOf(string);
-	if (index == -1) {
+int extractIntValue(string parameters, string s){
+	size_t index = parameters.find(s);
+	if (index == string::npos) {
 		return 0;
 	}
-	string extracted = parameters.substring(parameters.indexOf(string) + string.length() + 1).split(" ")[0];
-	return Integer.parseInt(extracted);
+	int searchFrom = index + s.length() + 1;
+	string extracted = parameters.substr(searchFrom);
+	string first = split(extracted,' ')[0];
+	return stoi(extracted);
 }
 void parse(string toParse) {
 	// for debugging
