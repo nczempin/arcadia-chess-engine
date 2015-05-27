@@ -86,7 +86,7 @@ public:
 	}
 
 	static int getPieceMidgameValue(int square, int piece, int file) {
-		cout << "sq: " << square << ", pc: "<< piece;
+		//cout << "sq: " << square << ", pc: "<< piece;
 		int retValue = 0;
 		switch (piece) {
 		case -6:
@@ -130,7 +130,7 @@ public:
 		default:
 			retValue = 0;
 		}
-		cout << "; value : " << retValue << endl;
+		//cout << "; value : " << retValue << endl;
 		return retValue;
 	}
 
