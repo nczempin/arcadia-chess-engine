@@ -1628,43 +1628,7 @@ public:
 	//		return nextNonCaptureMove != null;
 	//	}
 	//
-	//	bool hasNoEnemyPawns(int piece, int file) {
-	//		if ((file < 1) || (file > 8))
-	//			return true;
-	//		int plusminus = Math.abs(piece) / piece;
-	//		int conversion = 80 + file;
-	//		int start = file + 10;
-	//		for (int i = start; i < conversion; i += 10) {
-	//			if (board[i] == -plusminus)
-	//				return false;
-	//		}
-	//		return true;
-	//	}
-	//
-	//	bool hasNoEnemyPawnsAhead(int piece, int file, int rank) {
-	//		if ((file < 1) || (file > 8))
-	//			return true;
-	//		int plusminus = Math.abs(piece) / piece;
-	//		int direction = plusminus * 10;
-	//		int conversion = plusminus <= 0 ? 10 + file : 80 + file;
-	//		int start = rank * 10 + file + direction;
-	//		for (int i = start; i != conversion; i += direction) {
-	//			if (board[i] == -plusminus)
-	//				return false;
-	//		}
-	//		return true;
-	//	}
-	//
-	//	bool hasNoPawns(int square, int file) {
-	//		if ((file < 1) || (file > 8))
-	//			return true;
-	//		for (int i = 20 + file; i < 79; i += 10) {
-	//			if (board[i] == board[square])
-	//				return false;
-	//		}
-	//		return true;
-	//	}
-	//
+	//	
 	//	void initCaptureMoveGenerator() {
 	//		nextCaptureMove = null;
 	//		persistentSquareForCapture = 11;
@@ -1742,14 +1706,7 @@ public:
 	//		return false;
 	//	}
 	//
-	//	bool isDoubled(int square, int file) {
-	//		for (int i = 20 + file; i < 79; i += 10) {
-	//			if ((i != square) && (board[i] == board[square]))
-	//				return true;
-	//		}
-	//		return false;
-	//	}
-	//
+	
 	//	bool isEndgame() {
 	//		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
 	//			return true;
@@ -1782,10 +1739,7 @@ public:
 	//	//	return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
 	//	//}
 	//
-	//	//bool isIsolated(int square, int file) {
-	//	//	return (hasNoPawns(square, file - 1)) && (hasNoPawns(square, file + 1));
-	//	//}
-	//
+		//
 	//	bool isLegal(int from, int to, int promotedTo) {
 	//		Move toConsider = new Move(this, from, to, promotedTo);
 	//		SortedSet legalMoves = generateLegalMoves();
@@ -1804,32 +1758,7 @@ public:
 	//		return isReceivingCheck();
 	//	}
 	//
-	//	bool isOnOpenFile(int square, int file) {
-	//		if ((file < 1) || (file > 8))
-	//			return false;
-	//		for (int i = 20 + file; i < 80; i += 10) {
-	//			if ((board[i] == 1) || (board[i] == -1))
-	//				return false;
-	//		}
-	//		return true;
-	//	}
-	//
-	//	bool isOnOpenOrHalfOpenFile(int plusminus, int file, int rank) {
-	//		if ((file < 1) || (file > 8))
-	//			return false;
-	//		if (hasNoEnemyPawns(plusminus, file))
-	//			return true;
-	//		return hasNoEnemyPawns(-plusminus, file);
-	//	}
-	//
-	//	bool isPassed(int square, int plusminus, int file, int rank) {
-	//		if (!hasNoEnemyPawnsAhead(plusminus, file - 1, rank))
-	//			return false;
-	//		if (!hasNoEnemyPawnsAhead(plusminus, file + 1, rank))
-	//			return false;
-	//		return hasNoEnemyPawnsAhead(plusminus, file, rank);
-	//	}
-	//
+	
 
 	bool isGivingCheck() {
 		//if (isGivingCheck != null)

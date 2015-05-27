@@ -281,42 +281,7 @@ public:
 		}
 		return retValue;
 	}
-	//int evaluatePawnStructureMidgame() {
-	//		/Info.pawnStructureProbes += 1;
-	//		//Long pz = getPawnZobrist();
-	//		if (pawnHash.containsKey(pz)) {
-	//			Integer value = (Integer) pawnHash.get(pz);
-	//			Info.pawnStructureHits += 1;
-	//			return value.intValue();
-	//		}
-	//		Iterator whiteIt = whitePieces.iterator();
-	//		int whiteCValue = 0;
-	//		while (whiteIt.hasNext()) {
-	//			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	//			int whitePiece = board[whiteSquare];
-	//			if (whitePiece == 1) {
-	//				whiteCValue += pieceValues[0];
-	//				int file = whiteSquare % 10;
-	//				whiteCValue += getPawnMidgameValue(whiteSquare, whitePiece, file);
-	//			}
-	//		}
-	//		Iterator blackIt = blackPieces.iterator();
-	//		int blackCValue = 0;
-	//		while (blackIt.hasNext()) {
-	//			int blackSquare = ((Integer) blackIt.next()).intValue();
-	//			int blackPiece = board[blackSquare];
-	//			if (blackPiece == -1) {
-	//				blackCValue += pieceValues[0];
-	//				int file = blackSquare % 10;
-	//				blackCValue += getPawnMidgameValue(blackSquare, blackPiece, file);
-	//			}
-	//		}
-	//		int retVal = whiteCValue - blackCValue;
-	//		Info.phSize = pawnHash.size();
-	//		if (Info.phSize < 256000)
-	//			pawnHash.put(pz, new Integer(retVal));
-	//		return retVal;
-	//	}
+
 	static int getMidgameValue() {
 		int whiteValue = 0;
 		int blackValue = 0;
@@ -326,7 +291,6 @@ public:
 		int blackCValue = 0;	
 		//bool possibleBishopPairWhite = false;
 		//bool possibleBishopPairBlack = false;
-		//int pawnStructureValue = evaluatePawnStructureMidgame();
 		int p;
 		for (int i = 11; i< 89; ++i){
 			int file = i % 10;
@@ -418,6 +382,79 @@ public:
 	//			retValue -= 18;
 	//		return retValue;
 	//}
+	bool hasNoEnemyPawns(int piece, int file) {
+		if ((file < 1) || (file > 8))
+			return true;
+		int plusminus = abs(piece) / piece;
+		int conversion = 80 + file;
+		int start = file + 10;
+		for (int i = start; i < conversion; i += 10) {
+			if (position.board[i] == -plusminus)
+				return false;
+		}
+		return true;
+	}
+
+	static bool hasNoEnemyPawnsAhead(int piece, int file, int rank) {
+		if ((file < 1) || (file > 8))
+			return true;
+		int plusminus = abs(piece) / piece;
+		int direction = plusminus * 10;
+		int conversion = plusminus <= 0 ? 10 + file : 80 + file;
+		int start = rank * 10 + file + direction;
+		for (int i = start; i != conversion; i += direction) {
+			if (position.board[i] == -plusminus)
+				return false;
+		}
+		return true;
+	}
+
+	static bool hasNoPawns(int square, int file) {
+		if ((file < 1) || (file > 8))
+			return true;
+		for (int i = 20 + file; i < 79; i += 10) {
+			if (position.board[i] == position.board[square])
+				return false;
+		}
+		return true;
+	}
+
+
+	static bool isIsolated(int square, int file) {
+		return (hasNoPawns(square, file - 1)) && (hasNoPawns(square, file + 1));
+	}
+	bool isOnOpenFile(int square, int file) {
+		if ((file < 1) || (file > 8))
+			return false;
+		for (int i = 20 + file; i < 80; i += 10) {
+			if ((position.board[i] == 1) || (position.board[i] == -1))
+				return false;
+		}
+		return true;
+	}
+
+	bool isOnOpenOrHalfOpenFile(int plusminus, int file, int rank) {
+		if ((file < 1) || (file > 8))
+			return false;
+		if (hasNoEnemyPawns(plusminus, file))
+			return true;
+		return hasNoEnemyPawns(-plusminus, file);
+	}
+
+	static bool isPassed(int square, int plusminus, int file, int rank) {
+		if (!hasNoEnemyPawnsAhead(plusminus, file - 1, rank))
+			return false;
+		if (!hasNoEnemyPawnsAhead(plusminus, file + 1, rank))
+			return false;
+		return hasNoEnemyPawnsAhead(plusminus, file, rank);
+	}
+	static bool isDoubled(int square, int file) {
+		for (int i = 20 + file; i < 79; i += 10) {
+			if ((i != square) && (position.board[i] == position.board[square]))
+				return true;
+		}
+		return false;
+	}
 
 	static int getPawnMidgameValue(int i, int plusminus, int file) {
 		int retValue;
@@ -427,18 +464,18 @@ public:
 		} else{
 			retValue = pawnSquareValues[(rank-2)*10+file];
 		}
-		//if (isPassed(i, plusminus, file, rank)) {
-		//	int passedValue = 0;
-		//	if (plusminus > 0) {
-		//		passedValue += passedPawnProgression[(rank - 2)];
-		//	} else
-		//		passedValue += passedPawnProgression[(7 - rank)];
-		//	retValue += passedValue;
-		//}
-		//if (isIsolated(i, file))
-		//	retValue -= 12;
-		//if (isDoubled(i, file))
-		//	retValue -= 16;
+		if (isPassed(i, plusminus, file, rank)) {
+			int passedValue = 0;
+			if (plusminus > 0) {
+				passedValue += passedPawnProgression[(rank - 2)];
+			} else
+				passedValue += passedPawnProgression[(7 - rank)];
+			retValue += passedValue;
+		}
+		if (isIsolated(i, file))
+			retValue -= 12;
+		if (isDoubled(i, file))
+			retValue -= 16;
 		return retValue;
 	}
 
