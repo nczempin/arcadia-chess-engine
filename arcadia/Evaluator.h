@@ -16,7 +16,7 @@ public:
 
 	static int bishopSquareValues[];
 
-	static int blackPawnSquareValues[];
+	static int pawnSquareValues[];
 
 	static int kingEndgameSquareValues[];
 
@@ -25,9 +25,6 @@ public:
 	static int kingEndgameSquareValuesKBNKDark[];
 
 	static int knightSquareValues[];
-
-
-	static int whitePawnSquareValues[];
 
 	static int passedPawnProgression[];
 	/*int getPieceEndgameValue(int square, int piece, int file) {
@@ -89,6 +86,7 @@ public:
 	}
 
 	static int getPieceMidgameValue(int square, int piece, int file) {
+		//cout << "sq: " << square << ", pc: "<< piece;
 		int retValue = 0;
 		switch (piece) {
 		case -6:
@@ -132,7 +130,7 @@ public:
 		default:
 			retValue = 0;
 		}
-
+		//cout << "; value : " << retValue << endl;
 		return retValue;
 	}
 
@@ -258,26 +256,28 @@ public:
 		return retVal;
 	}
 	static 	int getBishopValue(int i, int plusminus) {
-		int retValue = bishopSquareValues[(i - 10)];
+		int retValue=0;
 		if (plusminus > 0) {
-			if (i == 16) {
-				if (position.board[25] > 0)
-					retValue -= 3;
-				if (position.board[27] > 0)
-					retValue--;
-			}
-			if ((i == 34) && (position.board[24] == 1)) {
-				retValue -= 25;
-			}
+			retValue+= bishopSquareValues[(i - 10)];
+			//if (i == 16) {
+			//	if (position.board[25] > 0)
+			//		retValue -= 3;
+			//	if (position.board[27] > 0)
+			//		retValue--;
+			//}
+			//if ((i == 34) && (position.board[24] == 1)) {
+			//	retValue -= 25;
+			//}
 		} else {
-			if (i == 86) {
-				if (position.board[75] < 0)
-					retValue -= 3;
-				if (position.board[77] < 0)
-					retValue--;
-			}
-			if ((i == 64) && (position.board[74] == -1))
-				retValue -= 25;
+			retValue+= bishopSquareValues[(89-i)];
+			//if (i == 86) {
+			//	if (position.board[75] < 0)
+			//		retValue -= 3;
+			//	if (position.board[77] < 0)
+			//		retValue--;
+			//}
+			//if ((i == 64) && (position.board[74] == -1))
+			//	retValue -= 25;
 		}
 		return retValue;
 	}
@@ -421,12 +421,12 @@ public:
 
 	static int getPawnMidgameValue(int i, int plusminus, int file) {
 		int retValue;
-
-		if (plusminus > 0) {
-			retValue = whitePawnSquareValues[(79 - i)];
-		} else
-			retValue = blackPawnSquareValues[(i - 20)];
 		int rank = i / 10;
+		if (plusminus > 0) {
+			retValue = pawnSquareValues[(7-rank)*10+file];
+		} else{
+			retValue = pawnSquareValues[(rank-2)*10+file];
+		}
 		//if (isPassed(i, plusminus, file, rank)) {
 		//	int passedValue = 0;
 		//	if (plusminus > 0) {

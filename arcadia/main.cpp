@@ -10,6 +10,7 @@
 #include "Position.h"
 #include "MoveGenerator.h"
 #include "Searcher.h"
+#include "Evaluator.h"
 
 using namespace std;
 
@@ -272,6 +273,9 @@ void parse(string toParse) {
 
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
+	}else if (toParse == "eval"){
+		int v = Evaluator::getValue(p);
+		cout << "Value: " << v << endl;
 	}else if (startsWith("go", toParse)){
 		int wtime = extractIntValue(toParse, "wtime");
 		int btime = extractIntValue(toParse, "btime");
