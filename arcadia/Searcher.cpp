@@ -32,6 +32,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 	list<Move> otherMoves;
 	do {
 		lastIterationBestMove = bestMove;
+		oldBestValue = bestValue;
 		bestValue = -9999999;
 		sortedMoves.clear();
 		otherMoves.clear();

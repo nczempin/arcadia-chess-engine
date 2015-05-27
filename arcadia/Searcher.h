@@ -17,6 +17,7 @@ public:
 	~Searcher(void);
 	Move bestMove;
 	int bestValue;
+	int oldBestValue;
 	bool done;
 	int idDepth;
 	deque<Move> pv;
@@ -53,8 +54,10 @@ public:
 		cout << " score ";
 		if (bestValue >80000){
 			cout << "mate " <<   idDepth/2 ;
-		}else {
-			cout << "cp " <<   bestValue ;
+		}else if (bestValue<900000){
+			cout << "cp " << oldBestValue;
+		}else{
+			cout << "cp " <<   bestValue;
 		}
 		cout << " pv ";
 		for(Move m: pv){
