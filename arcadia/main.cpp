@@ -16,8 +16,8 @@ using namespace std;
 
 Position p;
 Searcher s;
-string extractPosition(string);
-string extractMoves(string);
+static string extractPosition(string);
+static string extractMoves(string);
 future<Move> fut;
 vector<string> &split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss(s);
