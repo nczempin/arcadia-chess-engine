@@ -127,6 +127,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	}
 	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
 	vector<Move> moves;
+	moves.reserve(40);
 	MoveGenerator::generateAllMoves(position,moves);
 	if (moves.size()==0){
 		//cout << "no more moves!" << endl;
@@ -214,6 +215,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//kingCapture = false;
 	//int loopCount = 0;
 	vector<Move> moves;
+	moves.reserve(10);
 	MoveGenerator::generateAllCaptures(position,moves);
 
 	//vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
