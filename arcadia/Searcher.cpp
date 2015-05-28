@@ -48,7 +48,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
 			cout << " currmove " << Info::currmove.toString();
 			cout << " currmovenumber " << Info::currmovenumber;
 			cout << " nodes " << Info::nodes << endl;
-			//cout << " nps " << Info::nps << endl;
+			cout << " nps " << Info::nps << endl;
 
 			//cout << "trying " << move.toString() << endl;
 			int value = -alphabeta(1, newPos, -9999999, -bestValue,lineDown);
