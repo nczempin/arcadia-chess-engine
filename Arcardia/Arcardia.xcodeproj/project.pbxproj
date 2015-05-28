@@ -32,7 +32,7 @@
 		9F0696C51B177CFE003F13AD /* Boolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Boolean.h; path = ../Arcadia/Boolean.h; sourceTree = "<group>"; };
 		9F0696C61B177CFE003F13AD /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Character.h; path = ../Arcadia/Character.h; sourceTree = "<group>"; };
 		9F0696C71B177CFE003F13AD /* Evaluator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Evaluator.cpp; path = ../Arcadia/Evaluator.cpp; sourceTree = "<group>"; };
-		9F0696C81B177CFE003F13AD /* Evaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Evaluator.h; path = ../Arcadia/Evaluator.h; sourceTree = "<group>"; };
+		9F0696C81B177CFE003F13AD /* Evaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Evaluator.h; path = ../Arcadia/Evaluator.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		9F0696C91B177CFE003F13AD /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = global.h; path = ../Arcadia/global.h; sourceTree = "<group>"; };
 		9F0696CA1B177CFE003F13AD /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HashMap.h; path = ../Arcadia/HashMap.h; sourceTree = "<group>"; };
 		9F0696CB1B177CFE003F13AD /* Info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Info.cpp; path = ../Arcadia/Info.cpp; sourceTree = "<group>"; };
