@@ -20,6 +20,7 @@ public:
 	int oldBestValue;
 	bool done;
 	int idDepth;
+	bool kingCapture;
 	deque<Move> pv;
 	int quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
 	int alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
@@ -28,7 +29,7 @@ public:
 		MoveGenerator mg;
 		vector<Move> moves = mg.generateLegalMoves(p);
 		if (moves.size() == 0){
-			return Move();
+			return Move(-1,-1,0);
 		} else if (moves.size() == 1){
 			return moves.front();
 		} else {

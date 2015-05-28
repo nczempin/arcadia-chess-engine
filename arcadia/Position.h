@@ -319,7 +319,7 @@ public:
 					}
 				}
 			}
-			Move rookJump =  Move(rookFrom, rookTo);
+			Move rookJump =  Move(rookFrom, rookTo,0);
 			moveRaw(rookJump);
 			if (movingPiece > 0) {
 				hasCastledWhite = true;
@@ -471,19 +471,19 @@ public:
 		if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
 			if (isReceivingCheck())
 				return;
-			Move testCastleThrough =  Move(from, from + 1);
+			Move testCastleThrough =  Move(from, from + 1,0);
 			Position testPosition = createTestPosition(testCastleThrough);
 			//Info::castlingNodes += 1;
 			if (!testPosition.isGivingCheckForCastling(from + 1))
-				moves.push_back(Move(from, from + 2));
+				moves.push_back(Move(from, from + 2,0));
 		}
 		if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
 			if (isReceivingCheck())
 				return;
-			Move testCastleThrough = Move(from, from - 1);
+			Move testCastleThrough = Move(from, from - 1,0);
 			Position testPosition = createTestPosition(testCastleThrough);
 			if (!testPosition.isGivingCheckForCastling(from - 1)) {
-				moves.push_back(Move(from, from - 2));
+				moves.push_back(Move(from, from - 2,0));
 			}
 		}
 	}
@@ -516,9 +516,9 @@ public:
 				int capturedPiece = board[next];
 				if (capturedPiece != 0) {
 					if ((capturedPiece < 0) && (color))
-						moves.push_back( Move( from, next));
+						moves.push_back( Move( from, next, abs(capturedPiece)));
 					if ((capturedPiece > 0) && (!color)) {
-						moves.push_back( Move( from, next));
+						moves.push_back( Move( from, next, abs(capturedPiece)));
 					}
 				}
 			}
@@ -1270,7 +1270,7 @@ public:
 			return true;
 		}
 
-		Move m = Move(from, next);
+		Move m = Move(from, next, abs(type));
 		moves.push_back(m);
 		return true;
 	}
