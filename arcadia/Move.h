@@ -52,7 +52,7 @@ public:
 		if (to!=other.to){
 			return 	to < other.to;
 		}
-		//TODO else???
+        return false; //TODO else???
 	}
 	bool isCastling(int piece) {
 		return (piece == 6) && (abs(from - to) == 2);

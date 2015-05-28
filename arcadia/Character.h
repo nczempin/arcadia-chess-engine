@@ -9,7 +9,9 @@ public:
 			return c-'a'+1;
 		}else if (isCapitalLetter(c)){
 			return c-'A'+1;
-		}
+        } else {
+            return -1; //TODO
+        }
 	}
 	static bool isDigit(char c){
 		return '0' <= c && c <= '9';
