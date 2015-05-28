@@ -1520,18 +1520,6 @@ public:
 	//		return retVal;
 	//	}
 	//
-	//	int getHorizontalKingTropism(int plusminus, int square) {
-	//		int kingPosition;
-	//
-	//		if (plusminus > 0) {
-	//			kingPosition = blackKing;
-	//		} else
-	//			kingPosition = whiteKing;
-	//		int myRank = square % 10;
-	//		int yourRank = kingPosition % 10;
-	//		return Math.abs(myRank - yourRank);
-	//	}
-	//
 
 	//	Long getPawnZobrist() {
 	//		if (pawnZobrist != null)
@@ -1561,18 +1549,7 @@ public:
 	//	}
 	//
 //
-	//	int getVerticalKingTropism(int plusminus, int square) {
-	//		int kingPosition;
-	//
-	//		if (plusminus > 0) {
-	//			kingPosition = blackKing;
-	//		} else
-	//			kingPosition = whiteKing;
-	//		int myRank = square / 10;
-	//		int yourRank = kingPosition / 10;
-	//		return Math.abs(myRank - yourRank);
-	//	}
-	//
+	
 	//	long getZobrist() {
 	//		if (zobrist != 0L)
 	//			return zobrist;
