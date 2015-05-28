@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>3CEDE107-14D3-48E8-A43A-7E3769740A95</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Arcardia</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3424E5F723A109F64FA15280C6D2CF96409AB11F</key>
+		<string>https://bitbucket.org/nczempin/arcadia-chess-engine.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Arcardia/Arcardia.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3424E5F723A109F64FA15280C6D2CF96409AB11F</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/nczempin/arcadia-chess-engine.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3424E5F723A109F64FA15280C6D2CF96409AB11F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3424E5F723A109F64FA15280C6D2CF96409AB11F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>arcadia-chess-engine</string>
+		</dict>
+	</array>
+</dict>
+</plist>
