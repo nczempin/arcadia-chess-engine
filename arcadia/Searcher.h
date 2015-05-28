@@ -20,6 +20,7 @@ public:
 	int oldBestValue;
 	bool done;
 	int idDepth;
+	bool kingCapture;
 	deque<Move> pv;
 	int quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
 	int alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);

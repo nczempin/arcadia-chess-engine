@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <set>
 #include <iostream>
+#include <cassert>
 
 #include "Searcher.h"
 #include "Evaluator.h"
@@ -207,15 +208,17 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//int loopCount = 0;
 	vector<Move> moves;
 	MoveGenerator::generateAllCaptures(position,moves);
+	
 	vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
 	for(Move newMove: legalMoves){
-		//int capture = newMove.captured;
+		int capture = newMove.captured;
+		assert(capture != 0);
 		//int capturing = abs(position.board[newMove.from]);
-		//if (capture == 6) {
-		//	//	kingCapture = true;
+		if (capture == 6) {
+			kingCapture = true;
 			//	//	illegalCount += 1;
-		//	return -666663;
-		//}
+			return -666663;
+		}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
 		//moveStack.push(newMove);
 		//vector<Move> downPv;
@@ -224,11 +227,11 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		++Info::nodes;
 		deque<Move> lineDown;
 		int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
-		//if (kingCapture) {
+		if (kingCapture) {
 			//	illegalCount += 1;
 			//	moveStack.pop();
-		//	kingCapture = false;
-		//} else {
+			kingCapture = false;
+		} else {
 			//	loopCount++;
 			if (value >= beta) {
 				//moveStack.pop();
@@ -249,7 +252,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 				//upPv.addAll(downPv);
 			}
 			//moveStack.pop();
-		//	}
+		}
 		//}
 	}
 	/*	if (loopCount == 0) {
