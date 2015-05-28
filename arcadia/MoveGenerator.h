@@ -193,7 +193,7 @@ public:
 				moves.push_back(m);
 			}
 			if (position.enPassantSquare == next) {
-				Move m = Move(from, next, capturedPiece);
+				Move m = Move(from, next, 1); //hardcoded pawn, because it is not taken from the actual "next" square
 				moves.push_back(m);
 			}
 	}
@@ -237,7 +237,7 @@ public:
 
 #endif
 			} else {
-				Move m = Move(from, next);
+				Move m = Move(from, next,0);
 				moves.push_back(m);
 			}
 			//double step pawn move
@@ -247,7 +247,7 @@ public:
 				if (p == 0) {
 					//position.enPassantSquare = next - multi;
 					//cout << "ep set: " << position.enPassantSquare << endl;
-					Move m = Move(from, next);
+					Move m = Move(from, next,0);
 					//m.print();
 					moves.push_back(m);
 				}
@@ -266,7 +266,7 @@ public:
 				if ((capturedPiece < 0) && (!position.onMove)||(capturedPiece > 0) && (position.onMove)) {
 					//no move. sorry about the reverse logic
 				}else{
-					Move m = Move(from, next);
+					Move m = Move(from, next, abs(capturedPiece));
 					moves.push_back(m);
 				}
 			}
@@ -296,7 +296,7 @@ public:
 					//no move. sorry about the reverse logic
 				}else{
 					int capturedPiece = position.board[next];
-					Move m = Move(from, next);
+					Move m = Move(from, next, abs(capturedPiece));
 					moves.push_back(m);
 				}
 			}
@@ -371,7 +371,7 @@ public:
 			return true;
 		int piece = position.board[next];
 		if (piece == 0) {
-			Move move = Move(from, next);
+			Move move = Move(from, next,0);
 			moves.push_back(move);
 			return false;
 		}
@@ -380,7 +380,7 @@ public:
 			return true;
 		}
 		//enemy piece, presumably
-		Move move = Move(from, next);
+		Move move = Move(from, next, abs(piece));
 		moves.push_back(move);
 		return true;
 	}

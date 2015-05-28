@@ -213,7 +213,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		//int capturing = abs(position.board[newMove.from]);
 		//if (capture == 6) {
 		//	//	kingCapture = true;
-		//	//	illegalCount += 1;
+			//	//	illegalCount += 1;
 		//	return -666663;
 		//}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
@@ -225,30 +225,30 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		deque<Move> lineDown;
 		int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
 		//if (kingCapture) {
-		//	illegalCount += 1;
-		//	moveStack.pop();
+			//	illegalCount += 1;
+			//	moveStack.pop();
 		//	kingCapture = false;
 		//} else {
-		//	loopCount++;
-		if (value >= beta) {
-			//moveStack.pop();
-			return beta;
-		}
-		//bestMoveValidFlag.setNr(-1);
-		if (value > alpha) {
-			alpha = value;
-			lineUp = lineDown;
-			lineUp.push_front(newMove);
-			/*		cout << "new q best: " << newMove.toString() << endl;
-			for(Move move: lineUp){
-			cout << move.toString() << " ";
+			//	loopCount++;
+			if (value >= beta) {
+				//moveStack.pop();
+				return beta;
 			}
-			cout << endl;*/
-			//upPv.clear();
-			//upPv.add(newMove);
-			//upPv.addAll(downPv);
-		}
-		//moveStack.pop();
+			//bestMoveValidFlag.setNr(-1);
+			if (value > alpha) {
+				alpha = value;
+				lineUp = lineDown;
+				lineUp.push_front(newMove);
+				/*		cout << "new q best: " << newMove.toString() << endl;
+				for(Move move: lineUp){
+				cout << move.toString() << " ";
+				}
+				cout << endl;*/
+				//upPv.clear();
+				//upPv.add(newMove);
+				//upPv.addAll(downPv);
+			}
+			//moveStack.pop();
 		//	}
 		//}
 	}
