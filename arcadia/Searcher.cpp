@@ -125,7 +125,9 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		//value = Evaluator::getValue(position);
 		return value;
 	}
-	vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+	vector<Move> moves;
+	MoveGenerator::generateAllMoves(position,moves);
 	if (moves.size()==0){
 		//cout << "no more moves!" << endl;
 		if (position.isReceivingCheck()){
@@ -135,7 +137,13 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		}
 	}
 	for(Move newMove : moves){
+		int capture = newMove.captured;
 
+		if (capture == 6) {
+			kingCapture = true;
+			//	//	illegalCount += 1;
+			return -666663;
+		}
 		//expensive way to make next move
 		Position nextPos = position.copyPosition();
 		nextPos.makeMove(newMove);
@@ -144,27 +152,26 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		deque<Move> lineDown;
 		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
 		// back to "position" = expensive take back move
-		/*	if (lineDown.size()>0){
-		cout << "new lineDown: ";
-		for(Move m: lineDown){
-		cout << m.toString()<< " ";
-		}
-		cout << endl;
-		}*/
-		if (value >= beta){
-			//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
-			return beta;
-		}
-		if (value > alpha) {
-			//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
-			alpha = value;
-			lineUp = lineDown;
-			lineUp.push_front(newMove);
+		if (kingCapture){
+			kingCapture = false;
+			//ignore this move, though
+		}else{
+
+			if (value >= beta){
+				//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
+				return beta;
+			}
+			if (value > alpha) {
+				//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
+				alpha = value;
+				lineUp = lineDown;
+				lineUp.push_front(newMove);
 
 
-			//bestMove = newMove;
-			if (value > 800000){
-				return value;
+				//bestMove = newMove;
+				if (value > 800000){
+					return value;
+				}
 			}
 		}
 		if (timeUp()){
@@ -208,9 +215,9 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//int loopCount = 0;
 	vector<Move> moves;
 	MoveGenerator::generateAllCaptures(position,moves);
-	
-	vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
-	for(Move newMove: legalMoves){
+
+	//vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
+	for(Move newMove: moves){
 		int capture = newMove.captured;
 		assert(capture != 0);
 		//int capturing = abs(position.board[newMove.from]);
