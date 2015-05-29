@@ -46,6 +46,7 @@ public:
 			}
 		}
 		cout << endl;
+		cout <<"ep: "<< enPassantSquare << endl;
 
 	}
 
