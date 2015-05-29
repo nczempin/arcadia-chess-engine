@@ -120,9 +120,9 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	int value = 0;
 	if (depth >= idDepth){
 		deque<Move> lineDown;
-		//value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
+		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
 		lineUp = lineDown;
-		value = Evaluator::getValue(position);
+		//value = Evaluator::getValue(position);
 		return value;
 	}
 	vector<Move> moves;
@@ -132,9 +132,10 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		int actualMoves = 0;
 	for(Move newMove : moves){
 		int capture = newMove.captured;
-
+		assert (capture >=0);
 		if (capture == 6) {
-			kingCapture = true;
+				//cout << "king captured: " << newMove.toString() << endl;
+		kingCapture = true;
 			//	//	illegalCount += 1;
 			return 666663;
 		}
@@ -147,6 +148,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
 		// back to "position" = expensive take back move
 		if (kingCapture){
+			//cout << "caught king capture: " << newMove.toString() << endl;
 			kingCapture = false;
 			//ignore this move, though
 		}else{
@@ -229,12 +231,12 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
 	for(Move newMove: moves){
 		int capture = newMove.captured;
-		assert(capture != 0);
+		assert(capture > 0);
 		//int capturing = abs(position.board[newMove.from]);
 		if (capture == 6) {
 			kingCapture = true;
 			//	//	illegalCount += 1;
-			cout << "captured King: " << newMove.toString() << endl;
+			//cout << "captured King: " << newMove.toString() << endl;
 			return -666663;
 		}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
@@ -249,7 +251,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//	illegalCount += 1;
 			//	moveStack.pop();
 			kingCapture = false;
-			cout << "ignoring: " << newMove.toString() << endl;
+			//cout << "ignoring: " << newMove.toString() << endl;
 		} else {
 				loopCount++;
 			if (value >= beta) {
