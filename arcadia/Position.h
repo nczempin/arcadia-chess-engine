@@ -36,6 +36,7 @@ public:
 	int blackKing;
 
 	void print(){
+		cout << "onMove: " << (onMove?"W":"B")<<endl;
 		for (int i = 11; i < MAX_BOARD_SIZE; ++i){
 			if (i%10>=1 && i%10 <=8){
 				cout << setw(2)<< board[i];
