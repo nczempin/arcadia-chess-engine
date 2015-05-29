@@ -8,7 +8,7 @@ using namespace std;
 
 class Move{
 public:
-	Move(int from=-1, int to=-1, unsigned int captured = 0, unsigned int promoted = 0){
+	Move(int from=-1, int to=-1, unsigned int captured=0 , unsigned int promoted = 0){
 		this->from = from;
 		this->to = to;
 		this->captured = captured;
@@ -52,7 +52,7 @@ public:
 		if (to!=other.to){
 			return 	to < other.to;
 		}
-		//TODO else???
+        return false; //TODO else???
 	}
 	bool isCastling(int piece) {
 		return (piece == 6) && (abs(from - to) == 2);

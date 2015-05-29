@@ -1,5 +1,6 @@
 #pragma once
 #include <deque>
+#include <chrono>
 
 #include "global.h"
 #include "Move.h"
@@ -16,8 +17,10 @@ public:
 	~Searcher(void);
 	Move bestMove;
 	int bestValue;
+	int oldBestValue;
 	bool done;
 	int idDepth;
+	bool kingCapture;
 	deque<Move> pv;
 	int quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
 	int alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
@@ -26,7 +29,7 @@ public:
 		MoveGenerator mg;
 		vector<Move> moves = mg.generateLegalMoves(p);
 		if (moves.size() == 0){
-			return Move();
+			return Move(-1,-1,0);
 		} else if (moves.size() == 1){
 			return moves.front();
 		} else {
@@ -34,16 +37,28 @@ public:
 			return m;
 		}
 	}
+
+	void updateNps(){
+		chrono::duration<double> elapsed_seconds = chrono::system_clock::now()-Info::start;
+		double seconds = elapsed_seconds.count();
+		Info::nps =  (Info::nodes/seconds);
+	}
+
 	void printInfo(){
 		cout << "info depth " << idDepth;
 		cout << " seldepth " << Info::seldepth;
 		cout << " currmove " << Info::currmove.toString();
 		cout << " currmovenumber " << Info::currmovenumber;
+		cout << " nodes " << Info::nodes;
+		updateNps();
+		cout << " nps " << Info::nps;
 		cout << " score ";
 		if (bestValue >80000){
 			cout << "mate " <<   idDepth/2 ;
-		}else {
-			cout << "cp " <<   bestValue ;
+		}else if (bestValue<900000){
+			cout << "cp " << oldBestValue;
+		}else{
+			cout << "cp " <<   bestValue;
 		}
 		cout << " pv ";
 		for(Move m: pv){

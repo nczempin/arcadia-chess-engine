@@ -10,13 +10,14 @@
 #include "Position.h"
 #include "MoveGenerator.h"
 #include "Searcher.h"
+#include "Evaluator.h"
 
 using namespace std;
 
 Position p;
 Searcher s;
-string extractPosition(string);
-string extractMoves(string);
+static string extractPosition(string);
+static string extractMoves(string);
 future<Move> fut;
 vector<string> &split(const string &s, char delim, vector<string> &elems) {
 	stringstream ss(s);
@@ -68,18 +69,21 @@ long calculateTimePerMove(long t, long inc, int movesToGo){
 		retVal = 100L;
 	return retVal;
 }
-chrono::system_clock::time_point start;
+
 void resetClock(){
-	start = chrono::system_clock::now();
+	Info::start = chrono::system_clock::now();
 }
+
+
+int timePerMove;
 bool timeUp()
 {
-	/*   if (timePerMove <= 0L)
-	return false;*/
+	if (timePerMove <= 0L)
+		return false;
 	//return false;
-	chrono::system_clock::time_point now = chrono::system_clock::now(); 
-	chrono::duration<double> elapsed_seconds = now-start; 
-	return elapsed_seconds.count() >= 20; //TODO make a parameter
+	auto now = chrono::system_clock::now(); 
+	chrono::duration<double> elapsed_seconds = now-Info::start; 
+	return elapsed_seconds.count() >= timePerMove/1000.0;
 }
 
 
@@ -150,7 +154,7 @@ bool invalidSquare(int next) {
 Move asyncAnalyze(){
 	Move bestmove = s.analyze(p);
 	s.printInfo();
-	cout << "info string after fut.get" << endl;
+	//cout << "info string after fut.get" << endl;
 	cout << "bestmove " << bestmove.toString() << endl;
 	return bestmove;
 }
@@ -211,6 +215,17 @@ void startBrain() {
 	//printInfoThread.start();
 }
 
+
+int extractIntValue(string parameters, string s){
+	size_t index = parameters.find(s);
+	if (index == string::npos) {
+		return 0;
+	}
+	int searchFrom = index + s.length() + 1;
+	string extracted = parameters.substr(searchFrom);
+	string first = split(extracted,' ')[0];
+	return stoi(extracted);
+}
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
@@ -224,15 +239,15 @@ void parse(string toParse) {
 		char perftDepthParameter = toParse[6];//'4'; //TODO extract from toParse
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
 
-		chrono::time_point<chrono::system_clock> start, end;
+		chrono::time_point<chrono::system_clock> end;
 
 
 		//TODO do this more elegantly
 		for (int i = 0; i< perftDepth; ++i){
-			start = chrono::system_clock::now();
+			Info::start = chrono::system_clock::now();
 			int nodes = perft (p, i+1);
 			end = chrono::system_clock::now();
-			chrono::duration<double> elapsed_seconds = end-start;
+			chrono::duration<double> elapsed_seconds = end-Info::start;
 			cout << i+1 << ", " << nodes << " @ "  << elapsed_seconds.count()<<endl;
 			time_t end_time = chrono::system_clock::to_time_t(end);
 		}
@@ -258,7 +273,32 @@ void parse(string toParse) {
 
 	}else if (toParse == "isready"){
 		cout << "readyok" << endl;
+	}else if (toParse == "eval"){
+		int v = Evaluator::getValue(p);
+		cout << "Value: " << v << endl;
 	}else if (startsWith("go", toParse)){
+		int wtime = extractIntValue(toParse, "wtime");
+		int btime = extractIntValue(toParse, "btime");
+		int winc = extractIntValue(toParse, "winc");
+		int binc = extractIntValue(toParse, "binc");
+		int mtg = extractIntValue(toParse, "movestogo");
+		if (mtg == 0){
+			mtg = 25;
+		}
+
+		long tpm;
+		if (p.onMove) {
+			tpm = calculateTimePerMove(wtime,winc,mtg);
+		} else {
+			tpm = calculateTimePerMove(btime, binc,mtg);
+		}
+		timePerMove = tpm;
+
+
+		/*    this.engine.setMovesToGo(mtg);
+		this.engine.setTimes(wtime, btime, winc, binc);
+		int depth = extractIntValue(parameters, "depth");
+		this.engine.setDepth(depth);*/
 		startBrain();
 	}else if (startsWith("stop", toParse)){
 		stopBrain();
