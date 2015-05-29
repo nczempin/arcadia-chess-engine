@@ -1016,41 +1016,7 @@ public:
 	//		return wpc;
 	//	}
 	//
-	//	PieceCount countWhitePieces() {
-	//		int queensCount = 0;
-	//		int rookCount = 0;
-	//		int knightsCount = 0;
-	//		int bishopsCount = 0;
-	//		int pawnsCount = 0;
-	//		for (Iterator wpIt = whitePieces.iterator(); wpIt.hasNext();) {
-	//			int i = ((Integer) wpIt.next()).intValue();
-	//			int piece = board[i];
-	//			switch (piece) {
-	//			case 1:
-	//				pawnsCount++;
-	//				break;
-	//
-	//			case 4:
-	//				rookCount++;
-	//				break;
-	//
-	//			case 3:
-	//				bishopsCount++;
-	//				break;
-	//
-	//			case 2:
-	//				knightsCount++;
-	//				break;
-	//
-	//			case 5:
-	//				queensCount++;
-	//			}
-	//
-	//		}
-	//
-	//		PieceCount wpc = new PieceCount(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
-	//		return wpc;
-	//	}
+	
 	//
 	//	int enPassant() {
 	//		return enPassantSquare;
