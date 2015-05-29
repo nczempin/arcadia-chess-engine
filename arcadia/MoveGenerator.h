@@ -176,26 +176,28 @@ public:
 		if (invalidSquare(next))
 			return ;
 		int capturedPiece = position.board[next];
-		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove))))
+		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove)))){
+			int absCapturedPiece = -(capturedPiece);
 			if (next / (row + multi * 6) == 1) {
-				Move m = Move(from, next, capturedPiece, 5);
+				Move m = Move(from, next, absCapturedPiece, 5);
 				moves.push_back(m);
 #ifdef USE_UNDERPROMOTION
-				m = Move(from, next, capturedPiece, 4);
+				m = Move(from, next, absCapturedPiece, 4);
 				moves.push_back(m);
-				m = Move(from, next, capturedPiece, 3);
+				m = Move(from, next, absCapturedPiece, 3);
 				moves.push_back(m);
-				m = Move(from, next, capturedPiece, 2);
+				m = Move(from, next, absCapturedPiece, 2);
 				moves.push_back(m);
 #endif
 			} else {
-				Move m = Move(from, next, capturedPiece);
+				Move m = Move(from, next, absCapturedPiece);
 				moves.push_back(m);
 			}
 			if (position.enPassantSquare == next) {
 				Move m = Move(from, next, 1); //hardcoded pawn, because it is not taken from the actual "next" square
 				moves.push_back(m);
 			}
+		}
 	}
 	static void generatePawnCaptures(int from,vector<Move>& moves) {
 		int multi = 10;
