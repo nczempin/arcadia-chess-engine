@@ -53,6 +53,7 @@ Get all the features of Eden 0.0.13 in.
 
 ##Probable focus for the next version##
 * more raw speed
+* find out why it is only minimally stronger than 0.0.5, despite the massive nps increase
 * whatever else it takes to beat this version!
 
 If you test this, please let me know your results.
