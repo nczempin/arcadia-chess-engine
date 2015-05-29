@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 
+#include <cassert>
+
 #include "global.h"
 
 using namespace std;
@@ -9,6 +11,8 @@ using namespace std;
 class Move{
 public:
 	Move(int from=-1, int to=-1, unsigned int captured=0 , unsigned int promoted = 0){
+		assert(captured>=0);
+		assert(promoted>=0);
 		this->from = from;
 		this->to = to;
 		this->captured = captured;
