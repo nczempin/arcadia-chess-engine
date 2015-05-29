@@ -134,7 +134,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		int capture = newMove.captured;
 		assert (capture >=0);
 		if (capture == 6) {
-				cout << "king captured: " << newMove.toString() << endl;
+				//cout << "king captured: " << newMove.toString() << endl;
 		kingCapture = true;
 			//	//	illegalCount += 1;
 			return 666663;
@@ -148,18 +148,18 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
 		// back to "position" = expensive take back move
 		if (kingCapture){
-			cout << "caught king capture: " << newMove.toString() << endl;
+			//cout << "caught king capture: " << newMove.toString() << endl;
 			kingCapture = false;
 			//ignore this move, though
 		}else{
 			++actualMoves;
 
 			if (value >= beta){
-				cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
+				//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
 				return beta;
 			}
 			if (value > alpha) {
-				cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
+				//cout << "new best: " << newMove.toString() << ", " << value << " > " << alpha << endl;
 				alpha = value;
 				lineUp = lineDown;
 				lineUp.push_front(newMove);
