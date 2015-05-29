@@ -178,8 +178,8 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	if (actualMoves==0){
 		vector<Move> moves = MoveGenerator::generateLegalMoves(position);
 		if (moves.size()==0){
-			cout << "no more moves!" << endl;
-			position.print();
+			//cout << "no more moves!" << endl;
+			//position.print();
 			if (position.isReceivingCheck()){
 				return -888888; // Checkmate
 			}else{
@@ -219,7 +219,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		alpha = v;
 	}
 	//kingCapture = false;
-	//int loopCount = 0;
+	int loopCount = 0;
 	vector<Move> moves;
 	moves.reserve(10);
 	MoveGenerator::generateAllCaptures(position,moves);
@@ -232,6 +232,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		if (capture == 6) {
 			kingCapture = true;
 			//	//	illegalCount += 1;
+			cout << "captured King: " << newMove.toString() << endl;
 			return -666663;
 		}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
@@ -246,8 +247,9 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//	illegalCount += 1;
 			//	moveStack.pop();
 			kingCapture = false;
+			cout << "ignoring: " << newMove.toString() << endl;
 		} else {
-			//	loopCount++;
+				loopCount++;
 			if (value >= beta) {
 				//moveStack.pop();
 				return beta;
@@ -269,6 +271,18 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//moveStack.pop();
 		}
 		//}
+	}
+	if (loopCount==0){
+		vector<Move> legalMoves = MoveGenerator::generateLegalMoves(position);
+		if (legalMoves.size()==0){
+			//cout << "no more moves!" << endl;
+			//position.print();
+			if (position.isReceivingCheck()){
+				return -888888; // Checkmate
+			}else{
+				return 0; // Stalemate
+			}
+		}
 	}
 	/*	if (loopCount == 0) {
 	nextPos.initNonCaptureMoveGenerator();
