@@ -120,9 +120,9 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	int value = 0;
 	if (depth >= idDepth){
 		deque<Move> lineDown;
-		//value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
+		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
 		lineUp = lineDown;
-		value = Evaluator::getValue(position);
+		//value = Evaluator::getValue(position);
 		return value;
 	}
 	vector<Move> moves;
@@ -231,12 +231,12 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
 	for(Move newMove: moves){
 		int capture = newMove.captured;
-		assert(capture != 0);
+		assert(capture > 0);
 		//int capturing = abs(position.board[newMove.from]);
 		if (capture == 6) {
 			kingCapture = true;
 			//	//	illegalCount += 1;
-			cout << "captured King: " << newMove.toString() << endl;
+			//cout << "captured King: " << newMove.toString() << endl;
 			return -666663;
 		}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
@@ -251,7 +251,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//	illegalCount += 1;
 			//	moveStack.pop();
 			kingCapture = false;
-			cout << "ignoring: " << newMove.toString() << endl;
+			//cout << "ignoring: " << newMove.toString() << endl;
 		} else {
 				loopCount++;
 			if (value >= beta) {
