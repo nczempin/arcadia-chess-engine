@@ -1,4 +1,4 @@
-#Arcadia 0.0.5#
+#Arcadia 0.0.6#
 
 Hello there!
 Have fun with my chess engine "Arcadia"!
@@ -11,44 +11,48 @@ Use a program like "Arena" (www.playwitharena.com) to play against it, or let ot
 
 You can freely use it.
 
-This is version 0.0.5, released 2015-05-25.
+This is version 0.0.6, released 2015-05-29.
 
 ##Features##
 - supports the very basics of the UCI protocol (for chess engines)
 
 - knows all rules of chess, including castling and en passant
 - can sub-promote if necessary, i. e. take a knight instead of a queen on promotion
-- knows about stalemate
+- knows about stalemate [does it, though? 0.0.6 seems to have problems]
 
 ##Some implementation notes##
 * straightforward alpha-beta
 * Iterative Deepening
-* Simple time control: When the time limit is reached (hardcoded 20 seconds for now), it returns the best-so-far move.
+* time control using UCI "go" command
 * naive Quiescence Search using only captures
 * Basic Shannon-type (one-dimensional array) 10 x 8 board
 
 ##Playing strength##
-* Version 0.0.5 is a significant improvement over version 0.0.4.
+* Version 0.0.6 is a mild improvement over version 0.0.5.
 * It is very weak, maybe around 1000 Elo on the usual chess engines Elo lists
-* roughly the same strength as Eden 0.0.8, definitely better than Eden 0.0.7
+* roughly the sightly stronger than Eden 0.0.8, definitely weaker than Eden 0.0.9
 
 ##Test suites I ran##
 ###WAC 300(Intel i7 3930k, 20 seconds per move)###
 * 0.0.5: 92,
+* 0.0.6: 97
 
 ##UCI protocol features##
-* go, will always stop after 20 seconds
+* go, defaults to "infinite", but will use winc etc.
 * stop
 * only "id", "uciok", "readyok" and "bestmove" (without "ponder") is sent back
 
+##Perft##
+* embarrassingly slow "perft" command (e. g. "perft 7")
+* "divide" command
+
 ##TODO LIST = Limitations/Known Bugs/Future Features (in no particular order)##
+Seems to have problems with stalemate/mate detection
+endgame evaluation
 Get all the features of Eden 0.0.13 in.
 
 ##Probable focus for the next version##
 * more raw speed
-* UCI protocol compliance: use the "go" time parameters properly
-* UCI protocol compliance: show "nodes" and "nps"
-
 * whatever else it takes to beat this version!
 
 If you test this, please let me know your results.
@@ -59,6 +63,13 @@ I love feedback (criticism, questions, tournament reports, games played by Eden,
 * GitHub
 * BitBucket
  
+
+#Changes from 0.0.5->0.0.6#
+* switched from fully legal to pseudo-legal
+* various "comfort" features such as displaying nodes and nps properly
+* migrated more parts of Eden's evaluation function
+* gave the move generator vector<Move> an initial size
+* more optimizations and bugfixes
 
 #Changes from 0.0.4->0.0.5#
 * optimizations and bugfixes
