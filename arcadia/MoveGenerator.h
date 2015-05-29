@@ -193,11 +193,13 @@ public:
 				Move m = Move(from, next, absCapturedPiece);
 				moves.push_back(m);
 			}
+		}
 			if (position.enPassantSquare == next) {
 				Move m = Move(from, next, 1); //hardcoded pawn, because it is not taken from the actual "next" square
+			//cout << "generated " << m.toString() << endl;
 				moves.push_back(m);
 			}
-		}
+
 	}
 	static void generatePawnCaptures(int from,vector<Move>& moves) {
 		int multi = 10;
