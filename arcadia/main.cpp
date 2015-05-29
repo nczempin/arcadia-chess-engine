@@ -229,7 +229,7 @@ int extractIntValue(string parameters, string s){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 8/3Pk3/2K5/8/8/8/8/8 b - - 0 1 ";
+		toParse = "position fen 5K2/8/2qk4/2nPp3/3r4/6B1/B7/3R4 w - e6 0 1 ";
 	}
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
