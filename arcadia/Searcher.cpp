@@ -120,22 +120,23 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 	int value = 0;
 	if (depth >= idDepth){
 		deque<Move> lineDown;
-		value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
+		//value = quiescence_alphabeta(depth, position, alpha, beta,lineDown);
 		lineUp = lineDown;
-		//value = Evaluator::getValue(position);
+		value = Evaluator::getValue(position);
 		return value;
 	}
 	vector<Move> moves;
 	moves.reserve(40);
 	MoveGenerator::generateAllMoves(position,moves);
-	int actualMoves = 0;
+	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+		int actualMoves = 0;
 	for(Move newMove : moves){
 		int capture = newMove.captured;
 
 		if (capture == 6) {
 			kingCapture = true;
 			//	//	illegalCount += 1;
-			return -666663;
+			return 666663;
 		}
 		//expensive way to make next move
 		Position nextPos = position.copyPosition();
@@ -209,6 +210,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//		return 0;
 	//	}
 	int v = Evaluator::getValue(position);
+	return v;
 	/*if (depth>20){
 	return -v;
 	}*/
