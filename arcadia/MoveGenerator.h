@@ -177,7 +177,7 @@ public:
 			return ;
 		int capturedPiece = position.board[next];
 		if ((capturedPiece != 0) && (((capturedPiece < 0) && (position.onMove)) || ((capturedPiece > 0) && (!position.onMove)))){
-			int absCapturedPiece = -(capturedPiece);
+			int absCapturedPiece = abs(capturedPiece);
 			if (next / (row + multi * 6) == 1) {
 				Move m = Move(from, next, absCapturedPiece, 5);
 				moves.push_back(m);
