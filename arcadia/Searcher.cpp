@@ -125,18 +125,10 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		//value = Evaluator::getValue(position);
 		return value;
 	}
-	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
 	vector<Move> moves;
 	moves.reserve(40);
 	MoveGenerator::generateAllMoves(position,moves);
-	if (moves.size()==0){
-		//cout << "no more moves!" << endl;
-		if (position.isReceivingCheck()){
-			return -888888; // Checkmate
-		}else{
-			return 0; // Stalemate
-		}
-	}
+	int actualMoves = 0;
 	for(Move newMove : moves){
 		int capture = newMove.captured;
 
@@ -157,6 +149,7 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 			kingCapture = false;
 			//ignore this move, though
 		}else{
+			++actualMoves;
 
 			if (value >= beta){
 				//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
@@ -175,11 +168,24 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 				}
 			}
 		}
+
 		if (timeUp()){
 			done = true;
 			return alpha;
 		}
 
+	}
+	if (actualMoves==0){
+		vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+		if (moves.size()==0){
+			cout << "no more moves!" << endl;
+			position.print();
+			if (position.isReceivingCheck()){
+				return -888888; // Checkmate
+			}else{
+				return 0; // Stalemate
+			}
+		}
 	}
 	return alpha;
 }
