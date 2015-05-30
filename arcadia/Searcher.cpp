@@ -125,25 +125,19 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		//value = Evaluator::getValue(position);
 		return value;
 	}
-	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
 	vector<Move> moves;
 	moves.reserve(40);
 	MoveGenerator::generateAllMoves(position,moves);
-	if (moves.size()==0){
-		//cout << "no more moves!" << endl;
-		if (position.isReceivingCheck()){
-			return -888888; // Checkmate
-		}else{
-			return 0; // Stalemate
-		}
-	}
+	//vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+		int actualMoves = 0;
 	for(Move newMove : moves){
 		int capture = newMove.captured;
-
+		assert (capture >=0);
 		if (capture == 6) {
-			kingCapture = true;
+				//cout << "king captured: " << newMove.toString() << endl;
+		kingCapture = true;
 			//	//	illegalCount += 1;
-			return -666663;
+			return 666663;
 		}
 		//expensive way to make next move
 		Position nextPos = position.copyPosition();
@@ -154,9 +148,11 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 		value = -alphabeta(depth + 1, nextPos, -beta, -alpha,lineDown);
 		// back to "position" = expensive take back move
 		if (kingCapture){
+			//cout << "caught king capture: " << newMove.toString() << endl;
 			kingCapture = false;
 			//ignore this move, though
 		}else{
+			++actualMoves;
 
 			if (value >= beta){
 				//cout << "beta cutoff " << value<< " >= "<< beta <<": "<<newMove.toString()<<endl; 
@@ -175,11 +171,24 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
 				}
 			}
 		}
+
 		if (timeUp()){
 			done = true;
 			return alpha;
 		}
 
+	}
+	if (actualMoves==0){
+		vector<Move> moves = MoveGenerator::generateLegalMoves(position);
+		if (moves.size()==0){
+			//cout << "no more moves!" << endl;
+			//position.print();
+			if (position.isReceivingCheck()){
+				return -888888; // Checkmate
+			}else{
+				return 0; // Stalemate
+			}
+		}
 	}
 	return alpha;
 }
@@ -203,6 +212,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//		return 0;
 	//	}
 	int v = Evaluator::getValue(position);
+	return v;
 	/*if (depth>20){
 	return -v;
 	}*/
@@ -213,7 +223,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		alpha = v;
 	}
 	//kingCapture = false;
-	//int loopCount = 0;
+	int loopCount = 0;
 	vector<Move> moves;
 	moves.reserve(10);
 	MoveGenerator::generateAllCaptures(position,moves);
@@ -221,11 +231,12 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//vector<Move> legalMoves = MoveGenerator::removeIllegalMoves(moves);
 	for(Move newMove: moves){
 		int capture = newMove.captured;
-		assert(capture != 0);
+		assert(capture > 0);
 		//int capturing = abs(position.board[newMove.from]);
 		if (capture == 6) {
 			kingCapture = true;
 			//	//	illegalCount += 1;
+			//cout << "captured King: " << newMove.toString() << endl;
 			return -666663;
 		}
 		//	if (!shouldBeIgnored(nextPos, newMove, capture, capturing)) {
@@ -240,8 +251,9 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//	illegalCount += 1;
 			//	moveStack.pop();
 			kingCapture = false;
+			//cout << "ignoring: " << newMove.toString() << endl;
 		} else {
-			//	loopCount++;
+				loopCount++;
 			if (value >= beta) {
 				//moveStack.pop();
 				return beta;
@@ -263,6 +275,18 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 			//moveStack.pop();
 		}
 		//}
+	}
+	if (loopCount==0){
+		vector<Move> legalMoves = MoveGenerator::generateLegalMoves(position);
+		if (legalMoves.size()==0){
+			//cout << "no more moves!" << endl;
+			//position.print();
+			if (position.isReceivingCheck()){
+				return -888888; // Checkmate
+			}else{
+				return 0; // Stalemate
+			}
+		}
 	}
 	/*	if (loopCount == 0) {
 	nextPos.initNonCaptureMoveGenerator();
