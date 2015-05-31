@@ -276,18 +276,18 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 		}
 		//}
 	}
-	if (loopCount==0){
-		vector<Move> legalMoves = MoveGenerator::generateLegalMoves(position);
-		if (legalMoves.size()==0){
-			//cout << "no more moves!" << endl;
-			//position.print();
-			if (position.isReceivingCheck()){
-				return -888888; // Checkmate
-			}else{
-				return 0; // Stalemate
-			}
-		}
-	}
+	//if (loopCount==0){
+	//	vector<Move> legalMoves = MoveGenerator::generateLegalMoves(position);
+	//	if (legalMoves.size()==0){
+	//		//cout << "no more moves!" << endl;
+	//		//position.print();
+	//		if (position.isReceivingCheck()){
+	//			return -888888; // Checkmate
+	//		}else{
+	//			return 0; // Stalemate
+	//		}
+	//	}
+	//}
 	/*	if (loopCount == 0) {
 	nextPos.initNonCaptureMoveGenerator();
 	boolean legal = false;
