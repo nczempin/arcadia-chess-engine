@@ -566,11 +566,11 @@ public:
 	} 
 	static	int getValue(Position p) {
 		position = p;
-		int wpc = countWhitePieces();
-		int bpc = countBlackPieces();
-		if (wpc+bpc <=2){
-			return 0;
-		}
+		//int wpc = countWhitePieces();
+		//int bpc = countBlackPieces();
+		//if (wpc+bpc <=2){
+		//	return 0;
+		//}
 		//if (isInsufficientMaterial(wpc, bpc))
 		//	return 0;
 		//if (isInsufficientMaterial(bpc, wpc))
