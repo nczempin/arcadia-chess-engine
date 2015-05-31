@@ -499,7 +499,7 @@ public:
 				int capturedPiece = board[next];
 				if (capturedPiece != 0) {
 					if ((capturedPiece < 0) && (color)) {
-						moves.push_back(Move(from, next, capturedPiece));
+						moves.push_back(Move(from, next, -capturedPiece)); //TODO hack
 					} else if ((capturedPiece > 0) && (!color)) {
 						moves.push_back(Move(from, next, capturedPiece));
 					}
