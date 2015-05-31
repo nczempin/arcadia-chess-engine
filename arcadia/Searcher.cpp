@@ -212,7 +212,7 @@ int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int 
 	//		return 0;
 	//	}
 	int v = Evaluator::getValue(position);
-	return v;
+	//return v;
 	/*if (depth>20){
 	return -v;
 	}*/
