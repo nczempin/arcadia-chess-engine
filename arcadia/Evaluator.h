@@ -336,7 +336,7 @@ public:
 				blackCValue += getPieceMidgameValue(i, p, file);
 				if (p==-3){
 					if (possibleBishopPairBlack){
-						whiteCValue += 50;
+						blackCValue += 50;
 					}
 					possibleBishopPairBlack=true;
 				}
