@@ -1676,13 +1676,7 @@ public:
 	//
 
 	//
-	//	//bool isInsufficientMaterial(PieceCount pc) {
-	//	//	return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
-	//	//}
-	//
-	//	//bool isInsufficientMaterial(PieceCount we, PieceCount other) {
-	//	//	return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
-	//	//}
+	
 	//
 		//
 	//	bool isLegal(int from, int to, int promotedTo) {

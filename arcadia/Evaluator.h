@@ -378,20 +378,25 @@ public:
 		} else
 			retValue = pawnSquareValues[(i - 20)] / 2;
 		int rank = i / 10;
-		if (isPassed(i, plusminus, file, rank))
+        if (isPassed(i, plusminus, file, rank)){
 			if (plusminus > 0) {
 				retValue = (int) (retValue + 1.5 * passedPawnProgression[(rank - 2)]);
-			} else
+            } else {
 				retValue = (int) (retValue + 1.5 * passedPawnProgression[(7 - rank)]);
-			if (isIsolated(i, file))
+            }
+        }
+        if (isIsolated(i, file)){
 				retValue -= 15;
-			if (isDoubled(i, file))
+        }
+        if (isDoubled(i, file)){
 				retValue -= 18;
+        }
 			return retValue;
 	}
 	static bool hasNoEnemyPawns(int piece, int file) {
-		if ((file < 1) || (file > 8))
+        if ((file < 1) || (file > 8)){
 			return true;
+        }
 		int plusminus = abs(piece) / piece;
 		int conversion = 80 + file;
 		int start = file + 10;

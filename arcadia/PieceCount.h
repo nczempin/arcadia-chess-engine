@@ -1,3 +1,5 @@
+#pragma once
+
 class PieceCount{
     int pawnsCount;
      int knightsCount;
