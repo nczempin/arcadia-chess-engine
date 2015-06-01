@@ -45,7 +45,7 @@
 		9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveGenerator.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D561B1C3E49004F3023 /* MoveGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveGenerator.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D571B1C3E49004F3023 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D581B1C3E49004F3023 /* PieceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceCount.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D581B1C3E49004F3023 /* PieceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceCount.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
 		9FEA0D591B1C3E49004F3023 /* Position.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Position.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D5A1B1C3E49004F3023 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Searcher.cpp; sourceTree = SOURCE_ROOT; };
