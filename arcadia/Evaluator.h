@@ -317,13 +317,15 @@ public:
         int blackCValue = 0;
         bool possibleBishopPairWhite = false;
         bool possibleBishopPairBlack = false;
+        int pawnStructureValue = evaluatePawnStructureMidgame();
+        
         int p;
         for (int i = 11; i< 89; ++i){
             int file = i % 10;
             p = position.board[i];
             if (p == 0){
                 continue;
-            }else if (p > 0){ //WHITE
+            }else if (p > 1){ //WHITE
                 whiteMValue += getPieceMaterialValue(p);
                 whiteCValue += getPieceMidgameValue(i, p, file);
                 if (p==3){
@@ -332,7 +334,7 @@ public:
                     }
                     possibleBishopPairWhite=true;
                 }
-            } else { //BLACK
+            } else if (p<-1){ //BLACK
                 blackMValue += getPieceMaterialValue(p);
                 blackCValue += getPieceMidgameValue(i, p, file);
                 if (p==-3){
@@ -341,6 +343,8 @@ public:
                     }
                     possibleBishopPairBlack=true;
                 }
+            }else {
+                //pawns, already dealt with elsewhere
             }
         }
         
@@ -365,7 +369,7 @@ public:
                 bonus = 74;
             blackValue += bonus;
         }
-        int retVal = whiteValue + whiteMValue  - blackValue - blackMValue;
+        int retVal = pawnStructureValue + whiteValue + whiteMValue  - blackValue - blackMValue;
         if (position.onMove == BLACK)
             retVal = -retVal;
         return retVal;
@@ -629,43 +633,38 @@ public:
     //		return retVal;
     //	}
     //
-    //	int evaluatePawnStructureMidgame() {
-    //		Info.pawnStructureProbes += 1;
-    //		Long pz = getPawnZobrist();
-    //		if (pawnHash.containsKey(pz)) {
-    //			Integer value = (Integer) pawnHash.get(pz);
-    //			Info.pawnStructureHits += 1;
-    //			return value.intValue();
-    //		}
-    //		Iterator whiteIt = whitePieces.iterator();
-    //		int whiteCValue = 0;
-    //		while (whiteIt.hasNext()) {
-    //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-    //			int whitePiece = board[whiteSquare];
-    //			if (whitePiece == 1) {
-    //				whiteCValue += pieceValues[0];
-    //				int file = whiteSquare % 10;
-    //				whiteCValue += getPawnMidgameValue(whiteSquare, whitePiece, file);
-    //			}
-    //		}
-    //		Iterator blackIt = blackPieces.iterator();
-    //		int blackCValue = 0;
-    //		while (blackIt.hasNext()) {
-    //			int blackSquare = ((Integer) blackIt.next()).intValue();
-    //			int blackPiece = board[blackSquare];
-    //			if (blackPiece == -1) {
-    //				blackCValue += pieceValues[0];
-    //				int file = blackSquare % 10;
-    //				blackCValue += getPawnMidgameValue(blackSquare, blackPiece, file);
-    //			}
-    //		}
-    //		int retVal = whiteCValue - blackCValue;
-    //		Info.phSize = pawnHash.size();
-    //		if (Info.phSize < 256000)
-    //			pawnHash.put(pz, new Integer(retVal));
-    //		return retVal;
-    //	}
-      static int getEndgameValue(PieceCount wpc, PieceCount bpc) {
+    static	int evaluatePawnStructureMidgame() {
+        //    		Info.pawnStructureProbes += 1;
+        //    		Long pz = getPawnZobrist();
+        //    		if (pawnHash.containsKey(pz)) {
+        //    			Integer value = (Integer) pawnHash.get(pz);
+        //    			Info.pawnStructureHits += 1;
+        //    			return value.intValue();
+        //    		}
+        int whiteCValue = 0;
+        int whiteMValue = 0;
+        int blackCValue = 0;
+        int blackMValue = 0;
+        for (int i = 11; i< 89; ++i){
+            int p = position.board[i];
+            
+            if (p == 1){ //WHITE
+                whiteMValue += pieceValues[0];
+                int file = i % 10;
+                whiteCValue += getPawnMidgameValue(i, p, file);
+            }else if (p == -1) {
+                blackMValue += pieceValues[0];
+                int file = i % 10;
+                blackCValue += getPawnMidgameValue(i, p, file);
+            }
+        }
+        int retVal = whiteCValue + whiteMValue - blackCValue -blackMValue;
+        //        Info.phSize = pawnHash.size();
+        //        if (Info.phSize < 256000)
+        //            pawnHash.put(pz, new Integer(retVal));
+        return retVal;
+    }
+    static int getEndgameValue(PieceCount wpc, PieceCount bpc) {
         int whiteValue = 0;
         int whiteMValue =0;
         int whiteCValue =0;
@@ -676,7 +675,7 @@ public:
         int blackCValue =0;
         bool possibleBishopPairWhite = false;
         bool possibleBishopPairBlack = false;
-          int pawnStructureValue = 0;//TODOevaluatePawnStructureEndgame();
+        int pawnStructureValue = 0;//TODOevaluatePawnStructureEndgame();
         int p;
         for (int i = 11; i< 89; ++i){
             p = position.board[i];
