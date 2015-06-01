@@ -571,7 +571,28 @@ public:
     static bool isInsufficientMaterial(PieceCount pc) {
         return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
     }
+   static 	bool isEndgame(PieceCount wpc) {
+//    		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
+//    			return true;
+    		int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
+    		int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
+    		if (wpc.queensCount >= 1) {
+    			if (wpc.rookCount > 1)
+    				return false;
+    			if ((wpc.rookCount == 1) && (lightPiecesCount > 0))
+    				return false;
+    			return lightPiecesCount <= 2;
+    		}
+    		if ((wpc.rookCount > 1) && (lightPiecesCount > 2))
+    			return false;
+    		if ((wpc.rookCount == 1) && (lightPiecesCount > 3)) {
+    			return false;
+    		}
     
+    		//isEndGame = bool.TRUE;
+    		return true;
+    	}
+
 static    bool isInsufficientMaterial(PieceCount we, PieceCount other) {
         return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
     }	static	int getValue(Position p) {
@@ -585,9 +606,9 @@ static    bool isInsufficientMaterial(PieceCount we, PieceCount other) {
 			return 0;
 		if (isInsufficientMaterial(bpc, wpc))
 			return 0;
-		//if (isEndgame()) {
-		//	return getEndgameValue();
-		//}
+		if (isEndgame(wpc)||isEndgame(bpc)) {
+			return getEndgameValue();
+		}
 		return getMidgameValue();
 	}
 

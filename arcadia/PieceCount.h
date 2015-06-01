@@ -1,13 +1,14 @@
 #pragma once
 
 class PieceCount{
+    public:
     int pawnsCount;
      int knightsCount;
        int bishopsCount;
        int rookCount;
        int queensCount;
     
-public:
+
     PieceCount(int pawnsCount, int knightsCount, int bishopsCount, int rookCount, int queensCount){
         this->pawnsCount = pawnsCount;
         this->knightsCount = knightsCount;

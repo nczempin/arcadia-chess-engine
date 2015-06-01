@@ -1655,28 +1655,7 @@ public:
 	//	}
 	//
 	
-	//	bool isEndgame() {
-	//		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
-	//			return true;
-	//		int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
-	//		int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
-	//		if (wpc.queensCount >= 1) {
-	//			if (wpc.rookCount > 1)
-	//				return false;
-	//			if ((wpc.rookCount == 1) && (lightPiecesCount > 0))
-	//				return false;
-	//			return lightPiecesCount <= 2;
-	//		}
-	//		if ((wpc.rookCount > 1) && (lightPiecesCount > 2))
-	//			return false;
-	//		if ((wpc.rookCount == 1) && (lightPiecesCount > 3)) {
-	//			return false;
-	//		}
-	//
-	//		isEndGame = bool.TRUE;
-	//		return true;
-	//	}
-	//
+		//
 
 	//
 	
