@@ -3,6 +3,9 @@
 
 #include "Move.h"
 #include "global.h"
+#include "PieceCount.h"
+
+
 #include "Character.h"
 #include <iomanip>
 #include <string>
@@ -1060,80 +1063,7 @@ public:
 	//
 	//	}
 	//*/
-	//	int evaluatePawnStructureEndgame() {
-	//		Info.pawnStructureProbes += 1;
-	//		Long pz = getPawnZobrist();
-	//		if (pawnHash.containsKey(pz)) {
-	//			Integer value = (Integer) pawnHash.get(pz);
-	//			Info.pawnStructureHits += 1;
-	//			return value.intValue();
-	//		}
-	//		Iterator whiteIt = whitePieces.iterator();
-	//		int whiteCValue = 0;
-	//		while (whiteIt.hasNext()) {
-	//			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	//			int whitePiece = board[whiteSquare];
-	//			if (whitePiece == 1) {
-	//				whiteCValue += pieceValues[0];
-	//				int file = whiteSquare % 10;
-	//				whiteCValue += getPawnEndgameValue(whiteSquare, whitePiece, file);
-	//			}
-	//		}
-	//		Iterator blackIt = blackPieces.iterator();
-	//		int blackCValue = 0;
-	//		while (blackIt.hasNext()) {
-	//			int blackSquare = ((Integer) blackIt.next()).intValue();
-	//			int blackPiece = board[blackSquare];
-	//			if (blackPiece == -1) {
-	//				blackCValue += pieceValues[0];
-	//				int file = blackSquare % 10;
-	//				blackCValue += getPawnEndgameValue(blackSquare, blackPiece, file);
-	//			}
-	//		}
-	//		int retVal = whiteCValue - blackCValue;
-	//		Info.phSize = pawnHash.size();
-	//		if (Info.phSize < 256000)
-	//			pawnHash.put(pz, new Integer(retVal));
-	//		return retVal;
-	//	}
-	//
-	//	int evaluatePawnStructureMidgame() {
-	//		Info.pawnStructureProbes += 1;
-	//		Long pz = getPawnZobrist();
-	//		if (pawnHash.containsKey(pz)) {
-	//			Integer value = (Integer) pawnHash.get(pz);
-	//			Info.pawnStructureHits += 1;
-	//			return value.intValue();
-	//		}
-	//		Iterator whiteIt = whitePieces.iterator();
-	//		int whiteCValue = 0;
-	//		while (whiteIt.hasNext()) {
-	//			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	//			int whitePiece = board[whiteSquare];
-	//			if (whitePiece == 1) {
-	//				whiteCValue += pieceValues[0];
-	//				int file = whiteSquare % 10;
-	//				whiteCValue += getPawnMidgameValue(whiteSquare, whitePiece, file);
-	//			}
-	//		}
-	//		Iterator blackIt = blackPieces.iterator();
-	//		int blackCValue = 0;
-	//		while (blackIt.hasNext()) {
-	//			int blackSquare = ((Integer) blackIt.next()).intValue();
-	//			int blackPiece = board[blackSquare];
-	//			if (blackPiece == -1) {
-	//				blackCValue += pieceValues[0];
-	//				int file = blackSquare % 10;
-	//				blackCValue += getPawnMidgameValue(blackSquare, blackPiece, file);
-	//			}
-	//		}
-	//		int retVal = whiteCValue - blackCValue;
-	//		Info.phSize = pawnHash.size();
-	//		if (Info.phSize < 256000)
-	//			pawnHash.put(pz, new Integer(retVal));
-	//		return retVal;
-	//	}
-	//
+	
 	void fillRank(int rank, string currentRank) {
 		int rankStart = 10 * (rank + 1);
 		int next = rankStart + 1;
@@ -1424,71 +1354,7 @@ public:
 	//		return castleShortWhite;
 	//	}
 	//
-	//	int getEndgameValue() {
-	//		if ((wpc.isKBNK()) || (bpc.isKBNK()))
-	//			adjustKingSquaresForKBNK();
-	//		int whiteValue = 0;
-	//		int blackValue = 0;
-	//		bool possibleBishopPairWhite = false;
-	//		bool possibleBishopPairBlack = false;
-	//		int pawnStructureValue = evaluatePawnStructureEndgame();
-	//		Iterator whiteIt = whitePieces.iterator();
-	//		int whiteCValue = 0;
-	//		int whiteMValue = 0;
-	//		while (whiteIt.hasNext()) {
-	//			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	//			int whitePiece = board[whiteSquare];
-	//			if (whitePiece != 1) {
-	//				whiteMValue += getPieceMaterialValue(whitePiece);
-	//				if (whitePiece == 3) {
-	//					if (possibleBishopPairWhite)
-	//						whiteCValue += 50;
-	//					possibleBishopPairWhite = true;
-	//				}
-	//				int file = whiteSquare % 10;
-	//				whiteCValue += getPieceEndgameValue(whiteSquare, whitePiece, file);
-	//			}
-	//		}
-	//		Iterator blackIt = blackPieces.iterator();
-	//		int blackCValue = 0;
-	//		int blackMValue = 0;
-	//		while (blackIt.hasNext()) {
-	//			int blackSquare = ((Integer) blackIt.next()).intValue();
-	//			int blackPiece = board[blackSquare];
-	//			if (blackPiece != -1) {
-	//				blackMValue += getPieceMaterialValue(blackPiece);
-	//				if (blackPiece == -3) {
-	//					if (possibleBishopPairBlack)
-	//						blackCValue += 50;
-	//					possibleBishopPairBlack = true;
-	//				}
-	//				int file = blackSquare % 10;
-	//				blackCValue += getPieceEndgameValue(blackSquare, blackPiece, file);
-	//			}
-	//		}
-	//		blackValue += blackCValue;
-	//		whiteValue += whiteCValue;
-	//		if (whiteMValue > blackMValue + 105) {
-	//			int diff = whiteMValue + blackMValue - 500;
-	//			int bonus = (8000 - diff) / 100;
-	//			if (bonus > 74)
-	//				bonus = 74;
-	//			whiteValue += bonus;
-	//		} else if (blackMValue > whiteMValue + 105) {
-	//			int diff = blackMValue + whiteMValue - 500;
-	//			int bonus = (8000 - diff) / 100;
-	//			if (bonus > 74)
-	//				bonus = 74;
-	//			blackValue += bonus;
-	//		}
-	//		int retVal = 0;
-	//		retVal += whiteValue + whiteMValue + pawnStructureValue - blackValue - blackMValue;
-	//		if (onMove() == BLACK)
-	//			retVal = -retVal;
-	//		return retVal;
-	//	}
-	//
-
+	
 	//	Long getPawnZobrist() {
 	//		if (pawnZobrist != null)
 	//			return pawnZobrist;
@@ -1652,37 +1518,10 @@ public:
 	//	}
 	//
 	
-	//	bool isEndgame() {
-	//		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
-	//			return true;
-	//		int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
-	//		int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
-	//		if (wpc.queensCount >= 1) {
-	//			if (wpc.rookCount > 1)
-	//				return false;
-	//			if ((wpc.rookCount == 1) && (lightPiecesCount > 0))
-	//				return false;
-	//			return lightPiecesCount <= 2;
-	//		}
-	//		if ((wpc.rookCount > 1) && (lightPiecesCount > 2))
-	//			return false;
-	//		if ((wpc.rookCount == 1) && (lightPiecesCount > 3)) {
-	//			return false;
-	//		}
-	//
-	//		isEndGame = bool.TRUE;
-	//		return true;
-	//	}
-	//
+		//
 
 	//
-	//	//bool isInsufficientMaterial(PieceCount pc) {
-	//	//	return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
-	//	//}
-	//
-	//	//bool isInsufficientMaterial(PieceCount we, PieceCount other) {
-	//	//	return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
-	//	//}
+	
 	//
 		//
 	//	bool isLegal(int from, int to, int promotedTo) {
