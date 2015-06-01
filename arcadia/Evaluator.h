@@ -4,6 +4,7 @@
 
 #include "Position.h"
 #include "global.h"
+#include "PieceCount.h"
 
 class Evaluator
 {
@@ -484,8 +485,7 @@ public:
 			retValue -= 16;
 		return retValue;
 	}
-	static  	int countWhitePieces() {
-		//TODO go back to the original
+	static PieceCount countWhitePieces() {
 		int queensCount = 0;
 		int rookCount = 0;
 		int knightsCount = 0;
@@ -520,12 +520,11 @@ public:
 
 		}
 
-		//PieceCount wpc = new PieceCount(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
+		PieceCount wpc(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
 		//return pawnsCount+knightsCount+bish;
-		return count;
+		return wpc;
 	}
-	static  	int countBlackPieces() {
-		//TODO go back to the original
+	static PieceCount countBlackPieces() {
 		int queensCount = 0;
 		int rookCount = 0;
 		int knightsCount = 0;
@@ -560,9 +559,9 @@ public:
 
 		}
 
-		//PieceCount wpc = new PieceCount(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
+		PieceCount wpc(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
 		//return pawnsCount+knightsCount+bish;
-		return count;
+		return wpc;
 	} 
 	static	int getValue(Position p) {
 		position = p;
