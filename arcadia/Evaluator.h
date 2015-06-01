@@ -30,54 +30,54 @@ public:
     static int knightSquareValues[];
     
     static int passedPawnProgression[];
-    /*int getPieceEndgameValue(int square, int piece, int file) {
-     int retValue = 0;
-     switch (piece) {
-     case -6:
-     
-     case 6:
-     retValue = getKingEndgameValue(square, piece);
-     break;
-     
-     case -5:
-     
-     case 5:
-     retValue = -25;
-     break;
-     
-     case -4:
-     
-     case 4:
-     retValue = 25;
-     break;
-     
-     case -3:
-     
-     case 3:
-     retValue = 3;
-     break;
-     
-     case -2:
-     
-     case 2:
-     retValue = -3;
-     break;
-     
-     case -1:
-     
-     case 1:
-     retValue = getPawnEndgameValue(square, piece, file);
-     break;
-     
-     case 0:
-     
-     default:
-     retValue = 0;
-     }
-     
-     return retValue;
-     }
-     */
+    static int getPieceEndgameValue(int square, int piece, int file) {
+        int retValue = 0;
+        switch (piece) {
+            case -6:
+                
+            case 6:
+                retValue = getKingEndgameValue(square, piece);
+                break;
+                
+            case -5:
+                
+            case 5:
+                retValue = -25;
+                break;
+                
+            case -4:
+                
+            case 4:
+                retValue = 25;
+                break;
+                
+            case -3:
+                
+            case 3:
+                retValue = 3;
+                break;
+                
+            case -2:
+                
+            case 2:
+                retValue = -3;
+                break;
+                
+            case -1:
+                
+            case 1:
+                retValue = getPawnEndgameValue(square, piece, file);
+                break;
+                
+            case 0:
+                
+            default:
+                retValue = 0;
+        }
+        
+        return retValue;
+    }
+    
     static int getPieceMaterialValue(int piece) {
         //if (piece == 0) {
         //	System.out.println("moveStack: " + EdenBrain.moveStack);
@@ -173,7 +173,7 @@ public:
         retVal -= minTropism / 4;
         return retVal;
     }
-    int getKingEndgameValue(int square, int piece) {
+    static int getKingEndgameValue(int square, int piece) {
         return kingEndgameSquareValues[(square - 10)];
     }
     
@@ -371,7 +371,7 @@ public:
         return retVal;
     }
     
-    int getPawnEndgameValue(int i, int plusminus, int file) {
+    static int getPawnEndgameValue(int i, int plusminus, int file) {
         int retValue = 0;
         if (plusminus > 0) {
             retValue = pawnSquareValues[(79 - i)] / 2;
@@ -567,7 +567,7 @@ public:
         PieceCount wpc(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
         //return pawnsCount+knightsCount+bish;
         return wpc;
-    } 
+    }
     static bool isInsufficientMaterial(PieceCount pc) {
         return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
     }
@@ -620,7 +620,7 @@ public:
                             possibleBishopPairWhite = true;
                         }
                         int file = i % 10;
-                        whiteCValue += 1;//TODOgetPieceEndgameValue(i, p, file);
+                        whiteCValue += getPieceEndgameValue(i, p, file);
                     }
                 }else {//BLACK
                     if (p != -1) {
