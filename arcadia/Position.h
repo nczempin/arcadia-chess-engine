@@ -1427,71 +1427,7 @@ public:
 	//		return castleShortWhite;
 	//	}
 	//
-	//	int getEndgameValue() {
-	//		if ((wpc.isKBNK()) || (bpc.isKBNK()))
-	//			adjustKingSquaresForKBNK();
-	//		int whiteValue = 0;
-	//		int blackValue = 0;
-	//		bool possibleBishopPairWhite = false;
-	//		bool possibleBishopPairBlack = false;
-	//		int pawnStructureValue = evaluatePawnStructureEndgame();
-	//		Iterator whiteIt = whitePieces.iterator();
-	//		int whiteCValue = 0;
-	//		int whiteMValue = 0;
-	//		while (whiteIt.hasNext()) {
-	//			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-	//			int whitePiece = board[whiteSquare];
-	//			if (whitePiece != 1) {
-	//				whiteMValue += getPieceMaterialValue(whitePiece);
-	//				if (whitePiece == 3) {
-	//					if (possibleBishopPairWhite)
-	//						whiteCValue += 50;
-	//					possibleBishopPairWhite = true;
-	//				}
-	//				int file = whiteSquare % 10;
-	//				whiteCValue += getPieceEndgameValue(whiteSquare, whitePiece, file);
-	//			}
-	//		}
-	//		Iterator blackIt = blackPieces.iterator();
-	//		int blackCValue = 0;
-	//		int blackMValue = 0;
-	//		while (blackIt.hasNext()) {
-	//			int blackSquare = ((Integer) blackIt.next()).intValue();
-	//			int blackPiece = board[blackSquare];
-	//			if (blackPiece != -1) {
-	//				blackMValue += getPieceMaterialValue(blackPiece);
-	//				if (blackPiece == -3) {
-	//					if (possibleBishopPairBlack)
-	//						blackCValue += 50;
-	//					possibleBishopPairBlack = true;
-	//				}
-	//				int file = blackSquare % 10;
-	//				blackCValue += getPieceEndgameValue(blackSquare, blackPiece, file);
-	//			}
-	//		}
-	//		blackValue += blackCValue;
-	//		whiteValue += whiteCValue;
-	//		if (whiteMValue > blackMValue + 105) {
-	//			int diff = whiteMValue + blackMValue - 500;
-	//			int bonus = (8000 - diff) / 100;
-	//			if (bonus > 74)
-	//				bonus = 74;
-	//			whiteValue += bonus;
-	//		} else if (blackMValue > whiteMValue + 105) {
-	//			int diff = blackMValue + whiteMValue - 500;
-	//			int bonus = (8000 - diff) / 100;
-	//			if (bonus > 74)
-	//				bonus = 74;
-	//			blackValue += bonus;
-	//		}
-	//		int retVal = 0;
-	//		retVal += whiteValue + whiteMValue + pawnStructureValue - blackValue - blackMValue;
-	//		if (onMove() == BLACK)
-	//			retVal = -retVal;
-	//		return retVal;
-	//	}
-	//
-
+	
 	//	Long getPawnZobrist() {
 	//		if (pawnZobrist != null)
 	//			return pawnZobrist;
