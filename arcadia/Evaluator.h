@@ -497,26 +497,26 @@ public:
 			if (piece > 0){
 				count++;
 			}
-			//switch (piece) {
-			//case 1:
-			//	pawnsCount++;
-			//	break;
+			switch (piece) {
+			case 1:
+				pawnsCount++;
+				break;
 
-			//case 4:
-			//	rookCount++;
-			//	break;
+			case 4:
+				rookCount++;
+				break;
 
-			//case 3:
-			//	bishopsCount++;
-			//	break;
+			case 3:
+				bishopsCount++;
+				break;
 
-			//case 2:
-			//	knightsCount++;
-			//	break;
+			case 2:
+				knightsCount++;
+				break;
 
-			//case 5:
-			//	queensCount++;
-			//}
+			case 5:
+				queensCount++;
+			}
 
 		}
 
@@ -537,26 +537,26 @@ public:
 			if (piece < 0){
 				count++;
 			}
-			//switch (-piece) {
-			//case 1:
-			//	pawnsCount++;
-			//	break;
+			switch (-piece) {
+			case 1:
+				pawnsCount++;
+				break;
 
-			//case 4:
-			//	rookCount++;
-			//	break;
+			case 4:
+				rookCount++;
+				break;
 
-			//case 3:
-			//	bishopsCount++;
-			//	break;
+			case 3:
+				bishopsCount++;
+				break;
 
-			//case 2:
-			//	knightsCount++;
-			//	break;
+			case 2:
+				knightsCount++;
+				break;
 
-			//case 5:
-			//	queensCount++;
-			//}
+			case 5:
+				queensCount++;
+			}
 
 		}
 
