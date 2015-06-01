@@ -8,7 +8,7 @@ Why is it called Arcadia? It's a port to C++ of my Java engine "Eden", which is 
 ##How to use it##
 Use a program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments, or let it solve problem test suites (usually contained in ".epd" files.
 
-This is version 0.0.7, released 2015-05-31. You can freely use it.
+This is version 0.0.8, released 2015-05-31. You can freely use it.
 
 ##Features##
 - supports the very basics of the UCI protocol (for chess engines)
@@ -34,6 +34,7 @@ This is version 0.0.7, released 2015-05-31. You can freely use it.
 * 0.0.5: 92
 * 0.0.6: 97
 * 0.0.7: 123
+* 0.0.8: 102
 
 ##UCI protocol features##
 * go, defaults to "infinite", but will use winc etc.
