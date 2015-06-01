@@ -3,6 +3,9 @@
 
 #include "Move.h"
 #include "global.h"
+#include "PieceCount.h"
+
+
 #include "Character.h"
 #include <iomanip>
 #include <string>

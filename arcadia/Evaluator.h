@@ -386,12 +386,12 @@ public:
             }
         }
         if (isIsolated(i, file)){
-				retValue -= 15;
+            retValue -= 15;
         }
         if (isDoubled(i, file)){
-				retValue -= 18;
+            retValue -= 18;
         }
-			return retValue;
+        return retValue;
 	}
 	static bool hasNoEnemyPawns(int piece, int file) {
         if ((file < 1) || (file > 8)){
@@ -568,17 +568,23 @@ public:
 		//return pawnsCount+knightsCount+bish;
 		return wpc;
 	} 
-	static	int getValue(Position p) {
+    static bool isInsufficientMaterial(PieceCount pc) {
+        return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
+    }
+    
+static    bool isInsufficientMaterial(PieceCount we, PieceCount other) {
+        return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
+    }	static	int getValue(Position p) {
 		position = p;
-		//int wpc = countWhitePieces();
-		//int bpc = countBlackPieces();
+		PieceCount wpc = countWhitePieces();
+		PieceCount bpc = countBlackPieces();
 		//if (wpc+bpc <=2){
 		//	return 0;
 		//}
-		//if (isInsufficientMaterial(wpc, bpc))
-		//	return 0;
-		//if (isInsufficientMaterial(bpc, wpc))
-		//	return 0;
+		if (isInsufficientMaterial(wpc, bpc))
+			return 0;
+		if (isInsufficientMaterial(bpc, wpc))
+			return 0;
 		//if (isEndgame()) {
 		//	return getEndgameValue();
 		//}
