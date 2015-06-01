@@ -613,7 +613,7 @@ public:
             } else {
                 if (p > 0){ //WHITE
                     if (p != 1) {
-                        whiteMValue += 7;//TODOgetPieceMaterialValue(whitePiece);
+                        whiteMValue += getPieceMaterialValue(p);
                         if (p == 3) {
                             if (possibleBishopPairWhite)
                                 whiteCValue += 50;
@@ -624,7 +624,7 @@ public:
                     }
                 }else {//BLACK
                     if (p != -1) {
-                        blackMValue += 7;//TODOgetPieceMaterialValue(p);
+                        blackMValue += getPieceMaterialValue(p);
                         if (p == -3) {
                             if (possibleBishopPairBlack)
                                 blackCValue += 50;
