@@ -606,7 +606,6 @@ public:
         int pawnStructureValue = 7;//TODOevaluatePawnStructureEndgame();
         int p;
         for (int i = 11; i< 89; ++i){
-            int file = i % 10;
             p = position.board[i];
             if (p == 0){
                 continue;
@@ -631,7 +630,7 @@ public:
                             possibleBishopPairBlack = true;
                         }
                         int file = i % 10;
-                        blackCValue += 7;//TODOgetPieceEndgameValue(blackSquare, blackPiece, file);
+                        blackCValue += getPieceEndgameValue(i, p, file);
                     }
                 }
             }
