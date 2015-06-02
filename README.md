@@ -1,4 +1,4 @@
-#Arcadia 0.0.7#
+#Arcadia 0.0.9#
 
 Hello there!
 Have fun with my chess engine "Arcadia"!
