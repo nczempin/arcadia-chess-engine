@@ -79,17 +79,11 @@ public:
     }
     
     static int getPieceMaterialValue(int piece) {
-        //if (piece == 0) {
-        //	System.out.println("moveStack: " + EdenBrain.moveStack);
-        //	throw new IllegalStateException("piece==0");
-        //}
-        
         int retVal = pieceValues[(abs(piece) - 1)];
         return retVal;
     }
     
     static int getPieceMidgameValue(int square, int piece, int file) {
-        //cout << "sq: " << square << ", pc: "<< piece;
         int retValue = 0;
         switch (piece) {
             case -6:
@@ -133,7 +127,6 @@ public:
             default:
                 retValue = 0;
         }
-        //cout << "; value : " << retValue << endl;
         return retValue;
     }
     
@@ -142,7 +135,7 @@ public:
         return retValue;
     }
     
-    static	int getHorizontalKingTropism(int plusminus, int square) {
+    static int getHorizontalKingTropism(int plusminus, int square) {
         int kingPosition;
         
         if (plusminus > 0) {
@@ -153,7 +146,7 @@ public:
         int yourRank = kingPosition % 10;
         return abs(myRank - yourRank);
     }
-    static	int getVerticalKingTropism(int plusminus, int square) {
+    static int getVerticalKingTropism(int plusminus, int square) {
         int kingPosition;
         
         if (plusminus > 0) {
@@ -526,11 +519,9 @@ public:
                 case 5:
                     queensCount++;
             }
-            
         }
         
         PieceCount wpc(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
-        //return pawnsCount+knightsCount+bish;
         return wpc;
     }
     static PieceCount countBlackPieces() {
@@ -569,13 +560,12 @@ public:
         }
         
         PieceCount wpc(pawnsCount, knightsCount, bishopsCount, rookCount, queensCount);
-        //return pawnsCount+knightsCount+bish;
         return wpc;
     }
     static bool isInsufficientMaterial(PieceCount pc) {
         return (pc.loneKing()) || (pc.oneLight()) || (pc.isNN());
     }
-    static 	bool isEndgame(PieceCount wpc) {
+    static bool isEndgame(PieceCount wpc) {
         //    		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
         //    			return true;
         int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
@@ -596,43 +586,7 @@ public:
         //isEndGame = bool.TRUE;
         return true;
     }
-    //	int evaluatePawnStructureEndgame() {
-    //		Info.pawnStructureProbes += 1;
-    //		Long pz = getPawnZobrist();
-    //		if (pawnHash.containsKey(pz)) {
-    //			Integer value = (Integer) pawnHash.get(pz);
-    //			Info.pawnStructureHits += 1;
-    //			return value.intValue();
-    //		}
-    //		Iterator whiteIt = whitePieces.iterator();
-    //		int whiteCValue = 0;
-    //		while (whiteIt.hasNext()) {
-    //			int whiteSquare = ((Integer) whiteIt.next()).intValue();
-    //			int whitePiece = board[whiteSquare];
-    //			if (whitePiece == 1) {
-    //				whiteCValue += pieceValues[0];
-    //				int file = whiteSquare % 10;
-    //				whiteCValue += getPawnEndgameValue(whiteSquare, whitePiece, file);
-    //			}
-    //		}
-    //		Iterator blackIt = blackPieces.iterator();
-    //		int blackCValue = 0;
-    //		while (blackIt.hasNext()) {
-    //			int blackSquare = ((Integer) blackIt.next()).intValue();
-    //			int blackPiece = board[blackSquare];
-    //			if (blackPiece == -1) {
-    //				blackCValue += pieceValues[0];
-    //				int file = blackSquare % 10;
-    //				blackCValue += getPawnEndgameValue(blackSquare, blackPiece, file);
-    //			}
-    //		}
-    //		int retVal = whiteCValue - blackCValue;
-    //		Info.phSize = pawnHash.size();
-    //		if (Info.phSize < 256000)
-    //			pawnHash.put(pz, new Integer(retVal));
-    //		return retVal;
-    //	}
-    //
+    
     static	int evaluatePawnStructureMidgame() {
         //    		Info.pawnStructureProbes += 1;
         //    		Long pz = getPawnZobrist();
@@ -761,17 +715,14 @@ public:
     }
     
     
-    static    bool isInsufficientMaterial(PieceCount we, PieceCount other) {
+    static bool isInsufficientMaterial(PieceCount we, PieceCount other) {
         return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
     }
-    static	int getValue(Position p) {
+    static int getValue(Position p) {
         position = p;
         PieceCount wpc = countWhitePieces();
         PieceCount bpc = countBlackPieces();
-        //if (wpc+bpc <=2){
-        //	return 0;
-        //}
-        if (isInsufficientMaterial(wpc, bpc))
+         if (isInsufficientMaterial(wpc, bpc))
             return 0;
         if (isInsufficientMaterial(bpc, wpc))
             return 0;
