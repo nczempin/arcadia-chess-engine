@@ -231,6 +231,9 @@ void parse(string toParse) {
 	if (toParse=="."){
 		toParse = "position fen 8/1ppr1kp1/p1p4p/8/8/5P2/PPP1RKPP/8 w - - ";
 	}
+    if (toParse=="ps"){
+        toParse="position startpos";
+    }
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
 		cout << "id author Nicolai Czempin" << endl;
