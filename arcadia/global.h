@@ -6,7 +6,7 @@
 #include <chrono>
 
 using namespace std;
-const string VERSION = "0.0.9dev";
+const string VERSION = "0.0.9";
 
 #define USE_UNDERPROMOTION
 
