@@ -229,7 +229,7 @@ int extractIntValue(string parameters, string s){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 8/1ppr1kp1/p1p4p/8/8/5P2/PPP1RKPP/8 w - - ";
+		toParse = "position fen r3r1k1/1p3nqp/2pp4/p4p2/Pn3P1Q/2N4P/1PPR2P1/3R1BK1 w - - 0 1";
 	}
     if (toParse=="ps"){
         toParse="position startpos";
