@@ -1,6 +1,4 @@
 #include "Position.h"
-#include "HashMap.h"
-#include "Map.h"
 
 #include <cmath>
 	 //const Map* Position::pawnHash = new HashMap(256000, 1.0F);

@@ -339,7 +339,7 @@ public:
                 castleShortBlack = false;
                 castleLongBlack = false;
             }
-        } else if (movingPieceType == 4)
+        } else if (movingPieceType == 4){
             if (onMove) {
                 if (move.from == 18) {
                     castleShortWhite = false;
@@ -348,8 +348,12 @@ public:
                 }
             } else if (move.from == 88) {
                 castleShortBlack = false;
-            } else if (move.from == 81)
+            } else if (move.from == 81) {
                 castleLongBlack = false;
+            } else {
+                //nothing?
+            }
+        }
         int p = board[11];
         if (p != 4)
             castleLongWhite = false;
@@ -614,7 +618,7 @@ public:
         if (invalidSquare(next))
             return;
         int capturedPiece = board[next];
-        if ((capturedPiece != 0) && (((capturedPiece < 0) && (color)) || ((capturedPiece > 0) && (!color))))
+        if ((capturedPiece != 0) && (((capturedPiece < 0) && (color)) || ((capturedPiece > 0) && (!color)))){
             if (next / (row + multi * 6) == 1) {
                 //promotion
                 Move m = Move(from, next, capturedPiece, 5);
@@ -631,6 +635,7 @@ public:
                 Move m = Move(from, next, capturedPiece);
                 moves.push_back(m);
             }
+        }
         if (enPassantSquare == next) {
             Move m = Move(from, next, capturedPiece);
             moves.push_back(m);
@@ -1905,9 +1910,9 @@ public:
     
     int moveRaw(Move move) {
         int movingPiece = board[move.from];
-        int fromSquare = move.from;
-        int capturedSquare = move.to;
-        int capturedPiece = board[capturedSquare];
+        //int fromSquare = move.from;
+        //int capturedSquare = move.to;
+        //int capturedPiece = board[capturedSquare];
         /*	if (capturedPiece > 0) {
          whitePieces.remove(capturedSquare);
          if (capturedPiece == 6) {

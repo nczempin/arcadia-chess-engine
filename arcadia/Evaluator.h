@@ -569,7 +569,7 @@ public:
         //    		if ((isEndGame != null) && (isEndGame.equals(bool.TRUE)))
         //    			return true;
         int lightPiecesCount = wpc.knightsCount + wpc.bishopsCount;
-        int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
+        //int heavyPiecesCount = wpc.rookCount + wpc.queensCount;
         if (wpc.queensCount >= 1) {
             if (wpc.rookCount > 1)
                 return false;

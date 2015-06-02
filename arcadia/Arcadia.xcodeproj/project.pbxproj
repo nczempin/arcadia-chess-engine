@@ -29,18 +29,13 @@
 
 /* Begin PBXFileReference section */
 		9FEA0D3E1B1C3805004F3023 /* Arcadia */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Arcadia; sourceTree = BUILT_PRODUCTS_DIR; };
-		9FEA0D481B1C3E49004F3023 /* Boolean.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boolean.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D491B1C3E49004F3023 /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D4A1B1C3E49004F3023 /* Evaluator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Evaluator.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D4B1B1C3E49004F3023 /* Evaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluator.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D4C1B1C3E49004F3023 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D4D1B1C3E49004F3023 /* HashMap.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HashMap.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D4E1B1C3E49004F3023 /* Info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Info.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D4F1B1C3E49004F3023 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D501B1C3E49004F3023 /* Integer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Integer.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D511B1C3E49004F3023 /* Long.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Long.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D521B1C3E49004F3023 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
-		9FEA0D531B1C3E49004F3023 /* Map.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Map.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D541B1C3E49004F3023 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveGenerator.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D561B1C3E49004F3023 /* MoveGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveGenerator.h; sourceTree = SOURCE_ROOT; };
@@ -50,12 +45,9 @@
 		9FEA0D5A1B1C3E49004F3023 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Searcher.cpp; sourceTree = SOURCE_ROOT; };
 		9FEA0D5C1B1C3E49004F3023 /* Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Searcher.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D5D1B1C3E49004F3023 /* Set.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Set.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D5E1B1C3E49004F3023 /* SortedSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SortedSet.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D5F1B1C3E49004F3023 /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Square.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D601B1C3E49004F3023 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = SOURCE_ROOT; };
 		9FEA0D611B1C3E49004F3023 /* TransEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransEntry.h; sourceTree = SOURCE_ROOT; };
-		9FEA0D621B1C3E49004F3023 /* TreeSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TreeSet.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,18 +80,13 @@
 		9FEA0D401B1C3805004F3023 /* Arcadia */ = {
 			isa = PBXGroup;
 			children = (
-				9FEA0D481B1C3E49004F3023 /* Boolean.h */,
 				9FEA0D491B1C3E49004F3023 /* Character.h */,
 				9FEA0D4A1B1C3E49004F3023 /* Evaluator.cpp */,
 				9FEA0D4B1B1C3E49004F3023 /* Evaluator.h */,
 				9FEA0D4C1B1C3E49004F3023 /* global.h */,
-				9FEA0D4D1B1C3E49004F3023 /* HashMap.h */,
 				9FEA0D4E1B1C3E49004F3023 /* Info.cpp */,
 				9FEA0D4F1B1C3E49004F3023 /* Info.h */,
-				9FEA0D501B1C3E49004F3023 /* Integer.h */,
-				9FEA0D511B1C3E49004F3023 /* Long.h */,
 				9FEA0D521B1C3E49004F3023 /* main.cpp */,
-				9FEA0D531B1C3E49004F3023 /* Map.h */,
 				9FEA0D541B1C3E49004F3023 /* Move.h */,
 				9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */,
 				9FEA0D561B1C3E49004F3023 /* MoveGenerator.h */,
@@ -109,12 +96,9 @@
 				9FEA0D5A1B1C3E49004F3023 /* Position.h */,
 				9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */,
 				9FEA0D5C1B1C3E49004F3023 /* Searcher.h */,
-				9FEA0D5D1B1C3E49004F3023 /* Set.h */,
-				9FEA0D5E1B1C3E49004F3023 /* SortedSet.h */,
 				9FEA0D5F1B1C3E49004F3023 /* Square.h */,
 				9FEA0D601B1C3E49004F3023 /* String.h */,
 				9FEA0D611B1C3E49004F3023 /* TransEntry.h */,
-				9FEA0D621B1C3E49004F3023 /* TreeSet.h */,
 			);
 			path = Arcadia;
 			sourceTree = "<group>";
