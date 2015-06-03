@@ -35,7 +35,7 @@ This is version 0.0.9, released 2015-06-02. You can freely use it.
 * 0.0.6: 97
 * 0.0.7: 123
 * 0.0.8: 102
-* 0.0.9: 135
+* 0.0.9: 135 (130 @ 10 seconds, 153 @ 1 min, 164 @ 2 min)
 
 ##UCI protocol features##
 * go, defaults to "infinite", but will use wtime, winc, btime, binc, movestogo
