@@ -75,7 +75,7 @@ void resetClock(){
 }
 
 
-int timePerMove;
+long timePerMove;
 bool timeUp()
 {
 	if (timePerMove <= 0L)
@@ -90,7 +90,7 @@ bool timeUp()
 static string extractMoves(string parameters)
 {
 	string pattern = " moves ";
-	int index = parameters.find(pattern);
+	size_t index = parameters.find(pattern);
 	if (index == string::npos)
 	{
 		return ""; //not found
@@ -101,7 +101,7 @@ static string extractMoves(string parameters)
 static string extractPosition(string parameters)
 {
 	string pattern = "position ";
-	int index = parameters.find(pattern);
+	size_t index = parameters.find(pattern);
 	if (index == string::npos)
 	{
 		return ""; //not found
@@ -134,7 +134,7 @@ string extractFen(string positionString){
 	static string command = "fen ";
 	string retValue = positionString.substr(command.length()); // remove "fen " TODO: more fail-safe / defensive
 	//remove moves
-	int movesFoundAt =  retValue.find("moves ");
+	size_t movesFoundAt =  retValue.find("moves ");
 	if (movesFoundAt != string::npos){
 		retValue = retValue.substr(0,movesFoundAt);
 	}
@@ -162,7 +162,7 @@ Move asyncAnalyze(){
 void stopBrain()
 {
 	s.done = true; // ask the thread to finish
-	Move move = fut.get(); //wait until the thread is finished
+	fut.get(); //wait until the thread is finished
 
 	//if ((brainThread != null) && (brainThread.isAlive())) {
 	//	String move = this.brain.getBestMoveSoFar();
@@ -221,7 +221,7 @@ int extractIntValue(string parameters, string s){
 	if (index == string::npos) {
 		return 0;
 	}
-	int searchFrom = index + s.length() + 1;
+	size_t searchFrom = index + s.length() + 1;
 	string extracted = parameters.substr(searchFrom);
 	string first = split(extracted,' ')[0];
 	return stoi(extracted);
@@ -229,8 +229,11 @@ int extractIntValue(string parameters, string s){
 void parse(string toParse) {
 	// for debugging
 	if (toParse=="."){
-		toParse = "position fen 5K2/8/2qk4/2nPp3/3r4/6B1/B7/3R4 w - e6 0 1 ";
+		toParse = "position fen r3r1k1/1p3nqp/2pp4/p4p2/Pn3P1Q/2N4P/1PPR2P1/3R1BK1 w - - 0 1";
 	}
+    if (toParse=="ps"){
+        toParse="position startpos";
+    }
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
 		cout << "id author Nicolai Czempin" << endl;
@@ -249,7 +252,7 @@ void parse(string toParse) {
 			end = chrono::system_clock::now();
 			chrono::duration<double> elapsed_seconds = end-Info::start;
 			cout << i+1 << ", " << nodes << " @ "  << elapsed_seconds.count()<<endl;
-			time_t end_time = chrono::system_clock::to_time_t(end);
+			//time_t end_time = chrono::system_clock::to_time_t(end);
 		}
 		cout << "Done." << endl;
 

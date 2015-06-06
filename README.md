@@ -1,4 +1,4 @@
-#Arcadia 0.0.7#
+#Arcadia 0.0.9#
 
 Hello there!
 Have fun with my chess engine "Arcadia"!
@@ -8,7 +8,7 @@ Why is it called Arcadia? It's a port to C++ of my Java engine "Eden", which is 
 ##How to use it##
 Use a program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments, or let it solve problem test suites (usually contained in ".epd" files.
 
-This is version 0.0.8, released 2015-05-31. You can freely use it.
+This is version 0.0.9, released 2015-06-06. You can freely use it.
 
 ##Features##
 - supports the very basics of the UCI protocol (for chess engines)
@@ -25,9 +25,9 @@ This is version 0.0.8, released 2015-05-31. You can freely use it.
 * Copy/Make rather than make/unmake
 
 ##Playing strength##
-* Version 0.0.7 is actually slightly worse than version 0.0.6 in a test tournament I ran, but quite a bit better in wac.epd.
-* It is very weak, maybe around 1000 Elo on the usual chess engines Elo lists
-* roughly the sightly stronger than Eden 0.0.8, definitely weaker than Eden 0.0.9
+* It is very weak, maybe around 1100 Elo on the usual chess engines Elo lists
+* Version 0.0.9 is quite a bit stronger than version 0.0.8 in a test tournament I ran (2/6 time), and quite a bit better in wac.epd.
+* significantly stronger than Eden 0.0.8, roughly the same strength as Eden 0.0.9
 
 ##Test suites I ran##
 ###WAC 300(Intel i7 3930k, 20 seconds per move)###
@@ -35,9 +35,10 @@ This is version 0.0.8, released 2015-05-31. You can freely use it.
 * 0.0.6: 97
 * 0.0.7: 123
 * 0.0.8: 102
+* 0.0.9: 135 (130 @ 10 seconds, 153 @ 1 min, 164 @ 2 min)
 
 ##UCI protocol features##
-* go, defaults to "infinite", but will use winc etc.
+* go, defaults to "infinite", but will use wtime, winc, btime, binc, movestogo
 * stop
 * only "id", "uciok", "readyok" and "bestmove" (without "ponder") is sent back
 
@@ -46,14 +47,12 @@ This is version 0.0.8, released 2015-05-31. You can freely use it.
 * "divide" command
 
 ##TODO LIST = Limitations/Known Bugs/Future Features (in no particular order)##
-* Fix the bugs that made it worse than version 0.0.6
-* endgame evaluation
+* Speeding up pawn structure evaluation (by dynamic programming / a pawn structure hashtable)
 * Get all the features of Eden 0.0.13 in.
 
 ##Probable focus for the next version##
 * more raw speed
-* find out why it has become worse than 0.0.6
-* whatever else it takes to beat version 0.0.6!
+* whatever else it takes to beat this version!
 
 If you test this, please let me know your results.
 I love feedback (criticism, questions, tournament reports, games played by Eden, ...)! 
@@ -63,7 +62,13 @@ I love feedback (criticism, questions, tournament reports, games played by Eden,
 * GitHub
 * BitBucket
  
-#Changes from 0.0.5->0.0.7#
+#Changes from 0.0.8->0.0.9#
+* basic endgame detection and evaluation
+
+#Changes from 0.0.7->0.0.8#
+* Re-enabled quiescence search
+
+#Changes from 0.0.6->0.0.7#
 * Fixed mate and stalemate detection bug
 * Introduced some significant new bugs, probably with quiescence search
  

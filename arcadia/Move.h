@@ -10,12 +10,12 @@ using namespace std;
 
 class Move{
 public:
-	Move(int from=-1, int to=-1, unsigned int captured=0 , unsigned int promoted = 0){
-		if (captured < 0){
-			cout << "oops!" << endl;
-		}
-		assert(captured>=0);
-		assert(promoted>=0);
+	Move(int from=-1, int to=-1, int captured=0 , int promoted = 0){
+//		if (captured < 0){
+//			cout << "oops!" << endl;
+//		}
+//		assert(captured>=0);
+//		assert(promoted>=0);
 		this->from = from;
 		this->to = to;
 		this->captured = captured;

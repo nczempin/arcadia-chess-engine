@@ -1,0 +1,286 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		9FEA0D631B1C3E49004F3023 /* Evaluator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D4A1B1C3E49004F3023 /* Evaluator.cpp */; };
+		9FEA0D641B1C3E49004F3023 /* Info.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D4E1B1C3E49004F3023 /* Info.cpp */; };
+		9FEA0D651B1C3E49004F3023 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D521B1C3E49004F3023 /* main.cpp */; };
+		9FEA0D661B1C3E49004F3023 /* MoveGenerator.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */; };
+		9FEA0D671B1C3E49004F3023 /* Position.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D591B1C3E49004F3023 /* Position.cpp */; };
+		9FEA0D681B1C3E49004F3023 /* Searcher.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		9FEA0D3C1B1C3805004F3023 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9FEA0D3E1B1C3805004F3023 /* Arcadia */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = Arcadia; sourceTree = BUILT_PRODUCTS_DIR; };
+		9FEA0D491B1C3E49004F3023 /* Character.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Character.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D4A1B1C3E49004F3023 /* Evaluator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Evaluator.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D4B1B1C3E49004F3023 /* Evaluator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Evaluator.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D4C1B1C3E49004F3023 /* global.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = global.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D4E1B1C3E49004F3023 /* Info.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Info.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D4F1B1C3E49004F3023 /* Info.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Info.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D521B1C3E49004F3023 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D541B1C3E49004F3023 /* Move.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Move.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MoveGenerator.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D561B1C3E49004F3023 /* MoveGenerator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoveGenerator.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D571B1C3E49004F3023 /* Piece.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Piece.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D581B1C3E49004F3023 /* PieceCount.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PieceCount.h; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.cpp; };
+		9FEA0D591B1C3E49004F3023 /* Position.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Position.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D5A1B1C3E49004F3023 /* Position.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Position.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Searcher.cpp; sourceTree = SOURCE_ROOT; };
+		9FEA0D5C1B1C3E49004F3023 /* Searcher.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Searcher.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D5F1B1C3E49004F3023 /* Square.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Square.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D601B1C3E49004F3023 /* String.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = String.h; sourceTree = SOURCE_ROOT; };
+		9FEA0D611B1C3E49004F3023 /* TransEntry.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TransEntry.h; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		9FEA0D3B1B1C3805004F3023 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		9FEA0D351B1C3805004F3023 = {
+			isa = PBXGroup;
+			children = (
+				9FEA0D401B1C3805004F3023 /* Arcadia */,
+				9FEA0D3F1B1C3805004F3023 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		9FEA0D3F1B1C3805004F3023 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9FEA0D3E1B1C3805004F3023 /* Arcadia */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		9FEA0D401B1C3805004F3023 /* Arcadia */ = {
+			isa = PBXGroup;
+			children = (
+				9FEA0D491B1C3E49004F3023 /* Character.h */,
+				9FEA0D4A1B1C3E49004F3023 /* Evaluator.cpp */,
+				9FEA0D4B1B1C3E49004F3023 /* Evaluator.h */,
+				9FEA0D4C1B1C3E49004F3023 /* global.h */,
+				9FEA0D4E1B1C3E49004F3023 /* Info.cpp */,
+				9FEA0D4F1B1C3E49004F3023 /* Info.h */,
+				9FEA0D521B1C3E49004F3023 /* main.cpp */,
+				9FEA0D541B1C3E49004F3023 /* Move.h */,
+				9FEA0D551B1C3E49004F3023 /* MoveGenerator.cpp */,
+				9FEA0D561B1C3E49004F3023 /* MoveGenerator.h */,
+				9FEA0D571B1C3E49004F3023 /* Piece.h */,
+				9FEA0D581B1C3E49004F3023 /* PieceCount.h */,
+				9FEA0D591B1C3E49004F3023 /* Position.cpp */,
+				9FEA0D5A1B1C3E49004F3023 /* Position.h */,
+				9FEA0D5B1B1C3E49004F3023 /* Searcher.cpp */,
+				9FEA0D5C1B1C3E49004F3023 /* Searcher.h */,
+				9FEA0D5F1B1C3E49004F3023 /* Square.h */,
+				9FEA0D601B1C3E49004F3023 /* String.h */,
+				9FEA0D611B1C3E49004F3023 /* TransEntry.h */,
+			);
+			path = Arcadia;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		9FEA0D3D1B1C3805004F3023 /* Arcadia */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 9FEA0D451B1C3805004F3023 /* Build configuration list for PBXNativeTarget "Arcadia" */;
+			buildPhases = (
+				9FEA0D3A1B1C3805004F3023 /* Sources */,
+				9FEA0D3B1B1C3805004F3023 /* Frameworks */,
+				9FEA0D3C1B1C3805004F3023 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Arcadia;
+			productName = Arcadia;
+			productReference = 9FEA0D3E1B1C3805004F3023 /* Arcadia */;
+			productType = "com.apple.product-type.tool";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		9FEA0D361B1C3805004F3023 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Nicolai Czempin";
+				TargetAttributes = {
+					9FEA0D3D1B1C3805004F3023 = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+				};
+			};
+			buildConfigurationList = 9FEA0D391B1C3805004F3023 /* Build configuration list for PBXProject "Arcadia" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 9FEA0D351B1C3805004F3023;
+			productRefGroup = 9FEA0D3F1B1C3805004F3023 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				9FEA0D3D1B1C3805004F3023 /* Arcadia */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		9FEA0D3A1B1C3805004F3023 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9FEA0D661B1C3E49004F3023 /* MoveGenerator.cpp in Sources */,
+				9FEA0D631B1C3E49004F3023 /* Evaluator.cpp in Sources */,
+				9FEA0D641B1C3E49004F3023 /* Info.cpp in Sources */,
+				9FEA0D651B1C3E49004F3023 /* main.cpp in Sources */,
+				9FEA0D681B1C3E49004F3023 /* Searcher.cpp in Sources */,
+				9FEA0D671B1C3E49004F3023 /* Position.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		9FEA0D431B1C3805004F3023 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		9FEA0D441B1C3805004F3023 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		9FEA0D461B1C3805004F3023 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		9FEA0D471B1C3805004F3023 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		9FEA0D391B1C3805004F3023 /* Build configuration list for PBXProject "Arcadia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FEA0D431B1C3805004F3023 /* Debug */,
+				9FEA0D441B1C3805004F3023 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		9FEA0D451B1C3805004F3023 /* Build configuration list for PBXNativeTarget "Arcadia" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				9FEA0D461B1C3805004F3023 /* Debug */,
+				9FEA0D471B1C3805004F3023 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 9FEA0D361B1C3805004F3023 /* Project object */;
+}
