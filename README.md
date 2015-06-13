@@ -30,7 +30,7 @@ This is version 0.0.9, released 2015-06-06. You can freely use it.
 * significantly stronger than Eden 0.0.8, roughly the same strength as Eden 0.0.9
 
 ##Test suites I ran##
-###WAC 300(Intel i7 3930k, 20 seconds per move)###
+###WAC 300 (Intel i7 3930k, 20 seconds per move)###
 * 0.0.5: 92
 * 0.0.6: 97
 * 0.0.7: 123
@@ -57,10 +57,11 @@ This is version 0.0.9, released 2015-06-06. You can freely use it.
 If you test this, please let me know your results.
 I love feedback (criticism, questions, tournament reports, games played by Eden, ...)! 
 *myfirstname*.*mylastname*@gmail.com, replace *myfirstname* and *mylastname* by, well, ...)
-* Google Plus
-* Twitter
-* GitHub
-* BitBucket
+
+* Google Plus: https://plus.google.com/u/0/+NicolaiCzempin/posts
+* Twitter: https://twitter.com/nczempin
+* GitHub: https://github.com/nczempin
+* BitBucket: https://bitbucket.org/nczempin
  
 #Changes from 0.0.8->0.0.9#
 * basic endgame detection and evaluation
