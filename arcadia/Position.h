@@ -8,7 +8,7 @@
 
 #include "Character.h"
 #include <iomanip>
-#include <string>
+#include <string.h>
 #include <iterator>
 #include <list>
 using namespace std;
