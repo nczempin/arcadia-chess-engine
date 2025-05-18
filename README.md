@@ -6,7 +6,8 @@ Have fun with my chess engine "Arcadia"!
 Why is it called Arcadia? It's a port to C++ of my Java engine "Eden", which is a tribute to a program called PARADISE. For simplicity's sake I just googled for a synonym of "Eden".
 
 ## How to use it ##
-Use a program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments, or let it solve problem test suites (usually contained in ".epd" files.
+Use a program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments.
+You can also let it solve problem test suites (usually contained in ".epd" files).
 
 This is version 0.0.9, released 2015-06-06. You can freely use it.
 
