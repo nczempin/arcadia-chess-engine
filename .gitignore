@@ -67,3 +67,12 @@ packages/
 #Test files
 *.testsettings
 UserInterfaceState.xcuserstate
+
+# Additional patterns
+build/
+cmake-build-*
+*.zip
+*.tar.gz
+__pycache__/
+*.vcxproj.user
+*.xcworkspace/
