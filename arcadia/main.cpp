@@ -222,9 +222,10 @@ int extractIntValue(string parameters, string s){
 		return 0;
 	}
 	size_t searchFrom = index + s.length() + 1;
-	string extracted = parameters.substr(searchFrom);
-	string first = split(extracted,' ')[0];
-	return stoi(extracted);
+        string extracted = parameters.substr(searchFrom);
+        string first = split(extracted,' ')[0];
+        // Only parse the first whitespace-separated token
+        return stoi(first);
 }
 void parse(string toParse) {
 	// for debugging

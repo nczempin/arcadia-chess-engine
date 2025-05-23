@@ -1072,7 +1072,7 @@ public:
     void fillRank(int rank, string currentRank) {
         int rankStart = 10 * (rank + 1);
         int next = rankStart + 1;
-        for (int i = 0; i < currentRank.length(); i++) {
+        for (size_t i = 0; i < currentRank.length(); i++) {
             char currChar = currentRank[i];
             if (Character::isDigit(currChar)) {
                 int digit = Character::getNumericValue(currChar);
