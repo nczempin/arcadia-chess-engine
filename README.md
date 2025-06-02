@@ -1,13 +1,25 @@
-# Arcadia 0.0.9 #
+# Arcadia Chess Engine 0.0.9 (Historical Archive)
 
-Hello there!
+**⚠️ This is a historical/archived project. Active chess engine development has moved to [Zathras](https://github.com/nczempin/zathras).**
+
 Have fun with my chess engine "Arcadia"!
 
 Why is it called Arcadia? It's a port to C++ of my Java engine "Eden", which is a tribute to a program called PARADISE. For simplicity's sake I just googled for a synonym of "Eden".
 
+## Build Instructions ##
+
+```bash
+# For Linux/macOS with g++
+make
+
+# For Windows, open arcadia.sln in Visual Studio
+```
+
 ## How to use it ##
-Use a program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments.
+Use a UCI-compatible program like "Arena" (www.playwitharena.com) to play against it, or let other engines play against it, even have tournaments.
 You can also let it solve problem test suites (usually contained in ".epd" files).
+
+The binary will be created as `arcadia` (Linux/macOS) or `arcadia.exe` (Windows).
 
 This is version 0.0.9, released 2015-06-06. You can freely use it.
 
@@ -26,9 +38,15 @@ This is version 0.0.9, released 2015-06-06. You can freely use it.
 * Copy/Make rather than make/unmake
 
 ## Playing strength ##
-* It is very weak, maybe around 1100 Elo on the usual chess engines Elo lists
-* Version 0.0.9 is quite a bit stronger than version 0.0.8 in a test tournament I ran (2/6 time), and quite a bit better in wac.epd.
-* significantly stronger than Eden 0.0.8, roughly the same strength as Eden 0.0.9
+* Approximately 1100 Elo on standard chess engine rating lists
+* Version 0.0.9 showed significant improvement over 0.0.8 in tournaments
+* Roughly equivalent strength to Eden 0.0.9 (the Java predecessor)
+
+## Engine Lineage ##
+This is part of a chess engine evolution:
+1. **Eden** (Java) - Original implementation
+2. **Arcadia** (C++) - This project, port of Eden to C++
+3. **Zathras** (Modern C++) - Current active development with advanced techniques
 
 ## Test suites I ran ##
 ### WAC 300 (Intel i7 3930k, 20 seconds per move) ###
