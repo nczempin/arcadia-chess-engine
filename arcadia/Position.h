@@ -7,6 +7,7 @@
 
 
 #include "Character.h"
+#include <cstdint>
 #include <iomanip>
 #include <string.h>
 #include <iterator>
@@ -477,7 +478,8 @@ public:
         if (from != kingHome)
             return;
         int pieceNextToKingR = board[(from + 1)];
-        if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
+        int friendlyRook = (p > 0) ? 4 : -4;
+        if ((castlingShort) && (board[(from + 3)] == friendlyRook) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
             if (isReceivingCheck())
                 return;
             Move testCastleThrough =  Move(from, from + 1,0);
@@ -486,7 +488,7 @@ public:
             if (!testPosition.isGivingCheckForCastling(from + 1))
                 moves.push_back(Move(from, from + 2,0));
         }
-        if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
+        if ((castlingLong) && (board[(from - 4)] == friendlyRook) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
             if (isReceivingCheck())
                 return;
             Move testCastleThrough = Move(from, from - 1,0);
@@ -619,25 +621,26 @@ public:
             return;
         int capturedPiece = board[next];
         if ((capturedPiece != 0) && (((capturedPiece < 0) && (color)) || ((capturedPiece > 0) && (!color)))){
+            int absCaptured = abs(capturedPiece);
             if (next / (row + multi * 6) == 1) {
                 //promotion
-                Move m = Move(from, next, capturedPiece, 5);
+                Move m = Move(from, next, absCaptured, 5);
                 moves.push_back(m);
 #ifdef USE_UNDERPROMOTION
-                m = Move(from, next, capturedPiece, 4);
+                m = Move(from, next, absCaptured, 4);
                 moves.push_back(m);
-                m = Move(from, next, capturedPiece, 3);
+                m = Move(from, next, absCaptured, 3);
                 moves.push_back(m);
-                m = Move(from, next, capturedPiece, 2);
+                m = Move(from, next, absCaptured, 2);
                 moves.push_back(m);
 #endif
             } else {
-                Move m = Move(from, next, capturedPiece);
+                Move m = Move(from, next, absCaptured);
                 moves.push_back(m);
             }
         }
         if (enPassantSquare == next) {
-            Move m = Move(from, next, capturedPiece);
+            Move m = Move(from, next, 1);
             moves.push_back(m);
         }
     }
@@ -971,6 +974,33 @@ public:
         for (int i = 0; i < 89; i++) {
             board[i] = 0;
         }
+        whiteKing = -1;
+        blackKing = -1;
+        enPassantSquare = 0;
+        onMove = true;
+        castleLongBlack = false;
+        castleLongWhite = false;
+        castleShortBlack = false;
+        castleShortWhite = false;
+        hasCastledBlack = false;
+        hasCastledWhite = false;
+    }
+
+    uint64_t getHash() const {
+        uint64_t h = 14695981039346656037ULL;
+        for (int i = 11; i < 89; ++i) {
+            h ^= static_cast<uint64_t>(static_cast<uint8_t>(board[i] + 16));
+            h *= 1099511628211ULL;
+        }
+        uint64_t flags = (onMove ? 1ULL : 0ULL)
+            | (castleShortWhite ? 2ULL : 0ULL)
+            | (castleLongWhite ? 4ULL : 0ULL)
+            | (castleShortBlack ? 8ULL : 0ULL)
+            | (castleLongBlack ? 16ULL : 0ULL)
+            | (static_cast<uint64_t>(enPassantSquare & 0xFF) << 5);
+        h ^= flags;
+        h *= 1099511628211ULL;
+        return h;
     }
     //
     void clearEnPassantCapture(Move move) {
@@ -1072,7 +1102,7 @@ public:
     void fillRank(int rank, string currentRank) {
         int rankStart = 10 * (rank + 1);
         int next = rankStart + 1;
-        for (int i = 0; i < currentRank.length(); i++) {
+        for (size_t i = 0; i < currentRank.length(); i++) {
             char currChar = currentRank[i];
             if (Character::isDigit(currChar)) {
                 int digit = Character::getNumericValue(currChar);
@@ -1147,7 +1177,6 @@ public:
                         board[next] = 1;
                         //whitePieces.add(new Integer(next));
                 }
-                cout << next << ": " << board[next] << endl;
                 
                 next++;
             }
@@ -1680,16 +1709,14 @@ public:
             }
         }
         
-        //moves.clear();
-        //generateKingCaptures(this, moves, i, c1);
-        //for (Iterator it = moves.iterator(); it.hasNext();) {
-        //	Move move = (Move) it.next();
-        //	int piece = Math.abs(board[move.to]);
-        //	if (piece == 6) {
-        //		isGivingCheck = new bool(true);
-        //		return true;
-        //	}
-        //}
+        moves.clear();
+        generateKingCaptures(moves, i, c1);
+        for (Move move: moves) {
+            int piece = abs(board[move.to]);
+            if (piece == 6) {
+                return true;
+            }
+        }
         
         moves.clear();
         generateKnightCaptures(moves, i, c1);
@@ -1843,7 +1870,7 @@ public:
         }
         
         moves.clear();
-        //TODO	   generateKingMovesNoCastling( moves, kingPosition, kingColor);
+        generateKingCaptures(moves, kingPosition, kingColor);
         for (Move move: moves) {
             if (abs(board[move.to]) == 6) {
                 //isReceivingCheck = new bool(true);
@@ -1988,13 +2015,13 @@ public:
     
     bool onFile(int moveFrom, int kingPosition) {
         int diff = moveFrom - kingPosition;
-        return diff / 10 == 0;
+        return diff % 10 == 0;
     }
     
     
     bool onRank(int moveFrom, int kingPosition) {
         int col1 = moveFrom / 10;
-        int col2 = moveFrom / 10;
+        int col2 = kingPosition / 10;
         return col1 == col2;
     }
     //
