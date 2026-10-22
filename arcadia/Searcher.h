@@ -1,6 +1,9 @@
 #pragma once
 #include <deque>
 #include <chrono>
+#include <vector>
+#include <cstdint>
+#include <cstring>
 
 #include "global.h"
 #include "Move.h"
@@ -10,9 +13,22 @@
 
 using namespace std;
 
+struct ArcadiaTTEntry {
+	uint64_t key = 0;
+	int score = 0;
+	int16_t depth = -1;
+	uint8_t flag = 0; // 0 = EXACT, 1 = LOWER_BOUND, 2 = UPPER_BOUND
+	int8_t bestFrom = -1;
+	int8_t bestTo = -1;
+	int8_t bestPromoted = 0;
+};
+
 class Searcher
 {
 public:
+	static constexpr size_t TT_SIZE = 65536;
+	static constexpr size_t TT_MASK = TT_SIZE - 1;
+
 	Searcher(void);
 	~Searcher(void);
 	Move bestMove;
@@ -25,6 +41,18 @@ public:
 	deque<Move> pv;
 	vector<uint64_t> gameHistory;
 	vector<uint64_t> searchHistory;
+	vector<ArcadiaTTEntry> ttTable;
+	Move killers[64][2];
+	int history[2][89][89];
+
+	void clearSearchTables() {
+		for (int d = 0; d < 64; ++d) {
+			killers[d][0] = Move(-1, -1, 0);
+			killers[d][1] = Move(-1, -1, 0);
+		}
+		std::memset(history, 0, sizeof(history));
+	}
+
 	bool isRepetition(uint64_t h) const {
 		int count = 0;
 		for (uint64_t gh : gameHistory) {
@@ -41,8 +69,8 @@ public:
 		}
 		return false;
 	}
-	int quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
-	int alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp);
+	int quiescence_alphabeta(int depth, Position& position, int alpha, int beta, deque<Move>& lineUp);
+	int alphabeta(int depth, Position& position, int alpha, int beta, deque<Move>& lineUp);
 	Move findBestmove(vector<Move> moves, Position p);
 	Move analyze(Position p){
 		resetClock();
@@ -105,4 +133,3 @@ public:
 		cout << endl;
 	}
 };
-

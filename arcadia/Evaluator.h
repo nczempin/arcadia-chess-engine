@@ -718,7 +718,7 @@ public:
     static bool isInsufficientMaterial(PieceCount we, PieceCount other) {
         return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
     }
-    static int getValue(Position p) {
+    static int getValue(const Position& p) {
         position = p;
         PieceCount wpc = countWhitePieces();
         PieceCount bpc = countBlackPieces();
