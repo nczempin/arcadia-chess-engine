@@ -249,7 +249,7 @@ public:
             } else if ((square == 82) || (square == 81) || (square == 83)) {
                 if (position.board[73] != -1)
                     retValue -= 10;
-                if ((position.board[72] != -1) || (position.board[72] != -3)) {
+                if ((position.board[72] != -1) && (position.board[72] != -3)) {
                     retValue -= 10;
                     if (position.board[62] != -1)
                         retValue -= 10;

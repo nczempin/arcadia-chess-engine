@@ -83,7 +83,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
                     break;
                 }
             }else{
-                otherMoves.push_front(move);
+                otherMoves.push_back(move);
             }
         }
         if (bestValue <= -9000000){
@@ -190,7 +190,11 @@ int Searcher::alphabeta(int depth, Position position, int alpha, int beta, deque
     return alpha;
 }
 static bool shouldBeIgnored(Position nextPos, Move newMove, int capture, int capturing) {
-        return (capturing > capture) && ((capturing != 3) || (capture != 2)) && (!nextPos.enPrise(newMove));
+    (void)nextPos;
+    (void)newMove;
+    (void)capture;
+    (void)capturing;
+    return false;
 }
 
 int Searcher::quiescence_alphabeta(int depth, Position position, int alpha, int beta, deque<Move>& lineUp) {

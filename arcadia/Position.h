@@ -626,14 +626,12 @@ public:
                 //promotion
                 Move m = Move(from, next, absCaptured, 5);
                 moves.push_back(m);
-#ifdef USE_UNDERPROMOTION
                 m = Move(from, next, absCaptured, 4);
                 moves.push_back(m);
                 m = Move(from, next, absCaptured, 3);
                 moves.push_back(m);
                 m = Move(from, next, absCaptured, 2);
                 moves.push_back(m);
-#endif
             } else {
                 Move m = Move(from, next, absCaptured);
                 moves.push_back(m);

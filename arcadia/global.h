@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const string VERSION = "0.0.9";
+const string VERSION = "0.0.10";
 
 #define USE_UNDERPROMOTION
 
