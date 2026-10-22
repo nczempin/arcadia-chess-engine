@@ -181,14 +181,12 @@ public:
 			if (next / (row + multi * 6) == 1) {
 				Move m = Move(from, next, absCapturedPiece, 5);
 				moves.push_back(m);
-#ifdef USE_UNDERPROMOTION
 				m = Move(from, next, absCapturedPiece, 4);
 				moves.push_back(m);
 				m = Move(from, next, absCapturedPiece, 3);
 				moves.push_back(m);
 				m = Move(from, next, absCapturedPiece, 2);
 				moves.push_back(m);
-#endif
 			} else {
 				Move m = Move(from, next, absCapturedPiece);
 				moves.push_back(m);
@@ -231,15 +229,12 @@ public:
 				//promotion.
 				Move m = Move(from, next,0,5);
 				moves.push_back(m);
-#ifdef USE_UNDERPROMOTION
 				m = Move(from, next,0,4);
 				moves.push_back(m);
 				m = Move(from, next,0,3);
 				moves.push_back(m);
 				m = Move(from, next,0,2);
 				moves.push_back(m);
-
-#endif
 			} else {
 				Move m = Move(from, next,0);
 				moves.push_back(m);

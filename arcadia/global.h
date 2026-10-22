@@ -7,7 +7,7 @@
 
 using namespace std;
 
-const string VERSION = "0.0.9";
+const string VERSION = "0.0.11-rc1";
 
 #define USE_UNDERPROMOTION
 
@@ -24,5 +24,6 @@ string encodeSquare(int square);
 int decodeSquare(string square);
 int decodePiece(string promotedTo);
 bool timeUp();
+bool softTimeUp();
 long calculateTimePerMove(long t, long inc, int movesToGo);
 void resetClock();

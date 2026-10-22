@@ -7,6 +7,7 @@
 
 
 #include "Character.h"
+#include <cstdint>
 #include <iomanip>
 #include <string.h>
 #include <iterator>
@@ -477,21 +478,17 @@ public:
         if (from != kingHome)
             return;
         int pieceNextToKingR = board[(from + 1)];
-        if ((castlingShort) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
+        int friendlyRook = (p > 0) ? 4 : -4;
+        if ((castlingShort) && (board[(from + 3)] == friendlyRook) && (pieceNextToKingR == 0) && (board[(from + 2)] == 0)) {
             if (isReceivingCheck())
                 return;
-            Move testCastleThrough =  Move(from, from + 1,0);
-            Position testPosition = createTestPosition(testCastleThrough);
-            //Info::castlingNodes += 1;
-            if (!testPosition.isGivingCheckForCastling(from + 1))
+            if (!isAttacked(from + 1, onMove))
                 moves.push_back(Move(from, from + 2,0));
         }
-        if ((castlingLong) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
+        if ((castlingLong) && (board[(from - 4)] == friendlyRook) && (abs(board[(from - 1)]) == 0) && (board[(from - 2)] == 0) && (board[(from - 3)] == 0)) {
             if (isReceivingCheck())
                 return;
-            Move testCastleThrough = Move(from, from - 1,0);
-            Position testPosition = createTestPosition(testCastleThrough);
-            if (!testPosition.isGivingCheckForCastling(from - 1)) {
+            if (!isAttacked(from - 1, onMove)) {
                 moves.push_back(Move(from, from - 2,0));
             }
         }
@@ -619,25 +616,24 @@ public:
             return;
         int capturedPiece = board[next];
         if ((capturedPiece != 0) && (((capturedPiece < 0) && (color)) || ((capturedPiece > 0) && (!color)))){
+            int absCaptured = abs(capturedPiece);
             if (next / (row + multi * 6) == 1) {
                 //promotion
-                Move m = Move(from, next, capturedPiece, 5);
+                Move m = Move(from, next, absCaptured, 5);
                 moves.push_back(m);
-#ifdef USE_UNDERPROMOTION
-                m = Move(from, next, capturedPiece, 4);
+                m = Move(from, next, absCaptured, 4);
                 moves.push_back(m);
-                m = Move(from, next, capturedPiece, 3);
+                m = Move(from, next, absCaptured, 3);
                 moves.push_back(m);
-                m = Move(from, next, capturedPiece, 2);
+                m = Move(from, next, absCaptured, 2);
                 moves.push_back(m);
-#endif
             } else {
-                Move m = Move(from, next, capturedPiece);
+                Move m = Move(from, next, absCaptured);
                 moves.push_back(m);
             }
         }
         if (enPassantSquare == next) {
-            Move m = Move(from, next, capturedPiece);
+            Move m = Move(from, next, 1);
             moves.push_back(m);
         }
     }
@@ -971,6 +967,33 @@ public:
         for (int i = 0; i < 89; i++) {
             board[i] = 0;
         }
+        whiteKing = -1;
+        blackKing = -1;
+        enPassantSquare = 0;
+        onMove = true;
+        castleLongBlack = false;
+        castleLongWhite = false;
+        castleShortBlack = false;
+        castleShortWhite = false;
+        hasCastledBlack = false;
+        hasCastledWhite = false;
+    }
+
+    uint64_t getHash() const {
+        uint64_t h = 14695981039346656037ULL;
+        for (int i = 11; i < 89; ++i) {
+            h ^= static_cast<uint64_t>(static_cast<uint8_t>(board[i] + 16));
+            h *= 1099511628211ULL;
+        }
+        uint64_t flags = (onMove ? 1ULL : 0ULL)
+            | (castleShortWhite ? 2ULL : 0ULL)
+            | (castleLongWhite ? 4ULL : 0ULL)
+            | (castleShortBlack ? 8ULL : 0ULL)
+            | (castleLongBlack ? 16ULL : 0ULL)
+            | (static_cast<uint64_t>(enPassantSquare & 0xFF) << 5);
+        h ^= flags;
+        h *= 1099511628211ULL;
+        return h;
     }
     //
     void clearEnPassantCapture(Move move) {
@@ -1072,7 +1095,7 @@ public:
     void fillRank(int rank, string currentRank) {
         int rankStart = 10 * (rank + 1);
         int next = rankStart + 1;
-        for (int i = 0; i < currentRank.length(); i++) {
+        for (size_t i = 0; i < currentRank.length(); i++) {
             char currChar = currentRank[i];
             if (Character::isDigit(currChar)) {
                 int digit = Character::getNumericValue(currChar);
@@ -1147,14 +1170,13 @@ public:
                         board[next] = 1;
                         //whitePieces.add(new Integer(next));
                 }
-                cout << next << ": " << board[next] << endl;
                 
                 next++;
             }
         }
     }
     
-    int findKing(bool colorWhite) {
+    int findKing(bool colorWhite) const {
         if (colorWhite) {
             return whiteKing;
         }
@@ -1477,47 +1499,58 @@ public:
     //		initializeNonCaptureMoveCounters();
     //	}
     //
-    bool isAttacked(int i, bool color) {
-        vector<Move> moves;
-        generateKnightCaptures(moves, i, color);
-        for (Move move : moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 2) {
-                return true;
+    bool isAttacked(int i, bool color) const {
+        if (invalidSquare(i)) return false;
+        const int enemySign = color ? -1 : 1;
+        const int enemyPawn = 1 * enemySign;
+        const int enemyKnight = 2 * enemySign;
+        const int enemyBishop = 3 * enemySign;
+        const int enemyRook = 4 * enemySign;
+        const int enemyQueen = 5 * enemySign;
+        const int enemyKing = 6 * enemySign;
+
+        const int pawnDir = color ? 10 : -10;
+        const int p1 = i + pawnDir - 1;
+        if (!invalidSquare(p1) && board[p1] == enemyPawn) return true;
+        const int p2 = i + pawnDir + 1;
+        if (!invalidSquare(p2) && board[p2] == enemyPawn) return true;
+
+        static const int knightOffsets[8] = { 19, 21, 8, 12, -19, -21, -8, -12 };
+        for (int k = 0; k < 8; ++k) {
+            const int next = i + knightOffsets[k];
+            if (!invalidSquare(next) && board[next] == enemyKnight) return true;
+        }
+
+        static const int kingOffsets[8] = { 9, 10, 11, -1, 1, -9, -10, -11 };
+        for (int k = 0; k < 8; ++k) {
+            const int next = i + kingOffsets[k];
+            if (!invalidSquare(next) && board[next] == enemyKing) return true;
+        }
+
+        static const int diagDirs[4] = { 9, -9, 11, -11 };
+        for (int d = 0; d < 4; ++d) {
+            const int step = diagDirs[d];
+            for (int next = i + step; !invalidSquare(next); next += step) {
+                const int piece = board[next];
+                if (piece != 0) {
+                    if (piece == enemyBishop || piece == enemyQueen) return true;
+                    break;
+                }
             }
         }
-        moves.clear();
-        generateKingCaptures(moves, i, color);
-        for (Move move : moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 6) {
-                return true;
+
+        static const int orthoDirs[4] = { 10, -10, 1, -1 };
+        for (int d = 0; d < 4; ++d) {
+            const int step = orthoDirs[d];
+            for (int next = i + step; !invalidSquare(next); next += step) {
+                const int piece = board[next];
+                if (piece != 0) {
+                    if (piece == enemyRook || piece == enemyQueen) return true;
+                    break;
+                }
             }
         }
-        moves.clear();
-        generateBishopCaptures(moves, i, color);
-        for (Move move : moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 3 || pt == 5) {
-                return true;
-            }
-        }
-        moves.clear();
-        generateRookCaptures(moves, i, color);
-        for (Move move : moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 4 || pt == 5) {
-                return true;
-            }
-        }
-        moves.clear();
-        generatePawnCaptures(moves, i, color);
-        for (Move move : moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 1) {
-                return true;
-            }
-        }
+
         return false;
     }
     //
@@ -1548,311 +1581,26 @@ public:
     //
     
     
-    bool isGivingCheck() {
-        //if (isGivingCheck != null)
-        //	return isGivingCheck.boolValue();
+    bool isGivingCheck() const {
         bool othercolor = !onMove;
-        int currentPiece = findKing(othercolor);
-        //if (currentPiece == -1)
-        //	assert "no king found";//throw new IllegalStateException("no king found");
-        int i = currentPiece;
-        vector<Move> moves ;
-        generateKnightCaptures( moves, i, othercolor);
-        //cout << "knight captures: " << endl;
-        //for (Move move:moves){
-        //	move.print();
-        //}
-        for (Move move:moves){
-            int piece = abs(board[move.to]);
-            if (piece == 2) {
-                int t = board[move.to];
-                bool c = t>0;//EdenBrain.convertColor(t);
-                if (c!=othercolor) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        moves.clear();
-        generateBishopCaptures(moves, i, othercolor);
-        //cout << "bishop captures: " << endl;
-        //for (Move move:moves){
-        //	move.print();
-        //}
-        for (Move move:moves){
-            int piece = abs(board[move.to]);
-            if ((piece == 3) || (piece == 5)) {
-                int t = board[move.to];
-                bool c = t>0;//convertColor(t);
-                if (c!=othercolor) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        moves.clear();
-        generateRookCaptures(moves, i, othercolor);
-        //cout << "rook captures: " << endl;
-        //for (Move move:moves){
-        //	move.print();
-        //}
-        for (Move move:moves){
-            int piece = abs(board[move.to]);
-            if ((piece == 4) || (piece == 5)) {
-                int t = board[move.to];
-                bool c = t>0;//EdenBrain.convertColor(t);
-                if (c!=othercolor) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        moves.clear();
-        generateKingCaptures(moves, i, othercolor);
-        //	cout << "king captures: " << endl;
-        //for (Move move:moves){
-        //	move.print();
-        //}
-        for (Move move:moves){
-            int piece = abs(board[move.to]);
-            if (piece == 6) {
-                // king will always be the enemy
-                //isGivingCheck = new bool(true);
-                return true;
-            }
-        }
-        
-        moves.clear();
-        generatePawnCaptures(moves, i, othercolor);
-        //cout << "pawn captures: " << endl;
-        //for (Move move:moves){
-        //	move.print();
-        //}
-        for (Move move:moves){
-            int piece =abs(board[move.to]);
-            if (piece == 1) {
-                int t = board[move.to];
-                bool c = t>0;//EdenBrain.convertColor(t);
-                if (c!=othercolor) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        //isGivingCheck = new bool(false);
-        return false;
+        int kingPos = findKing(othercolor);
+        return isAttacked(kingPos, othercolor);
     }
-    
-    bool isGivingCheckForCastling(int square) {
-        //if (isGivingCheck != null)
-        //	return isGivingCheck.boolValue();
-        int i = square;
-        bool c1 = convertColor(board[i]);
-        vector<Move> moves;
-        generateBishopCaptures(moves, i, c1);
-        for (Move move: moves){
-            int piece = abs(board[move.to]);
-            if ((piece == 3) || (piece == 5)) {
-                int t = board[move.to];
-                bool c = convertColor(t);
-                if (c!=c1) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        moves.clear();
-        generateRookCaptures(moves, i, c1);
-        for (Move move: moves){
-            int piece = abs(board[move.to]);
-            if ((piece == 4) || (piece == 5)) {
-                int t = board[move.to];
-                bool c = convertColor(t);
-                if (c!=c1) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        //moves.clear();
-        //generateKingCaptures(this, moves, i, c1);
-        //for (Iterator it = moves.iterator(); it.hasNext();) {
-        //	Move move = (Move) it.next();
-        //	int piece = Math.abs(board[move.to]);
-        //	if (piece == 6) {
-        //		isGivingCheck = new bool(true);
-        //		return true;
-        //	}
-        //}
-        
-        moves.clear();
-        generateKnightCaptures(moves, i, c1);
-        for (Move move: moves){
-            int piece = abs(board[move.to]);
-            if (piece == 2) {
-                int t = board[move.to];
-                bool c = convertColor(t);
-                if (c!=c1) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        moves.clear();
-        generatePawnCaptures(moves, i, !onMove);
-        for (Move move: moves){
-            int piece = abs(board[move.to]);
-            if ((piece == 1) && (abs(board[move.to]) == 1)) {
-                int t = board[move.to];
-                bool c = convertColor(t);
-                if (c!=c1) {
-                    //isGivingCheck = new bool(true);
-                    return true;
-                }
-            }
-        }
-        
-        //isGivingCheck = new bool(false);
-        return false;
+
+    bool isGivingCheckForCastling(int square) const {
+        bool c1 = convertColor(board[square]);
+        return isAttacked(square, c1);
     }
-    
-    
-    bool isGivingCheckNonKingMoving(int moveFrom) {
-        //Integer zobrist = null;
-        //if (this.isGivingCheck != null)
-        //	return this.isGivingCheck.boolValue();
-        bool othercolor = !onMove;
-        int kingPosition = findKing(othercolor);
-        //if (kingPosition == -1)
-        //	throw new IllegalStateException("no king found");
-        vector<Move> moves;
-        if (onDiagonal(moveFrom, kingPosition)) {
-            moves.clear();
-            generateBishopCaptures(moves, kingPosition, othercolor);
-            for (Move move : moves){
-                int piece = abs(board[move.to]);
-                if ((piece == 3) || (piece == 5)) {
-                    int t = board[move.to];
-                    bool c = t>0;//convertColor(t);
-                    if (c!=othercolor) {
-                        //isGivingCheck = new bool(true);
-                        return true;
-                    }
-                }
-            }
-            
-            moves.clear();
-            //generatePawnCaptures(this, moves, kingPosition, othercolor);TODO
-            //for (Iterator it = moves.iterator(); it.hasNext();) {
-            //	Move move = (Move) it.next();
-            //	int piece = Math.abs(this.board[move.to]);
-            //	if (piece == 1) {
-            //		int t = this.board[move.to];
-            //		bool c = EdenBrain.convertColor(t);
-            //		if (c.equals(othercolor)) {
-            //			this.isGivingCheck = new bool(true);
-            //			addToCheckHash(zobrist);
-            //			return true;
-            //		}
-            //	}
-            //}
-        }
-        
-        if ((onRank(moveFrom, kingPosition)) || (onFile(moveFrom, kingPosition))) {
-            moves.clear();
-            generateRookCaptures(moves, kingPosition, othercolor); //TODO separate rank and file generation
-            for (Move move:moves){
-                int piece = abs(board[move.to]);
-                if ((piece == 4) || (piece == 5)) {
-                    int t = board[move.to];
-                    bool c = t>0;//convertColor(t);
-                    if (c!=othercolor) {
-                        //isGivingCheck = new bool(true);
-                        return true;
-                    }
-                }
-            }
-        }
-        
-        moves.clear();
-        //generateKingCaptures(this, moves, kingPosition, othercolor); TODO
-        //for (Iterator it = moves.iterator(); it.hasNext();) {
-        //	Move move = (Move) it.next();
-        //	int piece = Math.abs(this.board[move.to]);
-        //	if (piece == 6) {
-        //		this.isGivingCheck = new bool(true);
-        //		addToCheckHash(zobrist);
-        //		return true;
-        //	}
-        //}
-        
-        //		this.isGivingCheck = new bool(false);
-        //		addToCheckHash(zobrist);
-        return false;
+
+    bool isGivingCheckNonKingMoving(int moveFrom) const {
+        (void)moveFrom;
+        return isGivingCheck();
     }
-    bool isReceivingCheck() {
-        /*	if (isReceivingCheck != null)
-         return isReceivingCheck.boolValue();*/
+
+    bool isReceivingCheck() const {
         bool kingColor = onMove;
-        int kingPosition = findKing(kingColor);
-        //if (kingPosition == -1)
-        //	throw new IllegalStateException("no king found");
-        vector<Move> moves;
-        generateRookCaptures(moves, kingPosition, kingColor);
-        for (Move move: moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 4 || pt == 5) {
-                //isReceivingCheck = true;
-                return true;
-            }
-        }
-        
-        moves.clear();
-        generatePawnCaptures(moves, kingPosition, kingColor);
-        for (Move move: moves) {
-            if (abs(board[move.to]) == 1) {
-                //isReceivingCheck = new bool(true);
-                return true;
-            }
-        }
-        
-        moves.clear();
-        generateKnightCaptures( moves, kingPosition, kingColor);
-        for (Move move: moves) {
-            if (abs(board[move.to]) == 2) {
-                //isReceivingCheck = new bool(true);
-                return true;
-            }
-        }
-        
-        moves.clear();
-        generateBishopCaptures(moves, kingPosition, kingColor);
-        for (Move move: moves) {
-            int pt = abs(board[move.to]);
-            if (pt == 3 || pt == 5){
-                //isReceivingCheck = new bool(true);
-                return true;
-            }
-        }
-        
-        moves.clear();
-        //TODO	   generateKingMovesNoCastling( moves, kingPosition, kingColor);
-        for (Move move: moves) {
-            if (abs(board[move.to]) == 6) {
-                //isReceivingCheck = new bool(true);
-                return true;
-            }
-        }
-        
-        //isReceivingCheck = new bool(false);
-        return false;
+        int kingPos = findKing(kingColor);
+        return isAttacked(kingPos, kingColor);
     }
     //
     //	bool isStartPosition() {
@@ -1988,13 +1736,13 @@ public:
     
     bool onFile(int moveFrom, int kingPosition) {
         int diff = moveFrom - kingPosition;
-        return diff / 10 == 0;
+        return diff % 10 == 0;
     }
     
     
     bool onRank(int moveFrom, int kingPosition) {
         int col1 = moveFrom / 10;
-        int col2 = moveFrom / 10;
+        int col2 = kingPosition / 10;
         return col1 == col2;
     }
     //

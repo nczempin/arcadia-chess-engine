@@ -20,12 +20,13 @@ public:
 		this->to = to;
 		this->captured = captured;
 		this->promoted = promoted;
+		this->value = 0;
 	}
 
 	Move(string move) {
 		int from = decodeSquare(move.substr(0, 2));
-		int to = decodeSquare(move.substr(2, 4));
-		string promotedTo = move.substr(4);
+		int to = decodeSquare(move.substr(2, 2));
+		string promotedTo = move.length() > 4 ? move.substr(4, 1) : "";
 		promoted = 0;
 		if (promotedTo!="") {
 			promoted = decodePiece(promotedTo);
@@ -33,12 +34,13 @@ public:
 		this->from = from;
 		this->to = to;
 		captured = 0;
+		value = 0;
 	}
 	bool operator == (const Move &i) const {
-		return from == i.from && to == i.to;
+		return from == i.from && to == i.to && promoted == i.promoted;
 	}
 	bool operator != (const Move &i) const {
-		return from != i.from || to != i.to;
+		return from != i.from || to != i.to || promoted != i.promoted;
 	}
 	//bool operator> (const Move & other)const{
 	//	return value > other.value;
@@ -76,8 +78,11 @@ public:
 		retVal +=promoted==0?"":encodePiece(promoted);
 		return retVal;
 	}
-	string toString(){
-		string retVal =  encodeSquare(from) + (captured==0?"-":"x") + encodeSquare(to)+encodePromoted();//+" ("+to_string(value)+")";
+	string toString() const {
+		if (from < 11 || to < 11) {
+			return "0000";
+		}
+		string retVal = encodeSquare(from) + encodeSquare(to) + const_cast<Move*>(this)->encodePromoted();
 		return retVal;
 	}
 	int from;

@@ -187,8 +187,8 @@ public:
             openFiles++;
         } else if (isOnOpenOrHalfOpenFile(piece, file + 1, rank))
             halfOpenFiles++;
-        retValue = (int) (retValue - 30.0 * pow(2.0, openFiles));
-        retValue = (int) (retValue - 5.0 * pow(2.0, halfOpenFiles));
+        retValue -= 30 * (1 << openFiles);
+        retValue -= 5 * (1 << halfOpenFiles);
         if (piece == 6) {
             if ((square > 13) && (square < 17))
                 retValue -= 35;
@@ -249,7 +249,7 @@ public:
             } else if ((square == 82) || (square == 81) || (square == 83)) {
                 if (position.board[73] != -1)
                     retValue -= 10;
-                if ((position.board[72] != -1) || (position.board[72] != -3)) {
+                if ((position.board[72] != -1) && (position.board[72] != -3)) {
                     retValue -= 10;
                     if (position.board[62] != -1)
                         retValue -= 10;
@@ -718,7 +718,7 @@ public:
     static bool isInsufficientMaterial(PieceCount we, PieceCount other) {
         return (isInsufficientMaterial(we)) && (isInsufficientMaterial(other));
     }
-    static int getValue(Position p) {
+    static int getValue(const Position& p) {
         position = p;
         PieceCount wpc = countWhitePieces();
         PieceCount bpc = countBlackPieces();

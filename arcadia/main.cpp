@@ -61,12 +61,18 @@ bool startsWith(string smallString, string bigString){
 	return bigString.compare(0, smallString.length(), smallString)==0;
 }
 long calculateTimePerMove(long t, long inc, int movesToGo){
-	if ((t == 0L) && (inc == 0L))
-		return -1L; //TODO Exception?
-	int slice = movesToGo + 1;
-	long retVal = (t - inc) / slice + inc - 500L;
-	if (retVal < 100L)
-		retVal = 100L;
+	if ((t <= 0L) && (inc <= 0L))
+		return -1L;
+	long overhead = min(100L, max(30L, t / 4));
+	long avail = max(2L, t - overhead);
+	int slice = (movesToGo > 0) ? (movesToGo + 5) : 30;
+	long retVal = avail / slice + inc / 2;
+	long maxAllowed = max(5L, avail / 4);
+	if (retVal > maxAllowed)
+		retVal = maxAllowed;
+	long minAllowed = max(2L, min(10L, avail / 6));
+	if (retVal < minAllowed)
+		retVal = minAllowed;
 	return retVal;
 }
 
@@ -80,10 +86,18 @@ bool timeUp()
 {
 	if (timePerMove <= 0L)
 		return false;
-	//return false;
 	auto now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-Info::start; 
 	return elapsed_seconds.count() >= timePerMove/1000.0;
+}
+
+bool softTimeUp()
+{
+	if (timePerMove <= 0L)
+		return false;
+	auto now = chrono::system_clock::now(); 
+	chrono::duration<double> elapsed_seconds = now-Info::start; 
+	return elapsed_seconds.count() >= (timePerMove * 0.5)/1000.0;
 }
 
 
@@ -154,27 +168,16 @@ bool invalidSquare(int next) {
 Move asyncAnalyze(){
 	Move bestmove = s.analyze(p);
 	s.printInfo();
-	//cout << "info string after fut.get" << endl;
-	cout << "bestmove " << bestmove.toString() << endl;
+	cout << "bestmove " << bestmove.toString() << endl << flush;
 	return bestmove;
 }
 
 void stopBrain()
 {
 	s.done = true; // ask the thread to finish
-	fut.get(); //wait until the thread is finished
-
-	//if ((brainThread != null) && (brainThread.isAlive())) {
-	//	String move = this.brain.getBestMoveSoFar();
-	//	String toPrint; if (move == null) {
-	//		toPrint = printMove(null);
-	//	} else
-	//		toPrint = printMove(move);
-	//	System.out.println(toPrint);
-	//	brainThread.stop();
-	//}
-	//if ((printInfoThread != null) && (printInfoThread.isAlive()))
-	//	printInfoThread.stop();
+	if (fut.valid()) {
+		fut.get(); //wait until the thread is finished
+	}
 }
 void printInfo(){
 	while(!s.done){
@@ -183,48 +186,38 @@ void printInfo(){
 	}
 }
 void startBrain() {
-	//stopBrain(false);
-
-	fut = async(asyncAnalyze);
-	//async(printInfo);
-	//	this_thread::sleep_for (chrono::seconds(10));
-	//Move bestMoveSoFar = s.bestMove;
-	//cout << "best move so far " << bestMoveSoFar.toString() << endl;
-	//this_thread::sleep_for (chrono::seconds(10));
-	//Move move = fut.get();
-	//cout << "info string after fut.get" << endl;
-	//cout << "bestmove " << move.toString() << endl;
-
-	/*printInfoThread = new Thread()
-	{
-	public void run() {
-	while (AbstractEngine.brainThread.isAlive()) {
-	Options.protocol.printInfo();
-	try {
-	Thread.sleep(1000L);
-	} catch (InterruptedException e) {
-	e.printStackTrace();
+	if (fut.valid()) {
+		s.done = true;
+		fut.get();
 	}
-
-	}
-
-	}
-
-
-	};*/
-	//printInfoThread.start();
+	s.done = false;
+	fut = async(launch::async, asyncAnalyze);
 }
 
 
 int extractIntValue(string parameters, string s){
-	size_t index = parameters.find(s);
+	string padded = " " + parameters + " ";
+	string token = " " + s + " ";
+	size_t index = padded.find(token);
 	if (index == string::npos) {
 		return 0;
 	}
-	size_t searchFrom = index + s.length() + 1;
-	string extracted = parameters.substr(searchFrom);
-	string first = split(extracted,' ')[0];
-	return stoi(extracted);
+	size_t searchFrom = index + token.length();
+	if (searchFrom >= padded.length()) {
+		return 0;
+	}
+	string extracted = padded.substr(searchFrom);
+	vector<string> parts = split(extracted, ' ');
+	for (const string& part : parts) {
+		if (!part.empty()) {
+			try {
+				return stoi(part);
+			} catch (...) {
+				return 0;
+			}
+		}
+	}
+	return 0;
 }
 void parse(string toParse) {
 	// for debugging
@@ -237,29 +230,35 @@ void parse(string toParse) {
 	if (toParse == "uci"){
 		cout << "id name Arcadia "+VERSION<< endl;
 		cout << "id author Nicolai Czempin" << endl;
-		cout << "uciok" << endl;
+		cout << "uciok" << endl << flush;
+	}else if (toParse == "ucinewgame" || startsWith("setoption", toParse)){
+		if (toParse == "ucinewgame") {
+			stopBrain();
+			p.clear();
+			p.setToStart();
+			s.gameHistory.clear();
+			s.gameHistory.push_back(p.getHash());
+		}
 	}else if (startsWith("perft ",toParse)){
-		char perftDepthParameter = toParse[6];//'4'; //TODO extract from toParse
-		int perftDepth = Character::getNumericValue(perftDepthParameter);
+		int perftDepth = extractIntValue(toParse, "perft");
+		if (perftDepth <= 0 && toParse.length() > 6) {
+			perftDepth = Character::getNumericValue(toParse[6]);
+		}
 
 		chrono::time_point<chrono::system_clock> end;
 
-
-		//TODO do this more elegantly
 		for (int i = 0; i< perftDepth; ++i){
 			Info::start = chrono::system_clock::now();
 			int nodes = perft (p, i+1);
 			end = chrono::system_clock::now();
 			chrono::duration<double> elapsed_seconds = end-Info::start;
 			cout << i+1 << ", " << nodes << " @ "  << elapsed_seconds.count()<<endl;
-			//time_t end_time = chrono::system_clock::to_time_t(end);
 		}
 		cout << "Done." << endl;
 
 	}else if (startsWith("divide ",toParse)){
 		char perftDepthParameter = toParse[7];
 		int perftDepth = Character::getNumericValue(perftDepthParameter);
-		//TODO do this more elegantly
 		MoveGenerator mg;
 		vector<Move> moves = mg.generateLegalMoves(p);
 		int count = 0;
@@ -275,39 +274,46 @@ void parse(string toParse) {
 		cout << "Done." << endl;
 
 	}else if (toParse == "isready"){
-		cout << "readyok" << endl;
+		cout << "readyok" << endl << flush;
 	}else if (toParse == "eval"){
 		int v = Evaluator::getValue(p);
 		cout << "Value: " << v << endl;
 	}else if (startsWith("go", toParse)){
+		stopBrain();
 		int wtime = extractIntValue(toParse, "wtime");
 		int btime = extractIntValue(toParse, "btime");
 		int winc = extractIntValue(toParse, "winc");
 		int binc = extractIntValue(toParse, "binc");
 		int mtg = extractIntValue(toParse, "movestogo");
+		int movetime = extractIntValue(toParse, "movetime");
+		int depth = extractIntValue(toParse, "depth");
 		if (mtg == 0){
 			mtg = 25;
 		}
+		s.maxIdDepth = (depth > 0) ? depth : 64;
 
 		long tpm;
-		if (p.onMove) {
-			tpm = calculateTimePerMove(wtime,winc,mtg);
+		if (movetime > 0) {
+			tpm = max(5L, static_cast<long>(movetime) - 15L);
+		} else if (toParse.find("infinite") != string::npos) {
+			tpm = -1L;
+		} else if (wtime == 0 && btime == 0 && winc == 0 && binc == 0 && depth > 0) {
+			tpm = -1L;
+		} else if (p.onMove) {
+			tpm = calculateTimePerMove(wtime, winc, mtg);
 		} else {
-			tpm = calculateTimePerMove(btime, binc,mtg);
+			tpm = calculateTimePerMove(btime, binc, mtg);
 		}
 		timePerMove = tpm;
 
-
-		/*    this.engine.setMovesToGo(mtg);
-		this.engine.setTimes(wtime, btime, winc, binc);
-		int depth = extractIntValue(parameters, "depth");
-		this.engine.setDepth(depth);*/
 		startBrain();
 	}else if (startsWith("stop", toParse)){
 		stopBrain();
 	}else if (startsWith("quit", toParse)){
-		exit(0); //TODO more elegance
+		stopBrain();
+		exit(0);
 	}else if (startsWith("position", toParse)){
+		stopBrain();
 		p.clear();
 		string positionString = extractPosition(toParse);
 		if (startsWith("startpos",positionString)) {
@@ -315,17 +321,23 @@ void parse(string toParse) {
 		}else if (startsWith("fen",positionString)){
 			string positionFen = extractFen(positionString);
 			p.setFenPosition(positionFen);
-			p.print();
 		}
+		s.gameHistory.clear();
+		s.gameHistory.push_back(p.getHash());
 		string movesString =extractMoves(toParse);
 		vector<string> moves = split(movesString,' ');
-		//p.clearThreeDraws();
 		if ((movesString != "") && (moves.size() != 0))
 		{
 			for (string move:moves) {
-				//p.print();
-				//cout << "making move: "<<move<<endl;
-				p.makeMove(move);
+				if (!move.empty()) {
+					Move parsed(move);
+					bool irreducible = (abs(p.board[parsed.from]) == 1) || (p.board[parsed.to] != 0);
+					p.makeMove(move);
+					if (irreducible) {
+						s.gameHistory.clear();
+					}
+					s.gameHistory.push_back(p.getHash());
+				}
 			}
 		}
 	}else if (toParse == "sp"){	
@@ -338,29 +350,38 @@ void parse(string toParse) {
 			move.print();
 		}
 	}else {
-		cout << "???" << endl;
+		// Ignore unknown UCI commands silently
 	}
 }	 
 int decodePiece(string promotedTo) {
 	int retValue = 0;
-	if (promotedTo=="q") {
+	if (promotedTo=="q" || promotedTo=="Q") {
 		retValue = 5;
-	} else if (promotedTo=="r") {
+	} else if (promotedTo=="r" || promotedTo=="R") {
 		retValue = 4;
-	} else if (promotedTo=="b") {
+	} else if (promotedTo=="b" || promotedTo=="B") {
 		retValue = 3;
-	} else if (promotedTo=="n")
+	} else if (promotedTo=="n" || promotedTo=="N") {
 		retValue = 2;
+	}
 	return retValue;
 }
 
 int main()
 {
-	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version "<< VERSION << endl;
+	p.clear();
+	p.setToStart();
+	cout << "Welcome to Arcadia, a chess engine by Nicolai Czempin. This is version "<< VERSION << endl << flush;
 	string mystr;
-	while (true){
-		getline (cin, mystr);
+	while (getline (cin, mystr)){
+		if (!mystr.empty() && mystr.back() == '\r') {
+			mystr.pop_back();
+		}
+		if (mystr.empty()) {
+			continue;
+		}
 		parse(mystr);
 	}
+	stopBrain();
 	return 0;
 }
