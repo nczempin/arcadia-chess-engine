@@ -69,7 +69,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
                 value = -alphabeta(1, newPos, -9999999, -bestValue, lineDown);
                 searchHistory.pop_back();
             }
-            if (done || timeUp()){
+            if (done || ((Info::nodes & 127) == 0 && timeUp())){
                 done = true;
                 break;
             }
@@ -94,7 +94,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
         } else {
             printInfo();
         }
-        if ((maxIdDepth > 0 && idDepth >= maxIdDepth) || idDepth >= 64){
+        if ((maxIdDepth > 0 && idDepth >= maxIdDepth) || idDepth >= 64 || softTimeUp()){
             done = true;
         }
         if (!done){
@@ -116,7 +116,7 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
         kingCapture = true;
         return 666663;
     }
-    if (done || timeUp()) {
+    if (done || ((Info::nodes & 127) == 0 && timeUp())) {
         done = true;
         return 0;
     }
@@ -212,7 +212,7 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
             kingCapture = false;
             continue;
         }
-        if (done || timeUp()){
+        if (done || ((Info::nodes & 127) == 0 && timeUp())){
             done = true;
             return alpha;
         }
@@ -269,7 +269,7 @@ int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int
         kingCapture = true;
         return 666663;
     }
-    if (done || timeUp()) {
+    if (done || ((Info::nodes & 127) == 0 && timeUp())) {
         done = true;
         return 0;
     }
@@ -310,7 +310,7 @@ int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int
             kingCapture = false;
             continue;
         }
-        if (done || timeUp()) {
+        if (done || ((Info::nodes & 127) == 0 && timeUp())) {
             done = true;
             return alpha;
         }

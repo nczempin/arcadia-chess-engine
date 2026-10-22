@@ -63,14 +63,14 @@ bool startsWith(string smallString, string bigString){
 long calculateTimePerMove(long t, long inc, int movesToGo){
 	if ((t <= 0L) && (inc <= 0L))
 		return -1L;
-	long overhead = min(40L, max(5L, t / 15));
-	long avail = max(1L, t - overhead);
-	int slice = (movesToGo > 0) ? (movesToGo + 1) : 26;
-	long retVal = avail / slice + (inc * 3) / 4;
-	long maxAllowed = max(5L, avail / 2);
+	long overhead = min(100L, max(30L, t / 4));
+	long avail = max(2L, t - overhead);
+	int slice = (movesToGo > 0) ? (movesToGo + 5) : 30;
+	long retVal = avail / slice + inc / 2;
+	long maxAllowed = max(5L, avail / 4);
 	if (retVal > maxAllowed)
 		retVal = maxAllowed;
-	long minAllowed = max(5L, min(20L, avail / 4));
+	long minAllowed = max(2L, min(10L, avail / 6));
 	if (retVal < minAllowed)
 		retVal = minAllowed;
 	return retVal;
@@ -89,6 +89,15 @@ bool timeUp()
 	auto now = chrono::system_clock::now(); 
 	chrono::duration<double> elapsed_seconds = now-Info::start; 
 	return elapsed_seconds.count() >= timePerMove/1000.0;
+}
+
+bool softTimeUp()
+{
+	if (timePerMove <= 0L)
+		return false;
+	auto now = chrono::system_clock::now(); 
+	chrono::duration<double> elapsed_seconds = now-Info::start; 
+	return elapsed_seconds.count() >= (timePerMove * 0.5)/1000.0;
 }
 
 
