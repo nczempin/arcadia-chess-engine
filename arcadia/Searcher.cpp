@@ -120,12 +120,13 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
         done = true;
         return 0;
     }
-    if (depth >= idDepth){
-        return quiescence_alphabeta(depth, position, alpha, beta, lineUp);
+    const bool inCheck = position.isReceivingCheck();
+    if (depth >= idDepth && (!inCheck || depth >= idDepth + 2)){
+        return quiescence_alphabeta(depth, position, alpha, beta);
     }
 
     const int originalAlpha = alpha;
-    const int remDepth = idDepth - depth;
+    const int remDepth = (idDepth - depth > 1) ? (idDepth - depth) : 1;
     const uint64_t posHash = position.getHash();
     ArcadiaTTEntry& tte = ttTable[posHash & TT_MASK];
     int ttFrom = -1;
@@ -192,7 +193,19 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
             }
         } else {
             searchHistory.push_back(nextHash);
-            value = -alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
+            if (actualMoves == 0) {
+                value = -alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
+            } else {
+                int reduction = 0;
+                if (actualMoves >= 3 && remDepth >= 3 && newMove.captured == 0 && newMove.promoted == 0 && !inCheck) {
+                    reduction = (actualMoves >= 8 && remDepth >= 4) ? 2 : 1;
+                }
+                value = -alphabeta(depth + 1 + reduction, nextPos, -(alpha + 1), -alpha, lineDown);
+                if (!kingCapture && !done && value > alpha && (reduction > 0 || value < beta)) {
+                    lineDown.clear();
+                    value = -alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
+                }
+            }
             searchHistory.pop_back();
         }
         if (kingCapture){
@@ -235,7 +248,7 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
         }
     }
     if (actualMoves == 0){
-        if (position.isReceivingCheck()){
+        if (inCheck){
             return -888888 + depth; // Checkmate
         }else{
             return 0; // Stalemate
@@ -251,7 +264,7 @@ int Searcher::alphabeta(int depth, Position& position, int alpha, int beta, dequ
     return alpha;
 }
 
-int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int beta, deque<Move>& lineUp) {
+int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int beta) {
     if (position.isGivingCheck()) {
         kingCapture = true;
         return 666663;
@@ -281,19 +294,18 @@ int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int
     stable_sort(moves.begin(), moves.end(), [](const Move& a, const Move& b){
         return a.value > b.value;
     });
-    deque<Move> lineDown;
     for(const Move& newMove: moves){
         int capture = newMove.captured;
         assert(capture > 0);
-        int capturing = abs(position.board[newMove.from]);
+        if (newMove.promoted == 0 && capture >= 1 && capture <= 5) {
+            if (v + Evaluator::pieceValues[capture - 1] + 200 < alpha) {
+                continue;
+            }
+        }
         Position nextPos = position.copyPosition();
         nextPos.makeMove(newMove);
-        if (capture < capturing && nextPos.isAttacked(newMove.to, position.onMove)) {
-            continue;
-        }
         ++Info::nodes;
-        lineDown.clear();
-        int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha, lineDown);
+        int value = -quiescence_alphabeta(depth + 1, nextPos, -beta, -alpha);
         if (kingCapture) {
             kingCapture = false;
             continue;
@@ -307,8 +319,6 @@ int Searcher::quiescence_alphabeta(int depth, Position& position, int alpha, int
         }
         if (value > alpha) {
             alpha = value;
-            lineUp = lineDown;
-            lineUp.push_front(newMove);
         }
     }
     return alpha;

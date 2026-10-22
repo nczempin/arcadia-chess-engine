@@ -187,8 +187,8 @@ public:
             openFiles++;
         } else if (isOnOpenOrHalfOpenFile(piece, file + 1, rank))
             halfOpenFiles++;
-        retValue = (int) (retValue - 30.0 * pow(2.0, openFiles));
-        retValue = (int) (retValue - 5.0 * pow(2.0, halfOpenFiles));
+        retValue -= 30 * (1 << openFiles);
+        retValue -= 5 * (1 << halfOpenFiles);
         if (piece == 6) {
             if ((square > 13) && (square < 17))
                 retValue -= 35;

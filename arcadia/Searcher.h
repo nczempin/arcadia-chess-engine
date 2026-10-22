@@ -69,7 +69,7 @@ public:
 		}
 		return false;
 	}
-	int quiescence_alphabeta(int depth, Position& position, int alpha, int beta, deque<Move>& lineUp);
+	int quiescence_alphabeta(int depth, Position& position, int alpha, int beta);
 	int alphabeta(int depth, Position& position, int alpha, int beta, deque<Move>& lineUp);
 	Move findBestmove(vector<Move> moves, Position p);
 	Move analyze(Position p){
