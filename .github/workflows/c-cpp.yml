@@ -15,11 +15,11 @@ jobs:
 
     - name: Build Arcadia (C++11)
       run: |
-        g++ -std=c++11 -O3 -pthread arcadia/*.cpp -o arcadia
+        g++ -std=c++11 -O3 -pthread arcadia/*.cpp -o arcadia_bin
 
     - name: UCI Smoke Test
       run: |
-        out=$(printf "uci\nisready\nposition startpos moves e2e4 e7e5\ngo depth 3\nquit\n" | timeout 15s ./arcadia)
+        out=$(printf "uci\nisready\nposition startpos moves e2e4 e7e5\ngo depth 3\nquit\n" | timeout 15s ./arcadia_bin)
         echo "$out"
         echo "$out" | grep -q "uciok"
         echo "$out" | grep -q "readyok"
@@ -33,7 +33,7 @@ jobs:
           local depth="$3"
           local expected="$4"
           echo "Testing $name (perft $depth, expected $expected)..."
-          out=$(printf "%s\nperft %s\nquit\n" "$pos_cmd" "$depth" | timeout 10s ./arcadia)
+          out=$(printf "%s\nperft %s\nquit\n" "$pos_cmd" "$depth" | timeout 10s ./arcadia_bin)
           echo "$out"
           echo "$out" | grep -q "^${depth}, ${expected} @"
         }
