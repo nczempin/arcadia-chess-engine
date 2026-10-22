@@ -69,7 +69,7 @@ Move Searcher::findBestmove(vector<Move> moves, Position position){
                 value = -alphabeta(1, newPos, -9999999, -bestValue, lineDown);
                 searchHistory.pop_back();
             }
-            if (done || ((Info::nodes & 127) == 0 && timeUp())){
+            if (done || timeUp()){
                 done = true;
                 break;
             }
